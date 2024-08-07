@@ -9,3 +9,7 @@ bin/
 .idea
 
 .settings
+
+.vscode
+
+.DS_Store
