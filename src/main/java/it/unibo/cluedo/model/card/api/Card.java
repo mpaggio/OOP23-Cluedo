@@ -24,5 +24,5 @@ public interface Card {
 
     String getName();
 
-    Object getImage();
+    String getImagePath();
 }
