@@ -1,7 +1,7 @@
 package it.unibo.cluedo.model.deck.api;
 
 import it.unibo.cluedo.model.card.api.Card;
-import java.util.List;
+import java.util.Set;
 /**
  * Represents the deck of cards in the Cluedo game.
  */
@@ -15,16 +15,16 @@ public interface Deck {
      * Get the solution of the game, consisting of one card for each type
      * (character, weapon, room).
      * 
-     * @return the list of cards representing the solution of the game
+     * @return the set of cards representing the solution of the game
      */
-    List<Card> drawSolution();
+    Set<Card> drawSolution();
 
     /**
      * Distributes the remaining cards to the players evenly.
      * 
      * @param numberOfPlayers the number of players
-     * @return a list of lists of cards, where each inner list represents
+     * @return a set of sets of cards, where each inner list represents
      * the cards of a player 
      */
-    List<List<Card>> distributedCards(int numberOfPlayers);
+    Set<Set<Card>> distributedCards(int numberOfPlayers);
 }
