@@ -7,6 +7,12 @@ public class CardImpl implements Card {
     private String name;
     private String imagePath;
 
+    public CardImpl(final Type type, final String name, final String imagePath){
+        this.type = type;
+        this.name = name;
+        this.imagePath = imagePath;
+    }
+
     @Override
     public Type getType() {
         return this.type;
