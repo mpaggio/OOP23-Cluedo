@@ -2,11 +2,16 @@ package it.unibo.cluedo.model.deck.impl;
 
 import java.util.Set;
 import java.util.HashSet;
+import java.util.Iterator;
+
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.card.impl.CardFactory;
 import it.unibo.cluedo.model.deck.api.Deck;
 
-public class DeckImpl implements Deck{
+/**
+ * Represents the implementation of the deck of cards in the Cluedo game.
+ */
+public class DeckImpl implements Deck {
     private final Set<Card> cards = new HashSet<>();
 
     /**
@@ -46,16 +51,39 @@ public class DeckImpl implements Deck{
      */
     @Override
     public Set<Card> drawSolution() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawSolution'");
+        final Card solutionCharacter = this.cards.stream()
+            .filter(card -> card.getType() == Card.Type.CHARACTER)
+            .findAny()
+            .orElseThrow(() -> new IllegalStateException("No character card available"));
+        final Card solutionWeapon = this.cards.stream()
+            .filter(card -> card.getType() == Card.Type.WEAPON)
+            .findAny()
+            .orElseThrow(() -> new IllegalStateException("No weapon card available"));
+        final Card solutionRoom = this.cards.stream()
+            .filter(card -> card.getType() == Card.Type.ROOM)
+            .findAny()
+            .orElseThrow(() -> new IllegalStateException("No room card available"));
+        this.cards.removeIf(card -> card.equals(solutionCharacter) || card.equals(solutionWeapon) || card.equals(solutionRoom));
+        return Set.of(solutionCharacter, solutionWeapon, solutionRoom);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Set<Set<Card>> distributedCards(int numberOfPlayers) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'distributedCards'");
+    public Set<Set<Card>> distributedCards(final int numberOfPlayers) {
+        Set<Set<Card>> distributedSet = new HashSet<>();
+        Iterator<Card> cardIterator = this.cards.iterator();
+        int numberOfCardsPerPlayer = this.cards.size() / numberOfPlayers;
+        for (int i = 0; i < numberOfPlayers; i++) {
+            Set<Card> playerCards = new HashSet<>();
+            for (int j = 0; j < numberOfCardsPerPlayer; j++) {
+                if (cardIterator.hasNext()) {
+                    playerCards.add(cardIterator.next());
+                }
+            }
+            distributedSet.add(playerCards);
+        }
+        return distributedSet;
     }
 }
