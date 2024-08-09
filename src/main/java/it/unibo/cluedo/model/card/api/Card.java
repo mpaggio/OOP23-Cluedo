@@ -1,11 +1,9 @@
 package it.unibo.cluedo.model.card.api;
 
-
 /**
  * Represents a card in the Cluedo game.
  */
 public interface Card {
-    
     /**
      * Enum representing the different types of cards in the game Cluedo.
      */
