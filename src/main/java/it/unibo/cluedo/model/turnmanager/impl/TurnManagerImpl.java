@@ -44,7 +44,6 @@ public class TurnManagerImpl implements TurnManager {
         // players.get(currentPlayerIndex).setPosition(false);
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         // players.get(currentPlayerIndex).setTurn(true);
-        System.out.println("It's " + players.get(currentPlayerIndex).getUsername() + "'s turn");
     }
 
 }
