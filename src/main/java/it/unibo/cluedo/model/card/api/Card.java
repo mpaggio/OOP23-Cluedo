@@ -20,9 +20,24 @@ public interface Card {
         ROOM
     }
 
+    /**
+     * Gets the type of the card.
+     * 
+     * @return the type of the card
+     */
     Type getType();
 
+    /**
+     * Gets the name of the card.
+     * 
+     * @return the name of the card
+     */
     String getName();
 
+    /**
+     * Gets the image path of the card.
+     * 
+     * @return the image path of the card
+     */
     String getImagePath();
 }
