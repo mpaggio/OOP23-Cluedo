@@ -11,15 +11,36 @@ public interface Card {
         /**
          * Represents a character card.
          */
-        CHARACTER,
+        CHARACTER("Character"),
         /**
          * Represents a weapon card.
          */
-        WEAPON,
+        WEAPON("Weapon"),
         /**
          * Represents a room card.
          */
-        ROOM
+        ROOM("Room");
+
+        private final String displayName;
+
+        /**
+         * Constructs a Type enum with the specified display name.
+         * 
+         * @param displayName the display name of the type
+         */
+        Type(final String displayName) {
+            this.displayName = displayName;
+        }
+
+        /**
+         * Returns the display name of the type.
+         * 
+         * @return the display name of the type
+         */
+        @Override
+        public String toString() {
+            return this.displayName;
+        }
     }
 
     /**

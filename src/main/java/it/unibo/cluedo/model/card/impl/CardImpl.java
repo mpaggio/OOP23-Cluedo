@@ -47,4 +47,16 @@ public class CardImpl implements Card {
     public String getImagePath() {
         return this.imagePath;
     }
+
+    /**
+     * Returns a string representation of the card.
+     * The string representation consists of the card type,
+     * followed by the card name. 
+     * 
+     * @return a string representation of the card
+     */
+    @Override
+    public String toString() {
+        return "[" + this.type.toString() + "]: " + " " + this.name;
+    }
 }
