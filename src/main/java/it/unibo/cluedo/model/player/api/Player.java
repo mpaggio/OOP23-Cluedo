@@ -43,4 +43,9 @@ public interface Player {
      */
     boolean isInRoom();
 
+    /**
+     * @return a boolean which indicates if a player has won or not.
+     */
+    boolean hasWon();
+
 }
