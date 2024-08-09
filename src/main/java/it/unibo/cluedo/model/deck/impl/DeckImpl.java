@@ -72,11 +72,11 @@ public class DeckImpl implements Deck {
      */
     @Override
     public Set<Set<Card>> distributedCards(final int numberOfPlayers) {
-        Set<Set<Card>> distributedSet = new HashSet<>();
-        Iterator<Card> cardIterator = this.cards.iterator();
-        int numberOfCardsPerPlayer = this.cards.size() / numberOfPlayers;
+        final Set<Set<Card>> distributedSet = new HashSet<>();
+        final Iterator<Card> cardIterator = this.cards.iterator();
+        final int numberOfCardsPerPlayer = this.cards.size() / numberOfPlayers;
         for (int i = 0; i < numberOfPlayers; i++) {
-            Set<Card> playerCards = new HashSet<>();
+            final Set<Card> playerCards = new HashSet<>();
             for (int j = 0; j < numberOfCardsPerPlayer; j++) {
                 if (cardIterator.hasNext()) {
                     playerCards.add(cardIterator.next());
