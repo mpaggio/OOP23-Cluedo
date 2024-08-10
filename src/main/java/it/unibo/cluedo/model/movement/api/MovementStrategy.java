@@ -26,7 +26,7 @@ public interface MovementStrategy {
     boolean isValidMove(Player player, Position newPosition, int boardSize);
 
     /**
-     * Enum that rappresent the possible direction where to move.
+     * Enum that represents the possible direction where to move.
      */
     enum Direction {
         /**
