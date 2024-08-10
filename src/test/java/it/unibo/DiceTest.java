@@ -9,12 +9,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * This class contains unit tests for the DIce class.
  */
 
-public final class DiceTest {
+final class DiceTest {
     private static final int MIN_SIDES = 1;
     private static final int MAX_SIDES = 6;
     private static final int INVALID_SIDES_LOW = 0;
     private static final int INVALID_SIDES_HIGH = 7;
-    private static final int MAX_ROLLS = 100_00;
+    private static final int MAX_ROLLS = 10_000;
     private static final double MIN_PERCENT = 0.8;
     private static final double MAX_PERCENT = 1.2;
 
@@ -23,7 +23,7 @@ public final class DiceTest {
      */
 
     @Test
-    public void testRollDice() {
+    void testRollDice() {
         final DiceImpl dice = new DiceImpl(MAX_SIDES);
         final int result = dice.rollDice();
         assertTrue(result >= MIN_SIDES && result <= MAX_SIDES, "Result is out of bounds");
@@ -35,7 +35,7 @@ public final class DiceTest {
      */
 
     @Test
-    public void testInvalidSides() {
+    void testInvalidSides() {
         assertThrows(IllegalArgumentException.class, () -> new DiceImpl(INVALID_SIDES_LOW));
         assertThrows(IllegalArgumentException.class, () -> new DiceImpl(INVALID_SIDES_HIGH));
     }
@@ -46,12 +46,12 @@ public final class DiceTest {
      */
 
     @Test
-    public void testRollDistribution() {
+    void testRollDistribution() {
         final DiceImpl dice = new DiceImpl(MAX_SIDES);
         int[] counts = new int[MAX_SIDES];
         final int totalRolls = MAX_ROLLS;
         for (int i = 0; i < totalRolls; i++) {
-            int result = dice.rollDice();
+            final int result = dice.rollDice();
             counts[result - 1]++;
         }
         for (final int count : counts) {
@@ -66,7 +66,7 @@ public final class DiceTest {
      */
 
     @Test
-    public void testStressRoll() {
+    void testStressRoll() {
         final DiceImpl dice = new DiceImpl(MAX_SIDES);
         for (int i = 0; i < MAX_ROLLS; i++) {
             final int result = dice.rollDice();
