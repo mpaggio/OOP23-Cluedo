@@ -6,9 +6,10 @@ import it.unibo.cluedo.model.player.api.Player;
  */
 
 public interface TurnManager {
+
     /**
      * Get the current player.
-     * 
+     *
      * @return the current player.
      */
     Player getCurrentPlayer();
