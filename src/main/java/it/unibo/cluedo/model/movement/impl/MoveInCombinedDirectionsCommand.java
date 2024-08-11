@@ -1,8 +1,9 @@
+
 package it.unibo.cluedo.model.movement.impl;
 
 import it.unibo.cluedo.model.movement.api.MovementCommand;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
-import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.utilities.Position;
 
 /**
@@ -10,7 +11,7 @@ import it.unibo.cluedo.utilities.Position;
  */
 public final class MoveInCombinedDirectionsCommand implements MovementCommand {
 
-    private final Player player;
+    private final MutablePlayer player;
     private final int verticalSteps;
     private final int horizontalSteps;
     private final MovementStrategy.Direction verticalDirection;
@@ -27,11 +28,11 @@ public final class MoveInCombinedDirectionsCommand implements MovementCommand {
      * @param horizontalDirection the horizontal direction (LEFT or RIGHT)
      * @param movementStrategy the strategy used to calculate and validate the movement
      */
-    public MoveInCombinedDirectionsCommand(final Player player, final int verticalSteps, final int horizontalSteps,
+    public MoveInCombinedDirectionsCommand(final MutablePlayer player, final int verticalSteps, final int horizontalSteps,
                                            final MovementStrategy.Direction verticalDirection,
                                            final MovementStrategy.Direction horizontalDirection,
                                            final MovementStrategy movementStrategy) {
-        this.player = player;
+        this.player = player.clone();
         this.verticalSteps = verticalSteps;
         this.horizontalSteps = horizontalSteps;
         this.verticalDirection = verticalDirection;

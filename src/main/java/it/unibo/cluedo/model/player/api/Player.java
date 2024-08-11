@@ -31,12 +31,6 @@ public interface Player {
     boolean isPlayerTurn();
 
     /**
-     * Move the player to a certain position.
-     * @param coords - position where to move the player
-     */
-    void setPosition(Position coords);
-
-    /**
      * Get the color of the player.
      * @return a string which is the color of the player
      */
@@ -59,6 +53,5 @@ public interface Player {
      * @return a list of {@link Card} objects representing the cards held by the player
      */
     List<Card> getPlayerCards();
-
 
 }
