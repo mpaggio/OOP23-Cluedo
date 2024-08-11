@@ -60,9 +60,9 @@ public class DeckImpl implements Deck {
     @Override
     public void initializeDeck() {
         this.cards.clear();
-        this.CHARACTER_NAMES.forEach(name -> this.cards.add(CardFactory.createCharacterCard(name, getImagePath(name))));
-        this.WEAPON_NAMES.forEach(name -> this.cards.add(CardFactory.createWeaponCard(name, getImagePath(name))));
-        this.ROOM_NAMES.forEach(name -> this.cards.add(CardFactory.createRoomCard(name, getImagePath(name))));
+        CHARACTER_NAMES.forEach(name -> this.cards.add(CardFactory.createCharacterCard(name, getImagePath(name))));
+        WEAPON_NAMES.forEach(name -> this.cards.add(CardFactory.createWeaponCard(name, getImagePath(name))));
+        ROOM_NAMES.forEach(name -> this.cards.add(CardFactory.createRoomCard(name, getImagePath(name))));
     }
 
     /**
