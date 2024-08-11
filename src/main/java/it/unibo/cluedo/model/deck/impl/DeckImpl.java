@@ -1,8 +1,10 @@
 package it.unibo.cluedo.model.deck.impl;
 
 import java.util.Set;
+import java.util.List;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.nio.file.Paths;
 
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.card.impl.CardFactory;
@@ -12,7 +14,45 @@ import it.unibo.cluedo.model.deck.api.Deck;
  * Represents the implementation of the deck of cards in the Cluedo game.
  */
 public class DeckImpl implements Deck {
+    private final static List<String> CHARACTER_NAMES = List.of(
+        "Colonel Mustard", 
+        "Miss Scarlet", 
+        "Mr Green", 
+        "Mrs Peacock", 
+        "Mrs White",
+        "Professor Plum"
+    );
+    private final static List<String> WEAPON_NAMES = List.of(
+        "Knife", 
+        "Lead pipe", 
+        "Revolver", 
+        "Rope", 
+        "Wrench",
+        "Candlestick"
+    ); 
+    private final static List<String> ROOM_NAMES = List.of(
+        "Ballroom", 
+        "Billiard room", 
+        "Conservatory", 
+        "Dining room", 
+        "Hall",
+        "Kitchen",
+        "Library", 
+        "Lounge",
+        "Study"
+    );
     private final Set<Card> cards = new HashSet<>();
+
+    /**
+     * Generates the file path for the image corresponding to the given card name.
+     * The path is constructed in a way that is compatible with different operating systems.
+     * 
+     * @param name the name of the card 
+     * @return the file path of the image of the card 
+     */
+    private String getImagePath(final String name){
+        return Paths.get("src", "main", "resources", name.replace(" ", "") + ".PNG").toString();
+    }
 
     /**
      * {@inheritDoc}
@@ -20,30 +60,9 @@ public class DeckImpl implements Deck {
     @Override
     public void initializeDeck() {
         this.cards.clear();
-
-        this.cards.add(CardFactory.createCharacterCard("Colonel Mustard", ""));
-        this.cards.add(CardFactory.createCharacterCard("Miss Scarlet", ""));
-        this.cards.add(CardFactory.createCharacterCard("Mr Green", ""));
-        this.cards.add(CardFactory.createCharacterCard("Mrs Peacock", ""));
-        this.cards.add(CardFactory.createCharacterCard("Mrs White", ""));
-        this.cards.add(CardFactory.createCharacterCard("Professor Plum", ""));
-
-        this.cards.add(CardFactory.createWeaponCard("Candlestick", ""));
-        this.cards.add(CardFactory.createWeaponCard("Knife", ""));
-        this.cards.add(CardFactory.createWeaponCard("Lead pipe", ""));
-        this.cards.add(CardFactory.createWeaponCard("Revolver", ""));
-        this.cards.add(CardFactory.createWeaponCard("Rope", ""));
-        this.cards.add(CardFactory.createWeaponCard("Wrench", ""));
-
-        this.cards.add(CardFactory.createRoomCard("Kitchen", ""));
-        this.cards.add(CardFactory.createRoomCard("Ballroom", ""));
-        this.cards.add(CardFactory.createRoomCard("Conservatory", ""));
-        this.cards.add(CardFactory.createRoomCard("Billiard room", ""));
-        this.cards.add(CardFactory.createRoomCard("Library", ""));
-        this.cards.add(CardFactory.createRoomCard("Study", ""));
-        this.cards.add(CardFactory.createRoomCard("Hall", ""));
-        this.cards.add(CardFactory.createRoomCard("Lounge", ""));
-        this.cards.add(CardFactory.createRoomCard("Dining room", ""));
+        this.CHARACTER_NAMES.forEach(name -> this.cards.add(CardFactory.createCharacterCard(name, getImagePath(name))));
+        this.WEAPON_NAMES.forEach(name -> this.cards.add(CardFactory.createWeaponCard(name, getImagePath(name))));
+        this.ROOM_NAMES.forEach(name -> this.cards.add(CardFactory.createRoomCard(name, getImagePath(name))));
     }
 
     /**
