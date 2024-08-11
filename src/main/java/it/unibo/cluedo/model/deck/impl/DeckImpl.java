@@ -24,7 +24,7 @@ public class DeckImpl implements Deck {
     );
     private final static List<String> WEAPON_NAMES = List.of(
         "Knife", 
-        "Lead pipe", 
+        "Lead Pipe", 
         "Revolver", 
         "Rope", 
         "Wrench",
@@ -50,7 +50,7 @@ public class DeckImpl implements Deck {
      * @param name the name of the card 
      * @return the file path of the image of the card 
      */
-    private String getImagePath(final String name){
+    private String getImagePath(final String name) {
         return Paths.get("src", "main", "resources", name.replace(" ", "") + ".PNG").toString();
     }
 
@@ -104,5 +104,13 @@ public class DeckImpl implements Deck {
             distributedSet.add(playerCards);
         }
         return distributedSet;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Card> getAllCards() {
+        return this.cards;
     }
 }
