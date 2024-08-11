@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.nio.file.Paths;
+import java.util.Collections;
 
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.card.impl.CardFactory;
@@ -14,7 +15,7 @@ import it.unibo.cluedo.model.deck.api.Deck;
  * Represents the implementation of the deck of cards in the Cluedo game.
  */
 public class DeckImpl implements Deck {
-    private final static List<String> CHARACTER_NAMES = List.of(
+    private static final List<String> CHARACTER_NAMES = List.of(
         "Colonel Mustard", 
         "Miss Scarlet", 
         "Mr Green", 
@@ -22,7 +23,7 @@ public class DeckImpl implements Deck {
         "Mrs White",
         "Professor Plum"
     );
-    private final static List<String> WEAPON_NAMES = List.of(
+    private static final List<String> WEAPON_NAMES = List.of(
         "Knife", 
         "Lead Pipe", 
         "Revolver", 
@@ -30,7 +31,7 @@ public class DeckImpl implements Deck {
         "Wrench",
         "Candlestick"
     ); 
-    private final static List<String> ROOM_NAMES = List.of(
+    private static final List<String> ROOM_NAMES = List.of(
         "Ballroom", 
         "Billiard room", 
         "Conservatory", 
@@ -111,6 +112,6 @@ public class DeckImpl implements Deck {
      */
     @Override
     public Set<Card> getAllCards() {
-        return this.cards;
+        return Collections.unmodifiableSet(new HashSet<>(this.cards));
     }
 }

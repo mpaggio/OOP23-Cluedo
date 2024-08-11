@@ -22,7 +22,7 @@ final class DeckTest {
     private DeckImpl deck;
 
     /**
-     * Initialization of the deck before every test
+     * Initialization of the deck before every test.
      */
     @BeforeEach
     void setUp() {
@@ -63,7 +63,6 @@ final class DeckTest {
             "Rooms card should be 6 after initialization"
         );
         deck.getAllCards().forEach(card -> {
-            System.out.println("Checking image path: " + card.getImagePath());
             assertTrue(
                 Files.exists(Paths.get(card.getImagePath())), 
                 "Image file should exist for card: " + card.getName()
@@ -72,11 +71,11 @@ final class DeckTest {
     } 
 
     /**
-     * Test that all cards name are different
+     * Test that all cards name are different.
      */
     @Test
     void testUniqueCardNames() {
-        Set<String> cardNames = deck.getAllCards().stream()
+        final Set<String> cardNames = deck.getAllCards().stream()
             .map(Card :: getName)
             .collect(Collectors.toSet());
         assertEquals(
@@ -84,6 +83,5 @@ final class DeckTest {
             cardNames.size(), 
             "All cards should be unique"
         );
-    } 
-    
+    }
 }

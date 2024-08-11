@@ -29,7 +29,7 @@ public interface Deck {
     Set<Set<Card>> distributedCards(int numberOfPlayers);
 
     /**
-     * Get all the cards in the deck
+     * Get all the cards in the deck.
      * 
      * @return a set containing all the cards of the deck
      */
