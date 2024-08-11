@@ -23,9 +23,9 @@ public class DeckImpl implements Deck {
 
         this.cards.add(CardFactory.createCharacterCard("Colonel Mustard", ""));
         this.cards.add(CardFactory.createCharacterCard("Miss Scarlet", ""));
-        this.cards.add(CardFactory.createCharacterCard("Mr. Green", ""));
-        this.cards.add(CardFactory.createCharacterCard("Mrs. Peacock", ""));
-        this.cards.add(CardFactory.createCharacterCard("Mrs. White", ""));
+        this.cards.add(CardFactory.createCharacterCard("Mr Green", ""));
+        this.cards.add(CardFactory.createCharacterCard("Mrs Peacock", ""));
+        this.cards.add(CardFactory.createCharacterCard("Mrs White", ""));
         this.cards.add(CardFactory.createCharacterCard("Professor Plum", ""));
 
         this.cards.add(CardFactory.createWeaponCard("Candlestick", ""));
@@ -36,7 +36,7 @@ public class DeckImpl implements Deck {
         this.cards.add(CardFactory.createWeaponCard("Wrench", ""));
 
         this.cards.add(CardFactory.createRoomCard("Kitchen", ""));
-        this.cards.add(CardFactory.createRoomCard("Ball room", ""));
+        this.cards.add(CardFactory.createRoomCard("Ballroom", ""));
         this.cards.add(CardFactory.createRoomCard("Conservatory", ""));
         this.cards.add(CardFactory.createRoomCard("Billiard room", ""));
         this.cards.add(CardFactory.createRoomCard("Library", ""));
