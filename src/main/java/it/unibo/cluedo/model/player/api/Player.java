@@ -26,8 +26,7 @@ public interface Player {
     Position getCurrentPosition();
 
     /**
-     * Check if it is current's player turn.
-     * @return
+     * @return a boolean whick indicates if it is current player turn.
      */
     boolean isPlayerTurn();
 
@@ -44,7 +43,7 @@ public interface Player {
     String getColor();
 
     /**
-     * Checks if the player is in a room
+     * Checks if the player is in a room.
      * @return a boolean which indicates if a player is in a room.
      */
     boolean isInRoom();
@@ -57,7 +56,7 @@ public interface Player {
 
     /**
      * Return the list of cards owned by the player.
-     * @return
+     * @return a list of {@link Card} objects representing the cards held by the player
      */
     List<Card> getPlayerCards();
 
