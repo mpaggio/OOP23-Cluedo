@@ -126,16 +126,16 @@ final class DeckTest {
             "After the solution is taken, there should be 18 cards in the deck"
         );
     }
-    
+
     /**
      * Test that the cards are distributed correctly after creating the solution.
      */
     @Test
     void testDistributeCards() {
         this.deck.drawSolution();
-        Set<Set<Card>> distributedCards = this.deck.distributeCards(NUM_OF_PLAYERS);
+        final Set<Set<Card>> distributedCards = this.deck.distributeCards(NUM_OF_PLAYERS);
         assertEquals(NUM_OF_PLAYERS, distributedCards.size());
-        for (Set<Card> cardSet : distributedCards) {
+        for (final Set<Card> cardSet : distributedCards) {
             assertEquals(
                 (TOT_NUM_CARDS - TOT_NUM_CARDS_SOLUTION) / NUM_OF_PLAYERS,
                 cardSet.size(), 

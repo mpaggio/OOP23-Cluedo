@@ -12,7 +12,7 @@ import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.card.impl.CardFactory;
 
 /**
- * Test class for CardImpl and CardFactory
+ * Test class for CardImpl and CardFactory.
  */
 final class CardTest {
     private static final String CHARACTER_NAME = "Professor Plum";
@@ -20,7 +20,7 @@ final class CardTest {
     private static final String ROOM_NAME = "Professor Plum";
 
     /**
-     * Test the creation of a character card using CardFactory
+     * Test the creation of a character card using CardFactory.
      */
     @Test
     void testCreateCharacterCard() {
@@ -37,7 +37,7 @@ final class CardTest {
     }
 
     /**
-     * Test the creation of a weapon card using CardFactory
+     * Test the creation of a weapon card using CardFactory.
      */
     @Test
     void testCreateWeaponCard() {
@@ -54,7 +54,7 @@ final class CardTest {
     }
 
     /**
-     * Test the creation of a room card using CardFactory
+     * Test the creation of a room card using CardFactory.
      */
     @Test
     void testCreateRoomCard() {
