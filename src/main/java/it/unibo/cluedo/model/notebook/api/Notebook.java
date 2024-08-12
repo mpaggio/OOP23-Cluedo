@@ -9,26 +9,19 @@ import java.util.List;
  */
 
 public interface Notebook {
-    /**
-     * Log the suspect that the player has seen.
-     *
-     * @param suspect the suspect that the player has seen.
-     */
-    void logSuspect(String suspect);
 
     /**
-     * Log the weapon that the player has seen.
+     * Initialize the notebook with the cards that the player has in his hand.
      *
-     * @param weapon the weapon that the player has seen.
+     * @param playerCards the list of the cards that the player has in his hand.
      */
-    void logWeapon(String weapon);
+    void initialize(List<String> playerCards);
 
     /**
-     * Log the room that the player has seen.
-     *
-     * @param room the room that the player has seen.
+     * Log the card that the player has seen.
+     * @param card
      */
-    void logRoom(String room);
+    void logSeenCards(String card);
 
     /**
      * Get the list of the suspects that the player has seen.

@@ -32,27 +32,30 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * The following methods remove the suspect from the corresponding Set.
+     * Initialize the notebook with the cards that the player has in his hand.
+     *
+     * @param playerCards the list of the cards that the player has in his hand.
      */
     @Override
-    public void logSuspect(final String suspect) {
-        this.unselectedSuspects.remove(suspect);
+    public void initialize(final List<String> playerCards) {
+        for (final String card : playerCards) {
+            this.logSeenCards(card);
+        }
     }
 
     /**
-     * The following methods remove the weapon from the corresponding Set.
+     * Log the card that the player has seen.
+     * @param card
      */
     @Override
-    public void logWeapon(final String weapon) {
-        this.unselectedWeapons.remove(weapon);
-    }
-
-    /**
-     * The following methods remove the room from the corresponding Set.
-     */
-    @Override
-    public void logRoom(final String room) {
-        this.unselectedRooms.remove(room);
+    public void logSeenCards(final String card) {
+        if (unselectedSuspects.contains(card)) {
+            unselectedSuspects.remove(card);
+        } else if (unselectedWeapons.contains(card)) {
+            unselectedWeapons.remove(card);
+        } else if (unselectedRooms.contains(card)) {
+            unselectedRooms.remove(card);
+        }
     }
 
     /**
