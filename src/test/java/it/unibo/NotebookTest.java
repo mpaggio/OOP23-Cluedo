@@ -19,76 +19,89 @@ class NotebookTest {
     private static final String PROFESSOR_PLUM = "Professor Plum";
     private static final String CANDLESTICK = "Candlestick";
     private static final String KITCHEN = "Kitchen";
+    private static final String MISS_SCARLET = "Miss Scarlet";
 
     /**
      * Set up the test environment by initializing the Notebook with a list of suspects,weapons and rooms.
      */
     @BeforeEach
     void setUp() {
-        final List<String> allSuspects = Arrays.asList(PROFESSOR_PLUM, "Miss Scarlett", "Colonel Mustard");
-        final List<String> allWeapons = Arrays.asList(CANDLESTICK, "Dagger", "Lead Pipe");
+        final List<String> allSuspects = Arrays.asList(PROFESSOR_PLUM, MISS_SCARLET, "Colonel Mustard");
+        final List<String> allWeapons = Arrays.asList(CANDLESTICK, "Revolver", "Rope");
         final List<String> allRooms = Arrays.asList(KITCHEN, "Ballroom", "Conservatory");
         notebook = new NotebookImpl(allSuspects, allWeapons, allRooms);
     }
 
     /**
-     * Tests the logSuspect method bu logging a suspect and checking that
-     * the suspect is removed from the list of unselected suspects.
+     * Tests the automatic initialization of the notebook with the player's starting cards.
+     * Ensures that the cards owned by the player are marked as seen.
      */
     @Test
-    void testLogSuspect() {
-        notebook.logSuspect(PROFESSOR_PLUM);
+    void testInitialize() {
+        final List<String> playerCards = Arrays.asList(PROFESSOR_PLUM, "Revolver", KITCHEN);
+        notebook.initialize(playerCards);
+
         final List<String> unselectedSuspects = notebook.getUnselectedSuspects();
-        assertFalse(unselectedSuspects.contains(PROFESSOR_PLUM));
-        assertEquals(2, unselectedSuspects.size());
-    }
-
-    /**
-     * Tests the logWeapon method by logging a weapon and checking that the weapon is removed from the list of unselected weapons.
-     */
-    @Test
-    void testLogWeapon() {
-        notebook.logWeapon(CANDLESTICK);
         final List<String> unselectedWeapons = notebook.getUnselectedWeapons();
-        assertFalse(unselectedWeapons.contains(CANDLESTICK));
-        assertEquals(2, unselectedWeapons.size());
-    }
-
-    /**
-     * Tests the logRoom method by logging a room and checking that the room is removed from the list of unselected rooms.
-     */
-    @Test
-    void testLogRoom() {
-        notebook.logRoom(KITCHEN);
         final List<String> unselectedRooms = notebook.getUnselectedRooms();
+
+        assertFalse(unselectedSuspects.contains(PROFESSOR_PLUM));
+        assertFalse(unselectedWeapons.contains("Revolver"));
         assertFalse(unselectedRooms.contains(KITCHEN));
+
+        assertEquals(2, unselectedSuspects.size());
+        assertEquals(2, unselectedWeapons.size());
         assertEquals(2, unselectedRooms.size());
     }
 
     /**
-     * Tests the behavior when multiple suspects, weapons, and rooms are logged.
-     * Ensures that the correct items are removed from their respective lists and that
-     * the sizes of the lists are correct.
+     * Tests the logSeenCard method by simulating the player seeing a card during the game.
+     * Ensures that the seen card is marked as seen in the notebook.
      */
     @Test
-    void testMultipleLogs() {
-        notebook.logSuspect(PROFESSOR_PLUM);
-        notebook.logSuspect("Miss Scarlett");
-        notebook.logWeapon(CANDLESTICK);
-        notebook.logRoom(KITCHEN);
-
+    void testLogSeenCards() {
+        notebook.logSeenCards(MISS_SCARLET);
+        notebook.logSeenCards(CANDLESTICK);
+        notebook.logSeenCards("Ballroom");
 
         final List<String> unselectedSuspects = notebook.getUnselectedSuspects();
         final List<String> unselectedWeapons = notebook.getUnselectedWeapons();
         final List<String> unselectedRooms = notebook.getUnselectedRooms();
 
-        assertFalse(unselectedSuspects.contains(PROFESSOR_PLUM));
-        assertFalse(unselectedSuspects.contains("Miss Scarlett"));
+        assertFalse(unselectedSuspects.contains(MISS_SCARLET));
         assertFalse(unselectedWeapons.contains(CANDLESTICK));
-        assertFalse(unselectedRooms.contains(KITCHEN));
+        assertFalse(unselectedRooms.contains("Ballroom"));
+
+        assertEquals(2, unselectedSuspects.size());
+        assertEquals(2, unselectedWeapons.size());
+        assertEquals(2, unselectedRooms.size());
+    }
+
+    /**
+     * Tests the combination of initialize and logSeenCard methods.
+     * Ensures that both methods work together to keep track of seen cards.
+     */
+    @Test
+    void testInitializeAndLogSuspects() {
+        final List<String> playerCards = Arrays.asList("Colonel Mustard", "Rope", "Conservatory");
+        notebook.initialize(playerCards);
+
+        notebook.logSeenCards(MISS_SCARLET);
+        notebook.logSeenCards(CANDLESTICK);
+
+        final List<String> unselectedSuspects = notebook.getUnselectedSuspects();
+        final List<String> unselectedWeapons = notebook.getUnselectedWeapons();
+        final List<String> unselectedRooms = notebook.getUnselectedRooms();
+
+        assertFalse(unselectedSuspects.contains("Colonel Mustard"));
+        assertFalse(unselectedSuspects.contains(MISS_SCARLET));
+        assertFalse(unselectedWeapons.contains("Rope"));
+        assertFalse(unselectedWeapons.contains(CANDLESTICK));
+        assertFalse(unselectedRooms.contains("Conservatory"));
 
         assertEquals(1, unselectedSuspects.size());
-        assertEquals(2, unselectedWeapons.size());
+        assertEquals(1, unselectedWeapons.size());
         assertEquals(2, unselectedRooms.size());
+
     }
 }
