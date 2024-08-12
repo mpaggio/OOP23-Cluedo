@@ -16,9 +16,12 @@ import it.unibo.cluedo.model.deck.impl.DeckImpl;
 
 final class DeckTest {
     private static final int TOT_NUM_CARDS = 21;
+    private static final int TOT_NUM_CARDS_SOLUTION = 3;
     private static final int TOT_NUM_CHARACTERS = 6;
     private static final int TOT_NUM_WEAPONS = 6;
     private static final int TOT_NUM_ROOMS = 9; 
+    private static final int NUM_CARDS_SOLUTION_PER_TYPE = 1;
+    private static final int NUM_OF_PLAYERS = 3;
     private DeckImpl deck;
 
     /**
@@ -83,5 +86,61 @@ final class DeckTest {
             cardNames.size(), 
             "All cards should be unique"
         );
+    }
+
+    /**
+     * Test that the solution is created correctly.
+     */
+    @Test
+    void testDrawSolution() {
+        final Set<Card> solution = this.deck.drawSolution();
+        assertEquals(
+            TOT_NUM_CARDS_SOLUTION, 
+            solution.size(), 
+            "Solution should contain 3 cards"
+        );
+        assertEquals(
+            NUM_CARDS_SOLUTION_PER_TYPE, 
+            solution.stream()
+                .filter(card -> card.getType().equals(Card.Type.CHARACTER))
+                .count(),
+            "Solution should contain only 1 character card"
+        );
+        assertEquals(
+            NUM_CARDS_SOLUTION_PER_TYPE, 
+            solution.stream()
+                .filter(card -> card.getType().equals(Card.Type.WEAPON))
+                .count(),
+            "Solution should contain only 1 weapon card"
+        );
+        assertEquals(
+            NUM_CARDS_SOLUTION_PER_TYPE, 
+            solution.stream()
+                .filter(card -> card.getType().equals(Card.Type.ROOM))
+                .count(),
+            "Solution should contain only 1 room card"
+        );
+        assertEquals(
+            TOT_NUM_CARDS - TOT_NUM_CARDS_SOLUTION, 
+            this.deck.getAllCards().size(), 
+            "After the solution is taken, there should be 18 cards in the deck"
+        );
+    }
+    
+    /**
+     * Test that the cards are distributed correctly after creating the solution.
+     */
+    @Test
+    void testDistributeCards() {
+        this.deck.drawSolution();
+        Set<Set<Card>> distributedCards = this.deck.distributeCards(NUM_OF_PLAYERS);
+        assertEquals(NUM_OF_PLAYERS, distributedCards.size());
+        for (Set<Card> cardSet : distributedCards) {
+            assertEquals(
+                (TOT_NUM_CARDS - TOT_NUM_CARDS_SOLUTION) / NUM_OF_PLAYERS,
+                cardSet.size(), 
+                "Every set of cards should have the same number of cards"
+            );
+        }
     }
 }

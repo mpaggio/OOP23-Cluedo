@@ -26,7 +26,7 @@ public interface Deck {
      * @return a set of sets of cards, where each inner list represents
      * the cards of a player 
      */
-    Set<Set<Card>> distributedCards(int numberOfPlayers);
+    Set<Set<Card>> distributeCards(int numberOfPlayers);
 
     /**
      * Get all the cards in the deck.
