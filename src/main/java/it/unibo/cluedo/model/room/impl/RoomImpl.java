@@ -6,12 +6,20 @@ import java.util.LinkedList;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
 
+/**
+ * Implementation of the room of the Cluedo game.
+ */
 public class RoomImpl implements Room {
-    private String name;
-    private List<Square> squares;
-    private List<Square> entrances;
+    private final String name;
+    private final List<Square> squares;
+    private final List<Square> entrances;
     // private TrapDoor trapDoor;
 
+    /**
+     * Constructor for the room.
+     * 
+     * @param name the name of the room
+     */
     public RoomImpl(final String name) {
         this.name = name;
         this.squares = new LinkedList<>();
@@ -22,7 +30,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public void addSquare(Square square) {
+    public void addSquare(final Square square) {
         this.squares.add(square);
     }
 
@@ -30,7 +38,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public void addEntrance(Square entrance) {
+    public void addEntrance(final Square entrance) {
         this.entrances.add(entrance);
     }
 
@@ -38,11 +46,8 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public boolean isEntrance(Square square) {
-        if (this.entrances.contains(square)) {
-            return true;
-        }
-        return false;
+    public boolean isEntrance(final Square square) {
+        return this.entrances.contains(square);
     }
 
     /**
@@ -67,8 +72,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public String toString(){
+    public String toString() {
         return this.name;
     }
-    
 }

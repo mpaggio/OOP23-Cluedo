@@ -16,10 +16,9 @@ public final class SquareFactory {
     }
 
     /**
-     * Create a normal square (only for movement) with the specified position and effect
+     * Create a normal square (only for movement) with the specified position and effect.
      * 
      * @param position the position of the square
-     * @param effect the effect of the square
      * @return a new Square with no effect
      */
     public static Square createNormalSquare(final Position position) {
@@ -27,10 +26,9 @@ public final class SquareFactory {
     }
 
     /**
-     * Create a bonus square with the specified position and effect
+     * Create a bonus square with the specified position and effect.
      * 
      * @param position the position of the square
-     * @param effect the effect of the square
      * @return a new Square with bonus effect
      */
     public static Square createBonusSquare(final Position position) {
@@ -38,10 +36,9 @@ public final class SquareFactory {
     }
 
     /**
-     * Create a malus square with the specified position and effect
+     * Create a malus square with the specified position and effect.
      * 
      * @param position the position of the square
-     * @param effect the effect of the square
      * @return a new Square with malus effect
      */
     public static Square createMalusSquare(final Position position) {
