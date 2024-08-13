@@ -1,6 +1,7 @@
 package it.unibo.cluedo.model.square.api;
 
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.square.api.Effect.EffectType;
 import it.unibo.cluedo.utilities.Position;
 
 /**
@@ -27,12 +28,5 @@ public interface Square {
      * 
      * @return the effect of the square
      */
-    Effect getEffect();
-
-    /**
-     * Sets the effect of the square.
-     * 
-     * @param effect the effect to set
-     */
-    void setEffect(Effect effect);
+    EffectType getEffect();
 }
