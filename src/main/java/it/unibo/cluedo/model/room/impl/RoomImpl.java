@@ -18,16 +18,25 @@ public class RoomImpl implements Room {
         this.entrances = new LinkedList<>();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addSquare(Square square) {
         this.squares.add(square);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void addEntrance(Square entrance) {
         this.entrances.add(entrance);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isEntrance(Square square) {
         if (this.entrances.contains(square)) {
@@ -36,18 +45,27 @@ public class RoomImpl implements Room {
         return false;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Square getCenterSquare() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'getCenterSquare'");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void setTrapDoor() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setTrapDoor'");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString(){
         return this.name;
