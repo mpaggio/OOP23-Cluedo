@@ -37,8 +37,18 @@ public class SquareImpl implements Square {
      */
     @Override
     public void landOn(final Player player) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'landOn'");
+        switch (this.effect) {
+            case BONUS:
+                // add a way to set the player double dice roll                
+                break;
+
+            case MALUS:
+                // add a way to unable the player next turn
+                break;
+        
+            default:
+                break;
+        }
     }
 
     /**
