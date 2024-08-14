@@ -1,6 +1,8 @@
 package it.unibo.cluedo.model.square.impl;
 
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.room.api.MapComponent;
+import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.utilities.Position;
@@ -9,7 +11,7 @@ import it.unibo.cluedo.utilities.Position;
  * Implementation of the Square interface.
  * Represents a square on the Cluedo map, with a specific position and effect.
  */
-public class SquareImpl implements Square {
+public class SquareImpl implements Square, MapComponent {
     private final Position position;
     private final Effect effect;
 
@@ -46,5 +48,13 @@ public class SquareImpl implements Square {
     @Override
     public Effect getEffect() {
         return this.effect;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(MapComponentVisitor visitor) {
+        visitor.visitSquare(this);
     }
 }

@@ -3,6 +3,8 @@ package it.unibo.cluedo.model.room.impl;
 import java.util.List;
 import java.util.LinkedList;
 
+import it.unibo.cluedo.model.room.api.MapComponent;
+import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;
@@ -10,7 +12,7 @@ import it.unibo.cluedo.utilities.Position;
 /**
  * Implementation of the room of the Cluedo game.
  */
-public class RoomImpl implements Room {
+public class RoomImpl implements Room, MapComponent {
     private final String name;
     private final List<Square> squares;
     private final List<Square> entrances;
@@ -78,5 +80,10 @@ public class RoomImpl implements Room {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    @Override
+    public void accept(MapComponentVisitor visitor) {
+        visitor.visitRoom(this);
     }
 }
