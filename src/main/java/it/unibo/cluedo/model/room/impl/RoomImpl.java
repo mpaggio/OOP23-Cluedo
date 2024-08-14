@@ -3,16 +3,21 @@ package it.unibo.cluedo.model.room.impl;
 import java.util.List;
 import java.util.LinkedList;
 
+import it.unibo.cluedo.model.room.api.MapComponent;
+import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
+// import it.unibo.cluedo.utilities.Position;
 
 /**
  * Implementation of the room of the Cluedo game.
  */
-public class RoomImpl implements Room {
+public class RoomImpl implements Room, MapComponent {
     private final String name;
     private final List<Square> squares;
     private final List<Square> entrances;
+    // private final Position startPosition;
+    // private final Position finalPosition;
     // private TrapDoor trapDoor;
 
     /**
@@ -24,6 +29,8 @@ public class RoomImpl implements Room {
         this.name = name;
         this.squares = new LinkedList<>();
         this.entrances = new LinkedList<>();
+        // this.startPosition = startPosition;
+        // this.finalPosition = finalPosition;
     }
 
     /**
@@ -55,8 +62,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public Square getCenterSquare() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCenterSquare'");
+        return this.squares.get(this.squares.size() / 2);
     }
 
     /**
@@ -74,5 +80,13 @@ public class RoomImpl implements Room {
     @Override
     public String toString() {
         return this.name;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void accept(final MapComponentVisitor visitor) {
+        visitor.visitRoom(this);
     }
 }
