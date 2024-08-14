@@ -54,7 +54,7 @@ public class SquareImpl implements Square, MapComponent {
      * {@inheritDoc}
      */
     @Override
-    public void accept(MapComponentVisitor visitor) {
+    public void accept(final MapComponentVisitor visitor) {
         visitor.visitSquare(this);
     }
 }

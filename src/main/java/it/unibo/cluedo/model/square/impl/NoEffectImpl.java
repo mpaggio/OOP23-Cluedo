@@ -7,14 +7,14 @@ import it.unibo.cluedo.model.square.api.Effect;
  * Implementation of Effect interface with pattern Strategy.
  * Representing the No Effect effect.
  */
-public class NoEffectImpl implements Effect{
-    private EffectType type = EffectType.NONE;
+public class NoEffectImpl implements Effect {
+    private final EffectType type = EffectType.NONE;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void apply(Player player) {
+    public void apply(final Player player) {
         // No effect
     }
 
@@ -24,6 +24,5 @@ public class NoEffectImpl implements Effect{
     @Override
     public EffectType getType() {
         return this.type;
-    }
-    
+    } 
 }

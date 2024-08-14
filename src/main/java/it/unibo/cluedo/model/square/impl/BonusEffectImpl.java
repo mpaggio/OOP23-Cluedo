@@ -7,14 +7,14 @@ import it.unibo.cluedo.model.square.api.Effect;
  * Implementation of Effect interface with pattern Strategy.
  * Representing the Bonus Effect effect.
  */
-public class BonusEffectImpl implements Effect{
-    private EffectType type = EffectType.BONUS;
+public class BonusEffectImpl implements Effect {
+    private final EffectType type = EffectType.BONUS;
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void apply(Player player) {
+    public void apply(final Player player) {
         // player.unableDoubleDiceRoll();
     }
 
@@ -25,5 +25,4 @@ public class BonusEffectImpl implements Effect{
     public EffectType getType() {
         return this.type;
     }
-    
 }

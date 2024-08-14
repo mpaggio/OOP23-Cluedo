@@ -66,7 +66,7 @@ public interface Effect {
     void apply(Player player);
 
     /**
-     * Returns the effect type
+     * Returns the effect type.
      * 
      * @return the effect type
      */

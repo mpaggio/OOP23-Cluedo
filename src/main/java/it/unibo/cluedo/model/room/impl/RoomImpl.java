@@ -7,7 +7,7 @@ import it.unibo.cluedo.model.room.api.MapComponent;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
-import it.unibo.cluedo.utilities.Position;
+// import it.unibo.cluedo.utilities.Position;
 
 /**
  * Implementation of the room of the Cluedo game.
@@ -25,7 +25,7 @@ public class RoomImpl implements Room, MapComponent {
      * 
      * @param name the name of the room
      */
-    public RoomImpl(final String name, final Position startPosition, final Position finalPosition) {
+    public RoomImpl(final String name) {
         this.name = name;
         this.squares = new LinkedList<>();
         this.entrances = new LinkedList<>();
@@ -82,8 +82,11 @@ public class RoomImpl implements Room, MapComponent {
         return this.name;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void accept(MapComponentVisitor visitor) {
+    public void accept(final MapComponentVisitor visitor) {
         visitor.visitRoom(this);
     }
 }
