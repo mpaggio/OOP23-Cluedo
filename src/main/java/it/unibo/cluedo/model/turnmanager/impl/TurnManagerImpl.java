@@ -31,7 +31,7 @@ public class TurnManagerImpl implements TurnManager {
 
     /**
      * Get the current player.
-     * 
+     *
      * @return the current player.
      */
     @Override
@@ -61,7 +61,7 @@ public class TurnManagerImpl implements TurnManager {
 
     /**
      * Check if the game has ended.
-     * 
+     *
      * @return a boolean indicating if the game has ended or not.
      */
     private boolean checkGameEndCondition() {

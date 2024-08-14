@@ -7,6 +7,7 @@ import it.unibo.cluedo.utilities.Position;
  * that allow modifing the player's state.
  */
 public interface MutablePlayer extends Player, Cloneable {
+
     /**
      * Move the player to a certain position.
      * @param coords - position where to move the player
@@ -30,6 +31,18 @@ public interface MutablePlayer extends Player, Cloneable {
      * @param inRoom a boolean indicating if the player is in a room or not.
      */
     void setInRoom(boolean inRoom);
+
+    /**
+     * Sets whether the player can double roll the dice.
+     * @param doubleRoll a boolean indicating if the player can double roll the dice.
+     */
+    void setDoubleRollDice(boolean doubleRoll);
+
+    /**
+     * Sets wheter the player can take next turn.
+     * @param nextTurn a boolean indicating if the player can take next turn.
+     */
+    void setNextTurn(boolean nextTurn);
 
     /**
      * Creates and returns a copy of this player.
