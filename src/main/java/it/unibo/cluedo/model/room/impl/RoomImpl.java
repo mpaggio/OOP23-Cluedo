@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
+import it.unibo.cluedo.utilities.Position;
 
 /**
  * Implementation of the room of the Cluedo game.
@@ -13,6 +14,8 @@ public class RoomImpl implements Room {
     private final String name;
     private final List<Square> squares;
     private final List<Square> entrances;
+    // private final Position startPosition;
+    // private final Position finalPosition;
     // private TrapDoor trapDoor;
 
     /**
@@ -20,10 +23,12 @@ public class RoomImpl implements Room {
      * 
      * @param name the name of the room
      */
-    public RoomImpl(final String name) {
+    public RoomImpl(final String name, final Position startPosition, final Position finalPosition) {
         this.name = name;
         this.squares = new LinkedList<>();
         this.entrances = new LinkedList<>();
+        // this.startPosition = startPosition;
+        // this.finalPosition = finalPosition;
     }
 
     /**
@@ -55,8 +60,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public Square getCenterSquare() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getCenterSquare'");
+        return this.squares.get(this.squares.size() / 2);
     }
 
     /**

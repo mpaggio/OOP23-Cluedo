@@ -8,6 +8,7 @@ import it.unibo.cluedo.model.square.api.Effect;
  * Representing the Bonus Effect effect.
  */
 public class BonusEffectImpl implements Effect{
+    private EffectType type = EffectType.BONUS;
 
     /**
      * {@inheritDoc}
@@ -15,6 +16,14 @@ public class BonusEffectImpl implements Effect{
     @Override
     public void apply(Player player) {
         // player.unableDoubleDiceRoll();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EffectType getType() {
+        return this.type;
     }
     
 }

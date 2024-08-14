@@ -1,6 +1,5 @@
 package it.unibo.cluedo.model.square.impl;
 
-import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;
 
@@ -22,7 +21,7 @@ public final class SquareFactory {
      * @return a new Square with no effect
      */
     public static Square createNormalSquare(final Position position) {
-        return new SquareImpl(position, Effect.EffectType.NONE);
+        return new SquareImpl(position, new NoEffectImpl());
     }
 
     /**
@@ -32,7 +31,7 @@ public final class SquareFactory {
      * @return a new Square with bonus effect
      */
     public static Square createBonusSquare(final Position position) {
-        return new SquareImpl(position, Effect.EffectType.BONUS);
+        return new SquareImpl(position, new BonusEffectImpl());
     }
 
     /**
@@ -42,6 +41,6 @@ public final class SquareFactory {
      * @return a new Square with malus effect
      */
     public static Square createMalusSquare(final Position position) {
-        return new SquareImpl(position, Effect.EffectType.MALUS);
+        return new SquareImpl(position, new MalusEffectImpl());
     }
 }

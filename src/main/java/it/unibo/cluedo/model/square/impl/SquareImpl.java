@@ -2,7 +2,7 @@ package it.unibo.cluedo.model.square.impl;
 
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Square;
-import it.unibo.cluedo.model.square.api.Effect.EffectType;
+import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.utilities.Position;
 
 /**
@@ -11,7 +11,7 @@ import it.unibo.cluedo.utilities.Position;
  */
 public class SquareImpl implements Square {
     private final Position position;
-    private final EffectType effect;
+    private final Effect effect;
 
     /**
      * Constructor for the square implementation.
@@ -19,7 +19,7 @@ public class SquareImpl implements Square {
      * @param position the position of the square
      * @param effect the effect of the square
      */
-    public SquareImpl(final Position position, final EffectType effect) {
+    public SquareImpl(final Position position, final Effect effect) {
         this.position = position; 
         this.effect = effect;
     }
@@ -37,25 +37,14 @@ public class SquareImpl implements Square {
      */
     @Override
     public void landOn(final Player player) {
-        switch (this.effect) {
-            case BONUS:
-                // add a way to set the player double dice roll                
-                break;
-
-            case MALUS:
-                // add a way to unable the player next turn
-                break;
-        
-            default:
-                break;
-        }
+        this.effect.apply(player);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public EffectType getEffect() {
+    public Effect getEffect() {
         return this.effect;
     }
 }

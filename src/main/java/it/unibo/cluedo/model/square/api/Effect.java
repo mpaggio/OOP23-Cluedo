@@ -64,4 +64,11 @@ public interface Effect {
      * @param player the player to whom the effect is applied
      */
     void apply(Player player);
+
+    /**
+     * Returns the effect type
+     * 
+     * @return the effect type
+     */
+    EffectType getType();
 }

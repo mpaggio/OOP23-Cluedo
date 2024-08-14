@@ -8,6 +8,7 @@ import it.unibo.cluedo.model.square.api.Effect;
  * Representing the Malus Effect effect.
  */
 public class MalusEffectImpl implements Effect{
+    private EffectType type = EffectType.MALUS;
 
     /**
      * {@inheritDoc}
@@ -15,6 +16,14 @@ public class MalusEffectImpl implements Effect{
     @Override
     public void apply(Player player) {
         // player.cancelNextTurn();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public EffectType getType() {
+        return this.type;
     }
     
 }
