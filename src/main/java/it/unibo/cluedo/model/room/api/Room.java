@@ -31,13 +31,6 @@ public interface Room {
     boolean isEntrance(Square square);
 
     /**
-     * Gets the central square of the room. 
-     * 
-     * @return the central square of the room
-     */
-    Square getCenterSquare();
-
-    /**
      * Sets a trap door in the room.
      */
     void setTrapDoor();

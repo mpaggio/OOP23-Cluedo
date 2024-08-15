@@ -61,14 +61,6 @@ public class RoomImpl implements Room, MapComponent {
      * {@inheritDoc}
      */
     @Override
-    public Square getCenterSquare() {
-        return this.squares.get(this.squares.size() / 2);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void setTrapDoor() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'setTrapDoor'");
