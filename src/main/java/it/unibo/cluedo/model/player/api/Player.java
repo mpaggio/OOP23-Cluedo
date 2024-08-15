@@ -54,4 +54,16 @@ public interface Player {
      */
     List<Card> getPlayerCards();
 
+    /**
+     * Checks if the player can double roll the dice.
+     * @return a boolean which indicates if the player can double roll the dice.
+     */
+    boolean canDoubleRollDice();
+
+    /**
+     * Checks if the player can take the next turn.
+     * @return a boolean which indicates if the player can take the next turn.
+     */
+    boolean canNextTurn();
+
 }

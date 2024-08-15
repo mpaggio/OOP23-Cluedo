@@ -3,6 +3,7 @@ package it.unibo.cluedo.model.movement.impl;
 import it.unibo.cluedo.model.movement.api.MovementCommand;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
+import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.utilities.Position;
 
 /**
@@ -10,7 +11,7 @@ import it.unibo.cluedo.utilities.Position;
  */
 public final class MoveInSingleDirection implements MovementCommand {
 
-    private final MutablePlayer player;
+    private final Player player;
     private final int steps;
     private final MovementStrategy.Direction direction;
     private final MovementStrategy movementStrategy;
@@ -35,7 +36,7 @@ public final class MoveInSingleDirection implements MovementCommand {
         final Position newPosition = movementStrategy.calculatePosition(player.getCurrentPosition(), steps, direction);
 
         if (movementStrategy.isValidMove(player, newPosition, 10)) {
-            player.setPosition(newPosition);
+            ((MutablePlayer) player).setPosition(newPosition);
         } else {
             throw new IllegalArgumentException("Invalid move: the player cannot move outside the board or into an invalid area");
         }

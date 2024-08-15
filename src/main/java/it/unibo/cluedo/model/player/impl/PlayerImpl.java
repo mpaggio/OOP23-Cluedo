@@ -20,6 +20,8 @@ public class PlayerImpl implements Player {
     private final boolean hasWon;
     private final boolean inRoom;
     private final List<Card> playerCards;
+    private final boolean doubleRollDice;
+    private final boolean nextTurn;
 
     /**
      * Constructs a new player with the given username and color.
@@ -35,6 +37,8 @@ public class PlayerImpl implements Player {
         this.inRoom = false;
         this.hasWon = false;
         this.playerCards = new ArrayList<>();
+        this.doubleRollDice = false;
+        this.nextTurn = false;
     }
 
     /**
@@ -91,5 +95,21 @@ public class PlayerImpl implements Player {
     @Override
     public List<Card> getPlayerCards() {
         return new ArrayList<>(this.playerCards);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canDoubleRollDice() {
+        return this.doubleRollDice;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canNextTurn() {
+        return this.nextTurn;
     }
 }

@@ -28,11 +28,4 @@ public interface Square {
      * @return the effect of the square
      */
     Effect getEffect();
-
-    /**
-     * Sets the effect of the square.
-     * 
-     * @param effect the effect to set
-     */
-    void setEffect(Effect effect);
 }

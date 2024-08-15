@@ -25,7 +25,7 @@ public interface Card {
 
         /**
          * Constructs a Type enum with the specified display name.
-         * 
+         *
          * @param displayName the display name of the type
          */
         Type(final String displayName) {
@@ -34,7 +34,7 @@ public interface Card {
 
         /**
          * Returns the display name of the type.
-         * 
+         *
          * @return the display name of the type
          */
         @Override
@@ -45,21 +45,21 @@ public interface Card {
 
     /**
      * Gets the type of the card.
-     * 
+     *
      * @return the type of the card
      */
     Type getType();
 
     /**
      * Gets the name of the card.
-     * 
+     *
      * @return the name of the card
      */
     String getName();
 
     /**
      * Gets the image path of the card.
-     * 
+     *
      * @return the image path of the card
      */
     String getImagePath();
