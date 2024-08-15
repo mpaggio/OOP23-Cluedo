@@ -1,5 +1,6 @@
 package it.unibo.cluedo.model.map.impl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.cluedo.model.map.api.Map;
@@ -114,18 +115,19 @@ public class MapImpl implements Map {
      * Initializes the rooms and adds the square to the map based on the predefined layout.
      */
     public MapImpl() {
+        final List<MapComponent> localTiles = new ArrayList<>();
         final RoomImpl[] rooms = new RoomImpl[RoomType.values().length];
         // Initialising rooms
         for (final RoomType type : RoomType.values()) {
             rooms[type.ordinal()] =  new RoomImpl(type.getName());
-            this.tiles.add(rooms[type.ordinal()]);
+            localTiles.add(rooms[type.ordinal()]);
         }
         // Adding squares and assigning to rooms if necessary
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 if (tileType == 1) {
-                    tiles.add(new SquareImpl(new Position(i, j), new NoEffectImpl()));
+                    localTiles.add(new SquareImpl(new Position(i, j), new NoEffectImpl()));
                 } else if (tileType == 3) {
                     rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(
                         new SquareImpl(new Position(i, j), new NoEffectImpl())
@@ -137,6 +139,7 @@ public class MapImpl implements Map {
                 }
             }
         } 
+        this.tiles = localTiles;
     }
 
     /**
@@ -158,5 +161,13 @@ public class MapImpl implements Map {
         } else {
             return null;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<MapComponent> getMap() {
+        return List.copyOf(this.tiles);
     }
 }
