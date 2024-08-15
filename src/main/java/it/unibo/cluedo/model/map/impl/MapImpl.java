@@ -92,13 +92,30 @@ public class MapImpl implements Map {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 if(tileType == 1) {
                     tiles.add(new SquareImpl(new Position(i, j), new NoEffectImpl()));
-                }
-                else {
+                } else if(tileType == 3) {
+                    rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(
+                        new SquareImpl(new Position(i, j), new NoEffectImpl())
+                    );
+                } else {
                     rooms[RoomType.fromCode(tileType).ordinal()].addSquare(
                         new SquareImpl(new Position(i, j), new NoEffectImpl())
                     ); 
                 }
             }
         } 
+    }
+
+    private RoomType findRoomForEntrance(final int i, final int j){
+        if(i > 0 && MAP_TILES_DISPOSITION[i - 1][j] != 1 &&  MAP_TILES_DISPOSITION[i - 1][j] != 3) {
+            return RoomType.fromCode(MAP_TILES_DISPOSITION[i - 1][j]);
+        } else if(i < MAP_HEIGHT - 1 && MAP_TILES_DISPOSITION[i + 1][j] != 1 &&  MAP_TILES_DISPOSITION[i + 1][j] != 3) {
+            return RoomType.fromCode(MAP_TILES_DISPOSITION[i + 1][j]);
+        } else if(j > 0 && MAP_TILES_DISPOSITION[i][j - 1] != 1 &&  MAP_TILES_DISPOSITION[i][j - 1] != 3) {
+            return RoomType.fromCode(MAP_TILES_DISPOSITION[i][j - 1]);
+        } else if(j < MAP_WIDTH - 1 && MAP_TILES_DISPOSITION[i][j + 1] != 1 &&  MAP_TILES_DISPOSITION[i][j + 1] != 3) {
+            return RoomType.fromCode(MAP_TILES_DISPOSITION[i][j + 1]);
+        } else {
+            return null;
+        }
     }
 }
