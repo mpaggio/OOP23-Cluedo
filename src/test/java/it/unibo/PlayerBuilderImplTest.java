@@ -8,12 +8,12 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.PlayerBuilderImpl;
 
 /**
- * Test class for a {@link PlayerBuilderImpl} class
+ * Test class for a {@link PlayerBuilderImpl} class.
  */
-public class PlayerBuilderImplTest {
+final class PlayerBuilderImplTest {
 
     /**
-     * Check if the player is created correctly
+     * Check if the player is created correctly.
      */
     @Test
     void testBuildPlayer() {
@@ -24,7 +24,7 @@ public class PlayerBuilderImplTest {
     }
 
     /**
-     * Check that building a player without not enough information throws an exception or fails
+     * Check that building a player without not enough information throws an exception or fails.
      */
     @Test
     void testBuildPlayerWithoutEnoughInformation() {
