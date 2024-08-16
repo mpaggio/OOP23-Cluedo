@@ -15,13 +15,13 @@ public class PlayerImpl implements Player {
 
     private final String username;
     private final String color;
-    private final Position currentPosition;
-    private final boolean playerTurn;
-    private final boolean hasWon;
-    private final boolean inRoom;
+    private Position currentPosition;
+    private boolean playerTurn;
+    private boolean hasWon;
+    private boolean inRoom;
     private final List<Card> playerCards;
-    private final boolean doubleRollDice;
-    private final boolean nextTurn;
+    private boolean doubleRollDice;
+    private boolean nextTurn;
 
     /**
      * Constructs a new player with the given username and color.
@@ -111,5 +111,53 @@ public class PlayerImpl implements Player {
     @Override
     public boolean canNextTurn() {
         return this.nextTurn;
+    }
+
+    /**
+     * Sets the current position of the player.
+     * @param position the new position of the player
+     */
+    protected void setCurrentPosition(final Position position) {
+        this.currentPosition = position;
+    }
+
+    /**
+     * Sets whether it is currently this player's turn.
+     * @param isTurn true if it is the player's turn, false otherwise
+     */
+    protected void setPlayerTurn(final boolean isTurn) {
+        this.playerTurn = isTurn;
+    }
+
+    /**
+     * Sets whether the player has won the game.
+     * @param hasWon true if the player has won, false otherwise
+     */
+    protected void setHasWon(final boolean hasWon) {
+        this.hasWon = hasWon;
+    }
+
+    /**
+     * Sets whether the player is currently in a room.
+     * @param inRoom true if the player is in a room, false otherwise
+     */
+    protected void setInRoom(final boolean inRoom) {
+        this.inRoom = inRoom;
+    }
+
+    /**
+     * Sets whether the player can double roll the dice.
+     * @param doubleRoll true if the player can double roll the dice, false otherwise
+     */
+    protected void setDoubleRollDice(final boolean doubleRoll) {
+        this.doubleRollDice = doubleRoll;
+    }
+
+    /**
+     * Sets whether the player can take the next turn.
+     * @param nextTurn true if the player can take the next turn, false otherwise
+     */
+    protected void setNextTurn(final boolean nextTurn) {
+        this.nextTurn = nextTurn;
     }
 }
