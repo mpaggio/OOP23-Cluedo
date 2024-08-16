@@ -1,4 +1,4 @@
-package it.unibo;
+package it.unibo.model.player;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
