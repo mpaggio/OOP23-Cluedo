@@ -12,8 +12,6 @@ import it.unibo.cluedo.model.statistics.impl.StatisticsImpl;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.LinkedHashMap;
 
 /**
  * This class contains the tests for the Statistics class.
@@ -28,7 +26,8 @@ final class StatisticsTest {
 
     private List<Player> players;
     private Statistics stats;
-    private Map<Player, Integer> leaderboard;
+    private List<Player> playersLeaderboard;
+    private List<Integer>  statsLeaderboard;
 
     /**
      * Set up the players and the statistics before each test.
@@ -40,7 +39,8 @@ final class StatisticsTest {
         players.add(new PlayerImpl("Player2", "Red"));
         players.add(new PlayerImpl("Player3", "Green"));
         stats = new StatisticsImpl(players);
-        leaderboard = new LinkedHashMap<>();
+        playersLeaderboard = new ArrayList<>();
+        statsLeaderboard = new ArrayList<>();
     }
 
     /**
@@ -53,14 +53,18 @@ final class StatisticsTest {
         stats.incrementSteps(players.get(0), STEPS_FOR_PLAYER1_2);
         stats.incrementSteps(players.get(1), STEPS_FOR_PLAYER2);
         stats.incrementSteps(players.get(2), STEPS_FOR_PLAYER3);
-        assertEquals(stats.getStepsMade().get(players.get(0)), STEPS_FOR_PLAYER1);
-        assertEquals(stats.getStepsMade().get(players.get(1)), STEPS_FOR_PLAYER2);
-        assertEquals(stats.getStepsMade().get(players.get(2)), STEPS_FOR_PLAYER3);
+        assertEquals(stats.getStepsMade().getSecond().get(0), STEPS_FOR_PLAYER1);
+        assertEquals(stats.getStepsMade().getSecond().get(1), STEPS_FOR_PLAYER3);
+        assertEquals(stats.getStepsMade().getSecond().get(2), STEPS_FOR_PLAYER2);
         //Expected leaderboard: Player1, Player3, Player2
-        leaderboard.put(players.get(0), STEPS_FOR_PLAYER1);
-        leaderboard.put(players.get(2), STEPS_FOR_PLAYER3);
-        leaderboard.put(players.get(1), STEPS_FOR_PLAYER2);
-        assertEquals(leaderboard, stats.getStepsMade());
+        playersLeaderboard.add(players.get(0));
+        playersLeaderboard.add(players.get(2));
+        playersLeaderboard.add(players.get(1));
+        assertEquals(playersLeaderboard, stats.getStepsMade().getFirst());
+        statsLeaderboard.add(STEPS_FOR_PLAYER1);
+        statsLeaderboard.add(STEPS_FOR_PLAYER3);
+        statsLeaderboard.add(STEPS_FOR_PLAYER2);
+        assertEquals(statsLeaderboard, stats.getStepsMade().getSecond());
     }
 
     /**
@@ -72,13 +76,21 @@ final class StatisticsTest {
         stats.incrementRoomsVisited(players.get(0));
         stats.incrementRoomsVisited(players.get(0));
         stats.incrementRoomsVisited(players.get(1));
-        assertEquals(stats.getRoomsVisited().get(players.get(0)), 2);
-        assertEquals(stats.getRoomsVisited().get(players.get(1)), 1);
-        assertEquals(stats.getRoomsVisited().get(players.get(2)), 0);
+        assertEquals(stats.getRoomsVisited().getSecond().get(0), 2);
+        assertEquals(stats.getRoomsVisited().getSecond().get(1), 1);
+        assertEquals(stats.getRoomsVisited().getSecond().get(2), 0);
         //Expected leaderboard: Player1, Player2, Player3
-        leaderboard.put(players.get(0), 2);
-        leaderboard.put(players.get(1), 1);
-        leaderboard.put(players.get(2), 0);
-        assertEquals(stats.getRoomsVisited(), leaderboard);
+        playersLeaderboard.add(players.get(0));
+        playersLeaderboard.add(players.get(1));
+        playersLeaderboard.add(players.get(2));
+        assertEquals(playersLeaderboard, stats.getRoomsVisited().getFirst());
+        statsLeaderboard.add(2);
+        statsLeaderboard.add(1);
+        statsLeaderboard.add(0);
+        assertEquals(statsLeaderboard, stats.getRoomsVisited().getSecond());
+    }
+
+    @Test
+    void testAccusationsMade() {
     }
 }

@@ -1,8 +1,9 @@
 package it.unibo.cluedo.model.statistics.api;
 
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.utilities.Pair;
 
-import java.util.Map;
+import java.util.List;
 
 /**
  * This interface represents the statistics of the game.
@@ -32,24 +33,24 @@ public interface Statistics {
     void incrementAccusationsMade(Player player);
     /**
      * Get the number of steps made by each player in a descending order.
-     * @return a map containing each player and the steps made.
+     * @return a pair containing a list of each player and the steps made.
      */
-    Map<Player, Integer> getStepsMade();
+    Pair<List<Player>, List<Integer>> getStepsMade();
     /**
      * Get the number of rooms visited by each player in a 
      * descending order.
-     * @return a map containing each player and the rooms visited.
+     * @return a pair containing a list of each player and the rooms visited.
      */
-    Map<Player, Integer> getRoomsVisited();
+    Pair<List<Player>, List<Integer>> getRoomsVisited();
     /**
      * Get the number of cards viewed by each player in a
      * descending order.
-     * @return a map containing each player and the cards viewed.
+     * @return a pair containing a list of each player and the cards viewed.
      */
-    Map<Player, Integer> getViewedCards();
+    Pair<List<Player>, List<Integer>> getViewedCards();
     /**
      * Get the number of accusations made by each player in a descending order.
-     * @return a map containing each player and the accusations made.
+     * @return a pair containing a list of each player and the accusations made.
      */
-    Map<Player, Integer> getAccusationsMade();
+    Pair<List<Player>, List<Integer>> getAccusationsMade();
 }
