@@ -4,18 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
 import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.statistics.impl.StatisticsImpl;
-import it.unibo.cluedo.utilities.Pair;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Map;
-import java.util.LinkedHashMap;
 
 /**
  * This class contains the tests for the Statistics class.
@@ -45,7 +41,6 @@ final class StatisticsTest {
         stats = new StatisticsImpl(players);
         playersLeaderboard = new ArrayList<>();
         statsLeaderboard = new ArrayList<>();
-        
     }
 
     /**
@@ -78,11 +73,24 @@ final class StatisticsTest {
      */
     @Test
     void testRoomVisited() {
-        
+        stats.incrementRoomsVisited(players.get(0));
+        stats.incrementRoomsVisited(players.get(0));
+        stats.incrementRoomsVisited(players.get(1));
+        assertEquals(stats.getRoomsVisited().getSecond().get(0), 2);
+        assertEquals(stats.getRoomsVisited().getSecond().get(1), 1);
+        assertEquals(stats.getRoomsVisited().getSecond().get(2), 0);
+        //Expected leaderboard: Player1, Player2, Player3
+        playersLeaderboard.add(players.get(0));
+        playersLeaderboard.add(players.get(1));
+        playersLeaderboard.add(players.get(2));
+        assertEquals(playersLeaderboard, stats.getRoomsVisited().getFirst());
+        statsLeaderboard.add(2);
+        statsLeaderboard.add(1);
+        statsLeaderboard.add(0);
+        assertEquals(statsLeaderboard, stats.getRoomsVisited().getSecond());
     }
 
     @Test
     void testAccusationsMade() {
-        
     }
 }
