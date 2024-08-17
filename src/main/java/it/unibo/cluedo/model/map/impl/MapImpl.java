@@ -2,12 +2,17 @@ package it.unibo.cluedo.model.map.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import it.unibo.cluedo.model.map.api.Map;
 import it.unibo.cluedo.model.room.api.MapComponent;
+import it.unibo.cluedo.model.room.api.MapComponentVisitor;
+import it.unibo.cluedo.model.room.impl.MapComponentVisitorImpl;
 import it.unibo.cluedo.model.room.impl.RoomImpl;
 import it.unibo.cluedo.model.square.impl.NoEffectImpl;
 import it.unibo.cluedo.model.square.impl.SquareImpl;
+import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
+import it.unibo.cluedo.model.trapdoor.impl.TrapDoorImpl;
 import it.unibo.cluedo.utilities.Position;
 
 /**
@@ -18,6 +23,7 @@ import it.unibo.cluedo.utilities.Position;
 public class MapImpl implements Map {
     private static final int MAP_HEIGHT = 25;
     private static final int MAP_WIDTH = 24;
+    // square(1), entrance(3), trapdoor(4)
     private static final int[][] MAP_TILES_DISPOSITION = {
             {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
             {2, 2, 2, 2, 2, 4, 0, 1, 1, 1, 5, 5, 5, 5, 1, 1, 1, 0, 6, 6, 6, 6, 6, 6},
@@ -46,6 +52,7 @@ public class MapImpl implements Map {
             {11, 11, 11, 11, 11, 11, 0, 1, 0, 10, 10, 10, 10, 10, 10, 0, 1, 0, 9, 9, 9, 9, 9, 9}
         };
     private List<MapComponent> tiles;
+    private MapComponentVisitor visitor;
 
     /**
      * Enum representing the different types of room in the Cluedo game.
@@ -115,11 +122,13 @@ public class MapImpl implements Map {
      * Initializes the rooms and adds the square to the map based on the predefined layout.
      */
     public MapImpl() {
+        this.visitor = new MapComponentVisitorImpl();
         final List<MapComponent> localTiles = new ArrayList<>();
         final RoomImpl[] rooms = new RoomImpl[RoomType.values().length];
         // Initialising rooms
         for (final RoomType type : RoomType.values()) {
             rooms[type.ordinal()] =  new RoomImpl(type.getName());
+            rooms[type.ordinal()].accept(visitor);
             localTiles.add(rooms[type.ordinal()]);
         }
         // Adding squares and assigning to rooms if necessary
@@ -127,11 +136,19 @@ public class MapImpl implements Map {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 if (tileType == 1) {
-                    localTiles.add(new SquareImpl(new Position(i, j), new NoEffectImpl()));
+                    final MapComponent squareToAdd = new SquareImpl(new Position(i, j), new NoEffectImpl()); 
+                    squareToAdd.accept(visitor);
+                    localTiles.add(squareToAdd);
                 } else if (tileType == 3) {
                     rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(
                         new SquareImpl(new Position(i, j), new NoEffectImpl())
                     );
+                } else if (tileType == 4) {
+                    final TrapDoor trapDoor = new TrapDoorImpl(
+                        rooms[findConnectedRoomFromPosition(i,j).ordinal()],
+                        new Position(i, j)
+                    );
+                    rooms[findRoomForEntrance(i, j).ordinal()].setTrapDoor(Optional.of(trapDoor));
                 } else {
                     rooms[RoomType.fromCode(tileType).ordinal()].addSquare(
                         new SquareImpl(new Position(i, j), new NoEffectImpl())
@@ -158,6 +175,27 @@ public class MapImpl implements Map {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i][j - 1]);
         } else if (j < MAP_WIDTH - 1 && MAP_TILES_DISPOSITION[i][j + 1] != 1 &&  MAP_TILES_DISPOSITION[i][j + 1] != 3) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i][j + 1]);
+        } else {
+            return null;
+        }
+    }
+
+    /**
+     * Finds the room type connected to the trapdoor in the given position.
+     * 
+     * @param i the row index of the entrance
+     * @param j the column index of the entrance
+     * @return the room type connected to the trapdoor
+     */
+    private RoomType findConnectedRoomFromPosition(final int i, final int j) {
+        if (i < MAP_HEIGHT / 2 && j < MAP_WIDTH / 2) {
+            return RoomType.STUDY;
+        } else if (i < MAP_HEIGHT / 2 && j > MAP_WIDTH / 2) {
+            return RoomType.LOUNGE;
+        } else if (i > MAP_HEIGHT / 2 && j < MAP_WIDTH / 2) {
+            return RoomType.CONSERVATORY;
+        } else if (i > MAP_HEIGHT / 2 && j > MAP_WIDTH / 2) {
+            return RoomType.KITCHEN;
         } else {
             return null;
         }
