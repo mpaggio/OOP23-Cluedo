@@ -2,12 +2,13 @@ package it.unibo.cluedo.model.room.impl;
 
 import java.util.List;
 import java.util.LinkedList;
+import java.util.Optional;
 
 import it.unibo.cluedo.model.room.api.MapComponent;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
-// import it.unibo.cluedo.utilities.Position;
+import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 
 /**
  * Implementation of the room of the Cluedo game.
@@ -16,9 +17,7 @@ public class RoomImpl implements Room, MapComponent {
     private final String name;
     private final List<Square> squares;
     private final List<Square> entrances;
-    // private final Position startPosition;
-    // private final Position finalPosition;
-    // private TrapDoor trapDoor;
+    private Optional<TrapDoor> trapDoor;
 
     /**
      * Constructor for the room.
@@ -29,8 +28,6 @@ public class RoomImpl implements Room, MapComponent {
         this.name = name;
         this.squares = new LinkedList<>();
         this.entrances = new LinkedList<>();
-        // this.startPosition = startPosition;
-        // this.finalPosition = finalPosition;
     }
 
     /**
@@ -61,9 +58,8 @@ public class RoomImpl implements Room, MapComponent {
      * {@inheritDoc}
      */
     @Override
-    public void setTrapDoor() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'setTrapDoor'");
+    public void setTrapDoor(final Optional<TrapDoor> trapDoor) {
+        this.trapDoor = trapDoor;
     }
 
     /**
@@ -80,5 +76,13 @@ public class RoomImpl implements Room, MapComponent {
     @Override
     public void accept(final MapComponentVisitor visitor) {
         visitor.visitRoom(this);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasTrapDoor() {
+        return this.trapDoor.isPresent();
     }
 }

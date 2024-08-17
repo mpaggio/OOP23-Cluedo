@@ -1,6 +1,9 @@
 package it.unibo.cluedo.model.room.api;
 
+import java.util.Optional;
+
 import it.unibo.cluedo.model.square.api.Square;
+import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 
 /**
  * Represents a room in the Cluedo game.
@@ -33,5 +36,12 @@ public interface Room {
     /**
      * Sets a trap door in the room.
      */
-    void setTrapDoor();
+    void setTrapDoor(Optional<TrapDoor> trapDoor);
+
+    /**
+     * Checks if there is a trapdoor in the room.
+     * 
+     * @return true if there is a trapdoor, false otherwise
+     */
+    boolean hasTrapDoor();
 }
