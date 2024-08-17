@@ -5,10 +5,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.LinkedHashMap;
 
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.statistics.api.Statistics;
+import it.unibo.cluedo.utilities.Pair;
 
 /**
  * This class implements the Statistics interface.
@@ -34,7 +34,7 @@ public class StatisticsImpl implements Statistics {
             cards.put(player, Integer.valueOf(0));
         });
     }
-    private Map<Player, Integer> mapSort(final Map<Player, Integer> map) {
+    private Pair<List<Player>, List<Integer>> statSort(final Map<Player, Integer> map) {
         final List<Map.Entry<Player, Integer>> list = new LinkedList<>(map.entrySet());
         list.sort(new Comparator<Map.Entry<Player, Integer>>() {
             @Override
@@ -42,42 +42,44 @@ public class StatisticsImpl implements Statistics {
                 return o2.getValue().compareTo(o1.getValue());
             }
         });
-        final Map<Player, Integer> sortedMap = new LinkedHashMap<>();
+        final Pair<List<Player>, List<Integer>> sorted = 
+            new Pair<List<Player>, List<Integer>>(new LinkedList<Player>(), new LinkedList<Integer>());
         for (final Map.Entry<Player, Integer> entry : list) {
-            sortedMap.put(entry.getKey(), entry.getValue());
+            sorted.getFirst().add(entry.getKey());
+            sorted.getSecond().add(entry.getValue());
         }
-        return sortedMap;
+        return sorted;
     }
     /**
      * {@inheritDoc}
      */
     @Override
-    public Map<Player, Integer> getAccusationsMade() {
-        return mapSort(accusations);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Map<Player, Integer> getRoomsVisited() {
-        return mapSort(rooms);
+    public Pair<List<Player>, List<Integer>> getAccusationsMade() {
+        return statSort(accusations);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Map<Player, Integer> getStepsMade() {
-        return mapSort(steps);
+    public Pair<List<Player>, List<Integer>> getRoomsVisited() {
+        return statSort(rooms);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public Map<Player, Integer> getViewedCards() {
-        return mapSort(cards);
+    public Pair<List<Player>, List<Integer>> getStepsMade() {
+        return statSort(steps);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Pair<List<Player>, List<Integer>> getViewedCards() {
+        return statSort(cards);
     }
 
     /**
