@@ -1,5 +1,7 @@
 package it.unibo.cluedo.model.room.api;
 
+import java.util.List;
+
 import it.unibo.cluedo.model.square.api.Square;
 
 /**
@@ -19,4 +21,32 @@ public interface MapComponentVisitor {
      * @param room the room to visit
      */
     void visitRoom(Room room);
+
+    /**
+     * Gets last visited room.
+     * 
+     * @return last visited room
+     */
+    Room getLastVisitedRoom();
+
+    /**
+     * Gets last visited square.
+     * 
+     * @return last visited square
+     */
+    Square getLastVisitedSquare();
+
+    /**
+     * Gets the list of visited rooms.
+     * 
+     * @return the list of visited rooms
+     */
+    List<Room> getVisitedRoom();
+
+    /**
+     * Gets the list of visited squares.
+     * 
+     * @return the list of visited squares
+     */
+    List<Square> getVisitedSquare();
 }
