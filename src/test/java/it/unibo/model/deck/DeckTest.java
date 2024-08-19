@@ -1,4 +1,4 @@
-package it.unibo;
+package it.unibo.model.deck;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;

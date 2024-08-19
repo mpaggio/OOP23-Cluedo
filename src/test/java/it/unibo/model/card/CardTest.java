@@ -1,4 +1,4 @@
-package it.unibo;
+package it.unibo.model.card;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
