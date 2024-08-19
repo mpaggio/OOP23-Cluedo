@@ -20,7 +20,6 @@ public interface Accusation {
      * @return an Option containing one of the chosen cards if the player posseses it.
      */
     Optional<Card> accuse(Card weapon, Card room, Card character, Player player);
-    
     /**
      * Make the final accusation.
      * @param weapon  the weapon card

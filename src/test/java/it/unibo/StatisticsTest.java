@@ -23,7 +23,6 @@ final class StatisticsTest {
     private static final int STEPS_FOR_PLAYER1 = 7;
     private static final int STEPS_FOR_PLAYER2 = 2;
     private static final int STEPS_FOR_PLAYER3 = 3;
-    
 
     private List<Player> players;
     private Statistics stats;
@@ -103,9 +102,9 @@ final class StatisticsTest {
         stats.incrementAccusationsMade(players.get(1));
         stats.incrementAccusationsMade(players.get(2));
         stats.incrementAccusationsMade(players.get(2));
-        assertEquals(stats.getAccusationsMade().get(0), 3);
-        assertEquals(stats.getAccusationsMade().get(1), 2);
-        assertEquals(stats.getAccusationsMade().get(2), 1);
+        assertEquals(stats.getAccusationsMade().getSecond().get(0), 3);
+        assertEquals(stats.getAccusationsMade().getSecond().get(1), 2);
+        assertEquals(stats.getAccusationsMade().getSecond().get(2), 1);
         //Expected leaderboard: Player2, Player3, Player1
         playersLeaderboard.add(players.get(1));
         playersLeaderboard.add(players.get(2));

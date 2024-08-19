@@ -1,6 +1,5 @@
 package it.unibo.cluedo.model.accusation.impl;
 
-import java.lang.StackWalker.Option;
 import java.util.Optional;
 import java.util.stream.Stream;
 
