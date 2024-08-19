@@ -36,7 +36,7 @@ public class StatisticsImpl implements Statistics {
     }
 
     private Pair<List<Player>, List<Integer>> statSort(final Map<Player, Integer> map) {
-        final List<Map.Entry<Player, Integer>> list = new ArrayList()<>(map.entrySet());
+        final List<Map.Entry<Player, Integer>> list = new ArrayList<>(map.entrySet());
         list.sort(new Comparator<Map.Entry<Player, Integer>>() {
             @Override
             public int compare(final Map.Entry<Player, Integer> o1, final Map.Entry<Player, Integer> o2) {
