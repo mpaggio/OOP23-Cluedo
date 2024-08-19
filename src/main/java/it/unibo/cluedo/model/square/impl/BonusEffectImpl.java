@@ -16,8 +16,12 @@ public class BonusEffectImpl implements Effect {
      */
     @Override
     public void apply(final Player player) {
-        final MutablePlayer currentPlayer = (MutablePlayer) player;
-        currentPlayer.setDoubleRollDice(true);
+        if (player instanceof MutablePlayer) {
+            final MutablePlayer currentPlayer = (MutablePlayer) player;
+            currentPlayer.setDoubleRollDice(true);
+        } else {
+            throw new IllegalArgumentException("Player is not an instance of MutablePlayer");
+        }
     }
 
     /**
