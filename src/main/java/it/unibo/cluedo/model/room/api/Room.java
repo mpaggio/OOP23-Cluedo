@@ -10,7 +10,7 @@ import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
  * A room contains squares and has at least one entrance.
  * A room can contain a trap door.
  */
-public interface Room {
+public interface Room extends MapComponent {
     /**
      * Adds a square to the room.
      * 

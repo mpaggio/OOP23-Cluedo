@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Optional;
 
-import it.unibo.cluedo.model.room.api.MapComponent;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
@@ -13,7 +12,7 @@ import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 /**
  * Implementation of the room of the Cluedo game.
  */
-public class RoomImpl implements Room, MapComponent {
+public class RoomImpl implements Room {
     private final String name;
     private final List<Square> squares;
     private final List<Square> entrances;

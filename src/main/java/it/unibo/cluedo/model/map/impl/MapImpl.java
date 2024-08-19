@@ -9,8 +9,7 @@ import it.unibo.cluedo.model.room.api.MapComponent;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.impl.MapComponentVisitorImpl;
 import it.unibo.cluedo.model.room.impl.RoomImpl;
-import it.unibo.cluedo.model.square.impl.NoEffectImpl;
-import it.unibo.cluedo.model.square.impl.SquareImpl;
+import it.unibo.cluedo.model.square.impl.SquareFactory;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 import it.unibo.cluedo.model.trapdoor.impl.TrapDoorImpl;
 import it.unibo.cluedo.utilities.Position;
@@ -136,12 +135,12 @@ public class MapImpl implements Map {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 if (tileType == 1) {
-                    final MapComponent squareToAdd = new SquareImpl(new Position(i, j), new NoEffectImpl()); 
+                    final MapComponent squareToAdd = SquareFactory.createNormalSquare(new Position(i, j)); 
                     squareToAdd.accept(visitor);
                     localTiles.add(squareToAdd);
                 } else if (tileType == 3) {
                     rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(
-                        new SquareImpl(new Position(i, j), new NoEffectImpl())
+                        SquareFactory.createNormalSquare(new Position(i, j))
                     );
                 } else if (tileType == 4) {
                     final TrapDoor trapDoor = new TrapDoorImpl(
@@ -151,7 +150,7 @@ public class MapImpl implements Map {
                     rooms[findRoomForEntrance(i, j).ordinal()].setTrapDoor(Optional.of(trapDoor));
                 } else {
                     rooms[RoomType.fromCode(tileType).ordinal()].addSquare(
-                        new SquareImpl(new Position(i, j), new NoEffectImpl())
+                        SquareFactory.createNormalSquare(new Position(i, j))
                     ); 
                 }
             }

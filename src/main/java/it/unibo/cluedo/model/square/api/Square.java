@@ -1,13 +1,14 @@
 package it.unibo.cluedo.model.square.api;
 
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.room.api.MapComponent;
 import it.unibo.cluedo.utilities.Position;
 
 /**
  * Represents a single square of the game table.
  * Each square can have an effect that is applied when a player lands on it.
  */
-public interface Square {
+public interface Square extends MapComponent{
     /**
      * Returns the position (coordinates x and y) of the square.
      * 
