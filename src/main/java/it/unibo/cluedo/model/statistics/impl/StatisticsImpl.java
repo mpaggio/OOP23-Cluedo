@@ -1,5 +1,6 @@
 package it.unibo.cluedo.model.statistics.impl;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -13,7 +14,6 @@ import it.unibo.cluedo.utilities.Pair;
 /**
  * This class implements the Statistics interface.
  */
-
 public class StatisticsImpl implements Statistics {
 
     private final Map<Player, Integer> steps = new HashMap<>();
@@ -34,8 +34,9 @@ public class StatisticsImpl implements Statistics {
             cards.put(player, Integer.valueOf(0));
         });
     }
+
     private Pair<List<Player>, List<Integer>> statSort(final Map<Player, Integer> map) {
-        final List<Map.Entry<Player, Integer>> list = new LinkedList<>(map.entrySet());
+        final List<Map.Entry<Player, Integer>> list = new ArrayList<>(map.entrySet());
         list.sort(new Comparator<Map.Entry<Player, Integer>>() {
             @Override
             public int compare(final Map.Entry<Player, Integer> o1, final Map.Entry<Player, Integer> o2) {
@@ -50,6 +51,7 @@ public class StatisticsImpl implements Statistics {
         }
         return sorted;
     }
+
     /**
      * {@inheritDoc}
      */
