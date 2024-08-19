@@ -1,5 +1,6 @@
 package it.unibo.cluedo.model.square.impl;
 
+import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Effect;
 
@@ -15,7 +16,8 @@ public class BonusEffectImpl implements Effect {
      */
     @Override
     public void apply(final Player player) {
-        // player.unableDoubleDiceRoll();
+        final MutablePlayer currentPlayer = (MutablePlayer) player;
+        currentPlayer.setDoubleRollDice(true);
     }
 
     /**
