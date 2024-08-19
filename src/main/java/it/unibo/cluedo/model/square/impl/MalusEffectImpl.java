@@ -16,8 +16,12 @@ public class MalusEffectImpl implements Effect {
      */
     @Override
     public void apply(final Player player) {
-        final MutablePlayer currentPlayer = (MutablePlayer) player;
-        currentPlayer.setNextTurn(false);
+        if (player instanceof MutablePlayer) {
+            final MutablePlayer currentPlayer = (MutablePlayer) player;
+            currentPlayer.setNextTurn(false);
+        } else {
+            throw new IllegalArgumentException("Player is not an instance of MutablePlayer");
+        }
     }
 
     /**
