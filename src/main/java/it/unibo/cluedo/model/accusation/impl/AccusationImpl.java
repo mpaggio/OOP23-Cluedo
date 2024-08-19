@@ -2,10 +2,10 @@ package it.unibo.cluedo.model.accusation.impl;
 
 import java.util.Optional;
 import java.util.stream.Stream;
+import java.util.Set;
 
 import it.unibo.cluedo.model.accusation.api.Accusation;
 import it.unibo.cluedo.model.card.api.Card;
-import it.unibo.cluedo.model.player.api.Player;
 
 /**
  * Represents the implementation of the accusation in the Cluedo game.
@@ -17,9 +17,9 @@ public class AccusationImpl implements Accusation {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Card> accuse(final Card weapon, final Card room, final Card character, final Player player) {
+    public Optional<Card> accuse(final Card weapon, final Card room, final Card character, final Set<Card> playerCards) {
         return Stream.of(weapon, room, character)
-                    .filter(player.getPlayerCards()::contains)
+                    .filter(playerCards::contains)
                     .findAny();
     }
 
@@ -27,8 +27,7 @@ public class AccusationImpl implements Accusation {
      * {@inheritDoc}
      */
     @Override
-    public boolean finalAccuse(final Card weapon, final Card room, final Card character) {
-        // TODO Auto-generated method stub
-        return false;
+    public boolean finalAccuse(final Card weapon, final Card room, final Card character, final Set<Card> solution) {
+        return solution.containsAll(Set.of(weapon, room, character));
     }
 }
