@@ -23,6 +23,7 @@ final class StatisticsTest {
     private static final int STEPS_FOR_PLAYER1 = 7;
     private static final int STEPS_FOR_PLAYER2 = 2;
     private static final int STEPS_FOR_PLAYER3 = 3;
+    
 
     private List<Player> players;
     private Statistics stats;
@@ -44,7 +45,7 @@ final class StatisticsTest {
     }
 
     /**
-     * Test that the steps are correctly incremented by the method incrementSteps and
+     * Tests that the steps are correctly incremented by the method incrementSteps and
      * weather the leaderboard is correct.
      */
     @Test
@@ -68,7 +69,7 @@ final class StatisticsTest {
     }
 
     /**
-     * Test that the steps are correctly incremented by the method incrementRoomsVisited and
+     * Tests that the steps are correctly incremented by the method incrementRoomsVisited and
      * weather the leaderboard is correct.
      */
     @Test
@@ -90,7 +91,55 @@ final class StatisticsTest {
         assertEquals(statsLeaderboard, stats.getRoomsVisited().getSecond());
     }
 
+    /**
+     * Tests that the accusations made are correctly incremented by the method 
+     * incrementRoomsVisited and weather the leaderboard is correct.
+     */
     @Test
     void testAccusationsMade() {
+        stats.incrementAccusationsMade(players.get(0));
+        stats.incrementAccusationsMade(players.get(1));
+        stats.incrementAccusationsMade(players.get(1));
+        stats.incrementAccusationsMade(players.get(1));
+        stats.incrementAccusationsMade(players.get(2));
+        stats.incrementAccusationsMade(players.get(2));
+        assertEquals(stats.getAccusationsMade().get(0), 3);
+        assertEquals(stats.getAccusationsMade().get(1), 2);
+        assertEquals(stats.getAccusationsMade().get(2), 1);
+        //Expected leaderboard: Player2, Player3, Player1
+        playersLeaderboard.add(players.get(1));
+        playersLeaderboard.add(players.get(2));
+        playersLeaderboard.add(players.get(0));
+        assertEquals(playersLeaderboard, stats.getAccusationsMade().getFirst());
+        statsLeaderboard.add(3);
+        statsLeaderboard.add(2);
+        statsLeaderboard.add(1);
+        assertEquals(statsLeaderboard, stats.getAccusationsMade().getSecond());
+    }
+
+    /**
+     * Tests that the viewed cards are correctly incremented by the method 
+     * incrementRoomsVisited and weather the leaderboard is correct.
+     */
+    @Test
+    void testViewedCards() {
+        stats.incrementViewedCards(players.get(0));
+        stats.incrementViewedCards(players.get(1));
+        stats.incrementViewedCards(players.get(1));
+        stats.incrementViewedCards(players.get(1));
+        stats.incrementViewedCards(players.get(2));
+        stats.incrementViewedCards(players.get(2));
+        assertEquals(stats.getViewedCards().getSecond().get(0), 3);
+        assertEquals(stats.getViewedCards().getSecond().get(1), 2);
+        assertEquals(stats.getViewedCards().getSecond().get(2), 1);
+        //Expected leaderboard: Player2, Player3, Player1
+        playersLeaderboard.add(players.get(1));
+        playersLeaderboard.add(players.get(2));
+        playersLeaderboard.add(players.get(0));
+        assertEquals(playersLeaderboard, stats.getViewedCards().getFirst());
+        statsLeaderboard.add(3);
+        statsLeaderboard.add(2);
+        statsLeaderboard.add(1);
+        assertEquals(statsLeaderboard, stats.getViewedCards().getSecond());
     }
 }
