@@ -122,7 +122,7 @@ public class MapImpl implements Map {
      * Initializes the rooms and adds the square to the map based on the predefined layout.
      */
     public MapImpl() {
-        this.visitor = new MapComponentVisitorImpl();
+        final MapComponentVisitor visitor = new MapComponentVisitorImpl();
         final List<MapComponent> localTiles = new ArrayList<>();
         final RoomImpl[] rooms = new RoomImpl[RoomType.values().length];
         // Initialising rooms
@@ -145,7 +145,7 @@ public class MapImpl implements Map {
                     );
                 } else if (tileType == 4) {
                     final TrapDoor trapDoor = new TrapDoorImpl(
-                        rooms[findConnectedRoomFromPosition(i,j).ordinal()],
+                        rooms[findConnectedRoomFromPosition(i, j).ordinal()],
                         new Position(i, j)
                     );
                     rooms[findRoomForEntrance(i, j).ordinal()].setTrapDoor(Optional.of(trapDoor));
@@ -157,6 +157,7 @@ public class MapImpl implements Map {
             }
         } 
         this.tiles = localTiles;
+        this.visitor = visitor;
     }
 
     /**
@@ -207,5 +208,13 @@ public class MapImpl implements Map {
     @Override
     public List<MapComponent> getMap() {
         return List.copyOf(this.tiles);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public MapComponentVisitor getVisitor() {
+        return this.visitor;
     }
 }

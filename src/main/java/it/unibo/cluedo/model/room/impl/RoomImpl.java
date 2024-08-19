@@ -28,6 +28,7 @@ public class RoomImpl implements Room, MapComponent {
         this.name = name;
         this.squares = new LinkedList<>();
         this.entrances = new LinkedList<>();
+        this.trapDoor = Optional.empty();
     }
 
     /**
@@ -84,5 +85,13 @@ public class RoomImpl implements Room, MapComponent {
     @Override
     public boolean hasTrapDoor() {
         return this.trapDoor.isPresent();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String getName() {
+        return this.name;
     }
 }
