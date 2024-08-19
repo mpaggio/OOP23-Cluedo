@@ -35,6 +35,8 @@ public interface Room {
 
     /**
      * Sets a trap door in the room.
+     * 
+     * @param trapDoor the trap door to set
      */
     void setTrapDoor(Optional<TrapDoor> trapDoor);
 
@@ -44,4 +46,11 @@ public interface Room {
      * @return true if there is a trapdoor, false otherwise
      */
     boolean hasTrapDoor();
+
+    /**
+     * Gets the name of the room.
+     * 
+     * @return the name of the room
+     */
+    String getName();
 }
