@@ -1,6 +1,7 @@
 package it.unibo.model.accusation;
 
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +27,7 @@ final class AccusationTest {
 
     @Test
     void testFinalAccusation() {
-        final String charactePath = Paths.get(
+        final String characterPath = Paths.get(
             SRC,
             MAIN,
             RESOURCES, 
@@ -44,9 +45,6 @@ final class AccusationTest {
             RESOURCES, 
             ROOM + ".PNG"
         ).toString();
-        final Set<Card> solution = Set.of(CardFactory.createCharacterCard(CHARACTER, charactePath),
-                            CardFactory.createWeaponCard(WEAPON, weaponPath),
-                            CardFactory.createRoomCard(ROOM, roomPath));
         final String characterAccused = "Professor Plum";
         final String characterAccPath = Paths.get(
             SRC,
@@ -54,9 +52,12 @@ final class AccusationTest {
             RESOURCES, 
             characterAccused.replace(" ", "") + PNG
         ).toString();
-        assertFalse(accusation.finalAccuse(CardFactory.createCharacterCard(characterAccused, characterAccPath),
-                                        CardFactory.createWeaponCard(WEAPON, weaponPath),
-                                        CardFactory.createRoomCard(ROOM, roomPath),
-                                        solution));
+        final Card characterCard = CardFactory.createCharacterCard(CHARACTER, characterPath);
+        final Card weaponCard = CardFactory.createWeaponCard(WEAPON, weaponPath);
+        final Card roomCard = CardFactory.createRoomCard(ROOM, roomPath);
+        final Card characterAccusedCard = CardFactory.createCharacterCard(characterAccused, characterAccPath);
+        final Set<Card> solution = Set.of(characterCard, weaponCard, roomCard);
+        assertFalse(accusation.finalAccuse(characterAccusedCard, weaponCard, roomCard, solution));
+        assertTrue(accusation.finalAccuse(characterCard, weaponCard, roomCard, solution));
     }
 }
