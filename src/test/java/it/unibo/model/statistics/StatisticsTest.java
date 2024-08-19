@@ -1,4 +1,4 @@
-package it.unibo;
+package it.unibo.model.statistics;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
