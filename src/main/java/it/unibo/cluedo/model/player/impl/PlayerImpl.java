@@ -38,7 +38,7 @@ public class PlayerImpl implements Player {
         this.hasWon = false;
         this.playerCards = new ArrayList<>();
         this.doubleRollDice = false;
-        this.nextTurn = false;
+        this.nextTurn = true;
     }
 
     /**
