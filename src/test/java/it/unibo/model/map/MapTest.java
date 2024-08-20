@@ -44,14 +44,14 @@ final class MapTest {
 
     @Test
     void testMapRooms() {
-        for (String roomName : ROOM_NAMES) {
+        for (final String roomName : ROOM_NAMES) {
             assertTrue(
                 map.getVisitor().getVisitedRoom().stream()
                     .anyMatch(room -> room.getName().equals(roomName)),
                     roomName + " should be present"
             );
         }
-        for (Room room : map.getVisitor().getVisitedRoom()) {
+        for (final Room room : map.getVisitor().getVisitedRoom()) {
             assertFalse(room.getEntrances().isEmpty());
             assertFalse(room.getSquares().isEmpty());
         }
@@ -61,7 +61,7 @@ final class MapTest {
                 .count(),
             NUM_ROOMS_WITH_TRAPDOOR
         );
-        for (String roomName : ROOMS_WITH_TRAPDOOR) {
+        for (final String roomName : ROOMS_WITH_TRAPDOOR) {
             assertTrue(
                 map.getVisitor().getVisitedRoom().stream()
                     .anyMatch(room -> room.getName().equals(roomName) && room.hasTrapDoor()),

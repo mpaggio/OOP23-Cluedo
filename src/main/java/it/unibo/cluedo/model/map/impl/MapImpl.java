@@ -214,25 +214,25 @@ public class MapImpl implements Map {
      * @return the room type corresponding to the entrance position
      */
     private RoomType findRoomForEntrance(final int i, final int j) {
-        if (i > 0 &&
-            MAP_TILES_DISPOSITION[i - 1][j] != 1 &&
-            MAP_TILES_DISPOSITION[i - 1][j] != 3 &&
-            MAP_TILES_DISPOSITION[i - 1][j] != 0) {
+        if (i > 0
+            && MAP_TILES_DISPOSITION[i - 1][j] != 1
+            && MAP_TILES_DISPOSITION[i - 1][j] != 3
+            && MAP_TILES_DISPOSITION[i - 1][j] != 0) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i - 1][j]);
-        } else if (i < MAP_HEIGHT - 1 &&
-            MAP_TILES_DISPOSITION[i + 1][j] != 1 &&
-            MAP_TILES_DISPOSITION[i + 1][j] != 3 &&
-            MAP_TILES_DISPOSITION[i + 1][j] != 0) {
+        } else if (i < MAP_HEIGHT - 1
+            && MAP_TILES_DISPOSITION[i + 1][j] != 1
+            && MAP_TILES_DISPOSITION[i + 1][j] != 3
+            && MAP_TILES_DISPOSITION[i + 1][j] != 0) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i + 1][j]);
-        } else if (j > 0 &&
-            MAP_TILES_DISPOSITION[i][j - 1] != 1 &&
-            MAP_TILES_DISPOSITION[i][j - 1] != 3 &&
-            MAP_TILES_DISPOSITION[i][j - 1] != 0) {
+        } else if (j > 0
+            && MAP_TILES_DISPOSITION[i][j - 1] != 1
+            && MAP_TILES_DISPOSITION[i][j - 1] != 3
+            && MAP_TILES_DISPOSITION[i][j - 1] != 0) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i][j - 1]);
-        } else if (j < MAP_WIDTH - 1 &&
-            MAP_TILES_DISPOSITION[i][j + 1] != 1 &&
-            MAP_TILES_DISPOSITION[i][j + 1] != 3 &&
-            MAP_TILES_DISPOSITION[i][j + 1] != 0) {
+        } else if (j < MAP_WIDTH - 1
+            && MAP_TILES_DISPOSITION[i][j + 1] != 1
+            && MAP_TILES_DISPOSITION[i][j + 1] != 3
+            && MAP_TILES_DISPOSITION[i][j + 1] != 0) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i][j + 1]);
         } else {
             return null;
