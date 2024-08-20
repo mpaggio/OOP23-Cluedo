@@ -3,6 +3,8 @@ package it.unibo.model.player;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
@@ -38,7 +40,7 @@ final class PlayerImplTest {
         assertFalse(testPlayer.isInRoom());
         assertFalse(testPlayer.hasWon());
         assertFalse(testPlayer.canDoubleRollDice());
-        assertFalse(testPlayer.canNextTurn());
+        assertTrue(testPlayer.canNextTurn());
         assertEquals(0, testPlayer.getPlayerCards().size());
     }
 
