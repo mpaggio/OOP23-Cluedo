@@ -7,6 +7,7 @@ import java.util.Optional;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
+import it.unibo.cluedo.model.square.impl.NoEffectImpl;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 
 /**
@@ -35,7 +36,11 @@ public class RoomImpl implements Room {
      */
     @Override
     public void addSquare(final Square square) {
-        this.squares.add(square);
+        if (square.getEffect() instanceof NoEffectImpl) {
+            this.squares.add(square);
+        } else {
+            throw new IllegalArgumentException("A room can contain only normal squares");
+        }
     }
 
     /**
@@ -43,7 +48,11 @@ public class RoomImpl implements Room {
      */
     @Override
     public void addEntrance(final Square entrance) {
-        this.entrances.add(entrance);
+        if (entrance.getEffect() instanceof NoEffectImpl) {
+            this.entrances.add(entrance);
+        } else {
+            throw new IllegalArgumentException("A room can contain only normal squares");
+        }
     }
 
     /**
