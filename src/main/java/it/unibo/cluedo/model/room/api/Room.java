@@ -68,4 +68,11 @@ public interface Room extends MapComponent {
      * @return the list of entrances of the room
      */
     List<Square> getEntrances();
+
+    /**
+     * Gets the trapdoor of the room.
+     * 
+     * @return the trapdoor of the room
+     */
+    Optional<TrapDoor> getTrapDoor();
 }

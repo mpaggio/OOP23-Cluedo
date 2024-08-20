@@ -2,6 +2,7 @@ package it.unibo.model.room;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.Optional;
@@ -23,23 +24,30 @@ final class RoomTest {
     private static final int NUM_OF_SQUARES = 3;
     private static final int NUM_OF_ENTRANCES = 2;
     private Room room1;
+    private Room room2;
     private TrapDoor trapDoor;
     private Square square1;
     private Square square2;
     private Square square3;
+    private Square positiveSquare;
+    private Square negativeSquare;
     private Square entrance1;
     private Square entrance2;
+    private Square entrance3;
 
     @BeforeEach
     void setUp() {
-        final Room room2 = new RoomImpl(ROOM_NAME_2);
         this.room1 = new RoomImpl(ROOM_NAME_1);
+        this.room2 = new RoomImpl(ROOM_NAME_2);
         this.trapDoor = new TrapDoorImpl(room2, new Position(0, 0));
         this.square1 = SquareFactory.createNormalSquare(new Position(1, 0));
         this.square2 = SquareFactory.createNormalSquare(new Position(0, 1));
         this.square3 = SquareFactory.createNormalSquare(new Position(1, 1));
-        this.entrance1 = square1;
-        this.entrance2 = square2;
+        this.positiveSquare = SquareFactory.createBonusSquare(new Position(2, 1));
+        this.negativeSquare = SquareFactory.createMalusSquare(new Position(2, 2)); 
+        this.entrance1 = this.square1;
+        this.entrance2 = this.square2;
+        this.entrance3 = this.positiveSquare;
     }
 
     @Test
@@ -54,6 +62,12 @@ final class RoomTest {
         assertTrue(this.room1.getSquares().contains(square2));
         assertTrue(this.room1.getSquares().contains(square3));
         assertEquals(this.room1.getSquares().size(), NUM_OF_SQUARES);
+        assertThrows(IllegalArgumentException.class, () -> this.room1.addSquare(this.positiveSquare));
+        assertFalse(this.room1.getSquares().contains(positiveSquare));
+        assertEquals(this.room1.getSquares().size(), NUM_OF_SQUARES);
+        assertThrows(IllegalArgumentException.class, () -> this.room1.addSquare(this.negativeSquare));
+        assertFalse(this.room1.getSquares().contains(negativeSquare));
+        assertEquals(this.room1.getSquares().size(), NUM_OF_SQUARES);
     }
 
     @Test
@@ -64,6 +78,9 @@ final class RoomTest {
         assertTrue(this.room1.getEntrances().contains(entrance1));
         assertTrue(this.room1.getEntrances().contains(entrance2));
         assertEquals(this.room1.getEntrances().size(), NUM_OF_ENTRANCES);
+        assertThrows(IllegalArgumentException.class, () -> this.room1.addEntrance(entrance3));
+        assertFalse(this.room1.getEntrances().contains(entrance3));
+        assertEquals(this.room1.getEntrances().size(), NUM_OF_ENTRANCES);
     }
 
     @Test
@@ -73,10 +90,8 @@ final class RoomTest {
     }
 
     @Test
-    void testToStringAndGetName() {
-        assertEquals(this.room1.toString(), this.room1.getName());
+    void testGetName() {
         assertEquals(this.room1.getName(), ROOM_NAME_1);
-        assertEquals(this.room1.toString(), ROOM_NAME_1);
     }
 
     @Test
@@ -88,5 +103,14 @@ final class RoomTest {
         assertFalse(this.room1.isEntrance(this.square3));
         assertTrue(this.room1.isEntrance(this.entrance1));
         assertTrue(this.room1.isEntrance(this.entrance2));
+    }
+
+    @Test
+    void testGetTrapDoor() {
+        this.room1.setTrapDoor(Optional.of(this.trapDoor));
+        assertTrue(this.room1.getTrapDoor().isPresent());
+        assertEquals(this.room1.getTrapDoor().get(), this.trapDoor);
+        assertFalse(this.room2.getTrapDoor().isPresent());
+        assertEquals(this.room2.getTrapDoor(), Optional.empty());
     }
 }

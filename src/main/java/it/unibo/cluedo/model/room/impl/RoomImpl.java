@@ -75,14 +75,6 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public String toString() {
-        return this.name;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public void accept(final MapComponentVisitor visitor) {
         visitor.visitRoom(this);
     }
@@ -117,5 +109,13 @@ public class RoomImpl implements Room {
     @Override
     public List<Square> getEntrances() {
         return List.copyOf(this.entrances);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<TrapDoor> getTrapDoor() {
+        return this.trapDoor;
     }
 }
