@@ -1,5 +1,6 @@
 package it.unibo.cluedo.model.room.api;
 
+import java.util.List;
 import java.util.Optional;
 
 import it.unibo.cluedo.model.square.api.Square;
@@ -53,4 +54,18 @@ public interface Room extends MapComponent {
      * @return the name of the room
      */
     String getName();
+
+    /**
+     * Gets the list of squares of the room.
+     * 
+     * @return the list of squares of the room
+     */
+    List<Square> getSquares();
+
+    /**
+     * Gets the list of entrances of the room.
+     * 
+     * @return the list of entrances of the room
+     */
+    List<Square> getEntrances();
 }

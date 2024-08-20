@@ -93,4 +93,20 @@ public class RoomImpl implements Room {
     public String getName() {
         return this.name;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Square> getSquares() {
+        return List.copyOf(this.squares);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Square> getEntrances() {
+        return List.copyOf(this.entrances);
+    }
 }
