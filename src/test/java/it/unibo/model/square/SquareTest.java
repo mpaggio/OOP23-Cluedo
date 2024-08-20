@@ -19,11 +19,11 @@ import it.unibo.cluedo.utilities.Position;
  * Test class for SquareImpl, SquareFactory and Effect implementations.
  */
 final class SquareTest {
-    Player player;
-    Position position;
-    Square square;
-    MapComponentVisitor visitor;
-    
+    private Player player;
+    private Position position;
+    private Square square;
+    private MapComponentVisitor visitor;
+ 
     /**
      * Initialization before every test.
      */
@@ -31,7 +31,7 @@ final class SquareTest {
     void setUp() {
         this.position = new Position(0, 0);
         this.player = new MutablePlayerImpl("Player", "Purple");
-        this.visitor = new MapComponentVisitorImpl();    
+        this.visitor = new MapComponentVisitorImpl();
     }
 
     /**
@@ -50,7 +50,7 @@ final class SquareTest {
         assertTrue(this.player.canDoubleRollDice());
         assertTrue(this.player.canNextTurn());
         this.square.accept(visitor);
-        assertEquals(visitor.getLastVisitedSquare(), this.square);
+        assertEquals(visitor.getLastVisitedSquare().get(), this.square);
     }
 
     /**
@@ -69,7 +69,7 @@ final class SquareTest {
         assertFalse(this.player.canDoubleRollDice());
         assertFalse(this.player.canNextTurn());
         this.square.accept(visitor);
-        assertEquals(visitor.getLastVisitedSquare(), this.square);
+        assertEquals(visitor.getLastVisitedSquare().get(), this.square);
     }
 
     /**
@@ -88,6 +88,6 @@ final class SquareTest {
         assertFalse(this.player.canDoubleRollDice());
         assertTrue(this.player.canNextTurn());
         this.square.accept(visitor);
-        assertEquals(visitor.getLastVisitedSquare(), this.square);
+        assertEquals(visitor.getLastVisitedSquare().get(), this.square);
     }
 }

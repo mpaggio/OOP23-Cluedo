@@ -23,7 +23,6 @@ final class RoomTest {
     private static final int NUM_OF_SQUARES = 3;
     private static final int NUM_OF_ENTRANCES = 2;
     private Room room1;
-    private Room room2;
     private TrapDoor trapDoor;
     private Square square1;
     private Square square2;
@@ -33,9 +32,9 @@ final class RoomTest {
 
     @BeforeEach
     void setUp() {
+        final Room room2 = new RoomImpl(ROOM_NAME_2);
         this.room1 = new RoomImpl(ROOM_NAME_1);
-        this.room2 = new RoomImpl(ROOM_NAME_2);
-        this.trapDoor = new TrapDoorImpl(this.room2, new Position(0, 0));
+        this.trapDoor = new TrapDoorImpl(room2, new Position(0, 0));
         this.square1 = SquareFactory.createNormalSquare(new Position(1, 0));
         this.square2 = SquareFactory.createNormalSquare(new Position(0, 1));
         this.square3 = SquareFactory.createNormalSquare(new Position(1, 1));

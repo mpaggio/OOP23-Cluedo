@@ -16,9 +16,9 @@ import it.unibo.cluedo.utilities.Position;
  * Test class for SquareImpl, SquareFactory and Effect implementations.
  */
 final class TrapDoorTest {
-    Room room;
-    Position position;
-    TrapDoor trapDoor;
+    private Room room;
+    private Position position;
+    private TrapDoor trapDoor;
 
     /**
      * Initialization before every test.
@@ -27,13 +27,13 @@ final class TrapDoorTest {
     void setUp() {
         this.room = new RoomImpl("Kitchen");
         this.position = new Position(0, 0);
-        this.trapDoor = new TrapDoorImpl(this.room, this.position);  
+        this.trapDoor = new TrapDoorImpl(this.room, this.position);
     }
 
     @Test
     void testTrapDoor() {
         assertNotEquals(this.room, this.trapDoor.getConnectedRoom());
-        assertEquals(this.room.getName(),this.trapDoor.getConnectedRoom().getName());
+        assertEquals(this.room.getName(), this.trapDoor.getConnectedRoom().getName());
         assertEquals(this.position, this.trapDoor.getPosition());
     }
 }
