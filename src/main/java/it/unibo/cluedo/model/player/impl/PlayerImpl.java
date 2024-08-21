@@ -23,7 +23,7 @@ public class PlayerImpl implements Player {
     private final List<Card> playerCards;
     private boolean doubleRollDice;
     private boolean nextTurn;
-    private Notebook notebook;
+    //private Notebook notebook;
 
     /**
      * Constructs a new player with the given username and color.
@@ -163,8 +163,12 @@ public class PlayerImpl implements Player {
         this.nextTurn = nextTurn;
     }
 
+    /**
+     * Gets the notebook of the player.
+     */
     @Override
     public Notebook getPlayerNotebook() {
-        return this.notebook;
+        return null;
+        //return this.notebook;
     }
 }
