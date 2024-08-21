@@ -1,4 +1,4 @@
-package it.unibo;
+package it.unibo.model.dice;
 
 import it.unibo.cluedo.model.dice.impl.DiceImpl;
 import org.junit.jupiter.api.Test;

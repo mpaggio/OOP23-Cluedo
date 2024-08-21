@@ -1,4 +1,4 @@
-package it.unibo;
+package it.unibo.model.notebook;
 
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.notebook.impl.NotebookImpl;
