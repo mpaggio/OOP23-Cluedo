@@ -45,10 +45,10 @@ public class StatisticsImpl implements Statistics {
         });
         final Pair<List<Player>, List<Integer>> sorted = 
             new Pair<>(new LinkedList<>(), new LinkedList<>());
-        for (final Map.Entry<Player, Integer> entry : list) {
+        list.forEach(entry -> {
             sorted.getFirst().add(entry.getKey());
             sorted.getSecond().add(entry.getValue());
-        }
+        });
         return sorted;
     }
 
