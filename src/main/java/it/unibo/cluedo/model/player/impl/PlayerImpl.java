@@ -21,7 +21,7 @@ public class PlayerImpl implements Player {
     private boolean playerTurn;
     private boolean hasWon;
     private boolean inRoom;
-    private final List<Card> playerCards;
+    private List<Card> playerCards;
     private boolean doubleRollDice;
     private boolean nextTurn;
     private final Notebook notebook;
@@ -171,12 +171,12 @@ public class PlayerImpl implements Player {
      * Sets the cards of the player.
      * @param cards the list of the cards to assign to the player
      */
-    //protected void setPlayerCards(final List<Card> cards) {
-        //this.playerCards = new ArrayList<>(cards);
-        //for (final Card card : this.playerCards) {
-        //    this.notebook.logSeenCards(card);
-        //}
-    //}
+    protected void setPlayerCards(final List<Card> cards) {
+        this.playerCards = new ArrayList<>(cards);
+        for (final Card card : this.playerCards) {
+          this.notebook.logSeenCards(card.getName());
+        }
+    }
 
     /**
      * {@inheritDoc}
