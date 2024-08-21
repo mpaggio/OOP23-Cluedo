@@ -2,7 +2,8 @@ package it.unibo.cluedo.model.player.impl;
 
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.utilities.Position;
-
+//import java.util.List;
+//import it.unibo.cluedo.model.card.api.Card;
 
 /**
  * Implementation of the {@link MutablePlayer} interface.
@@ -74,6 +75,14 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     public void setNextTurn(final boolean nextTurn) {
         super.setNextTurn(nextTurn);
     }
+
+    /**
+     * Set the player's cards and logs each card in the notebook.
+     * @param cards the list of cards to assign to the player
+     */
+    //public void setPlayerCards(final List<Card> cards) {
+    //   super.setPlayerCards(cards);
+    //}
 
     /**
      * {@inheritDoc}

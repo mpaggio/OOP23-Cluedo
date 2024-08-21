@@ -168,6 +168,17 @@ public class PlayerImpl implements Player {
     }
 
     /**
+     * Sets the cards of the player.
+     * @param cards the list of the cards to assign to the player
+     */
+    //protected void setPlayerCards(final List<Card> cards) {
+        //this.playerCards = new ArrayList<>(cards);
+        //for (final Card card : this.playerCards) {
+        //    this.notebook.logSeenCards(card);
+        //}
+    //}
+
+    /**
      * {@inheritDoc}
      */
     @Override
