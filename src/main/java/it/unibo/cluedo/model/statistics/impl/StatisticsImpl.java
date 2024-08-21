@@ -27,7 +27,7 @@ public class StatisticsImpl implements Statistics {
      * @param players the list of the players in the current game.
      */
     public StatisticsImpl(final List<Player> players) {
-        players.stream().forEach(player -> {
+        players.forEach(player -> {
             steps.put(player, Integer.valueOf(0));
             rooms.put(player, Integer.valueOf(0));
             accusations.put(player, Integer.valueOf(0));
