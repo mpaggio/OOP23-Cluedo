@@ -3,6 +3,7 @@ package it.unibo.cluedo.model.player.impl;
 import java.util.List;
 
 import it.unibo.cluedo.model.card.api.Card;
+import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.utilities.Position;
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ public class PlayerImpl implements Player {
     private final List<Card> playerCards;
     private boolean doubleRollDice;
     private boolean nextTurn;
+    private Notebook notebook;
 
     /**
      * Constructs a new player with the given username and color.
@@ -159,5 +161,10 @@ public class PlayerImpl implements Player {
      */
     protected void setNextTurn(final boolean nextTurn) {
         this.nextTurn = nextTurn;
+    }
+
+    @Override
+    public Notebook getPlayerNotebook() {
+        return this.notebook;
     }
 }
