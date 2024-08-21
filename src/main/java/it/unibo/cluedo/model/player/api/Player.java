@@ -1,6 +1,7 @@
 package it.unibo.cluedo.model.player.api;
 
 import it.unibo.cluedo.model.card.api.Card;
+import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.utilities.Position;
 import java.util.List;
 
@@ -65,5 +66,11 @@ public interface Player {
      * @return a boolean which indicates if the player can take the next turn.
      */
     boolean canNextTurn();
+
+    /**
+     * Get the notebook of the player.
+     * @return the notebook
+     */
+    Notebook getPlayerNotebook();
 
 }

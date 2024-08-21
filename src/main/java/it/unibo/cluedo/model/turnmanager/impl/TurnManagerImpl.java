@@ -75,7 +75,7 @@ public class TurnManagerImpl implements TurnManager {
 
     /**
      * Check if the game has ended.
-     * 
+     *
      * @return a boolean indicating if the game has ended or not.
      */
     @Override
@@ -85,12 +85,11 @@ public class TurnManagerImpl implements TurnManager {
 
     /**
      * Get the current notebook.
-     * 
+     *
      * @return the current notebook.
      */
     @Override
     public Notebook getCurrentNotebook() {
-        return null;
-        // return players.get(currentPlayerIndex).getNotebook();
+        return getCurrentPlayer().getPlayerNotebook();
     }
 }
