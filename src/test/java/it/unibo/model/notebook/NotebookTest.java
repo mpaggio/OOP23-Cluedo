@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -20,16 +20,15 @@ class NotebookTest {
     private static final String CANDLESTICK = "Candlestick";
     private static final String KITCHEN = "Kitchen";
     private static final String MISS_SCARLET = "Miss Scarlet";
+    private static final String REVOLVER = "Revolver";
+    private static final String BALLROOM = "Ballroom";
 
     /**
      * Set up the test environment by initializing the Notebook with a list of suspects,weapons and rooms.
      */
     @BeforeEach
     void setUp() {
-        final List<String> allSuspects = Arrays.asList(PROFESSOR_PLUM, MISS_SCARLET, "Colonel Mustard");
-        final List<String> allWeapons = Arrays.asList(CANDLESTICK, "Revolver", "Rope");
-        final List<String> allRooms = Arrays.asList(KITCHEN, "Ballroom", "Conservatory");
-        notebook = new NotebookImpl(allSuspects, allWeapons, allRooms);
+        notebook = new NotebookImpl();
     }
 
     /**
@@ -38,20 +37,20 @@ class NotebookTest {
      */
     @Test
     void testInitialize() {
-        final List<String> playerCards = Arrays.asList(PROFESSOR_PLUM, "Revolver", KITCHEN);
+        final List<String> playerCards = Arrays.asList(PROFESSOR_PLUM, REVOLVER, KITCHEN);
         notebook.initialize(playerCards);
 
-        final List<String> unselectedSuspects = notebook.getUnselectedSuspects();
-        final List<String> unselectedWeapons = notebook.getUnselectedWeapons();
-        final List<String> unselectedRooms = notebook.getUnselectedRooms();
+        final List<String> seenSuspects = notebook.getSeenSuspects();
+        final List<String> seenWeapons = notebook.getSeenWeapons();
+        final List<String> seenRooms = notebook.getSeenRooms();
 
-        assertFalse(unselectedSuspects.contains(PROFESSOR_PLUM));
-        assertFalse(unselectedWeapons.contains("Revolver"));
-        assertFalse(unselectedRooms.contains(KITCHEN));
+        assertTrue(seenSuspects.contains(PROFESSOR_PLUM));
+        assertTrue(seenWeapons.contains(REVOLVER));
+        assertTrue(seenRooms.contains(KITCHEN));
 
-        assertEquals(2, unselectedSuspects.size());
-        assertEquals(2, unselectedWeapons.size());
-        assertEquals(2, unselectedRooms.size());
+        assertEquals(1, seenSuspects.size());
+        assertEquals(1, seenWeapons.size());
+        assertEquals(1, seenRooms.size());
     }
 
     /**
@@ -62,19 +61,19 @@ class NotebookTest {
     void testLogSeenCards() {
         notebook.logSeenCards(MISS_SCARLET);
         notebook.logSeenCards(CANDLESTICK);
-        notebook.logSeenCards("Ballroom");
+        notebook.logSeenCards(BALLROOM);
 
-        final List<String> unselectedSuspects = notebook.getUnselectedSuspects();
-        final List<String> unselectedWeapons = notebook.getUnselectedWeapons();
-        final List<String> unselectedRooms = notebook.getUnselectedRooms();
+        final List<String> seenSuspects = notebook.getSeenSuspects();
+        final List<String> seenWeapons = notebook.getSeenWeapons();
+        final List<String> seenRooms = notebook.getSeenRooms();
 
-        assertFalse(unselectedSuspects.contains(MISS_SCARLET));
-        assertFalse(unselectedWeapons.contains(CANDLESTICK));
-        assertFalse(unselectedRooms.contains("Ballroom"));
+        assertTrue(seenSuspects.contains(MISS_SCARLET));
+        assertTrue(seenWeapons.contains(CANDLESTICK));
+        assertTrue(seenRooms.contains(BALLROOM));
 
-        assertEquals(2, unselectedSuspects.size());
-        assertEquals(2, unselectedWeapons.size());
-        assertEquals(2, unselectedRooms.size());
+        assertEquals(1, seenSuspects.size());
+        assertEquals(1, seenWeapons.size());
+        assertEquals(1, seenRooms.size());
     }
 
     /**
@@ -89,19 +88,19 @@ class NotebookTest {
         notebook.logSeenCards(MISS_SCARLET);
         notebook.logSeenCards(CANDLESTICK);
 
-        final List<String> unselectedSuspects = notebook.getUnselectedSuspects();
-        final List<String> unselectedWeapons = notebook.getUnselectedWeapons();
-        final List<String> unselectedRooms = notebook.getUnselectedRooms();
+        final List<String> seenSuspects = notebook.getSeenSuspects();
+        final List<String> seenWeapons = notebook.getSeenWeapons();
+        final List<String> seenRooms = notebook.getSeenRooms();
 
-        assertFalse(unselectedSuspects.contains("Colonel Mustard"));
-        assertFalse(unselectedSuspects.contains(MISS_SCARLET));
-        assertFalse(unselectedWeapons.contains("Rope"));
-        assertFalse(unselectedWeapons.contains(CANDLESTICK));
-        assertFalse(unselectedRooms.contains("Conservatory"));
+        assertTrue(seenSuspects.contains("Colonel Mustard"));
+        assertTrue(seenSuspects.contains(MISS_SCARLET));
+        assertTrue(seenWeapons.contains("Rope"));
+        assertTrue(seenWeapons.contains(CANDLESTICK));
+        assertTrue(seenRooms.contains("Conservatory"));
 
-        assertEquals(1, unselectedSuspects.size());
-        assertEquals(1, unselectedWeapons.size());
-        assertEquals(2, unselectedRooms.size());
+        assertEquals(2, seenSuspects.size());
+        assertEquals(2, seenWeapons.size());
+        assertEquals(1, seenRooms.size());
 
     }
 }
