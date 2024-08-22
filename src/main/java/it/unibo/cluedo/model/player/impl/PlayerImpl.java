@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.notebook.api.Notebook;
+import it.unibo.cluedo.model.notebook.impl.NotebookImpl;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.utilities.Position;
 import java.util.ArrayList;
@@ -20,11 +21,10 @@ public class PlayerImpl implements Player {
     private boolean playerTurn;
     private boolean hasWon;
     private boolean inRoom;
-    private final List<Card> playerCards;
+    private List<Card> playerCards;
     private boolean doubleRollDice;
     private boolean nextTurn;
-    //private Notebook notebook;
-
+    private final Notebook notebook;
     /**
      * Constructs a new player with the given username and color.
      *
@@ -41,6 +41,10 @@ public class PlayerImpl implements Player {
         this.playerCards = new ArrayList<>();
         this.doubleRollDice = false;
         this.nextTurn = true;
+        final List<String> suspects = new ArrayList<>();
+        final List<String> weapons = new ArrayList<>();
+        final List<String> rooms = new ArrayList<>();
+        this.notebook = new NotebookImpl(suspects, weapons, rooms);
     }
 
     /**
@@ -164,11 +168,21 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Gets the notebook of the player.
+     * Sets the cards of the player.
+     * @param cards the list of the cards to assign to the player
+     */
+    protected void setPlayerCards(final List<Card> cards) {
+        this.playerCards = new ArrayList<>(cards);
+        for (final Card card : this.playerCards) {
+          this.notebook.logSeenCards(card.getName());
+        }
+    }
+
+    /**
+     * {@inheritDoc}
      */
     @Override
     public Notebook getPlayerNotebook() {
-        return null;
-        //return this.notebook;
+        return this.notebook;
     }
 }
