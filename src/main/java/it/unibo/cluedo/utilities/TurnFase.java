@@ -9,9 +9,17 @@ public enum TurnFase {
      */
     ROLL_DICE,
     /**
-     * The player has to move.
+     * The player has to choose where to move.
      */
-    MOVE,
+    MOVE_PLAYER,
+    /**
+     * The player moves.
+     */
+    MOVING,
+    /**
+     * If the player landed on a a square with an effect, it gets applied.
+     */
+    APPLY_EFFECT,
     /**
      * The player has to make an accusation or the final accusation.
      */

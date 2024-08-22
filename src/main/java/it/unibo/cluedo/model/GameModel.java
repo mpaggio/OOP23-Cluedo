@@ -1,4 +1,4 @@
-package it.unibo.cluedo;
+package it.unibo.cluedo.model;
 
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.player.api.Player;
