@@ -13,14 +13,13 @@ import it.unibo.cluedo.model.player.api.Player;
  *                          .addPlayer(builder1.username("Nick").color("Blue").buildPlayer())
  *                          .setSolution("Candlestick", "Kitchen", "MrGreen")
  *                          .build;
- * }
+ * }</pre>
  */
 public interface GameModelBuilder {
-        
     /**
      * The maximum number of players that can be added to the game.
      */
-    static final int MAX_PLAYERS = 3;
+    int MAX_PLAYERS = 3;
 
     /**
      * Method to add a player to the game.
@@ -33,5 +32,4 @@ public interface GameModelBuilder {
      */
     GameModelBuilder addPlayer(Player player);
 
-    
 }
