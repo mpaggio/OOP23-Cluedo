@@ -5,30 +5,30 @@ import java.util.ArrayList;
 import java.util.Set;
 import java.util.HashSet;
 import it.unibo.cluedo.model.notebook.api.Notebook;
+import it.unibo.cluedo.model.card.api.Card.Type;
 
 /**
  * Class that represents the notebook of the player.
  * The notebook is used to keep track of the cards that the player has seen.
  * The player can log the suspects, the weapons and the rooms that he has seen.
- * The player can also get the list of the suspects, the weapons and the rooms that he has not seen yet.
+ * The player can also get the list of the suspects, the weapons and the rooms
+ * that he has not seen yet.
  */
 public class NotebookImpl implements Notebook {
 
-    private final Set<String> unselectedSuspects;
-    private final Set<String> unselectedWeapons;
-    private final Set<String> unselectedRooms;
+    private final Set<String> seenSuspects;
+    private final Set<String> seenWeapons;
+    private final Set<String> seenRooms;
 
     /**
      * Constructor of the class.
-     *
-     * @param allSuspects the list of all the suspects.
-     * @param allWeapons the list of all the weapons.
-     * @param allRooms the list of all the rooms.
+     * It initializes the sets of the suspects, the weapons and the rooms that the
+     * player has not seen yet.
      */
-    public NotebookImpl(final List<String> allSuspects, final List<String> allWeapons,  final List<String> allRooms) {
-        this.unselectedSuspects = new HashSet<>(allSuspects);
-        this.unselectedWeapons = new HashSet<>(allWeapons);
-        this.unselectedRooms = new HashSet<>(allRooms);
+    public NotebookImpl() {
+        this.seenSuspects = new HashSet<>();
+        this.seenWeapons = new HashSet<>();
+        this.seenRooms = new HashSet<>();
     }
 
     /**
@@ -45,41 +45,97 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Log the card that the player has seen.
+     * 
      * @param card
      */
     @Override
     public void logSeenCards(final String card) {
-        if (unselectedSuspects.contains(card)) {
-            unselectedSuspects.remove(card);
-        } else if (unselectedWeapons.contains(card)) {
-            unselectedWeapons.remove(card);
-        } else if (unselectedRooms.contains(card)) {
-            unselectedRooms.remove(card);
+        final Type cardType = getCardType(card);
+        if (cardType == Type.CHARACTER) {
+            this.seenSuspects.add(card);
+        } else if (cardType == Type.WEAPON) {
+            this.seenWeapons.add(card);
+        } else if (cardType == Type.ROOM) {
+            this.seenRooms.add(card);
         }
     }
 
     /**
-     * The following methods return a new ArrayList with the elements of the corresponding Set.
+     * Get the type of the card.
+     * 
+     * @param card
+     * @return the type of the card.
      */
-    @Override
-    public List<String> getUnselectedSuspects() {
-        return new ArrayList<>(this.unselectedSuspects);
+    private Type getCardType(final String card) {
+        if (isSuspect(card)) {
+            return Type.CHARACTER;
+        } else if (isWeapon(card)) {
+            return Type.WEAPON;
+        } else if (isRoom(card)) {
+            return Type.ROOM;
+        }
+        return null;
     }
 
     /**
-     * The following methods return a new ArrayList with the elements of the corresponding Set.
+     * Check if the card is a suspect.
+     * 
+     * @param card
+     * @return true if the card is a suspect, false otherwise.
      */
-    @Override
-    public List<String> getUnselectedWeapons() {
-        return new ArrayList<>(this.unselectedWeapons);
+    private boolean isSuspect(final String card) {
+        return Set.of("Professor Plum", "Miss Scarlet", "Colonel Mustard",
+                "Reverend Green", "Mrs. Peacock", "Dr. Orchid").contains(card);
     }
 
     /**
-     * The following methods return a new ArrayList with the elements of the corresponding Set.
+     * Check if the card is a weapon.
+     * 
+     * @param card
+     * @return true if the card is a weapon, false otherwise.
+     */
+    private boolean isWeapon(final String card) {
+        return Set.of("Candlestick", "Revolver", "Lead Pipe",
+                "Rope", "Wrench", "Knife").contains(card);
+    }
+
+    /**
+     * Check if the card is a room.
+     * 
+     * @param card
+     * @return true if the card is a room, false otherwise.
+     */
+    private boolean isRoom(final String card) {
+        return Set.of("Kitchen", "Ballroom", "Conservatory",
+                "Dining Room", "Lounge", "Hall",
+                "Study", "Library", "Billiard Room").contains(card);
+    }
+
+    /**
+     * The following methods return a new ArrayList with the elements of the
+     * corresponding Set.
      */
     @Override
-    public List<String> getUnselectedRooms() {
-        return new ArrayList<>(this.unselectedRooms);
+    public List<String> getSeenSuspects() {
+        return new ArrayList<>(this.seenSuspects);
+    }
+
+    /**
+     * The following methods return a new ArrayList with the elements of the
+     * corresponding Set.
+     */
+    @Override
+    public List<String> getSeenWeapons() {
+        return new ArrayList<>(this.seenWeapons);
+    }
+
+    /**
+     * The following methods return a new ArrayList with the elements of the
+     * corresponding Set.
+     */
+    @Override
+    public List<String> getSeenRooms() {
+        return new ArrayList<>(this.seenRooms);
     }
 
 }

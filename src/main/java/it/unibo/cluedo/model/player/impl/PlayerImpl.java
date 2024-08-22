@@ -41,10 +41,7 @@ public class PlayerImpl implements Player {
         this.playerCards = new ArrayList<>();
         this.doubleRollDice = false;
         this.nextTurn = true;
-        final List<String> suspects = new ArrayList<>();
-        final List<String> weapons = new ArrayList<>();
-        final List<String> rooms = new ArrayList<>();
-        this.notebook = new NotebookImpl(suspects, weapons, rooms);
+        this.notebook = new NotebookImpl();
     }
 
     /**
