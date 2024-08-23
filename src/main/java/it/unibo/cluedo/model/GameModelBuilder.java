@@ -1,6 +1,8 @@
 package it.unibo.cluedo.model;
 
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
+import it.unibo.cluedo.model.unforeseen.api.Unforeseen;
 
 
 /**
@@ -13,6 +15,7 @@ import it.unibo.cluedo.model.player.api.Player;
  * GameModel model = builder.addPlayer(builder1.username("John").color("Red").buildPlayer())
  *                          .addPlayer(builder1.username("Nick").color("Blue").buildPlayer())
  * .                        .addUnforseen(new MoveExtraStep("Move extra"))
+ *                          .addTrapdoor(new TrapDoorImpl(new RoomImpl("Kitchen"), new Position(4, 5)))
  *                          .build;
  * }</pre>
  */
@@ -43,5 +46,21 @@ public interface GameModelBuilder {
      * or if the maximum number of players has already been reached.
      */
     GameModelBuilder addPlayer(Player player);
+
+    /**
+     * Method to add an unforeseen card to the game.
+     * It is not allowed to add more than MAX_UNFORSEEN_CARDS unforeseen cards.
+     * @param unforeseen the {@link Unforeseen} instance to add to the game.
+     * @return the builder itself.
+     */
+    GameModelBuilder addUnforseen(Unforeseen unforeseen);
+
+    /**
+     * Method to add a trapdoor to the game.
+     * It is not allowed to add more than MAX_TRAP_DOORS trapdoors.
+     * @param trapDoor the {@link TrapDoor} instance to add to the game.
+     * @return the builder itself.
+     */
+    GameModelBuilder addTrapdoor(TrapDoor trapDoor);
 
 }
