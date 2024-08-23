@@ -4,13 +4,17 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.HashSet;
+import java.util.ArrayList;
 
 import it.unibo.cluedo.model.accusation.api.Accusation;
 import it.unibo.cluedo.model.accusation.impl.AccusationImpl;
 import it.unibo.cluedo.model.card.api.Card;
+import it.unibo.cluedo.model.deck.api.Deck;
+import it.unibo.cluedo.model.deck.impl.DeckImpl;
 import it.unibo.cluedo.model.dice.api.Dice;
 import it.unibo.cluedo.model.dice.impl.DiceImpl;
 import it.unibo.cluedo.model.notebook.api.Notebook;
+import it.unibo.cluedo.model.notebook.impl.NotebookImpl;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
@@ -36,6 +40,7 @@ final class GameModelImpl implements GameModel {
     private final TurnManager turnManager;
     private final Statistics statistics;
     private final Set<Card> solution;
+    private final List<Notebook> notebooks;
 
     /**
      * Constructor of the class.
@@ -45,7 +50,19 @@ final class GameModelImpl implements GameModel {
         this.players = players;
         turnManager = new TurnManagerImpl(players);
         statistics = new StatisticsImpl(players);
-        solution = new HashSet<>();
+        final Deck deck = new DeckImpl();
+        deck.initializeDeck();
+        solution = deck.drawSolution();
+        notebooks = new ArrayList();
+        players.forEach(player -> {
+            final Notebook notebook = new NotebookImpl();
+            final List<String> playerCards = new ArrayList<>();
+            for (final Card card : player.getPlayerCards()) {
+                playerCards.add(card.getName());
+            }
+            notebook.initialize(playerCards);
+            notebooks.add(notebook);
+        });
     }
 
     @Override
@@ -72,11 +89,12 @@ final class GameModelImpl implements GameModel {
     public Player getCurrentPlayer() {
         return turnManager.getCurrentPlayer();
     }
-
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Notebook getNotebook() {
-        // TODO Auto-generated method stub
-        return null;
+        return notebooks.get(players.indexOf(getCurrentPlayer()));
     }
 
     /**
@@ -151,7 +169,9 @@ final class GameModelImpl implements GameModel {
             statistics.incrementAccusationsMade(getCurrentPlayer());
             if (accusation.finalAccuse(weapon, room, character, solution)) {
                 final int index = players.indexOf(getCurrentPlayer());
-                ((MutablePlayer) players.get(index)).setHasWon(isOver());
+                if (getCurrentPlayer() instanceof MutablePlayer) {
+                    ((MutablePlayer) players.get(index)).setHasWon(isOver());
+                }
                 return true;
             }
         }
