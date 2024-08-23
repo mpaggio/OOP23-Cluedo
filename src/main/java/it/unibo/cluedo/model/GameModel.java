@@ -1,12 +1,15 @@
 package it.unibo.cluedo.model;
 
+import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Pair;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Interface to represent the model of the Cluedo game.
@@ -16,7 +19,7 @@ public interface GameModel {
      * Method to roll the dice.
      * @return the result of the dice roll.
      */
-    double rollDice();
+    int rollDice();
     /**
      * Move the player to the given position.
      * @param position the position to move the player to.
@@ -28,9 +31,22 @@ public interface GameModel {
     void applyEffect();
     /**
      * method to make an accusation.
+     * @param weapon the weapon of the accusation.
+     * @param room the room of the accusation.
+     * @param character the character of the accusation.
+     * @param roomPosition the room the player is in.
      * @return true if the accusation is correct, false otherwise.
      */
-    boolean makeAccusation();
+    Optional<Card> makeAccusation(Card weapon, Card room, Card character, Room roomPosition);
+    /**
+     * Method to make the final accusation.
+     * @param weapon the weapon of the accusation.
+     * @param room the room of the accusation.
+     * @param character the character of the accusation.
+     * @param roomPosition the room the player is in.
+     * @return true if the accusation is correct, false otherwise.
+     */
+    boolean makeFinalAccusation(Card weapon, Card room, Card character, Room roomPosition);
     /**
      * Method to get the notebook of the current player.
      * @return the notebook of the current player.
