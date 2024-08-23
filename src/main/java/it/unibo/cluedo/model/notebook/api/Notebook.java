@@ -28,19 +28,19 @@ public interface Notebook {
      *
      * @return the list of the suspects that the player has seen.
      */
-    List<String> getUnselectedSuspects();
+    List<String> getSeenSuspects();
 
     /**
      * Get the list of the weapons that the player has seen.
      *
      * @return the list of the weapons that the player has seen.
      */
-    List<String> getUnselectedWeapons();
+    List<String> getSeenWeapons();
 
     /**
      * Get the list of the rooms that the player has seen.
      *
      * @return the list of the rooms that the player has seen.
      */
-    List<String> getUnselectedRooms();
+    List<String> getSeenRooms();
 }

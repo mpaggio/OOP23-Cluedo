@@ -1,7 +1,7 @@
 package it.unibo.cluedo.model;
 
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.unforseen.api.Unforseen;
+
 
 /**
  * Interface that represents an application of the Builder pattern.
@@ -14,14 +14,13 @@ import it.unibo.cluedo.model.unforseen.api.Unforseen;
  *                          .addPlayer(builder1.username("Nick").color("Blue").buildPlayer())
  * .                        .addUnforseen(new MoveExtraStep("Move extra"))
  *                          .build;
- * }
+ * }</pre>
  */
 public interface GameModelBuilder {
-        
     /**
      * The maximum number of players that can be added to the game.
      */
-    static final int MAX_PLAYERS = 3;
+    int MAX_PLAYERS = 3;
 
     /**
      * The maximum number of cards of type unforeseen that can be added to the game.
@@ -45,19 +44,4 @@ public interface GameModelBuilder {
      */
     GameModelBuilder addPlayer(Player player);
 
-    /**
-     * Method to add a single unforseen event to the game.
-     * It is not allowed to add more than MAX_UNFORSEEN_CARDS unforseen events.
-     * 
-     * @param unforseen the {@link Unforseen} instance to add to the game.
-     * @return the builder itself.
-     * @throws IllegalArgumentException if the maximum number of unforseen events has already been reached.
-     */
-    GameModelBuilder addUnforseen(Unforseen unforseen);
-
-
-
-
-
-    
 }

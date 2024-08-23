@@ -27,7 +27,7 @@ public class StatisticsImpl implements Statistics {
      * @param players the list of the players in the current game.
      */
     public StatisticsImpl(final List<Player> players) {
-        players.stream().forEach(player -> {
+        players.forEach(player -> {
             steps.put(player, Integer.valueOf(0));
             rooms.put(player, Integer.valueOf(0));
             accusations.put(player, Integer.valueOf(0));
@@ -45,10 +45,10 @@ public class StatisticsImpl implements Statistics {
         });
         final Pair<List<Player>, List<Integer>> sorted = 
             new Pair<>(new LinkedList<>(), new LinkedList<>());
-        for (final Map.Entry<Player, Integer> entry : list) {
+        list.forEach(entry -> {
             sorted.getFirst().add(entry.getKey());
             sorted.getSecond().add(entry.getValue());
-        }
+        });
         return sorted;
     }
 
