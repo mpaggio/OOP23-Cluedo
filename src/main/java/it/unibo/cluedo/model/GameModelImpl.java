@@ -3,7 +3,6 @@ package it.unibo.cluedo.model;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.HashSet;
 import java.util.ArrayList;
 
 import it.unibo.cluedo.model.accusation.api.Accusation;
@@ -24,7 +23,6 @@ import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.statistics.impl.StatisticsImpl;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
-import it.unibo.cluedo.utilities.Pair;
 import it.unibo.cluedo.utilities.TurnFase;
 
 /**
@@ -66,8 +64,14 @@ final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void applyEffect() {
-        // TODO Auto-generated method stub
+    public void applyEffect(final Square position) {
+        if (fase == TurnFase.APPLY_EFFECT) {
+            if (!position.getEffect().getType().equals(Effect.EffectType.NONE)) {
+                position.getEffect().apply(getCurrentPlayer());
+                fase = fase.nextFase();
+            }
+            fase = fase.nextFase();
+        }
     }
     /**
      * {@inheritDoc}
@@ -106,15 +110,16 @@ final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public Pair<Square, Effect> getSquareEffects(final Square position) {
-        // TODO Auto-generated method stub
-        return null;
+    public Effect getSquareEffects(final Square position) {
+        return position.getEffect();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isOver() {
-        // TODO Auto-generated method stub
-        return false;
+        return players.stream().anyMatch(Player::hasWon);
     }
 
     /**
@@ -130,8 +135,7 @@ final class GameModelImpl implements GameModel {
             int index = (players.indexOf(getCurrentPlayer()) + 1) % players.size() + 1;
             Optional<Card> result = Optional.empty();
             while (index != players.indexOf(getCurrentPlayer()) && result.equals(Optional.empty())) {
-                final Set<Card> playerCardsSet = new HashSet<>(players.get(index).getPlayerCards());
-                result = accusation.accuse(weapon, room, character, playerCardsSet);
+                result = accusation.accuse(weapon, room, character, Set.copyOf(players.get(index).getPlayerCards()));
                 index = (index + 1) % players.size();
             }
             statistics.incrementAccusationsMade(getCurrentPlayer());

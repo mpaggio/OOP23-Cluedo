@@ -6,7 +6,6 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
-import it.unibo.cluedo.utilities.Pair;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,8 +26,9 @@ public interface GameModel {
     void movePlayer(Square position);
     /**
      * Methof to apply the effect of the square the player landed on.
+     * @param position the position of the square.
      */
-    void applyEffect();
+    void applyEffect(Square position);
     /**
      * method to make an accusation.
      * @param weapon the weapon of the accusation.
@@ -76,6 +76,6 @@ public interface GameModel {
      * @param position the position of the square.
      * @return the effects of the square.
      */
-    Pair<Square, Effect> getSquareEffects(Square position);
+    Effect getSquareEffects(Square position);
 
 }
