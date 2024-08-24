@@ -28,13 +28,12 @@ public interface GameModelBuilder {
     /**
      * The maximum number of cards of type unforeseen that can be added to the game.
      */
-    static final int MAX_UNFORSEEN_CARDS = 5;
+    int MAX_UNFORSEEN_CARDS = 5;
 
     /**
      * The maximum number of trap doors that can be added to the game.
      */
-    static final int MAX_TRAP_DOORS = 5;
-    
+    int MAX_TRAP_DOORS = 5;
     /**
      * Method to add a player to the game.
      * It is not allowed to add a player with a nickname or color
