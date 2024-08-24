@@ -12,14 +12,17 @@ import it.unibo.cluedo.model.player.impl.PlayerBuilderImpl;
  * Implementation of the {@link GameModelBuilder} interface.
  * It is used to build a new instance of GameModel.
  */
-public class GameModelBuilderImpl implements GameModelBuilder{
+public class GameModelBuilderImpl implements GameModelBuilder {
 
     private final List<Player> players = new ArrayList<>();
     private final List<Unforeseen> unforseenCards = new ArrayList<>();
     private final List<TrapDoor> trapDoors = new ArrayList<>();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public GameModelBuilder addPlayer(String username, String color) {
+    public GameModelBuilder addPlayer(final String username, final String color) {
         final PlayerBuilder builder = new PlayerBuilderImpl();
         final Player player = builder.username(username).color(color).buildPlayer();
         players.forEach(p -> {
@@ -34,22 +37,27 @@ public class GameModelBuilderImpl implements GameModelBuilder{
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public GameModelBuilder addUnforseen(Unforeseen unforeseen) {
-        if(this.unforseenCards.size() >= MAX_UNFORSEEN_CARDS){
+    public GameModelBuilder addUnforseen(final Unforeseen unforeseen) {
+        if (this.unforseenCards.size() >= MAX_UNFORSEEN_CARDS) {
             throw new IllegalArgumentException("Maximum number of unforseen cards reached");
         }
         this.unforseenCards.add(unforeseen);
         return this;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public GameModelBuilder addTrapdoor(TrapDoor trapDoor) {
-        if(this.trapDoors.size() >= MAX_TRAP_DOORS){
+    public GameModelBuilder addTrapdoor(final TrapDoor trapDoor) {
+        if (this.trapDoors.size() >= MAX_TRAP_DOORS) {
             throw new IllegalArgumentException("Maximum number of trapdoors reached");
         }
         this.trapDoors.add(trapDoor);
         return this;
     }
-    
 }

@@ -1,6 +1,5 @@
 package it.unibo.cluedo.model;
 
-import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 import it.unibo.cluedo.model.unforeseen.api.Unforeseen;
 
@@ -38,7 +37,8 @@ public interface GameModelBuilder {
      * It is not allowed to add a player with a nickname or color
      * that is already used by another player, or to add more than MAX_PLAYERS players.
      * 
-     * @param player the {@link Player} instance to add to the game.
+     * @param username the nickname of the player.
+     * @param color the color of the player.
      * @return the builder itself.
      * @throws IllegalArgumentException if there is already another player with the same nickname or color,
      * or if the maximum number of players has already been reached.
