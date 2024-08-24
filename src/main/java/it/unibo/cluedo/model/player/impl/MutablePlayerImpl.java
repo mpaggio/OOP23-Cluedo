@@ -97,4 +97,13 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
         }
     }
 
+    /**
+     * Set the current steps of the player.
+     * @param steps the number of steps to set
+     */
+    @Override
+    public void setCurrentSteps(final int steps) {
+        super.setCurrentSteps(steps);
+    }
+
 }

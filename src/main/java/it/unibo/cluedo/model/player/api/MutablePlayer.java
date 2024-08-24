@@ -53,6 +53,11 @@ public interface MutablePlayer extends Player, Cloneable {
     void setPlayerCards(List<Card> cards);
 
     /**
+     * Sets the current steps of the player.
+     * @param steps the number of steps to set.
+     */
+    void setCurrentSteps(int steps);
+    /**
      * Creates and returns a copy of this player.
      *
      * @return a clone of this instance.

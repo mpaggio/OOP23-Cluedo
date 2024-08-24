@@ -29,6 +29,7 @@ public class PlayerImpl implements Player {
     private boolean nextTurn;
     private final Notebook notebook;
     private final Dice dice;
+    private int currentSteps;
     /**
      * Constructs a new player with the given username and color.
      *
@@ -47,6 +48,7 @@ public class PlayerImpl implements Player {
         this.nextTurn = true;
         this.notebook = new NotebookImpl();
         this.dice = new DiceImpl(DICE_SIDES);
+        this.currentSteps = 0;
     }
 
     /**
@@ -181,6 +183,14 @@ public class PlayerImpl implements Player {
     }
 
     /**
+     * Sets the current steps of the player.
+     * @param steps the number of steps to set
+     */
+    protected void setCurrentSteps(final int steps) {
+        this.currentSteps = steps;
+    }
+
+    /**
      * {@inheritDoc}
      */
     @Override
@@ -199,5 +209,13 @@ public class PlayerImpl implements Player {
             this.doubleRollDice = false;
         }
         return steps;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getCurrentSteps() {
+        return this.currentSteps;
     }
 }

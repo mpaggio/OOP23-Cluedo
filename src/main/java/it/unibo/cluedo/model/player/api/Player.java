@@ -79,4 +79,10 @@ public interface Player {
      */
     int getSteps();
 
+    /**
+     * Get the current steps of the player.
+     * @return the number of steps
+     */
+    int getCurrentSteps();
+
 }
