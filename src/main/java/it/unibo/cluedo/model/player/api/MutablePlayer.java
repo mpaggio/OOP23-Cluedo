@@ -1,5 +1,7 @@
 package it.unibo.cluedo.model.player.api;
 
+import java.util.List;
+import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.utilities.Position;
 
 /**
@@ -43,6 +45,12 @@ public interface MutablePlayer extends Player, Cloneable {
      * @param nextTurn a boolean indicating if the player can take next turn.
      */
     void setNextTurn(boolean nextTurn);
+
+    /**
+     * Sets the player's cards.
+     * @param cards the list of cards to assign to the player.
+     */
+    void setPlayerCards(List<Card> cards);
 
     /**
      * Creates and returns a copy of this player.
