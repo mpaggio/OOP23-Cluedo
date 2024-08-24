@@ -10,10 +10,9 @@ import it.unibo.cluedo.model.unforeseen.api.Unforeseen;
  * It is used to build a new instance of GameModel.
  * Example of usage:
  * <pre>{@code
- * PlayerBuilder builder1 = new PlayerBuilderImpl();
- * GameModelBuilder builder2 = new GameModelBuilder();
- * GameModel model = builder.addPlayer(builder1.username("John").color("Red").buildPlayer())
- *                          .addPlayer(builder1.username("Nick").color("Blue").buildPlayer())
+ * GameModelBuilder builder = new GameModelBuilder();
+ * GameModel model = builder.addPlayer("John","Red")
+ *                          .addPlayer("Nick","Blue")
  * .                        .addUnforseen(new MoveExtraStep("Move extra"))
  *                          .addTrapdoor(new TrapDoorImpl(new RoomImpl("Kitchen"), new Position(4, 5)))
  *                          .build;
@@ -44,7 +43,7 @@ public interface GameModelBuilder {
      * @throws IllegalArgumentException if there is already another player with the same nickname or color,
      * or if the maximum number of players has already been reached.
      */
-    GameModelBuilder addPlayer(Player player);
+    GameModelBuilder addPlayer(String username, String color);
 
     /**
      * Method to add an unforeseen card to the game.

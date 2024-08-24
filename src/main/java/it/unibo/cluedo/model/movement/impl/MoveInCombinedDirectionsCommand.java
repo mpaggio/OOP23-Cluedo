@@ -73,5 +73,5 @@ public final class MoveInCombinedDirectionsCommand implements MovementCommand {
             singleMovementCommand.execute();
         }
     }
-
+    
 }
