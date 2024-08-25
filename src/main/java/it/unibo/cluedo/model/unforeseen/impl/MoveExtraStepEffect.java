@@ -1,5 +1,7 @@
 package it.unibo.cluedo.model.unforeseen.impl;
+
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 
 /**
@@ -8,7 +10,7 @@ import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
  */
 public final class MoveExtraStepEffect implements UnforeseenEffect {
 
-    //private final int extraSteps;
+    private final int extraSteps;
 
     /**
      * Constructor of the class.
@@ -16,17 +18,18 @@ public final class MoveExtraStepEffect implements UnforeseenEffect {
      * @param extraSteps the number of extra steps the player can move
      *
      */
-    /*
     public MoveExtraStepEffect(final int extraSteps) {
-        //this.extraSteps = extraSteps;
+        this.extraSteps = extraSteps;
     }
-        */
 
     @Override
     public void applyEffetct(final Player player) {
-        //int currentSteps = player.getSteps();
-        //int newSteps = Math.max(0, currentSteps + extraSteps);
-        //player.setCurrentSteps(newSteps);
+        if (player instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) player;
+            final int currentSteps = player.getSteps();
+            final int newSteps = Math.max(0, currentSteps + extraSteps);
+            mutablePlayer.setCurrentSteps(newSteps);
+        }
     }
 
 
