@@ -22,8 +22,8 @@ class SwapCardEffectTest {
      */
     @Test
     void testApplyEffect() {
-        Card weaponCard1 = new TestCard("Revolver", Card.Type.WEAPON);
-        Card weaponCard2 = new TestCard("Candlestick", Card.Type.WEAPON);
+        final Card weaponCard1 = new TestCard("Revolver", Card.Type.WEAPON);
+        final Card weaponCard2 = new TestCard("Candlestick", Card.Type.WEAPON);
 
         final Player player1 = new MutablePlayerImpl("Player1", "Red");
         final Player player2 = new MutablePlayerImpl("Player2", "Blue");
@@ -33,7 +33,7 @@ class SwapCardEffectTest {
         mutablePlayer1.setPlayerCards(List.of(weaponCard1));
         mutablePlayer2.setPlayerCards(List.of(weaponCard2));
 
-        SwapCardEffect effect = new SwapCardEffect(player2);
+        final SwapCardEffect effect = new SwapCardEffect(player2);
         effect.applyEffect(player1);
 
         assertEquals(List.of(weaponCard2), player1.getPlayerCards());
@@ -43,19 +43,21 @@ class SwapCardEffectTest {
     /**
      * This class represents a test card.
      */
-    private class TestCard implements Card {
+    private static class TestCard implements Card {
         private final String name;
         private final Type type;
 
-        public TestCard(String name, Type type) {
+        TestCard(final String name, final Type type) {
             this.name = name;
             this.type = type;
         }
 
+        @Override
         public String getName() {
             return name;
         }
 
+        @Override
         public Type getType() {
             return type;
         }
@@ -66,12 +68,13 @@ class SwapCardEffectTest {
         }
 
         @Override
-        public boolean equals(Object o) {
-            if (this == o)
+        public boolean equals(final Object o) {
+            if (this == o) {
                 return true;
-            if (o == null || getClass() != o.getClass())
+            } else if (o == null || getClass() != o.getClass()) {
                 return false;
-            TestCard testCard = (TestCard) o;
+            }
+            final TestCard testCard = (TestCard) o;
             return Objects.equals(name, testCard.name) && type == testCard.type;
         }
 
