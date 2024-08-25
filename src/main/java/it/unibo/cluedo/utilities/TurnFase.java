@@ -13,10 +13,6 @@ public enum TurnFase {
      */
     MOVE_PLAYER,
     /**
-     * The player moves.
-     */
-    MOVING,
-    /**
      * If the player landed on a a square with an effect, it gets applied.
      */
     APPLY_EFFECT,

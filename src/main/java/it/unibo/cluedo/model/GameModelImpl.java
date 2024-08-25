@@ -52,27 +52,46 @@ final class GameModelImpl implements GameModel {
         deck.initializeDeck();
         solution = deck.drawSolution();
         notebooks = new ArrayList();
+        final List<Set<Card>> cards = List.copyOf(deck.distributeCards(players.size()));
         players.forEach(player -> {
-            final Notebook notebook = new NotebookImpl();
-            final List<String> playerCards = new ArrayList<>();
-            for (final Card card : player.getPlayerCards()) {
-                playerCards.add(card.getName());
+            if (player instanceof MutablePlayer) {
+                ((MutablePlayer) this.players.get(players.indexOf(player)))
+                    .setPlayerCards(List.copyOf(cards.get(players.indexOf(player))));
+                final Notebook notebook = new NotebookImpl();
+                final List<String> playerCards = new ArrayList<>();
+                for (final Card card : player.getPlayerCards()) {
+                    playerCards.add(card.getName());
+                }
+                notebook.initialize(playerCards);
+                notebooks.add(notebook);
             }
-            notebook.initialize(playerCards);
-            notebooks.add(notebook);
         });
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void applyEffect(final Square position) {
         if (fase == TurnFase.APPLY_EFFECT) {
-            if (!position.getEffect().getType().equals(Effect.EffectType.NONE)) {
-                position.getEffect().apply(getCurrentPlayer());
-                fase = fase.nextFase();
+            switch (position.getEffect().getType()) {
+                case BONUS:
+                    fase = fase.ROLL_DICE;
+                    position.getEffect().apply(getCurrentPlayer());
+                    break;
+                case MALUS:
+                    position.getEffect().apply(getCurrentPlayer());
+                    fase = fase.nextFase();
+                    break;
+                default:
+                    fase = fase.nextFase();
+                    break;
             }
-            fase = fase.nextFase();
+        } else {
+            throw new IllegalStateException("Effects can't be applied now");
         }
     }
+
     /**
      * {@inheritDoc}
      */
@@ -140,6 +159,7 @@ final class GameModelImpl implements GameModel {
             }
             statistics.incrementAccusationsMade(getCurrentPlayer());
             fase = fase.nextFase();
+            result.ifPresent(card -> notebooks.get(players.indexOf(getCurrentPlayer())).logSeenCards(card.getName()));
             return result;
         }
         throw new IllegalStateException("You can't make an accusation now");
@@ -155,9 +175,15 @@ final class GameModelImpl implements GameModel {
     @Override
     public int rollDice() {
         if (fase == TurnFase.ROLL_DICE) {
-            final Dice dice = new DiceImpl(6);
-            fase = fase.nextFase();
-            return dice.rollDice();
+            if (getCurrentPlayer().canNextTurn()) {
+                final Dice dice = new DiceImpl(6);
+                fase = fase.nextFase();
+                return dice.rollDice();
+            } else if (getCurrentPlayer() instanceof MutablePlayer) {
+                ((MutablePlayer) getCurrentPlayer()).setNextTurn(true);
+                fase = fase.END_TURN;
+                return 0;
+            }
         }
         throw new IllegalStateException("You can't roll the dice now");
     }
