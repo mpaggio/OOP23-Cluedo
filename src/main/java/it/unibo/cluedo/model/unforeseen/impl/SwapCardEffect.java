@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.card.api.Card.Type;
+import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 
@@ -28,9 +29,10 @@ public final class SwapCardEffect implements UnforeseenEffect {
     }
 
     @Override
-    public void applyEffetct(final Player player) {
+    public void applyEffect(final Player player) {
         final List<Card> playerCards = player.getPlayerCards();
         final List<Card> otherPlayerCards = otherPlayer.getPlayerCards();
+
         if (!playerCards.isEmpty() && !otherPlayerCards.isEmpty()) {
             final Card playerCard = playerCards.get(random.nextInt(playerCards.size()));
             final Type cardType = playerCard.getType();
@@ -41,14 +43,21 @@ public final class SwapCardEffect implements UnforeseenEffect {
 
             if (!matchingCards.isEmpty()) {
                 final Card otherPlayerCard = matchingCards.get(random.nextInt(matchingCards.size()));
-                final int playerCardIndex = playerCards.indexOf(playerCard);
-                final int otherPlayerCardIndex = otherPlayerCards.indexOf(otherPlayerCard);
-                playerCards.set(playerCardIndex, otherPlayerCard);
-                otherPlayerCards.set(otherPlayerCardIndex, playerCard);
+                playerCards.remove(playerCard);
+                playerCards.add(otherPlayerCard);
+
+                otherPlayerCards.remove(otherPlayerCard);
+                otherPlayerCards.add(playerCard);
+
+                if (player instanceof MutablePlayer) {
+                    ((MutablePlayer) player).setPlayerCards(playerCards);
+                }
+                if (otherPlayer instanceof MutablePlayer) {
+                    ((MutablePlayer) otherPlayer).setPlayerCards(otherPlayerCards);
+                }
             }
 
         }
 
     }
-
 }

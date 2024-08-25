@@ -24,10 +24,10 @@ public final class MoveExtraStepEffect implements UnforeseenEffect {
     }
 
     @Override
-    public void applyEffetct(final Player player) {
+    public void applyEffect(final Player player) {
         if (player instanceof MutablePlayer) {
             final MutablePlayer mutablePlayer = (MutablePlayer) player;
-            final int currentSteps = player.getSteps();
+            final int currentSteps = player.getCurrentSteps();
             final int newSteps = Math.max(0, currentSteps + extraSteps);
             mutablePlayer.setCurrentSteps(newSteps);
         }

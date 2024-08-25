@@ -14,10 +14,10 @@ public class SkipTurnEffect implements UnforeseenEffect {
      * Constructor of the class.
      */
     @Override
-    public void applyEffetct(final Player player) {
+    public void applyEffect(final Player player) {
         if (player instanceof MutablePlayer) {
             final MutablePlayer mutablePlayer = (MutablePlayer) player;
-            mutablePlayer.setPlayerTurn(false);
+            mutablePlayer.setNextTurn(false);
         }
     }
 }

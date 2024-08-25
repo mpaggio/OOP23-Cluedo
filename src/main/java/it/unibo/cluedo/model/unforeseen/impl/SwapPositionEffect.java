@@ -22,7 +22,7 @@ public final class SwapPositionEffect implements UnforeseenEffect {
     }
 
     @Override
-    public void applyEffetct(final Player player) {
+    public void applyEffect(final Player player) {
         if (player instanceof MutablePlayer && otherPlayer instanceof MutablePlayer) {
             final MutablePlayer mutablePlayer = (MutablePlayer) player;
             final MutablePlayer mutableOtherPlayer = (MutablePlayer) otherPlayer;

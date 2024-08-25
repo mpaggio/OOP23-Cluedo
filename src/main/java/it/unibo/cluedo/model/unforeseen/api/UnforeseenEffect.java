@@ -11,5 +11,5 @@ public interface UnforeseenEffect {
      *
      * @param player the player who triggered the unforeseen card
      */
-    void applyEffetct(Player player);
+    void applyEffect(Player player);
 }

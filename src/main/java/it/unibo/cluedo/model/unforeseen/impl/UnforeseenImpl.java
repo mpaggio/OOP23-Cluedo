@@ -30,7 +30,7 @@ public abstract class UnforeseenImpl implements Unforeseen {
      */
     @Override
     public void apply(final Player player) {
-        effect.applyEffetct(player);
+        effect.applyEffect(player);
     }
 
     /**

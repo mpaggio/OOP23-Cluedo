@@ -10,7 +10,7 @@ import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 public final class ReRollDiceEffect implements UnforeseenEffect {
 
     @Override
-    public void applyEffetct(final Player player) {
+    public void applyEffect(final Player player) {
         if (player instanceof MutablePlayer) {
             final MutablePlayer mutablePlayer = (MutablePlayer) player;
             mutablePlayer.setDoubleRollDice(true);
