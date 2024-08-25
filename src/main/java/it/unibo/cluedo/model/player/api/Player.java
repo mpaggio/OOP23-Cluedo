@@ -73,4 +73,16 @@ public interface Player {
      */
     Notebook getPlayerNotebook();
 
+    /**
+     * Get the number of steps the player can do.
+     * @return the number of steps
+     */
+    int getSteps();
+
+    /**
+     * Get the current steps of the player.
+     * @return the number of steps
+     */
+    int getCurrentSteps();
+
 }
