@@ -5,7 +5,8 @@ import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 
 /**
- * This class represents an Unforeseen Card that allows a player to move extra steps
+ * This class represents an Unforeseen Card that allows a player to move extra
+ * steps
  * beyond what they would normally move based on the dice roll.
  */
 public final class MoveExtraStepEffect implements UnforeseenEffect {
@@ -31,7 +32,5 @@ public final class MoveExtraStepEffect implements UnforeseenEffect {
             mutablePlayer.setCurrentSteps(newSteps);
         }
     }
-
-
 
 }
