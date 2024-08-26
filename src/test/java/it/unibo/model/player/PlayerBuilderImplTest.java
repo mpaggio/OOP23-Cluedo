@@ -37,4 +37,48 @@ final class PlayerBuilderImplTest {
                 });
     }
 
+    /**
+     * Check that building a player without a username throws an exception or fails.
+     */
+    @Test
+    void testBuildPlayerWithoutUsername() {
+        final String color = "color";
+        final PlayerBuilderImpl playerBuilder = new PlayerBuilderImpl();
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    playerBuilder.color(color)
+                            .buildPlayer();
+                });
+    }
+
+    /**
+     * Check that building a player without a color throws an exception or fails.
+     */
+    @Test
+    void testBuildPlayerWithoutColor() {
+        final String username = "user";
+        final PlayerBuilderImpl playerBuilder = new PlayerBuilderImpl();
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    playerBuilder.username(username)
+                            .buildPlayer();
+                });
+    }
+
+    /**
+     * Check that modifying a builder works correctly.
+     */
+    @Test
+    void testModifyBuilder(){
+        final Player player = new PlayerBuilderImpl()
+                .username("oldUsername")
+                .color("oldColor")
+                .username("newUsername")
+                .color("newColor")
+                .buildPlayer();
+        assertNotNull(player);
+        assertEquals("newUsername", player.getUsername());
+        assertEquals("newColor", player.getColor());
+    }
+
 }
