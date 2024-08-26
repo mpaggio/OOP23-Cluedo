@@ -14,8 +14,6 @@ import it.unibo.cluedo.model.square.api.Square;
 public class MapComponentVisitorImpl implements MapComponentVisitor {
     private final List<Square> visitedSquare;
     private final List<Room> visitedRoom;
-    private Optional<Square> lastVisitedSquare;
-    private Optional<Room> lastVisitedRoom;
 
     /**
      * Constructor for the map component visitor.
@@ -32,7 +30,6 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
     public void visitSquare(final Square square) {
         if (!this.visitedSquare.contains(square)) {
             this.visitedSquare.add(square);
-            this.lastVisitedSquare = Optional.of(square);
         }
     }
 
@@ -43,24 +40,7 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
     public void visitRoom(final Room room) {
         if (!this.visitedRoom.contains(room)) {
             this.visitedRoom.add(room);
-            this.lastVisitedRoom = Optional.of(new RoomImpl(room.getName()));
         }
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<Room> getLastVisitedRoom() {
-        return this.lastVisitedRoom;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<Square> getLastVisitedSquare() {
-        return this.lastVisitedSquare;
     }
 
     /**
