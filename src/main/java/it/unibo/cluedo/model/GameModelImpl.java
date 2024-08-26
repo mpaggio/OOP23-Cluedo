@@ -52,7 +52,7 @@ final class GameModelImpl implements GameModel {
         final Deck deck = new DeckImpl();
         deck.initializeDeck();
         solution = deck.drawSolution();
-        notebooks = new ArrayList();
+        notebooks = new ArrayList<>();
         final List<Set<Card>> cards = List.copyOf(deck.distributeCards(players.size()));
         players.forEach(player -> {
             if (player instanceof MutablePlayer) {
@@ -87,7 +87,7 @@ final class GameModelImpl implements GameModel {
         if (fase == TurnFase.APPLY_EFFECT) {
             switch (position.getEffect().getType()) {
                 case BONUS:
-                    fase = fase.ROLL_DICE;
+                    fase = TurnFase.ROLL_DICE;
                     position.getEffect().apply(getCurrentPlayer());
                     break;
                 case MALUS:
@@ -194,7 +194,7 @@ final class GameModelImpl implements GameModel {
                 return currentDiceResult;
             } else if (getCurrentPlayer() instanceof MutablePlayer) {
                 ((MutablePlayer) getCurrentPlayer()).setNextTurn(true);
-                fase = fase.END_TURN;
+                fase = TurnFase.END_TURN;
                 return 0;
             }
         }
