@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.card.impl.CardImpl;
+import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
 import it.unibo.cluedo.utilities.Position;
@@ -171,6 +172,26 @@ final class PlayerImplTest {
             mutablePlayer.setDoubleRollDice(true);
             final int steps = testPlayer.getSteps();
             assertTrue(steps >= MIN_DOUBLE_DICE_ROLL && steps <= MAX_DOUBLE_DICE_ROLL);
+        }
+    }
+
+    /**
+     * Test the notebook update after the player's cards are set.
+     */
+    @Test
+    void testNotebookUpdate() {
+        final List<Card> cards = List.of(
+            new CardImpl(Card.Type.ROOM, "card1", "src/main/resources/Kitchen.png"),
+            new CardImpl(Card.Type.WEAPON, "card2", "src/main/resources/Candlestick.png"),
+            new CardImpl(Card.Type.CHARACTER, "card3", "src/main/resources/ColonelMustard.png")
+        );
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setPlayerCards(cards);
+            final Notebook notebook = testPlayer.getPlayerNotebook();
+            assertTrue(notebook.getSeenRooms().contains("card1"));
+            assertTrue(notebook.getSeenWeapons().contains("card2"));
+            assertTrue(notebook.getSeenSuspects().contains("card3"));
         }
     }
 }
