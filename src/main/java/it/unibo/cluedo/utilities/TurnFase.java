@@ -5,6 +5,10 @@ package it.unibo.cluedo.utilities;
  */
 public enum TurnFase {
     /**
+     * The unforseen cards get distributed.
+     */
+    DISTRIBUTE_UNFORSEEN,
+    /**
      * The player has to roll the dice.
      */
     ROLL_DICE,

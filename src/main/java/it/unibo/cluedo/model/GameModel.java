@@ -15,6 +15,10 @@ import java.util.Optional;
  */
 public interface GameModel {
     /**
+     * Method to distribute the unforseen cards.
+     */
+    void distributeUnforseen();
+    /**
      * Method to roll the dice.
      * @return the result of the dice roll.
      */

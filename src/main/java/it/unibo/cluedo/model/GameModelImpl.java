@@ -32,8 +32,9 @@ import it.unibo.cluedo.utilities.TurnFase;
 
 final class GameModelImpl implements GameModel {
 
-    private TurnFase fase = TurnFase.ROLL_DICE;
-    private final Accusation accusation = new AccusationImpl();
+    private TurnFase fase;
+    private int currentDiceResult;
+    private final Accusation accusation;
     private final List<Player> players;
     private final TurnManager turnManager;
     private final Statistics statistics;
@@ -45,7 +46,7 @@ final class GameModelImpl implements GameModel {
      * @param players the players of the game.
      */
     GameModelImpl(final List<Player> players) {
-        this.players = players;
+        this.players = List.copyOf(players);
         turnManager = new TurnManagerImpl(players);
         statistics = new StatisticsImpl(players);
         final Deck deck = new DeckImpl();
@@ -66,6 +67,16 @@ final class GameModelImpl implements GameModel {
                 notebooks.add(notebook);
             }
         });
+        fase = TurnFase.ROLL_DICE;
+        accusation = new AccusationImpl();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void distributeUnforseen() {
+        // TODO Auto-generated method stub
     }
 
     /**
@@ -151,7 +162,7 @@ final class GameModelImpl implements GameModel {
             if ("Cluedo".equals(roomPosition.getName())) {
                 throw new IllegalArgumentException("You can't make an accusation in the Cluedo room");
             }
-            int index = (players.indexOf(getCurrentPlayer()) + 1) % players.size() + 1;
+            int index = (players.indexOf(getCurrentPlayer())) % players.size() + 1;
             Optional<Card> result = Optional.empty();
             while (index != players.indexOf(getCurrentPlayer()) && result.equals(Optional.empty())) {
                 result = accusation.accuse(weapon, room, character, Set.copyOf(players.get(index).getPlayerCards()));
@@ -169,6 +180,7 @@ final class GameModelImpl implements GameModel {
     public void movePlayer(final Square position) {
         // TODO Auto-generated method stub
     }
+
     /**
      * {@inheritDoc}
      */
@@ -178,7 +190,8 @@ final class GameModelImpl implements GameModel {
             if (getCurrentPlayer().canNextTurn()) {
                 final Dice dice = new DiceImpl(6);
                 fase = fase.nextFase();
-                return dice.rollDice();
+                currentDiceResult = dice.rollDice();
+                return currentDiceResult;
             } else if (getCurrentPlayer() instanceof MutablePlayer) {
                 ((MutablePlayer) getCurrentPlayer()).setNextTurn(true);
                 fase = fase.END_TURN;
@@ -188,6 +201,9 @@ final class GameModelImpl implements GameModel {
         throw new IllegalStateException("You can't roll the dice now");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean makeFinalAccusation(final Card weapon, final Card room, final Card character, final Room roomPosition) {
         if (fase == TurnFase.MAKE_ACCUSATION) {
