@@ -4,9 +4,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import it.unibo.cluedo.model.card.api.Card;
+import it.unibo.cluedo.model.card.impl.CardImpl;
+import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
 import it.unibo.cluedo.utilities.Position;
 
@@ -44,4 +47,127 @@ final class PlayerImplTest {
         assertEquals(0, testPlayer.getPlayerCards().size());
     }
 
+    /**
+     * Test the set of the player's turn.
+     */
+    @Test
+    void testSetPlayerTurn() {
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setPlayerTurn(true);
+            assertTrue(testPlayer.isPlayerTurn());
+            mutablePlayer.setPlayerTurn(false);
+            assertFalse(testPlayer.isPlayerTurn());
+        }
+    }
+
+    /**
+     * Test the set of the player's victory condition.
+     */
+    @Test
+    void testHasWon() {
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setHasWon(true);
+            assertTrue(testPlayer.hasWon());
+            mutablePlayer.setHasWon(false);
+            assertFalse(testPlayer.hasWon());
+        }
+    }
+
+    /**
+     * Test the set of the player's position in room.
+     */
+    @Test
+    void testSetInRoom() {
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setInRoom(true);
+            assertTrue(testPlayer.isInRoom());
+            mutablePlayer.setInRoom(false);
+            assertFalse(testPlayer.isInRoom());
+        }
+    }
+
+    /**
+     * Test th set of the player's double roll dice condition.
+     */
+    @Test
+    void testSetDoubleRollDice(){
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setDoubleRollDice(true);
+            assertTrue(testPlayer.canDoubleRollDice());
+            mutablePlayer.setDoubleRollDice(false);
+            assertFalse(testPlayer.canDoubleRollDice());
+        }
+    }   
+
+    /**
+     * Test the set of the player's next turn condition.
+     */
+    @Test
+    void testSetNextTurn(){
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setNextTurn(false);
+            assertFalse(testPlayer.canNextTurn());
+            mutablePlayer.setNextTurn(true);
+            assertTrue(testPlayer.canNextTurn());
+        }
+    }
+
+    /**
+     * Test the set of the player's position.
+     */
+    @Test
+    void testSetCurrentPosition() {
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            final Position position = new Position(1, 1);
+            mutablePlayer.setPosition(position);
+            assertEquals(position, testPlayer.getCurrentPosition());
+        }
+    }
+
+    /**
+     * Test the set of the player's cards, it also cheks if the cards are exactly 3.
+     */
+    @Test
+    void testSetPlayerCards() {
+        List<Card> cards = List.of(
+            new CardImpl(Card.Type.ROOM, "card1", "src/main/resources/Kitchen.png"),
+            new CardImpl(Card.Type.WEAPON,"card2", "src/main/resources/Candlestick.png"),
+            new CardImpl(Card.Type.CHARACTER,"card3", "src/main/resources/ColonelMustard.png")
+        );
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setPlayerCards(cards);
+            assertEquals(3, testPlayer.getPlayerCards().size());
+            assertEquals(cards, testPlayer.getPlayerCards());
+
+        }
+    }
+
+    /**
+     * Test the get of the player's steps after a roll dice.
+     */
+    @Test
+    void testGetSteps() {
+        int steps = testPlayer.getSteps();
+        assertTrue(steps >= 1 && steps <= 6);
+    }
+
+    /**
+     * Test the get of the player's steps after a double roll dice.
+     */
+    @Test
+    void testGetStepsWithDoubleRollDice(){
+        if (testPlayer instanceof MutablePlayer) {
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setDoubleRollDice(true);
+            int steps = testPlayer.getSteps();
+            assertTrue(steps >= 1 && steps <= 12);
+        }
+    }
 }
