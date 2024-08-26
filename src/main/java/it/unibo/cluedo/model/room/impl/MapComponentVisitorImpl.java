@@ -1,9 +1,7 @@
 package it.unibo.cluedo.model.room.impl;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-
+import java.util.LinkedList;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
@@ -48,7 +46,7 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      */
     @Override
     public List<Room> getVisitedRoom() {
-        return List.copyOf(this.visitedRoom);
+        return new LinkedList<>(this.visitedRoom);
     }
 
     /**
@@ -56,6 +54,6 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      */
     @Override
     public List<Square> getVisitedSquare() {
-        return List.copyOf(this.visitedSquare);
+        return new LinkedList<>(this.visitedSquare);
     }
 }

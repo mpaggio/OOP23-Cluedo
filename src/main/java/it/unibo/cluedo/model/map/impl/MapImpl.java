@@ -2,6 +2,7 @@ package it.unibo.cluedo.model.map.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Random;
 
@@ -10,6 +11,7 @@ import it.unibo.cluedo.model.room.api.MapComponent;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.impl.MapComponentVisitorImpl;
 import it.unibo.cluedo.model.room.impl.RoomImpl;
+import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.impl.BonusEffectImpl;
 import it.unibo.cluedo.model.square.impl.MalusEffectImpl;
 import it.unibo.cluedo.model.square.impl.SquareFactory;
@@ -148,10 +150,12 @@ public class MapImpl implements Map {
                         bonusCount,
                         malusCount
                     );
+                    final LinkedList<Square> visitedSquare = new LinkedList<>();
                     squareToAdd.accept(visitor);
-                    if (visitor.getLastVisitedSquare().get().getEffect() instanceof BonusEffectImpl) {
+                    visitedSquare.addAll(visitor.getVisitedSquare());
+                    if (visitedSquare.getLast().getEffect() instanceof BonusEffectImpl) {
                         bonusCount++;
-                    } else if (visitor.getLastVisitedSquare().get().getEffect() instanceof MalusEffectImpl) {
+                    } else if (visitedSquare.getLast().getEffect() instanceof MalusEffectImpl) {
                         malusCount++;
                     }
                     localTiles.add(squareToAdd);
@@ -274,5 +278,23 @@ public class MapImpl implements Map {
     @Override
     public MapComponentVisitor getVisitor() {
         return this.visitor;
+    }
+
+    /**
+     * Gets the map height.
+     * 
+     * @return the map height
+     */
+    public static int getMapHeight() {
+        return MAP_HEIGHT;
+    }
+
+    /**
+     * Gets the map width.
+     * 
+     * @return the map width
+     */
+    public static int getMapWidth() {
+        return MAP_WIDTH;
     }
 }
