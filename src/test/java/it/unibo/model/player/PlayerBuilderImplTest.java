@@ -69,7 +69,7 @@ final class PlayerBuilderImplTest {
      * Check that modifying a builder works correctly.
      */
     @Test
-    void testModifyBuilder(){
+    void testModifyBuilder() {
         final Player player = new PlayerBuilderImpl()
                 .username("oldUsername")
                 .color("oldColor")
