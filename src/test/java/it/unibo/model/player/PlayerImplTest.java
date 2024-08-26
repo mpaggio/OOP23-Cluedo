@@ -20,6 +20,10 @@ final class PlayerImplTest {
 
     private static final String USERNAME = "username";
     private static final String COLOR = "color";
+    private static final int MIN_DICE_ROLL = 1;
+    private static final int MAX_DICE_ROLL = 6;
+    private static final int MAX_DOUBLE_DICE_ROLL = 12;
+    private static final int MIN_DOUBLE_DICE_ROLL = 2;
     private PlayerImpl testPlayer;
 
     /**
@@ -93,7 +97,7 @@ final class PlayerImplTest {
      * Test th set of the player's double roll dice condition.
      */
     @Test
-    void testSetDoubleRollDice(){
+    void testSetDoubleRollDice() {
         if (testPlayer instanceof MutablePlayer) {
             final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
             mutablePlayer.setDoubleRollDice(true);
@@ -101,14 +105,13 @@ final class PlayerImplTest {
             mutablePlayer.setDoubleRollDice(false);
             assertFalse(testPlayer.canDoubleRollDice());
         }
-    }   
-
+    }
     /**
      * Test the set of the player's next turn condition.
      */
     @Test
-    void testSetNextTurn(){
-        if (testPlayer instanceof MutablePlayer) {
+    void testSetNextTurn() {
+        if (testPlayer instanceof MutablePlayer) { 
             final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
             mutablePlayer.setNextTurn(false);
             assertFalse(testPlayer.canNextTurn());
@@ -135,10 +138,10 @@ final class PlayerImplTest {
      */
     @Test
     void testSetPlayerCards() {
-        List<Card> cards = List.of(
+        final List<Card> cards = List.of(
             new CardImpl(Card.Type.ROOM, "card1", "src/main/resources/Kitchen.png"),
-            new CardImpl(Card.Type.WEAPON,"card2", "src/main/resources/Candlestick.png"),
-            new CardImpl(Card.Type.CHARACTER,"card3", "src/main/resources/ColonelMustard.png")
+            new CardImpl(Card.Type.WEAPON, "card2", "src/main/resources/Candlestick.png"),
+            new CardImpl(Card.Type.CHARACTER, "card3", "src/main/resources/ColonelMustard.png")
         );
         if (testPlayer instanceof MutablePlayer) {
             final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
@@ -154,20 +157,20 @@ final class PlayerImplTest {
      */
     @Test
     void testGetSteps() {
-        int steps = testPlayer.getSteps();
-        assertTrue(steps >= 1 && steps <= 6);
+        final int steps = testPlayer.getSteps();
+        assertTrue(steps >= MIN_DICE_ROLL && steps <= MAX_DICE_ROLL);
     }
 
     /**
      * Test the get of the player's steps after a double roll dice.
      */
     @Test
-    void testGetStepsWithDoubleRollDice(){
+    void testGetStepsWithDoubleRollDice() {
         if (testPlayer instanceof MutablePlayer) {
             final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
             mutablePlayer.setDoubleRollDice(true);
-            int steps = testPlayer.getSteps();
-            assertTrue(steps >= 1 && steps <= 12);
+            final int steps = testPlayer.getSteps();
+            assertTrue(steps >= MIN_DOUBLE_DICE_ROLL && steps <= MAX_DOUBLE_DICE_ROLL);
         }
     }
 }
