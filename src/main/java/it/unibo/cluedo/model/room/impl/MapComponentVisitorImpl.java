@@ -1,9 +1,7 @@
 package it.unibo.cluedo.model.room.impl;
 
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Optional;
-
+import java.util.LinkedList;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
@@ -14,8 +12,6 @@ import it.unibo.cluedo.model.square.api.Square;
 public class MapComponentVisitorImpl implements MapComponentVisitor {
     private final List<Square> visitedSquare;
     private final List<Room> visitedRoom;
-    private Optional<Square> lastVisitedSquare;
-    private Optional<Room> lastVisitedRoom;
 
     /**
      * Constructor for the map component visitor.
@@ -32,7 +28,6 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
     public void visitSquare(final Square square) {
         if (!this.visitedSquare.contains(square)) {
             this.visitedSquare.add(square);
-            this.lastVisitedSquare = Optional.of(square);
         }
     }
 
@@ -43,7 +38,6 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
     public void visitRoom(final Room room) {
         if (!this.visitedRoom.contains(room)) {
             this.visitedRoom.add(room);
-            this.lastVisitedRoom = Optional.of(new RoomImpl(room.getName()));
         }
     }
 
@@ -51,24 +45,8 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      * {@inheritDoc}
      */
     @Override
-    public Optional<Room> getLastVisitedRoom() {
-        return this.lastVisitedRoom;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Optional<Square> getLastVisitedSquare() {
-        return this.lastVisitedSquare;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public List<Room> getVisitedRoom() {
-        return List.copyOf(this.visitedRoom);
+        return new LinkedList<>(this.visitedRoom);
     }
 
     /**
@@ -76,6 +54,6 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      */
     @Override
     public List<Square> getVisitedSquare() {
-        return List.copyOf(this.visitedSquare);
+        return new LinkedList<>(this.visitedSquare);
     }
 }

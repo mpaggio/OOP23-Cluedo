@@ -29,4 +29,19 @@ public interface Square extends MapComponent {
      * @return the effect of the square
      */
     Effect getEffect();
+
+    /**
+     * Sets that the square is occupied by the specified player.
+     * 
+     * @param player the player to set
+     */
+    void setPlayer(Player player);
+
+    /**
+     * Says wether there is a player located in the square.
+     * 
+     * @return true if there is a player in the square
+     * false otherwise
+     */
+    boolean hasPlayer();
 }
