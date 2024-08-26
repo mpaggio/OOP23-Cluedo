@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Optional;
 
+import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
@@ -17,6 +18,7 @@ public class RoomImpl implements Room {
     private final String name;
     private final List<Square> squares;
     private final List<Square> entrances;
+    private final List<Player> players;
     private Optional<TrapDoor> trapDoor;
 
     /**
@@ -29,6 +31,7 @@ public class RoomImpl implements Room {
         this.squares = new LinkedList<>();
         this.entrances = new LinkedList<>();
         this.trapDoor = Optional.empty();
+        this.players = new LinkedList<>();
     }
 
     /**
@@ -117,5 +120,21 @@ public class RoomImpl implements Room {
     @Override
     public Optional<TrapDoor> getTrapDoor() {
         return this.trapDoor;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void addPlayerInRoom(final Player player) {
+        this.players.add(player);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Player> getPlayersInRoom() {
+        return List.copyOf(this.players);
     }
 }

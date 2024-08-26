@@ -1,20 +1,25 @@
 package it.unibo.cluedo.model.movement.impl;
 
+import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
-import it.unibo.cluedo.model.square.impl.NoEffectImpl;
-import it.unibo.cluedo.model.square.impl.SquareImpl;
 import it.unibo.cluedo.utilities.Position;
-import java.util.List;
-import java.util.ArrayList;
 /**
  * Implementation of the {@link MovementStrategy} interface.
  * Provides the basic movement and validation operation.
  */
 public final class BoardMovement implements MovementStrategy {
+    private final MapComponentVisitor visitor;
 
-    private final List<Room> rooms = new ArrayList<>();
+    /**
+     * Constructor for BoardMovement.
+     * @param map the map of Cluedo game
+     */
+    public BoardMovement(final MapImpl map) {
+        this.visitor = map.getVisitor();
+    }
 
     @Override
     public Position calculatePosition(final Position currentPosition, final int steps, final Direction direction) {
@@ -38,18 +43,16 @@ public final class BoardMovement implements MovementStrategy {
         || newPosition.getY() < 0 || newPosition.getY() >= boardSize) {
             return false;
         }
-        final boolean isEntrance = rooms.stream()
-            .flatMap(rooom -> rooom.getEntrances().stream()) //unico flusso continuo di "square"
+        final boolean isEntrance = visitor.getVisitedRoom().stream()
+            .flatMap(room -> room.getEntrances().stream())
             .anyMatch(entrance -> entrance.getPosition().equals(newPosition));
         if (isEntrance) {
             return true;
         }
-        return rooms.stream()
-            .filter(room -> room.getSquares().contains(new SquareImpl(newPosition, new NoEffectImpl())))
-            .filter(Room::hasTrapDoor) //seleziono solo le stanze che hanno una botola e che contengono newPosition
-            .map(room -> room.getTrapDoor().get().getConnectedRoom()) //trasformo lo stream di room in uno streem di di 
-            //stanze collegate tramite botola
-            .flatMap(connectedRoom -> connectedRoom.getSquares().stream())
-            .anyMatch(square -> square.getPosition().equals(newPosition));
-        }
+        return visitor.getVisitedRoom().stream()
+            .filter(Room::hasTrapDoor) //seleziono solo le stanze che hanno una botola
+            .map(room -> room.getTrapDoor().get().getConnectedRoom())
+            .findAny()
+            .isPresent();
+    }
 }
