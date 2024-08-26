@@ -1,6 +1,8 @@
 package it.unibo.cluedo.model;
 
-import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import it.unibo.cluedo.model.player.api.Player;
 
 /**
  * Interface used to save and load the game.
@@ -9,15 +11,22 @@ public interface GameSaveManager {
 
     /**
      * Save the current game state in a file.
-     * @param fileName the name of the file where the game state will be saved.
-     * @throws IOException if an I/O error occurs.
+     *
+     * @param players the list of players in the game.
      */
-    void saveGame(String fileName) throws IOException;
+    void saveGame(List<Player> players);
 
     /**
-     * Load a game state from a file.
-     * @param fileName the name of the file where the game state is saved.
-     * @throws IOException if an I/O error occurs.
+     * Shows the data of the saved games.
+     *
+     * @return the list of the saved games.
      */
-    void loadGame(String fileName) throws IOException;
+    List<String> viewSavedGames();
+
+    /**
+     * Gives the output of the saved games.
+     *
+     * @return an optional containing a string representing the saved games.
+     */
+    Optional<String> getOutputSavedGames();
 }
