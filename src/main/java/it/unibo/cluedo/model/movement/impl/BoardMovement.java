@@ -1,6 +1,7 @@
 package it.unibo.cluedo.model.movement.impl;
 
 import it.unibo.cluedo.model.component.api.MapComponentVisitor;
+import it.unibo.cluedo.model.map.api.Map;
 import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.Player;
@@ -19,7 +20,7 @@ public final class BoardMovement implements MovementStrategy {
      * Constructor for BoardMovement.
      * @param map the map of Cluedo game
      */
-    public BoardMovement(final MapImpl map) {
+    public BoardMovement(final Map map) {
         this.visitor = map.getVisitor();
         this.width = MapImpl.getMapWidth();
         this.heigth = MapImpl.getMapHeight();
@@ -43,9 +44,8 @@ public final class BoardMovement implements MovementStrategy {
 
     @Override
     public boolean isValidMove(final Player player, final Position newPosition) {
-        return (newPosition.getX() >= 0 && newPosition.getX() < this.width
-        && newPosition.getY() >= 0 && newPosition.getY() < this.heigth);
-        //&& (visitor.getSquareByPosition(newPosition).isAlreadyOccupied());
+        return newPosition.getX() < 0 || newPosition.getX() >= this.width
+        || newPosition.getY() < 0 || newPosition.getY() >= this.heigth;
     }
 
     @Override
