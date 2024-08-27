@@ -12,6 +12,8 @@ import it.unibo.cluedo.utilities.Position;
  */
 public final class BoardMovement implements MovementStrategy {
     private final MapComponentVisitor visitor;
+    private final int width;
+    private final int heigth;
 
     /**
      * Constructor for BoardMovement.
@@ -19,6 +21,8 @@ public final class BoardMovement implements MovementStrategy {
      */
     public BoardMovement(final MapImpl map) {
         this.visitor = map.getVisitor();
+        this.width = MapImpl.getMapWidth();
+        this.heigth = MapImpl.getMapHeight();
     }
 
     @Override
@@ -38,19 +42,21 @@ public final class BoardMovement implements MovementStrategy {
     }
 
     @Override
-    public boolean isValidMove(final Player player, final Position newPosition, final int boardSize) {
-        if (newPosition.getX() < 0 || newPosition.getX() >= boardSize 
-        || newPosition.getY() < 0 || newPosition.getY() >= boardSize) {
+    public boolean isValidMove(final Player player, final Position newPosition) {
+        if (newPosition.getX() < 0 || newPosition.getX() >= this.width
+        || newPosition.getY() < 0 || newPosition.getY() >= this.heigth) {
             return false;
         }
-        final boolean isEntrance = visitor.getVisitedRoom().stream()
+        return visitor.getVisitedRoom().stream()
             .flatMap(room -> room.getEntrances().stream())
             .anyMatch(entrance -> entrance.getPosition().equals(newPosition));
-        if (isEntrance) {
-            return true;
-        }
+    }
+
+    @Override
+    public boolean isTrapDoorUsable(final Player player) {
         return visitor.getVisitedRoom().stream()
-            .filter(Room::hasTrapDoor) //seleziono solo le stanze che hanno una botola
+            //.filter(r -> r.isPlayerInRoom(player))
+            .filter(Room::hasTrapDoor)
             .map(room -> room.getTrapDoor().get().getConnectedRoom())
             .findAny()
             .isPresent();

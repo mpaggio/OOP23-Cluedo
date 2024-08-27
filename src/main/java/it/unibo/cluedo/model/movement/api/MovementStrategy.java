@@ -20,10 +20,16 @@ public interface MovementStrategy {
      * Checks if a move is valid according to the game rules.
      * @param player the player who wants to move
      * @param newPosition the new position where the player wants to move
-     * @param boardSize the size of map's board
      * @return true if the move is valid,false otherwise
      */
-    boolean isValidMove(Player player, Position newPosition, int boardSize);
+    boolean isValidMove(Player player, Position newPosition);
+
+    /**
+     * Checks if a player can move through the trapdoor.
+     * @param player the player who wants to move
+     * @return true if the player can move, false otherwise
+     */
+    boolean isTrapDoorUsable(Player player);
 
     /**
      * Enum that represents the possible direction where to move.
