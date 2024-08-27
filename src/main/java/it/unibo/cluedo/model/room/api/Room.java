@@ -85,6 +85,13 @@ public interface Room extends MapComponent {
     void addPlayerInRoom(Player player);
 
     /**
+     * Remove the specified player from the list.
+     * 
+     * @param player the player to remove from the list
+     */
+    void removePlayerFromRoom(Player player);
+
+    /**
      * Gets the list of players located in the room.
      * 
      * @return the list of players located in the room
