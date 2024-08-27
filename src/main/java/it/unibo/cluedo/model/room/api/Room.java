@@ -3,6 +3,7 @@ package it.unibo.cluedo.model.room.api;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.cluedo.model.component.api.MapComponent;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
@@ -83,6 +84,13 @@ public interface Room extends MapComponent {
      * @param player the player to add
      */
     void addPlayerInRoom(Player player);
+
+    /**
+     * Remove the specified player from the list.
+     * 
+     * @param player the player to remove from the list
+     */
+    void removePlayerFromRoom(Player player);
 
     /**
      * Gets the list of players located in the room.

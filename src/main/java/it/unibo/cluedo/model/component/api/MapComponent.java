@@ -1,4 +1,4 @@
-package it.unibo.cluedo.model.room.api;
+package it.unibo.cluedo.model.component.api;
 
 /**
  * Interface for all the component of the map.

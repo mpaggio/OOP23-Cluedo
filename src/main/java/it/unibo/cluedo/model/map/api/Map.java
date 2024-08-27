@@ -2,8 +2,8 @@ package it.unibo.cluedo.model.map.api;
 
 import java.util.List;
 
-import it.unibo.cluedo.model.room.api.MapComponent;
-import it.unibo.cluedo.model.room.api.MapComponentVisitor;
+import it.unibo.cluedo.model.component.api.MapComponent;
+import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 
 /**
  * Represents the map of the game of Cluedo.

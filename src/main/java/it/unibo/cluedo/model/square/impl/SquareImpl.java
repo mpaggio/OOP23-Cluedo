@@ -1,7 +1,7 @@
 package it.unibo.cluedo.model.square.impl;
 
+import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.utilities.Position;
@@ -41,6 +41,7 @@ public class SquareImpl implements Square {
      */
     @Override
     public void landOn(final Player player) {
+        setPlayer(player);
         this.effect.apply(player);
     }
 
@@ -64,15 +65,24 @@ public class SquareImpl implements Square {
      * {@inheritDoc}
      */
     @Override
-    public void setPlayer(final Player player) {
-        this.player = Optional.of(player);
+    public void removePlayer() {
+        this.player = Optional.empty();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean hasPlayer() {
+    public boolean isAlreadyOccupied() {
         return this.player.isPresent();
+    }
+
+    /**
+     * Sets the player moved in the square.
+     * 
+     * @param player the player that moved into the square
+     */
+    private void setPlayer(final Player player) {
+        this.player = Optional.of(player);
     }
 }
