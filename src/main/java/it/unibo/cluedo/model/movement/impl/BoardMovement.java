@@ -43,8 +43,9 @@ public final class BoardMovement implements MovementStrategy {
 
     @Override
     public boolean isValidMove(final Player player, final Position newPosition) {
-        return newPosition.getX() < 0 || newPosition.getX() >= this.width
-        || newPosition.getY() < 0 || newPosition.getY() >= this.heigth;
+        return (newPosition.getX() >= 0 && newPosition.getX() < this.width
+        && newPosition.getY() >= 0 && newPosition.getY() < this.heigth);
+        //&& (visitor.getSquareByPosition(newPosition).isAlreadyOccupied());
     }
 
     @Override
