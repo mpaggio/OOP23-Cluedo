@@ -14,7 +14,7 @@ import it.unibo.cluedo.model.unforeseen.api.Unforeseen;
  *                          .addPlayer("Nick","Blue")
  * .                        .addUnforseen(new MoveExtraStep("Move extra"))
  *                          .addTrapdoor(new TrapDoorImpl(new RoomImpl("Kitchen"), new Position(4, 5)))
- *                          .build;
+ *                          .build();
  * }</pre>
  */
 public interface GameModelBuilder {
