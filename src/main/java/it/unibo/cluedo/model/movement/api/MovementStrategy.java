@@ -32,6 +32,14 @@ public interface MovementStrategy {
     boolean isTrapDoorUsable(Player player);
 
     /**
+     * Checks if a player has entered in a room.
+     * @param player the player who wants to move
+     * @param newPosition the new position where the player wants to move
+     * @return true if the player has entered, false otherwise
+     */
+    boolean hasPlayerEnteredInRoom(Player player, Position newPosition);
+
+    /**
      * Enum that represents the possible direction where to move.
      */
     enum Direction {

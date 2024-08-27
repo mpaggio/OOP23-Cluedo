@@ -43,22 +43,24 @@ public final class BoardMovement implements MovementStrategy {
 
     @Override
     public boolean isValidMove(final Player player, final Position newPosition) {
-        if (newPosition.getX() < 0 || newPosition.getX() >= this.width
-        || newPosition.getY() < 0 || newPosition.getY() >= this.heigth) {
-            return false;
-        }
-        return visitor.getVisitedRoom().stream()
-            .flatMap(room -> room.getEntrances().stream())
-            .anyMatch(entrance -> entrance.getPosition().equals(newPosition));
+        return newPosition.getX() < 0 || newPosition.getX() >= this.width
+        || newPosition.getY() < 0 || newPosition.getY() >= this.heigth;
     }
 
     @Override
     public boolean isTrapDoorUsable(final Player player) {
         return visitor.getVisitedRoom().stream()
-            //.filter(r -> r.isPlayerInRoom(player))
+            .filter(r -> r.isPlayerInRoom(player))
             .filter(Room::hasTrapDoor)
             .map(room -> room.getTrapDoor().get().getConnectedRoom())
             .findAny()
             .isPresent();
+    }
+
+    @Override
+    public boolean hasPlayerEnteredInRoom(final Player player, final Position newPosition) {
+        return visitor.getVisitedRoom().stream()
+            .flatMap(room -> room.getEntrances().stream())
+            .anyMatch(entrance -> entrance.getPosition().equals(newPosition));
     }
 }
