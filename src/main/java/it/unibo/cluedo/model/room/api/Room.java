@@ -98,4 +98,12 @@ public interface Room extends MapComponent {
      * @return the list of players located in the room
      */
     List<Player> getPlayersInRoom();
+
+    /**
+     * Verify if the specified player is in the room.
+     * 
+     * @param player the player to check if is in the room
+     * @return true if the player is in the room, false otherwise
+     */
+    boolean isPlayerInRoom(Player player);
 }

@@ -1,11 +1,13 @@
 package it.unibo.cluedo.model.component.impl;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.LinkedList;
 
 import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
+import it.unibo.cluedo.utilities.Position;
 
 /**
  * Implementation of the map component visitor (visitor pattern).
@@ -56,5 +58,35 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
     @Override
     public List<Square> getVisitedSquare() {
         return new LinkedList<>(this.visitedSquare);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Square getSquareByPosition(final Position position) {
+        return this.visitedSquare.stream()
+            .filter(square -> square.getPosition().equals(position))
+            .findAny()
+            .get();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isSquareInRoom(final Square square) {
+        return this.visitedRoom.stream()
+            .anyMatch(room -> room.getSquares().contains(square));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Room> getRoomBySquare(final Square square) {
+        return this.getVisitedRoom().stream()
+            .filter(room -> room.getSquares().contains(square))
+            .findAny();
     }
 }
