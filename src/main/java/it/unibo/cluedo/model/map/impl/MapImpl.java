@@ -6,10 +6,10 @@ import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Random;
 
+import it.unibo.cluedo.model.component.api.MapComponent;
+import it.unibo.cluedo.model.component.api.MapComponentVisitor;
+import it.unibo.cluedo.model.component.impl.MapComponentVisitorImpl;
 import it.unibo.cluedo.model.map.api.Map;
-import it.unibo.cluedo.model.room.api.MapComponent;
-import it.unibo.cluedo.model.room.api.MapComponentVisitor;
-import it.unibo.cluedo.model.room.impl.MapComponentVisitorImpl;
 import it.unibo.cluedo.model.room.impl.RoomImpl;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.impl.BonusEffectImpl;

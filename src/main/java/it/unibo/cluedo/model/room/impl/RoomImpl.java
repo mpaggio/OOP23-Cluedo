@@ -4,8 +4,8 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Optional;
 
+import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.impl.NoEffectImpl;

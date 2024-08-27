@@ -1,9 +1,9 @@
 package it.unibo.cluedo.model.movement.impl;
 
+import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.room.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.utilities.Position;
 /**

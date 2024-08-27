@@ -1,6 +1,8 @@
-package it.unibo.cluedo.model.room.api;
+package it.unibo.cluedo.model.component.api;
 
 import java.util.List;
+
+import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
 
 /**

@@ -1,8 +1,9 @@
-package it.unibo.cluedo.model.room.impl;
+package it.unibo.cluedo.model.component.impl;
 
 import java.util.List;
 import java.util.LinkedList;
-import it.unibo.cluedo.model.room.api.MapComponentVisitor;
+
+import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
 

@@ -3,6 +3,7 @@ package it.unibo.cluedo.model.room.api;
 import java.util.List;
 import java.util.Optional;
 
+import it.unibo.cluedo.model.component.api.MapComponent;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;

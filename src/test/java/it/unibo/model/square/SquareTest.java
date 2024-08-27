@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 
 import java.util.LinkedList;
 
+import it.unibo.cluedo.model.component.api.MapComponentVisitor;
+import it.unibo.cluedo.model.component.impl.MapComponentVisitorImpl;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
-import it.unibo.cluedo.model.room.api.MapComponentVisitor;
-import it.unibo.cluedo.model.room.impl.MapComponentVisitorImpl;
 import it.unibo.cluedo.model.square.impl.SquareFactory;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;

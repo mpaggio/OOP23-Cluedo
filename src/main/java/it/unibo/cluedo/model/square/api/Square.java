@@ -1,7 +1,7 @@
 package it.unibo.cluedo.model.square.api;
 
+import it.unibo.cluedo.model.component.api.MapComponent;
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.room.api.MapComponent;
 import it.unibo.cluedo.utilities.Position;
 
 /**
