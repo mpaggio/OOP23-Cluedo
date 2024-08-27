@@ -79,6 +79,8 @@ public class SquareImpl implements Square {
 
     /**
      * Sets the player moved in the square.
+     * 
+     * @param player the player that moved into the square
      */
     private void setPlayer(final Player player) {
         this.player = Optional.of(player);

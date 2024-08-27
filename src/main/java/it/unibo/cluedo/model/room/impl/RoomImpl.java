@@ -134,7 +134,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public void removePlayerFromRoom(Player player) {
+    public void removePlayerFromRoom(final Player player) {
         this.players.remove(player);
     }
 
