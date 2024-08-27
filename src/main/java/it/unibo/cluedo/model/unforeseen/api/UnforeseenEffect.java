@@ -12,4 +12,11 @@ public interface UnforeseenEffect {
      * @param player the player who triggered the unforeseen card
      */
     void applyEffect(Player player);
+
+    /**
+     * Gets the type of the unforeseen card.
+     *
+     * @return the type of the unforeseen card
+     */
+    String getType();
 }

@@ -10,14 +10,13 @@ import it.unibo.cluedo.utilities.Position;
  */
 public final class SwapPositionEffect implements UnforeseenEffect {
 
-    private final Player otherPlayer;
+    private Player otherPlayer;
 
     /**
-     * Constructor of the class.
-     *
+     *  Constructor of the class.
      * @param otherPlayer the player with whom the current player will swap position
      */
-    public SwapPositionEffect(final Player otherPlayer) {
+    public void setSwapPositionEffect(final Player otherPlayer) {
         this.otherPlayer = otherPlayer;
     }
 
@@ -30,6 +29,11 @@ public final class SwapPositionEffect implements UnforeseenEffect {
             mutablePlayer.setPosition(otherPlayer.getCurrentPosition());
             mutableOtherPlayer.setPosition(tempPosition);
         }
+    }
+
+    @Override
+    public String getType() {
+        return "SwapPosition";
     }
 
 }

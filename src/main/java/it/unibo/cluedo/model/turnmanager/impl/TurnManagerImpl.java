@@ -13,7 +13,6 @@ import it.unibo.cluedo.model.turnmanager.api.TurnManager;
  * takes the
  * list of players as parameter.
  */
-
 public class TurnManagerImpl implements TurnManager {
     private final List<Player> players;
     private int currentPlayerIndex;
@@ -25,8 +24,12 @@ public class TurnManagerImpl implements TurnManager {
      * @param players
      */
     public TurnManagerImpl(final List<Player> players) {
+        if (players == null || players.isEmpty()) {
+            throw new IllegalArgumentException("The list of players cannot be null or empty");
+        }
         this.players = new ArrayList<>(players);
         this.currentPlayerIndex = 0;
+        ((MutablePlayer) this.players.get(currentPlayerIndex)).setPlayerTurn(true);
     }
 
     /**
@@ -52,8 +55,10 @@ public class TurnManagerImpl implements TurnManager {
         do {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         } while (players.get(currentPlayerIndex).hasWon());
+
         currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
         currentPlayer.setPlayerTurn(true);
+
         if (checkGameEndCondition()) {
             gameFinished = true;
         }
@@ -65,12 +70,16 @@ public class TurnManagerImpl implements TurnManager {
      * @return a boolean indicating if the game has ended or not.
      */
     private boolean checkGameEndCondition() {
+        int remainingPlayers = 0;
         for (final Player player : players) {
             if (!player.hasWon()) {
-                return true;
+                remainingPlayers++;
+                if (remainingPlayers > 1) {
+                    return false;
+                }
             }
         }
-        return false;
+        return true;
     }
 
     /**

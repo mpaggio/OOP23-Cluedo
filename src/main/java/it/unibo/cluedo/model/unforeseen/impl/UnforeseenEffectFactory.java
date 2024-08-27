@@ -37,7 +37,9 @@ public final class UnforeseenEffectFactory {
         } else if (roll < REROLL_DICE_PROBABILITY) {
             return new ReRollDiceEffect(); /* 20 % di probabilità */
         } else if (roll < SWAP_POSITION_PROBABILITY) {
-            return new SwapPositionEffect(otherPlayer); /* 15 % di probabilità */
+            final SwapPositionEffect effect = new SwapPositionEffect();
+            effect.setSwapPositionEffect(otherPlayer);
+            return effect; /* 15 % di probabilità */
         } else if (roll < SWAP_CARD_PROBABILITY) {
             return new SwapCardEffect(otherPlayer); /* 10 % di probabilità */
         } else {
