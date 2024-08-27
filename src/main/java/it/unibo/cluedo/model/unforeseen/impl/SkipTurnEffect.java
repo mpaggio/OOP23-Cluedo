@@ -20,4 +20,12 @@ public class SkipTurnEffect implements UnforeseenEffect {
             mutablePlayer.setNextTurn(false);
         }
     }
+
+    /**
+     * This method returns the type of the effect.
+     */
+    @Override
+    public String getType() {
+        return "SkipTurn";
+    }
 }

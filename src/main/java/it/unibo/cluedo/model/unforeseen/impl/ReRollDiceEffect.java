@@ -17,4 +17,9 @@ public final class ReRollDiceEffect implements UnforeseenEffect {
         }
     }
 
+    @Override
+    public String getType() {
+        return "ReRollDice";
+    }
+
 }

@@ -21,8 +21,7 @@ public final class SwapCardEffect implements UnforeseenEffect {
 
     /**
      * Constructor of the class.
-     *
-     * @param otherPlayer the player to swap the card with
+     * @param otherPlayer the player with whom the current player will swap the card
      */
     public SwapCardEffect(final Player otherPlayer) {
         this.otherPlayer = otherPlayer;
@@ -59,5 +58,10 @@ public final class SwapCardEffect implements UnforeseenEffect {
 
         }
 
+    }
+
+    @Override
+    public String getType() {
+        return "SwapCard";
     }
 }
