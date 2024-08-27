@@ -22,7 +22,6 @@ import it.unibo.cluedo.model.card.api.Card;
 
 class GameSaveManagerImplTest {
     private static final String FILE_NAME = "cluedo_saved_games.txt";
-    private static final String TEST_FILE_NAME = "test_cluedo_saved_games.txt";
     private GameSaveManagerImpl gameSaveManager;
     private MutablePlayer player;
 
@@ -36,9 +35,9 @@ class GameSaveManagerImplTest {
 
     @AfterEach
     void tearDown() {
-        final File file = new File(TEST_FILE_NAME);
+        final File file = new File(FILE_NAME);
         if (file.exists() && !file.delete()) {
-            throw new IllegalStateException("Cannot delete the file " + TEST_FILE_NAME);
+            throw new IllegalStateException("Cannot delete the file " + FILE_NAME);
         }
     }
 
