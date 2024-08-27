@@ -35,8 +35,9 @@ public final class MoveInSingleDirection implements MovementCommand {
     public void execute() {
         final Position newPosition = movementStrategy.calculatePosition(player.getCurrentPosition(), steps, direction);
 
-        if (movementStrategy.isValidMove(player, newPosition, 10)) {
+        if (movementStrategy.isValidMove(player, newPosition)) {
             ((MutablePlayer) player).setPosition(newPosition);
+            ((MutablePlayer) player).setCurrentSteps(player.getSteps() - 1);
         } else {
             throw new IllegalArgumentException("Invalid move: the player cannot move outside the board or into an invalid area");
         }

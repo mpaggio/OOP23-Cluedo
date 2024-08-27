@@ -11,19 +11,34 @@ import java.util.List;
 public record Position(int x, int y) {
 
     /**
-     * Default position 1 (0,0).
+     * Default position 1 (0,9).
      */
-    public static final Position DEFAULT_POSITION_1 = new Position(0, 0);
+    public static final Position DEFAULT_POSITION_1 = new Position(0, 9);
 
     /**
-     * Default position 2 (5,5).
+     * Default position 2 (0,14).
      */
-    public static final Position DEFAULT_POSITION_2 = new Position(5, 5);
+    public static final Position DEFAULT_POSITION_2 = new Position(0, 14);
 
     /**
-     * Default position 3 (10,10).
+     * Default position 3 (6,23).
      */
-    public static final Position DEFAULT_POSITION_3 = new Position(10, 10);
+    public static final Position DEFAULT_POSITION_3 = new Position(6, 23);
+
+    /**
+     * Default position 4 (6,19).
+     */
+    public static final Position DEFAULT_POSITION_4 = new Position(6, 19);
+
+    /**
+     * Default position 5 (24,7).
+     */
+    public static final Position DEFAULT_POSITION_5 = new Position(24, 7);
+
+    /**
+     * Default position 6 (18,0).
+     */
+    public static final Position DEAFULT_POSITION_6 = new Position(18, 0);
 
     /**
      * Method to get the x coordinate.
@@ -52,7 +67,10 @@ public record Position(int x, int y) {
         return List.of(
                 DEFAULT_POSITION_1,
                 DEFAULT_POSITION_2,
-                DEFAULT_POSITION_3);
+                DEFAULT_POSITION_3,
+                DEFAULT_POSITION_4,
+                DEFAULT_POSITION_5,
+                DEAFULT_POSITION_6);
     }
 
 }

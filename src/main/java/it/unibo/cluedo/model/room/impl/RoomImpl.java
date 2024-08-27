@@ -145,4 +145,12 @@ public class RoomImpl implements Room {
     public List<Player> getPlayersInRoom() {
         return List.copyOf(this.players);
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isPlayerInRoom(final Player player) {
+        return this.players.contains(player);
+    }
 }

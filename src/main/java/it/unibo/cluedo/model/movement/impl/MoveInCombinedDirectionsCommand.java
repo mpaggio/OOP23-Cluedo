@@ -34,5 +34,5 @@ public final class MoveInCombinedDirectionsCommand implements MovementCommand {
             (MutablePlayer) this.player, STEPS, direction, movementStrategy);
             singleMovementCommand.execute();
     }
- 
+
 }
