@@ -31,11 +31,9 @@ public interface Square extends MapComponent {
     Effect getEffect();
 
     /**
-     * Sets that the square is occupied by the specified player.
-     * 
-     * @param player the player to set
+     * Remove the presence of the player in the square.
      */
-    void setPlayer(Player player);
+    void removePlayer();
 
     /**
      * Says wether there is a player located in the square.
@@ -43,5 +41,5 @@ public interface Square extends MapComponent {
      * @return true if there is a player in the square
      * false otherwise
      */
-    boolean hasPlayer();
+    boolean isAlreadyOccupied();
 }
