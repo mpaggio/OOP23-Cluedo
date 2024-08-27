@@ -6,6 +6,7 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
+import it.unibo.cluedo.model.movement.api.MovementStrategy;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,9 +16,13 @@ import java.util.Optional;
  */
 public interface GameModel {
     /**
-     * Method to distribute the unforseen cards.
+     * Method to use the trapdoor.
      */
-    void distributeUnforseen();
+    void useTrapdoor();
+    /**
+     * Method to draw an unforseen cards.
+     */
+    void drawUnforeseen();
     /**
      * Method to roll the dice.
      * @return the result of the dice roll.
@@ -26,13 +31,9 @@ public interface GameModel {
     /**
      * Move the player to the given position.
      * @param position the position to move the player to.
+     * @param direction the direction to move the player in.
      */
-    void movePlayer(Square position);
-    /**
-     * Methof to apply the effect of the square the player landed on.
-     * @param position the position of the square.
-     */
-    void applyEffect(Square position);
+    void movePlayer(Square position, MovementStrategy.Direction direction);
     /**
      * method to make an accusation.
      * @param weapon the weapon of the accusation.

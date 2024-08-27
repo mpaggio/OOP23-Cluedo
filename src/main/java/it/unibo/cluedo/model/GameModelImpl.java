@@ -12,6 +12,8 @@ import it.unibo.cluedo.model.deck.api.Deck;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
 import it.unibo.cluedo.model.dice.api.Dice;
 import it.unibo.cluedo.model.dice.impl.DiceImpl;
+import it.unibo.cluedo.model.movement.impl.BoardMovement;
+import it.unibo.cluedo.model.movement.impl.MoveInSingleDirection;
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.notebook.impl.NotebookImpl;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
@@ -23,6 +25,8 @@ import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.statistics.impl.StatisticsImpl;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
+import it.unibo.cluedo.model.movement.api.MovementStrategy;
+import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.utilities.TurnFase;
 
 /**
@@ -40,6 +44,7 @@ final class GameModelImpl implements GameModel {
     private final Statistics statistics;
     private final Set<Card> solution;
     private final List<Notebook> notebooks;
+    private final MapImpl map;
 
     /**
      * Constructor of the class.
@@ -69,38 +74,15 @@ final class GameModelImpl implements GameModel {
         });
         fase = TurnFase.ROLL_DICE;
         accusation = new AccusationImpl();
+        map = new MapImpl();
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void distributeUnforseen() {
+    public void drawUnforeseen() {
         // TODO Auto-generated method stub
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void applyEffect(final Square position) {
-        if (fase == TurnFase.APPLY_EFFECT) {
-            switch (position.getEffect().getType()) {
-                case BONUS:
-                    fase = TurnFase.ROLL_DICE;
-                    position.getEffect().apply(getCurrentPlayer());
-                    break;
-                case MALUS:
-                    position.getEffect().apply(getCurrentPlayer());
-                    fase = fase.nextFase();
-                    break;
-                default:
-                    fase = fase.nextFase();
-                    break;
-            }
-        } else {
-            throw new IllegalStateException("Effects can't be applied now");
-        }
     }
 
     /**
@@ -123,6 +105,7 @@ final class GameModelImpl implements GameModel {
     public Player getCurrentPlayer() {
         return turnManager.getCurrentPlayer();
     }
+
     /**
      * {@inheritDoc}
      */
@@ -177,8 +160,31 @@ final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void movePlayer(final Square position) {
-        // TODO Auto-generated method stub
+    public void movePlayer(final Square position, final MovementStrategy.Direction direction) {
+        final BoardMovement boardMovement = new BoardMovement(map);
+        final MoveInSingleDirection move = new MoveInSingleDirection((MutablePlayer) getCurrentPlayer(), 
+        1, direction, boardMovement);
+        if (fase == TurnFase.MOVE_PLAYER) {
+            if (getCurrentPlayer().getCurrentSteps() > 0) {
+                move.execute();
+                statistics.incrementSteps(getCurrentPlayer(), 1);
+                applyEffect(position);
+                //if (se sono nella stanza) {
+                //    fase = nextFase();
+                //    setto i passi a 0
+                //}
+                //else {
+                //    applyEffect(position);
+                //}
+                if (getCurrentPlayer().getCurrentSteps() == 0) {
+                    fase = fase.nextFase();
+                }
+            } else {
+                throw new IllegalStateException("You can't move now");
+            }
+        } else {
+            throw new IllegalStateException("You can't move now");
+        }
     }
 
     /**
@@ -187,10 +193,11 @@ final class GameModelImpl implements GameModel {
     @Override
     public int rollDice() {
         if (fase == TurnFase.ROLL_DICE) {
-            if (getCurrentPlayer().canNextTurn()) {
+            if (getCurrentPlayer().canNextTurn() && getCurrentPlayer() instanceof MutablePlayer) {
                 final Dice dice = new DiceImpl(6);
                 fase = fase.nextFase();
                 currentDiceResult = dice.rollDice();
+                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
                 return currentDiceResult;
             } else if (getCurrentPlayer() instanceof MutablePlayer) {
                 ((MutablePlayer) getCurrentPlayer()).setNextTurn(true);
@@ -224,6 +231,13 @@ final class GameModelImpl implements GameModel {
         return false;
     }
 
+    private void applyEffect(final Square position) {
+        position.landOn(getCurrentPlayer());
+        if (position.getEffect().getType().equals(Effect.EffectType.BONUS)) {
+            fase = TurnFase.ROLL_DICE;
+        }
+    }
+
     private void checkConsistencyAcc(final Card weapon, final Card room, final Card character, final Room roomPosition) {
         if (roomPosition == null) {
             throw new IllegalArgumentException("You must be in a room to make an accusation");
@@ -237,5 +251,10 @@ final class GameModelImpl implements GameModel {
         if (character.getType() != Card.Type.CHARACTER) {
             throw new IllegalArgumentException("The card is not a character");
         }
+    }
+
+    @Override
+    public void useTrapdoor() {
+        // TODO Auto-generated method stub
     }
 }
