@@ -3,9 +3,15 @@ package it.unibo.cluedo.model.component.impl;
 import java.util.List;
 import java.util.Optional;
 import java.util.LinkedList;
+import java.util.Map;
+import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 
 import it.unibo.cluedo.model.component.api.MapComponentVisitor;
+import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.model.room.api.Room;
+import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;
 
@@ -88,5 +94,53 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
         return this.getVisitedRoom().stream()
             .filter(room -> room.getSquares().contains(square))
             .findAny();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String printMap() {
+        Map<Position, Character> positionToSymbolMap = new HashMap<>();
+        for (Room room : visitedRoom) {
+            for (Square square : room.getSquares()) {
+                positionToSymbolMap.put(square.getPosition(), '*');
+            }
+            for (Square square : room.getEntrances()) {
+                positionToSymbolMap.put(square.getPosition(), '=');
+            }
+            if (room.hasTrapDoor()) {
+                positionToSymbolMap.put(room.getTrapDoor().get().getPosition(), '<');
+            }
+        }
+        for (Square square : visitedSquare) {
+            Position position = square.getPosition();
+            if (square.getEffect().getType().equals(Effect.EffectType.BONUS)) {
+                positionToSymbolMap.put(position, '$');
+            } else if (square.getEffect().getType().equals(Effect.EffectType.MALUS)) {
+                positionToSymbolMap.put(position, '%');
+            } else {
+                positionToSymbolMap.put(position, '_');
+            }
+        }
+        List<Position> sortedPositions = new LinkedList<>(positionToSymbolMap.keySet());
+        Collections.sort(
+            sortedPositions,
+            Comparator.comparingInt(Position::getX).thenComparingInt(Position::getY)
+        );
+        StringBuilder mapBuilder = new StringBuilder();
+        for (int i = 0; i < MapImpl.getMapHeight(); i++) {
+            for (int j = 0; j < MapImpl.getMapWidth(); j++) {
+                Position position = new Position(i, j);
+                Character symbol = positionToSymbolMap.get(position);
+                if (symbol != null) {
+                    mapBuilder.append(symbol).append(' ');
+                } else {
+                    mapBuilder.append(". ");
+                }
+            }
+            mapBuilder.append('\n');
+        }
+        return mapBuilder.toString();
     }
 }

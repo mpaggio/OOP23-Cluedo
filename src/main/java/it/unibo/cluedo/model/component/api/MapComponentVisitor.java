@@ -62,4 +62,11 @@ public interface MapComponentVisitor {
      * @return the room with the square if present 
      */
     Optional<Room> getRoomBySquare(Square square);
+
+    /**
+     * Returns the string representing the created map.
+     * 
+     * @return the string representing the created map
+     */
+    String printMap();
 }
