@@ -166,16 +166,20 @@ final class GameModelImpl implements GameModel {
         1, direction, boardMovement);
         if (fase == TurnFase.MOVE_PLAYER) {
             if (getCurrentPlayer().getCurrentSteps() > 0) {
-                move.execute();
+                try {
+                    move.execute();
+                } catch (Exception e) {
+                    throw new IllegalArgumentException("Invalid move: the player cannot move outside the board or into an invalid area");
+                }
                 statistics.incrementSteps(getCurrentPlayer(), 1);
-                applyEffect(position);
-                //if (se sono nella stanza) {
-                //    fase = nextFase();
-                //    setto i passi a 0
-                //}
-                //else {
-                //    applyEffect(position);
-                //}
+                if (getCurrentPlayer().isInRoom() && getCurrentPlayer() instanceof MutablePlayer) {
+                    fase = fase.nextFase();
+                    ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
+                    ((MutablePlayer) getCurrentPlayer()).setInRoom(false);
+                    statistics.incrementRoomsVisited(getCurrentPlayer());
+                } else {
+                    applyEffect(position);
+                }
                 if (getCurrentPlayer().getCurrentSteps() == 0) {
                     fase = fase.nextFase();
                 }
