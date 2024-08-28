@@ -1,29 +1,36 @@
 package it.unibo.cluedo.controller.gamemenucontroller.api;
 
+import java.util.List;
+import it.unibo.cluedo.model.player.api.Player;
+
 /**
  * This interface is used to manage the game menu.
  */
 public interface GameMenuController {
 
     /**
-     * Initialize the game menu.
+     * This method is used to start the game.
+     * @param playerNames the list of the player names
+     * @param playerColors the list of the player colors
+     * @return true if the game is started, false otherwise
      */
-    void initialize();
+    boolean startGame(List<String> playerNames, List<String> playerColors);
 
     /**
-     * Set the number of players.
-     * @param numberOfPlayers the number of players.
+     * This method is used to set the players.
+     * @param playerNames the list of the player names
+     * @param playerColors the list of the player colors
      */
-    void setNumberOfPlayers(int numberOfPlayers);
+    void setPlayer(List<String> playerNames, List<String> playerColors);
 
     /**
-     * Add a player to the game.
-     * @param playerName the name of the player.
+     * This method is used to get the players.
+     * @return the list of the players
      */
-    void addPlayer(String playerName);
+    List<Player> getPlayers();
 
     /**
-     * Start the game.
+     * This method is used to quit the game.
      */
-    void startGame();
+    void quitGame();
 }
