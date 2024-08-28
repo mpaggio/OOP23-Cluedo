@@ -101,20 +101,20 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      */
     @Override
     public String printMap() {
-        Map<Position, Character> positionToSymbolMap = new HashMap<>();
-        for (Room room : visitedRoom) {
-            for (Square square : room.getSquares()) {
+        final Map<Position, Character> positionToSymbolMap = new HashMap<>();
+        for (final Room room : visitedRoom) {
+            for (final Square square : room.getSquares()) {
                 positionToSymbolMap.put(square.getPosition(), '*');
             }
-            for (Square square : room.getEntrances()) {
+            for (final Square square : room.getEntrances()) {
                 positionToSymbolMap.put(square.getPosition(), '=');
             }
             if (room.hasTrapDoor()) {
                 positionToSymbolMap.put(room.getTrapDoor().get().getPosition(), '<');
             }
         }
-        for (Square square : visitedSquare) {
-            Position position = square.getPosition();
+        for (final Square square : visitedSquare) {
+            final Position position = square.getPosition();
             if (square.getEffect().getType().equals(Effect.EffectType.BONUS)) {
                 positionToSymbolMap.put(position, '$');
             } else if (square.getEffect().getType().equals(Effect.EffectType.MALUS)) {
@@ -123,16 +123,16 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
                 positionToSymbolMap.put(position, '_');
             }
         }
-        List<Position> sortedPositions = new LinkedList<>(positionToSymbolMap.keySet());
+        final List<Position> sortedPositions = new LinkedList<>(positionToSymbolMap.keySet());
         Collections.sort(
             sortedPositions,
             Comparator.comparingInt(Position::getX).thenComparingInt(Position::getY)
         );
-        StringBuilder mapBuilder = new StringBuilder();
+        final StringBuilder mapBuilder = new StringBuilder();
         for (int i = 0; i < MapImpl.getMapHeight(); i++) {
             for (int j = 0; j < MapImpl.getMapWidth(); j++) {
-                Position position = new Position(i, j);
-                Character symbol = positionToSymbolMap.get(position);
+                final Position position = new Position(i, j);
+                final Character symbol = positionToSymbolMap.get(position);
                 if (symbol != null) {
                     mapBuilder.append(symbol).append(' ');
                 } else {

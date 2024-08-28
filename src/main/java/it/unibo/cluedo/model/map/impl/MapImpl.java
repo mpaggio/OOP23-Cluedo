@@ -149,7 +149,7 @@ public class MapImpl implements Map {
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
-                Position position = new Position(i, j);
+                final Position position = new Position(i, j);
                 if (tileType == 1 && !prohibitedPositions.contains(position)) {
                     validPositionForEffects.add(position);
                 }
@@ -157,7 +157,7 @@ public class MapImpl implements Map {
         }
         // Shuffling valid position
         Collections.shuffle(validPositionForEffects);
-        for (Position position : validPositionForEffects) {
+        for (final Position position : validPositionForEffects) {
             final MapComponent squareToAdd = createRandomSquare(
                 position,
                 bonusCount,
@@ -178,9 +178,9 @@ public class MapImpl implements Map {
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
-                Position position = new Position(i, j);
+                final Position position = new Position(i, j);
                 if (tileType == 1 && !validPositionForEffects.contains(position)) {
-                    MapComponent startingSquare = SquareFactory.createNormalSquare(position);
+                    final MapComponent startingSquare = SquareFactory.createNormalSquare(position);
                     startingSquare.accept(visitor);
                     localTiles.add(startingSquare);
                 } else if (tileType == 3) {
@@ -210,6 +210,7 @@ public class MapImpl implements Map {
      * @param position the position of the random square
      * @param bonusCount the count of created bonus square
      * @param malusCount the count of created malus square
+     * @param prohibPositions the prohibited positions for the square with effect
      * @return the created map component
      */
     private MapComponent createRandomSquare(final Position position, final int bonusCount,

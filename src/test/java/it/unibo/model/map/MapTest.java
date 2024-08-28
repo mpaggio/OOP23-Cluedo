@@ -108,20 +108,19 @@ final class MapTest {
             .filter(square -> square.getEffect().getType().equals(Effect.EffectType.MALUS))
             .toList();
         final Set<Position> positions = new HashSet<>();
-        for (Square square : bonusSquares) {
+        for (final Square square : bonusSquares) {
             assertFalse(map.getVisitor().isSquareInRoom(square));
         }
-        for (Square square : malusSquares) {
+        for (final Square square : malusSquares) {
             assertFalse(map.getVisitor().isSquareInRoom(square));
         }
-        for (Square square : effectiveSquares) {
+        for (final Square square : effectiveSquares) {
             assertTrue(positions.add(square.getPosition()));
-            System.out.println("[" + square.getEffect().getType().getTitle() + "] " + square.getPosition().toString());
         }
     }
 
-    @Test
+    /*@Test
     void testPrintMap() {
         System.out.println(map.getVisitor().printMap());
-    }
+    }*/
 }
