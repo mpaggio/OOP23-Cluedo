@@ -6,6 +6,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -13,8 +15,11 @@ import org.junit.jupiter.api.Test;
 import it.unibo.cluedo.model.map.api.Map;
 import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.model.room.api.Room;
+import it.unibo.cluedo.model.square.api.Effect;
+import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.impl.BonusEffectImpl;
 import it.unibo.cluedo.model.square.impl.MalusEffectImpl;
+import it.unibo.cluedo.utilities.Position;
 
 final class MapTest {
     private static final int NUM_OF_ROOMS = 10;
@@ -52,8 +57,13 @@ final class MapTest {
             );
         }
         for (final Room room : map.getVisitor().getVisitedRoom()) {
+            final List<Square> roomNormalSquares = room.getSquares().stream()
+                .filter(square -> square.getEffect().getType().equals(Effect.EffectType.NONE))
+                .toList();
             assertFalse(room.getEntrances().isEmpty());
             assertFalse(room.getSquares().isEmpty());
+            assertEquals(roomNormalSquares.size(), room.getSquares().size());
+            assertTrue(roomNormalSquares.containsAll(room.getSquares()));
         }
         assertEquals(
             this.map.getVisitor().getVisitedRoom().stream()
@@ -85,4 +95,32 @@ final class MapTest {
                 .count()
         );
     }
+
+    @Test
+    void testMapEffectiveSquare() {
+        final List<Square> effectiveSquares = map.getVisitor().getVisitedSquare().stream()
+            .filter(square -> !square.getEffect().getType().equals(Effect.EffectType.NONE))
+            .toList();
+        final List<Square> bonusSquares = map.getVisitor().getVisitedSquare().stream()
+            .filter(square -> square.getEffect().getType().equals(Effect.EffectType.BONUS))
+            .toList();
+        final List<Square> malusSquares = map.getVisitor().getVisitedSquare().stream()
+            .filter(square -> square.getEffect().getType().equals(Effect.EffectType.MALUS))
+            .toList();
+        final Set<Position> positions = new HashSet<>();
+        for (final Square square : bonusSquares) {
+            assertFalse(map.getVisitor().isSquareInRoom(square));
+        }
+        for (final Square square : malusSquares) {
+            assertFalse(map.getVisitor().isSquareInRoom(square));
+        }
+        for (final Square square : effectiveSquares) {
+            assertTrue(positions.add(square.getPosition()));
+        }
+    }
+
+    /*@Test
+    void testPrintMap() {
+        System.out.println(map.getVisitor().printMap());
+    }*/
 }
