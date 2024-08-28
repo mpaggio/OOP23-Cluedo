@@ -44,8 +44,9 @@ public final class BoardMovement implements MovementStrategy {
 
     @Override
     public boolean isValidMove(final Player player, final Position newPosition) {
-        return newPosition.getX() < 0 || newPosition.getX() >= this.width
-        || newPosition.getY() < 0 || newPosition.getY() >= this.heigth;
+        return newPosition.getX() >= 0 && newPosition.getX() < this.width
+        && newPosition.getY() >= 0 && newPosition.getY() < this.heigth
+        && visitor.getSquareByPosition(newPosition).isAlreadyOccupied();
     }
 
     @Override
@@ -61,7 +62,6 @@ public final class BoardMovement implements MovementStrategy {
     @Override
     public boolean hasPlayerEnteredInRoom(final Player player, final Position newPosition) {
         return visitor.getVisitedRoom().stream()
-            .flatMap(room -> room.getEntrances().stream())
-            .anyMatch(entrance -> entrance.getPosition().equals(newPosition));
+            .anyMatch(room -> room.isEntrance(this.visitor.getSquareByPosition(newPosition)));
     }
 }
