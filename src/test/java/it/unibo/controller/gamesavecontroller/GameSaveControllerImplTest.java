@@ -1,9 +1,8 @@
-package it.unibo.model.gamesavemanager;
+package it.unibo.controller.gamesavecontroller;
 
 import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
 import it.unibo.cluedo.utilities.Position;
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.GameSaveManagerImpl;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -18,16 +17,18 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
+
+import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.model.card.api.Card;
 
-class GameSaveManagerImplTest {
+class GameSaveControllerImplTest {
     private static final String FILE_NAME = "cluedo_saved_games.txt";
-    private GameSaveManagerImpl gameSaveManager;
+    private GameSaveControllerImpl gameSaveManager;
     private MutablePlayer player;
 
     @BeforeEach
     void setUp() {
-        gameSaveManager = new GameSaveManagerImpl();
+        gameSaveManager = new GameSaveControllerImpl();
         player = new MutablePlayerImpl("TestPlayer", "Red");
         player.setPosition(new Position(0, 0));
         player.setPlayerCards(new ArrayList<Card>());

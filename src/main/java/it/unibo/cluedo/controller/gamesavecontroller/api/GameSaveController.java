@@ -1,4 +1,4 @@
-package it.unibo.cluedo.model;
+package it.unibo.cluedo.controller.gamesavecontroller.api;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import it.unibo.cluedo.model.player.api.Player;
 /**
  * Interface used to save and load the game.
  */
-public interface GameSaveManager {
+public interface GameSaveController {
 
     /**
      * Save the current game state in a file.

@@ -1,4 +1,4 @@
-package it.unibo.cluedo.model;
+package it.unibo.cluedo.controller.gamesavecontroller.impl;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,17 +16,18 @@ import java.util.logging.Level;
 import java.util.Date;
 import java.util.Locale;
 
+import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.player.api.Player;
 
 /**
  * Class that implements the GameSaveManager interface.
  */
-public class GameSaveManagerImpl implements GameSaveManager {
+public class GameSaveControllerImpl implements GameSaveController {
 
     private static final String FILE_NAME = "cluedo_saved_games.txt";
     private static final String ERROR_LOG_FILE = "cluedo_error.log";
-    private static final Logger LOGGER = Logger.getLogger(GameSaveManagerImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GameSaveControllerImpl.class.getName());
 
     /**
      * Save the current game state in a file.
