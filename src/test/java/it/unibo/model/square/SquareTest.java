@@ -98,4 +98,14 @@ final class SquareTest {
         visitedSquare.addAll(visitor.getVisitedSquare());
         assertEquals(visitedSquare.getLast(), this.square);
     }
+
+    @Test
+    void testPlayerPresence() {
+        this.square = SquareFactory.createNormalSquare(position);
+        assertFalse(this.square.isAlreadyOccupied());
+        this.square.landOn(player);
+        assertTrue(this.square.isAlreadyOccupied());
+        this.square.removePlayer();
+        assertFalse(this.square.isAlreadyOccupied());
+    }
 }
