@@ -98,6 +98,7 @@ final class MapTest {
 
     @Test
     void testMapEffectiveSquare() {
+        //System.out.println(map.getVisitor().printMap());
         final List<Square> effectiveSquares = map.getVisitor().getVisitedSquare().stream()
             .filter(square -> !square.getEffect().getType().equals(Effect.EffectType.NONE))
             .toList();
@@ -118,9 +119,4 @@ final class MapTest {
             assertTrue(positions.add(square.getPosition()));
         }
     }
-
-    /*@Test
-    void testPrintMap() {
-        System.out.println(map.getVisitor().printMap());
-    }*/
 }
