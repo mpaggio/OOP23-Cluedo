@@ -10,6 +10,8 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.player.impl.PlayerImpl;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.room.impl.RoomImpl;
 import it.unibo.cluedo.model.square.api.Square;
@@ -23,6 +25,7 @@ final class RoomTest {
     private static final String ROOM_NAME_2 = "Billiard room";
     private static final int NUM_OF_SQUARES = 3;
     private static final int NUM_OF_ENTRANCES = 2;
+    private Player player;
     private Room room1;
     private Room room2;
     private TrapDoor trapDoor;
@@ -37,6 +40,7 @@ final class RoomTest {
 
     @BeforeEach
     void setUp() {
+        this.player = new PlayerImpl("Giorgio", "Purple");
         this.room1 = new RoomImpl(ROOM_NAME_1);
         this.room2 = new RoomImpl(ROOM_NAME_2);
         this.trapDoor = new TrapDoorImpl(room2, new Position(0, 0));
@@ -112,5 +116,17 @@ final class RoomTest {
         assertEquals(this.room1.getTrapDoor().get(), this.trapDoor);
         assertFalse(this.room2.getTrapDoor().isPresent());
         assertEquals(this.room2.getTrapDoor(), Optional.empty());
+    }
+
+    @Test
+    void testPlyerPresence() {
+        assertFalse(room1.isPlayerInRoom(player));
+        assertTrue(room1.getPlayersInRoom().isEmpty());
+        this.room1.addPlayerInRoom(player);
+        assertTrue(room1.isPlayerInRoom(player));
+        assertFalse(room1.getPlayersInRoom().isEmpty());
+        this.room1.removePlayerFromRoom(player);
+        assertFalse(room1.isPlayerInRoom(player));
+        assertTrue(room1.getPlayersInRoom().isEmpty());
     }
 }
