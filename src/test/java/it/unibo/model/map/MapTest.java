@@ -12,6 +12,7 @@ import java.util.HashSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import it.unibo.cluedo.model.component.api.MapComponent;
 import it.unibo.cluedo.model.map.api.Map;
 import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.model.room.api.Room;
@@ -42,6 +43,9 @@ final class MapTest {
 
     @Test
     void testMapInitialization() {
+        for (MapComponent component : this.map.getMap()) {
+            assertTrue(component.hasBeenVisited());
+        }
         assertNotNull(this.map.getMap(), "Shouldn't be null");
         assertNotNull(this.map.getVisitor(), "Visitor shouldn't be null");
         assertEquals(map.getVisitor().getVisitedRoom().size(), NUM_OF_ROOMS);

@@ -60,6 +60,7 @@ public class SquareImpl implements Square {
      */
     @Override
     public void accept(final MapComponentVisitor visitor) {
+        this.visited = true;
         visitor.visitSquare(this);
     }
 
