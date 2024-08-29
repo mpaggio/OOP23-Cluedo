@@ -20,6 +20,7 @@ public class RoomImpl implements Room {
     private final List<Square> entrances;
     private final List<Player> players;
     private Optional<TrapDoor> trapDoor;
+    private boolean visited;
 
     /**
      * Constructor for the room.
@@ -32,6 +33,7 @@ public class RoomImpl implements Room {
         this.entrances = new LinkedList<>();
         this.trapDoor = Optional.empty();
         this.players = new LinkedList<>();
+        this.visited = false;
     }
 
     /**
@@ -79,6 +81,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public void accept(final MapComponentVisitor visitor) {
+        this.visited = true;
         visitor.visitRoom(this);
     }
 
@@ -152,5 +155,13 @@ public class RoomImpl implements Room {
     @Override
     public boolean isPlayerInRoom(final Player player) {
         return this.players.contains(player);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasBeenVisited() {
+        return this.visited;
     }
 }

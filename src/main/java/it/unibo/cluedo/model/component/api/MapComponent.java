@@ -12,4 +12,11 @@ public interface MapComponent {
      * @param visitor the visitor of the component
      */
     void accept(MapComponentVisitor visitor);
+
+    /**
+     * Tells if the MapComponent has been visited by the visitor.
+     * 
+     * @return true if it has been visited
+     */
+    boolean hasBeenVisited();
 }

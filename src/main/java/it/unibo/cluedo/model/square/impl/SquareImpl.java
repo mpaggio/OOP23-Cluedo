@@ -15,6 +15,7 @@ public class SquareImpl implements Square {
     private final Position position;
     private final Effect effect;
     private Optional<Player> player;
+    private boolean visited;
 
     /**
      * Constructor for the square implementation.
@@ -26,6 +27,7 @@ public class SquareImpl implements Square {
         this.position = position; 
         this.effect = effect;
         this.player = Optional.empty();
+        this.visited = false;
     }
 
     /**
@@ -84,5 +86,13 @@ public class SquareImpl implements Square {
      */
     private void setPlayer(final Player player) {
         this.player = Optional.of(player);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasBeenVisited() {
+        return this.visited;
     }
 }
