@@ -1,6 +1,7 @@
 package it.unibo.cluedo.controller.gamemenucontroller.api;
 
 import java.util.List;
+import java.awt.Color;
 import it.unibo.cluedo.model.player.api.Player;
 
 /**
@@ -14,20 +15,26 @@ public interface GameMenuController {
      * @param playerColors the list of the player colors
      * @return true if the game is started, false otherwise
      */
-    boolean startGame(List<String> playerNames, List<String> playerColors);
+    boolean startGame(List<String> playerNames, List<Color> playerColors);
 
     /**
      * This method is used to set the players.
      * @param playerNames the list of the player names
      * @param playerColors the list of the player colors
      */
-    void setPlayer(List<String> playerNames, List<String> playerColors);
+    void setPlayer(List<String> playerNames, List<Color> playerColors);
 
     /**
      * This method is used to get the players.
      * @return the list of the players
      */
     List<Player> getPlayers();
+
+    /**
+     * This method is used to get the available colors.
+     * @return the list of the available colors
+     */
+    List<Color> getAvailableColors();
 
     /**
      * This method is used to quit the game.
