@@ -2,6 +2,7 @@ package it.unibo.model.map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -146,11 +147,11 @@ final class MapTest {
             square.landOn(player1);
         }
         for (final MapComponent component : this.map.getMap()) {
-            assertTrue(!component.getPlayersIn().isEmpty());
+            assertFalse(component.getPlayersIn().isEmpty());
             if (component instanceof Square) {
-                assertFalse(component.getPlayersIn().size() != 1);
+                assertEquals(component.getPlayersIn().size(), 1);
             } else {
-                assertTrue(component.getPlayersIn().size() != 1);
+                assertNotEquals(component.getPlayersIn().size(), 1);
             }
         }
     }
