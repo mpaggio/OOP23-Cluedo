@@ -27,9 +27,9 @@ public final class MoveInSingleDirection implements MovementCommand {
      * @param movementStrategy the strategy used to calculate and validate the movement
      * @param map the map of Cluedo game
      */
-    public MoveInSingleDirection(final MutablePlayer player, final int steps, final MovementStrategy.Direction direction,
+    public MoveInSingleDirection(final Player player, final int steps, final MovementStrategy.Direction direction,
                                  final MovementStrategy movementStrategy, final Map map) {
-        this.player = player.clone();
+        this.player = player;
         this.steps = steps;
         this.direction = direction;
         this.movementStrategy = movementStrategy;
