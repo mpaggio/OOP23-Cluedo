@@ -67,6 +67,6 @@ public class GameModelBuilderImpl implements GameModelBuilder {
         if (this.players.isEmpty()) {
             throw new IllegalStateException("At least one player must be added before building the game");
         }
-        return new GameModelImpl(this.players);
+        return new GameModelImpl(this.players, this.deck, this.solution);
     }
 }
