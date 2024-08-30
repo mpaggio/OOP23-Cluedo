@@ -2,9 +2,12 @@ package it.unibo.cluedo.model.map.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Collections;
 
 import it.unibo.cluedo.model.component.api.MapComponent;
 import it.unibo.cluedo.model.component.api.MapComponentVisitor;
@@ -132,6 +135,8 @@ public class MapImpl implements Map {
         final MapComponentVisitor visitor = new MapComponentVisitorImpl();
         final List<MapComponent> localTiles = new ArrayList<>();
         final RoomImpl[] rooms = new RoomImpl[RoomType.values().length];
+        final Set<Position> prohibitedPositions = new HashSet<>(Position.getDefaultPositions());
+        final List<Position> validPositionForEffects = new ArrayList<>();
         int bonusCount = 0;
         int malusCount = 0;
         // Initialising rooms
@@ -140,28 +145,47 @@ public class MapImpl implements Map {
             rooms[type.ordinal()].accept(visitor);
             localTiles.add(rooms[type.ordinal()]);
         }
+        // Collecting valid position
+        for (int i = 0; i < MAP_HEIGHT; i++) {
+            for (int j = 0; j < MAP_WIDTH; j++) {
+                final int tileType =  MAP_TILES_DISPOSITION[i][j];
+                final Position position = new Position(i, j);
+                if (tileType == 1 && !prohibitedPositions.contains(position)) {
+                    validPositionForEffects.add(position);
+                }
+            }
+        }
+        // Shuffling valid position
+        Collections.shuffle(validPositionForEffects);
+        for (final Position position : validPositionForEffects) {
+            final MapComponent squareToAdd = createRandomSquare(
+                position,
+                bonusCount,
+                malusCount,
+                prohibitedPositions
+            );
+            final LinkedList<Square> visitedSquare = new LinkedList<>();
+            squareToAdd.accept(visitor);
+            visitedSquare.addAll(visitor.getVisitedSquare());
+            if (visitedSquare.getLast().getEffect() instanceof BonusEffectImpl) {
+                bonusCount++;
+            } else if (visitedSquare.getLast().getEffect() instanceof MalusEffectImpl) {
+                malusCount++;
+            }
+            localTiles.add(squareToAdd);
+        }
         // Adding squares and assigning to rooms if necessary
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
-                if (tileType == 1) {
-                    final MapComponent squareToAdd = createRandomSquare(
-                        new Position(i, j),
-                        bonusCount,
-                        malusCount
-                    );
-                    final LinkedList<Square> visitedSquare = new LinkedList<>();
-                    squareToAdd.accept(visitor);
-                    visitedSquare.addAll(visitor.getVisitedSquare());
-                    if (visitedSquare.getLast().getEffect() instanceof BonusEffectImpl) {
-                        bonusCount++;
-                    } else if (visitedSquare.getLast().getEffect() instanceof MalusEffectImpl) {
-                        malusCount++;
-                    }
-                    localTiles.add(squareToAdd);
+                final Position position = new Position(i, j);
+                if (tileType == 1 && !validPositionForEffects.contains(position)) {
+                    final MapComponent startingSquare = SquareFactory.createNormalSquare(position);
+                    startingSquare.accept(visitor);
+                    localTiles.add(startingSquare);
                 } else if (tileType == 3) {
                     rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(
-                        SquareFactory.createNormalSquare(new Position(i, j))
+                        SquareFactory.createNormalSquare(position)
                     );
                 } else if (tileType == 4) {
                     final TrapDoor trapDoor = new TrapDoorImpl(
@@ -169,9 +193,9 @@ public class MapImpl implements Map {
                         new Position(i, j)
                     );
                     rooms[findRoomForEntrance(i, j).ordinal()].setTrapDoor(Optional.of(trapDoor));
-                } else if (tileType != 0) {
+                } else if (tileType != 0 && tileType != 1) {
                     rooms[RoomType.fromCode(tileType).ordinal()].addSquare(
-                        SquareFactory.createNormalSquare(new Position(i, j))
+                        SquareFactory.createNormalSquare(position)
                     ); 
                 }
             }
@@ -186,9 +210,14 @@ public class MapImpl implements Map {
      * @param position the position of the random square
      * @param bonusCount the count of created bonus square
      * @param malusCount the count of created malus square
+     * @param prohibPositions the prohibited positions for the square with effect
      * @return the created map component
      */
-    private MapComponent createRandomSquare(final Position position, final int bonusCount, final int malusCount) {
+    private MapComponent createRandomSquare(final Position position, final int bonusCount,
+        final int malusCount, final Set<Position> prohibPositions) {
+        if (prohibPositions.contains(position)) {
+            return SquareFactory.createNormalSquare(position);
+        }
         if (bonusCount < MAX_SQUARE_WITH_EFFECT && malusCount < MAX_SQUARE_WITH_EFFECT) {
             final int randomValue = RANDOM.nextInt(3);
             switch (randomValue) {

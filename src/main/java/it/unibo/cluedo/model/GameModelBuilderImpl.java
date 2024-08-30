@@ -1,12 +1,14 @@
 package it.unibo.cluedo.model;
 
-import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
-import it.unibo.cluedo.model.unforeseen.api.Unforeseen;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import it.unibo.cluedo.model.card.api.Card;
+import it.unibo.cluedo.model.deck.api.Deck;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.api.PlayerBuilder;
 import it.unibo.cluedo.model.player.impl.PlayerBuilderImpl;
+import java.util.Set;
 
 /**
  * Implementation of the {@link GameModelBuilder} interface.
@@ -15,9 +17,17 @@ import it.unibo.cluedo.model.player.impl.PlayerBuilderImpl;
 public class GameModelBuilderImpl implements GameModelBuilder {
 
     private final List<Player> players = new ArrayList<>();
-    private final List<Unforeseen> unforseenCards = new ArrayList<>();
-    private final List<TrapDoor> trapDoors = new ArrayList<>();
+    private final Deck deck;
+    private Set<Card> solution;
 
+    /**
+     * Constructor of the GameModelBuilderImpl class.
+     * @param deck
+     */
+    public GameModelBuilderImpl(final Deck deck) {
+        this.deck = deck;
+        this.solution = new HashSet<>();
+    }
     /**
      * {@inheritDoc}
      */
@@ -41,11 +51,8 @@ public class GameModelBuilderImpl implements GameModelBuilder {
      * {@inheritDoc}
      */
     @Override
-    public GameModelBuilder addUnforseen(final Unforeseen unforeseen) {
-        if (this.unforseenCards.size() >= MAX_UNFORSEEN_CARDS) {
-            throw new IllegalArgumentException("Maximum number of unforseen cards reached");
-        }
-        this.unforseenCards.add(unforeseen);
+    public GameModelBuilder withGameSolution() {
+        this.solution = deck.drawSolution();
         return this;
     }
 
@@ -53,11 +60,13 @@ public class GameModelBuilderImpl implements GameModelBuilder {
      * {@inheritDoc}
      */
     @Override
-    public GameModelBuilder addTrapdoor(final TrapDoor trapDoor) {
-        if (this.trapDoors.size() >= MAX_TRAP_DOORS) {
-            throw new IllegalArgumentException("Maximum number of trapdoors reached");
+    public GameModel build() {
+        if (this.solution.size() != 3) {
+            throw new IllegalStateException("The game solution must be set before building the game model");
         }
-        this.trapDoors.add(trapDoor);
-        return this;
+        if (this.players.isEmpty()) {
+            throw new IllegalStateException("At least one player must be added before building the game");
+        }
+        return new GameModelImpl(this.players);
     }
 }

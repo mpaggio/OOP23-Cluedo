@@ -1,4 +1,4 @@
-package it.unibo.cluedo.model;
+package it.unibo.cluedo.controller.gamesavecontroller.impl;
 
 import java.io.IOException;
 import java.util.List;
@@ -16,29 +16,34 @@ import java.util.logging.Level;
 import java.util.Date;
 import java.util.Locale;
 
+import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.card.api.Card;
+import it.unibo.cluedo.model.component.api.MapComponent;
+import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.player.api.Player;
 
 /**
  * Class that implements the GameSaveManager interface.
  */
-public class GameSaveManagerImpl implements GameSaveManager {
+public class GameSaveControllerImpl implements GameSaveController {
 
     private static final String FILE_NAME = "cluedo_saved_games.txt";
     private static final String ERROR_LOG_FILE = "cluedo_error.log";
-    private static final Logger LOGGER = Logger.getLogger(GameSaveManagerImpl.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(GameSaveControllerImpl.class.getName());
 
     /**
      * Save the current game state in a file.
      * @param players  the list of players in the game.
+     * @param map  the list of the map components.
+     * @param visitor  the visitor used to save the map components.
      */
     @Override
-    public void saveGame(final List<Player> players) {
+    public void saveGame(final List<Player> players, final List<MapComponent> map, final MapComponentVisitor visitor) {
         if (players == null || players.isEmpty()) {
             throw new IllegalArgumentException("The list of players cannot be null or empty");
         }
         try {
-            saveGameToFile(players);
+            saveGameToFile(players, map, visitor);
         } catch (IOException e) {
             writeErrorToLogFile("An error occurred while saving the game", e);
         }
@@ -47,9 +52,12 @@ public class GameSaveManagerImpl implements GameSaveManager {
     /**
      * Save the game to a file.
      * @param players
+     * @param map
+     * @param visitor
      * @throws IOException
      */
-    private void saveGameToFile(final List<Player> players) throws IOException {
+    private void saveGameToFile(final List<Player> players, final List<MapComponent> map,
+                 final MapComponentVisitor visitor) throws IOException {
         final File file = new File(FILE_NAME);
         if (!file.exists() && !file.createNewFile()) {
             throw new IOException("Cannot create the file " + FILE_NAME);
@@ -62,6 +70,8 @@ public class GameSaveManagerImpl implements GameSaveManager {
             for (final Player player : players) {
                 writer.println(formatPlayerInfo(player));
             }
+            writer.println("Map:" + formatMapInfo(map));
+            writer.println("Visitor:" + formatVisitorInfo(visitor));
             writer.println("\n");
 
             if (writer.checkError()) {
@@ -92,6 +102,30 @@ public class GameSaveManagerImpl implements GameSaveManager {
                 info.append(", ");
             }
         }
+        return info.toString();
+    }
+
+    /**
+     * Format the map information.
+     * @param map
+     * @return the formatted string.
+     */
+    private String formatMapInfo(final List<MapComponent> map) {
+        final StringBuilder info = new StringBuilder();
+        for (final MapComponent component : map) {
+            info.append(component.toString()).append(',');
+        }
+        return info.toString();
+    }
+
+    /**
+     * Format the visitor information.
+     * @param visitor
+     * @return the formatted string.
+     */
+    private String formatVisitorInfo(final MapComponentVisitor visitor) {
+        final StringBuilder info = new StringBuilder();
+        info.append(visitor.printMap());
         return info.toString();
     }
 
@@ -144,9 +178,7 @@ public class GameSaveManagerImpl implements GameSaveManager {
             e.printStackTrace(writer);
         } catch (IOException ioException) {
             LOGGER.log(Level.SEVERE, message, ioException);
-    }
-
-
+        }
     }
 
 }
