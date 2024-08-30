@@ -36,9 +36,9 @@ public record Position(int x, int y) {
     public static final Position DEFAULT_POSITION_5 = new Position(24, 7);
 
     /**
-     * Default position 6 (18,0).
+     * Default position 6 (17,0).
      */
-    public static final Position DEAFULT_POSITION_6 = new Position(18, 0);
+    public static final Position DEAFULT_POSITION_6 = new Position(17, 0);
 
     /**
      * Method to get the x coordinate.

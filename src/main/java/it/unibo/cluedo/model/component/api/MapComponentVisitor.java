@@ -64,6 +64,13 @@ public interface MapComponentVisitor {
     Optional<Room> getRoomBySquare(Square square);
 
     /**
+     * Returns a list of ordered position of the existing squares of the map.
+     * 
+     * @return a list of ordered position of the existing squares of the map
+     */
+    List<Position> getOrderedPositions();
+
+    /**
      * Returns the string representing the created map.
      * 
      * @return the string representing the created map

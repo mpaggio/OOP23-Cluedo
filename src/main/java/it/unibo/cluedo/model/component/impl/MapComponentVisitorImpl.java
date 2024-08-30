@@ -71,10 +71,14 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      */
     @Override
     public Square getSquareByPosition(final Position position) {
-        return this.visitedSquare.stream()
+        final Optional<Square> serchedSquare = this.visitedSquare.stream()
             .filter(square -> square.getPosition().equals(position))
-            .findAny()
-            .get();
+            .findAny();
+        if (serchedSquare.isPresent()) {
+            return serchedSquare.get();
+        } else {
+            throw new IllegalArgumentException("The given position does not correspond to a visited square");
+        }
     }
 
     /**
@@ -96,11 +100,7 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
             .findAny();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String printMap() {
+    private Map<Position, Character> getPositionAndymbolMap() {
         final Map<Position, Character> positionToSymbolMap = new HashMap<>();
         for (final Room room : visitedRoom) {
             for (final Square square : room.getSquares()) {
@@ -123,7 +123,16 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
                 positionToSymbolMap.put(position, '_');
             }
         }
-        final List<Position> sortedPositions = new LinkedList<>(positionToSymbolMap.keySet());
+        return positionToSymbolMap;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String printMap() {
+        final Map<Position, Character> positionToSymbolMap = getPositionAndymbolMap();
+        final List<Position> sortedPositions = new LinkedList<>(getPositionAndymbolMap().keySet());
         Collections.sort(
             sortedPositions,
             Comparator.comparingInt(Position::getX).thenComparingInt(Position::getY)
@@ -142,5 +151,13 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
             mapBuilder.append('\n');
         }
         return mapBuilder.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Position> getOrderedPositions() {
+        return List.copyOf(getPositionAndymbolMap().keySet());
     }
 }
