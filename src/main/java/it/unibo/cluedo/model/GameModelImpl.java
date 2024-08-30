@@ -24,6 +24,10 @@ import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.statistics.impl.StatisticsImpl;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
+import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
+import it.unibo.cluedo.model.unforeseen.impl.UnforeseenEffectFactory;
+import it.unibo.cluedo.model.unforeseen.impl.SwapPositionEffect;
+//import it.unibo.cluedo.model.unforeseen.impl.SwapCardEffect;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.utilities.TurnFase;
@@ -80,10 +84,11 @@ final class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public void endTurn() {
+    public Player endTurn() {
         if (fase == TurnFase.END_TURN) {
             turnManager.switchTurn();
-            fase = fase.nextFase();
+            fase = TurnFase.ROLL_DICE;
+            return getCurrentPlayer();
         } else {
             throw new IllegalStateException("You can't end the turn now");
         }
@@ -278,9 +283,41 @@ final class GameModelImpl implements GameModel {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void drawUnforeseen() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'drawUnforeseen'");
+    public UnforeseenEffect drawUnforeseen() {
+        if (fase.equals(TurnFase.DRAW_UNFORESEEN)) {
+            final UnforeseenEffect unforeseen = UnforeseenEffectFactory.createUnforeseenEffect(getCurrentPlayer());
+            switch (unforeseen.getType()) {
+                case "MoveExtraStep":
+                    fase = TurnFase.MOVE_PLAYER;
+                    unforeseen.applyEffect(getCurrentPlayer());
+                    break;
+                case "ReRollDice":
+                    unforeseen.applyEffect(getCurrentPlayer());
+                    fase = TurnFase.ROLL_DICE;
+                    break;
+                case "SkipTurn":
+                    unforeseen.applyEffect(getCurrentPlayer());
+                    fase = TurnFase.MOVE_PLAYER;
+                    break;
+                case "SwapPosition":
+                    if (unforeseen instanceof SwapPositionEffect) {
+                        final int index = (players.indexOf(getCurrentPlayer()) + 1) % players.size();
+                        ((SwapPositionEffect) unforeseen).setSwapPositionEffect(players.get(index));
+                    }
+                    fase = TurnFase.MOVE_PLAYER;
+                    break;
+                //aggiungere SwapCardEffect
+                default:
+                    fase = TurnFase.MOVE_PLAYER;
+                    break;
+            }
+            return unforeseen;
+        } else {
+            throw new IllegalStateException("You can't draw an unforeseen card now");
+        }
     }
 }

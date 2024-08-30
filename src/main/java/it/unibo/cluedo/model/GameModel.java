@@ -6,6 +6,7 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
+import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 
 import java.util.List;
@@ -22,8 +23,9 @@ public interface GameModel {
     void useTrapdoor(Room room);
     /**
      * Method to draw an unforseen cards.
+     * @return the unforseen card drawn.
      */
-    void drawUnforeseen();
+    UnforeseenEffect drawUnforeseen();
     /**
      * Method to roll the dice.
      * @return the result of the dice roll.
@@ -60,8 +62,9 @@ public interface GameModel {
     Notebook getNotebook();
     /**
      * Method to end the turn of the current player.
+     * @return the next player.
      */
-    void endTurn();
+    Player endTurn();
     /**
      * Method to establish if the game is over.
      * @return true if the game is over, false otherwise.
