@@ -43,13 +43,13 @@ final class MapTest {
 
     @Test
     void testMapInitialization() {
-        for (MapComponent component : this.map.getMap()) {
+        for (final MapComponent component : this.map.getMap()) {
             assertTrue(component.hasBeenVisited());
         }
         assertNotNull(this.map.getMap(), "Shouldn't be null");
         assertNotNull(this.map.getVisitor(), "Visitor shouldn't be null");
         assertEquals(map.getVisitor().getVisitedRoom().size(), NUM_OF_ROOMS);
-        for (Position pos : Position.getDefaultPositions()) {
+        for (final Position pos : Position.getDefaultPositions()) {
             assertFalse(map.getVisitor().isSquareInRoom(map.getVisitor().getSquareByPosition(pos)));
         }
     }
@@ -105,7 +105,7 @@ final class MapTest {
 
     @Test
     void testMapEffectiveSquare() {
-        System.out.println(map.getVisitor().printMap());
+        //System.out.println(map.getVisitor().printMap());
         final List<Square> effectiveSquares = map.getVisitor().getVisitedSquare().stream()
             .filter(square -> !square.getEffect().getType().equals(Effect.EffectType.NONE))
             .toList();

@@ -61,7 +61,7 @@ public class MapImpl implements Map {
         {11, 11, 11, 11, 11, 11, 0, 1, 0, 10, 10, 10, 10, 10, 10, 0, 1, 0, 9, 9, 9, 9, 9, 9}
     };
     private static final Random RANDOM = new Random();
-    private static final String imagePath = Paths.get(
+    private static final String IMAGE_PATH = Paths.get(
         "src",
         "main",
         "resources",
@@ -340,6 +340,6 @@ public class MapImpl implements Map {
      * @return the image path of the map
      */
     public static String getMapImagePath() {
-        return imagePath;
+        return IMAGE_PATH;
     }
 }
