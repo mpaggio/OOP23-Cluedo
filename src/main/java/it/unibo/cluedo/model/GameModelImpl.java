@@ -9,7 +9,6 @@ import it.unibo.cluedo.model.accusation.api.Accusation;
 import it.unibo.cluedo.model.accusation.impl.AccusationImpl;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.deck.api.Deck;
-import it.unibo.cluedo.model.deck.impl.DeckImpl;
 import it.unibo.cluedo.model.dice.api.Dice;
 import it.unibo.cluedo.model.dice.impl.DiceImpl;
 import it.unibo.cluedo.model.movement.impl.BoardMovement;
@@ -49,14 +48,14 @@ final class GameModelImpl implements GameModel {
     /**
      * Constructor of the class.
      * @param players the players of the game.
+     * @param deck the deck of the game.
+     * @param solution the solution of the game.
      */
-    GameModelImpl(final List<Player> players) {
+    GameModelImpl(final List<Player> players, final Deck deck, final Set<Card> solution) {
         this.players = List.copyOf(players);
         turnManager = new TurnManagerImpl(players);
         statistics = new StatisticsImpl(players);
-        final Deck deck = new DeckImpl();
-        deck.initializeDeck();
-        solution = deck.drawSolution();
+        this.solution = solution;
         notebooks = new ArrayList<>();
         final List<Set<Card>> cards = List.copyOf(deck.distributeCards(players.size()));
         players.forEach(player -> {
@@ -75,14 +74,6 @@ final class GameModelImpl implements GameModel {
         fase = TurnFase.ROLL_DICE;
         accusation = new AccusationImpl();
         map = new MapImpl();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void drawUnforeseen() {
-        // TODO Auto-generated method stub
     }
 
     /**
@@ -170,14 +161,14 @@ final class GameModelImpl implements GameModel {
                 move.execute();
                 statistics.incrementSteps(getCurrentPlayer(), 1);
                 if (getCurrentPlayer().isInRoom() && getCurrentPlayer() instanceof MutablePlayer) {
-                    fase = fase.nextFase();
+                    fase = TurnFase.MAKE_ACCUSATION;
                     ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
                     statistics.incrementRoomsVisited(getCurrentPlayer());
                 } else {
                     applyEffect(position);
                 }
                 if (getCurrentPlayer().getCurrentSteps() == 0) {
-                    fase = fase.nextFase();
+                    fase = TurnFase.END_TURN;
                 }
             } else {
                 throw new IllegalStateException("You can't move now");
@@ -193,9 +184,17 @@ final class GameModelImpl implements GameModel {
     @Override
     public int rollDice() {
         if (fase == TurnFase.ROLL_DICE) {
+            if (getCurrentPlayer().canDoubleRollDice() && getCurrentPlayer() instanceof MutablePlayer) {
+                final Dice dice = new DiceImpl(6);
+                fase = TurnFase.MOVE_PLAYER;
+                currentDiceResult = dice.rollDice();
+                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
+                ((MutablePlayer) getCurrentPlayer()).setDoubleRollDice(false);
+                return currentDiceResult;
+            }
             if (getCurrentPlayer().canNextTurn() && getCurrentPlayer() instanceof MutablePlayer) {
                 final Dice dice = new DiceImpl(6);
-                fase = fase.nextFase();
+                fase = TurnFase.DRAW_UNFORESEEN;
                 currentDiceResult = dice.rollDice();
                 ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
                 return currentDiceResult;
@@ -266,7 +265,7 @@ final class GameModelImpl implements GameModel {
                         ((MutablePlayer) getCurrentPlayer()).setPosition(newPosition.getPosition());
                         ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
                         map.getVisitor().getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
-                        fase = fase.nextFase();
+                        fase = TurnFase.MAKE_ACCUSATION;
                     }
                 } else {
                     throw new IllegalArgumentException("There is no trapdoor in this room");
@@ -277,5 +276,11 @@ final class GameModelImpl implements GameModel {
         } else {
             throw new IllegalStateException("You can't use the trapdoor now");
         }
+    }
+
+    @Override
+    public void drawUnforeseen() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'drawUnforeseen'");
     }
 }

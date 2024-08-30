@@ -11,7 +11,7 @@ public enum TurnFase {
     /**
      * The unforseen cards get distributed.
      */
-    DISTRIBUTE_UNFORSEEN,
+    DRAW_UNFORESEEN,
     /**
      * The player has to choose where to move.
      */
