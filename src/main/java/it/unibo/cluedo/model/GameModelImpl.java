@@ -145,6 +145,7 @@ final class GameModelImpl implements GameModel {
             if ("Cluedo".equals(roomPosition.getName())) {
                 throw new IllegalArgumentException("You can't make an accusation in the Cluedo room");
             }
+            ((MutablePlayer) getCurrentPlayer()).setInRoom(false);
             int index = (players.indexOf(getCurrentPlayer())) % players.size() + 1;
             Optional<Card> result = Optional.empty();
             while (index != players.indexOf(getCurrentPlayer()) && result.equals(Optional.empty())) {
@@ -163,19 +164,14 @@ final class GameModelImpl implements GameModel {
     public void movePlayer(final Square position, final MovementStrategy.Direction direction) {
         final BoardMovement boardMovement = new BoardMovement(map);
         final MoveInSingleDirection move = new MoveInSingleDirection((MutablePlayer) getCurrentPlayer(), 
-        1, direction, boardMovement);
+        1, direction, boardMovement, map);
         if (fase == TurnFase.MOVE_PLAYER) {
             if (getCurrentPlayer().getCurrentSteps() > 0) {
-                try {
-                    move.execute();
-                } catch (Exception e) {
-                    throw new IllegalArgumentException("Invalid move: the player cannot move outside the board or into an invalid area");
-                }
+                move.execute();
                 statistics.incrementSteps(getCurrentPlayer(), 1);
                 if (getCurrentPlayer().isInRoom() && getCurrentPlayer() instanceof MutablePlayer) {
                     fase = fase.nextFase();
                     ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
-                    ((MutablePlayer) getCurrentPlayer()).setInRoom(false);
                     statistics.incrementRoomsVisited(getCurrentPlayer());
                 } else {
                     applyEffect(position);
@@ -258,7 +254,28 @@ final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void useTrapdoor() {
-        // TODO Auto-generated method stub
+    public void useTrapdoor(final Room room) {
+        if (fase == TurnFase.MOVE_PLAYER) {
+            if (room.isPlayerInRoom(getCurrentPlayer())) {
+                if (room.getTrapDoor().isPresent()) {
+                    final Square newPosition = room.getTrapDoor().get().getConnectedRoom().getSquares().get(0);
+                    if (getCurrentPlayer() instanceof MutablePlayer) {
+                        map.getVisitor().getRoomBySquare(map.getVisitor()
+                            .getSquareByPosition(getCurrentPlayer().getCurrentPosition()))
+                            .get().removePlayerFromRoom(getCurrentPlayer());
+                        ((MutablePlayer) getCurrentPlayer()).setPosition(newPosition.getPosition());
+                        ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
+                        map.getVisitor().getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
+                        fase = fase.nextFase();
+                    }
+                } else {
+                    throw new IllegalArgumentException("There is no trapdoor in this room");
+                }
+            } else {
+                throw new IllegalArgumentException("You are not in a room");
+            }
+        } else {
+            throw new IllegalStateException("You can't use the trapdoor now");
+        }
     }
 }

@@ -17,8 +17,9 @@ import java.util.Optional;
 public interface GameModel {
     /**
      * Method to use the trapdoor.
+     * @param room the room to use the trapdoor in.
      */
-    void useTrapdoor();
+    void useTrapdoor(Room room);
     /**
      * Method to draw an unforseen cards.
      */
