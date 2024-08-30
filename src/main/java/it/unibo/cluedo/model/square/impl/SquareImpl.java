@@ -5,6 +5,8 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.utilities.Position;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -95,5 +97,17 @@ public class SquareImpl implements Square {
     @Override
     public boolean hasBeenVisited() {
         return this.visited;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Player> getPlayersIn() {
+        if (this.player.isPresent()) {
+            return List.of(this.player.get());
+        } else {
+            return List.of();
+        }
     }
 }

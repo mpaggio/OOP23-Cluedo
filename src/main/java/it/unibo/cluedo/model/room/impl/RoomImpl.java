@@ -145,14 +145,6 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public List<Player> getPlayersInRoom() {
-        return List.copyOf(this.players);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public boolean isPlayerInRoom(final Player player) {
         return this.players.contains(player);
     }
@@ -163,5 +155,13 @@ public class RoomImpl implements Room {
     @Override
     public boolean hasBeenVisited() {
         return this.visited;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Player> getPlayersIn() {
+        return List.copyOf(this.players);
     }
 }
