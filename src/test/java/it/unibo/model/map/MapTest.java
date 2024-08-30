@@ -15,6 +15,8 @@ import org.junit.jupiter.api.Test;
 import it.unibo.cluedo.model.component.api.MapComponent;
 import it.unibo.cluedo.model.map.api.Map;
 import it.unibo.cluedo.model.map.impl.MapImpl;
+import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
@@ -124,6 +126,32 @@ final class MapTest {
         }
         for (final Square square : effectiveSquares) {
             assertTrue(positions.add(square.getPosition()));
+        }
+    }
+
+    @Test
+    void testMapComponent() {
+        final Player player1 = new MutablePlayerImpl("Marco", "Red");
+        final Player player2 = new MutablePlayerImpl("Luca", "Green");
+        final Player player3 = new MutablePlayerImpl("Giovanni", "Black");
+        for (final MapComponent component : this.map.getMap()) {
+            assertTrue(component.getPlayersIn().isEmpty());
+        }
+        for (final Room room : map.getVisitor().getVisitedRoom()) {
+            room.addPlayerInRoom(player1);
+            room.addPlayerInRoom(player2);
+            room.addPlayerInRoom(player3);
+        }
+        for (final Square square : map.getVisitor().getVisitedSquare()) {
+            square.landOn(player1);
+        }
+        for (final MapComponent component : this.map.getMap()) {
+            assertTrue(!component.getPlayersIn().isEmpty());
+            if (component instanceof Square) {
+                assertFalse(component.getPlayersIn().size() != 1);
+            } else {
+                assertTrue(component.getPlayersIn().size() != 1);
+            }
         }
     }
 }
