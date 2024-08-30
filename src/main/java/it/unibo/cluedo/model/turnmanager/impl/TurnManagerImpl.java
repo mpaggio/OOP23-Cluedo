@@ -29,7 +29,11 @@ public class TurnManagerImpl implements TurnManager {
         }
         this.players = new ArrayList<>(players);
         this.currentPlayerIndex = 0;
-        ((MutablePlayer) this.players.get(currentPlayerIndex)).setPlayerTurn(true);
+        if (this.players.get(currentPlayerIndex) instanceof MutablePlayer) {
+            ((MutablePlayer) this.players.get(currentPlayerIndex)).setPlayerTurn(true);
+        }
+
+
     }
 
     /**
