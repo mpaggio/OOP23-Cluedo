@@ -39,6 +39,8 @@ import it.unibo.cluedo.utilities.TurnFase;
 
 final class GameModelImpl implements GameModel {
 
+    private static final int DICE_SIDES = 6;
+
     private TurnFase fase;
     private int currentDiceResult;
     private final Accusation accusation;
@@ -78,6 +80,27 @@ final class GameModelImpl implements GameModel {
         fase = TurnFase.ROLL_DICE;
         accusation = new AccusationImpl();
         map = new MapImpl();
+    }
+    /**
+     * Constructor of the class by a saved game.
+     * @param players the players of the game.
+     * @param solution the solution of the game.
+     * @param turnManager the turn manager of the previous game.
+     * @param statistics the statistics of the previous game.
+     * @param notebooks the notebooks of the previous game.
+     * @param map the map of the previous game.
+     */
+    GameModelImpl(final List<Player> players, final Set<Card> solution,
+        final TurnManager turnManager, final Statistics statistics,
+        final List<Notebook> notebooks, final MapImpl map) {
+        this.players = List.copyOf(players);
+        this.turnManager = turnManager;
+        this.statistics = statistics;
+        this.solution = solution;
+        this.notebooks = List.copyOf(notebooks);
+        fase = TurnFase.ROLL_DICE;
+        accusation = new AccusationImpl();
+        this.map = map;
     }
 
     /**
@@ -190,7 +213,7 @@ final class GameModelImpl implements GameModel {
     public int rollDice() {
         if (fase == TurnFase.ROLL_DICE) {
             if (getCurrentPlayer().canDoubleRollDice() && getCurrentPlayer() instanceof MutablePlayer) {
-                final Dice dice = new DiceImpl(6);
+                final Dice dice = new DiceImpl(DICE_SIDES);
                 fase = TurnFase.MOVE_PLAYER;
                 currentDiceResult = dice.rollDice();
                 ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
@@ -198,7 +221,7 @@ final class GameModelImpl implements GameModel {
                 return currentDiceResult;
             }
             if (getCurrentPlayer().canNextTurn() && getCurrentPlayer() instanceof MutablePlayer) {
-                final Dice dice = new DiceImpl(6);
+                final Dice dice = new DiceImpl(DICE_SIDES);
                 fase = TurnFase.DRAW_UNFORESEEN;
                 currentDiceResult = dice.rollDice();
                 ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
