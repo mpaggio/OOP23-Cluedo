@@ -113,7 +113,7 @@ final class GameModelImpl implements GameModel {
             fase = TurnFase.ROLL_DICE;
             return getCurrentPlayer();
         } else {
-            throw new IllegalStateException("You can't end the turn now");
+            throw new IllegalStateException("You can't end your turn now");
         }
     }
 
@@ -186,7 +186,11 @@ final class GameModelImpl implements GameModel {
         1, direction, boardMovement, map);
         if (fase == TurnFase.MOVE_PLAYER) {
             if (getCurrentPlayer().getCurrentSteps() > 0) {
-                move.execute();
+                try {
+                    move.execute();
+                } catch (IllegalArgumentException e) {
+                    return;
+                }
                 statistics.incrementSteps(getCurrentPlayer(), 1);
                 if (getCurrentPlayer().isInRoom() && getCurrentPlayer() instanceof MutablePlayer) {
                     fase = TurnFase.MAKE_ACCUSATION;
@@ -250,7 +254,7 @@ final class GameModelImpl implements GameModel {
             if (accusation.finalAccuse(weapon, room, character, solution)) {
                 final int index = players.indexOf(getCurrentPlayer());
                 if (getCurrentPlayer() instanceof MutablePlayer) {
-                    ((MutablePlayer) players.get(index)).setHasWon(isOver());
+                    ((MutablePlayer) players.get(index)).setHasWon(true);
                 }
                 return true;
             }
