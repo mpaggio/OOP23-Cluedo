@@ -159,6 +159,9 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
     @Override
     public List<Square> getOrderedVisitedSquares() {
         final List<Square> sortedSquares = new LinkedList<>(this.visitedSquare);
+        for (final Room rooms : this.visitedRoom) {
+            sortedSquares.addAll(rooms.getSquares());
+        }
         Collections.sort(
             sortedSquares,
             new Comparator<Square>() {
