@@ -1,7 +1,6 @@
 package it.unibo.cluedo.model.unforeseen.impl;
 
 import java.util.Random;
-
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 
@@ -23,6 +22,7 @@ public final class UnforeseenEffectFactory {
     private UnforeseenEffectFactory() {
         throw new UnsupportedOperationException("Utility class");
     }
+
     /**
      * Creates an unforeseen effect.
      *

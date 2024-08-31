@@ -3,7 +3,6 @@ package it.unibo.cluedo.model.unforeseen.impl;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
-
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.card.api.Card.Type;
 import it.unibo.cluedo.model.player.api.MutablePlayer;

@@ -1,11 +1,11 @@
 package it.unibo.cluedo.model.turnmanager.api;
+
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.player.api.Player;
 
 /**
  * Interface that models the turn manager of the game.
  */
-
 public interface TurnManager {
 
     /**

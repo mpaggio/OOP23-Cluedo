@@ -4,17 +4,16 @@ import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.notebook.impl.NotebookImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import java.util.Arrays;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * Test class for the Notebook class.
  */
-class NotebookTest {
+class NotebookImplTest {
+
     private Notebook notebook;
     private static final String PROFESSOR_PLUM = "Professor Plum";
     private static final String CANDLESTICK = "Candlestick";
@@ -101,6 +100,5 @@ class NotebookTest {
         assertEquals(2, seenSuspects.size());
         assertEquals(2, seenWeapons.size());
         assertEquals(1, seenRooms.size());
-
     }
 }

@@ -8,8 +8,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * This class contains unit tests for the DIce class.
  */
+final class DiceImplTest {
 
-final class DiceTest {
     private static final int MIN_SIDES = 1;
     private static final int MAX_SIDES = 6;
     private static final int INVALID_SIDES_LOW = 0;
@@ -19,9 +19,8 @@ final class DiceTest {
     private static final double MAX_PERCENT = 1.2;
 
     /**
-     * Tests that the roll method returns a value within the expected range.
+     * Tests the rollDice method by rolling the dice and checking if the result is within the expected bounds.
      */
-
     @Test
     void testRollDice() {
         final DiceImpl dice = new DiceImpl(MAX_SIDES);
@@ -30,10 +29,8 @@ final class DiceTest {
     }
 
     /**
-     * Tests that the DiceImpl constructor throws an exception for invalid side
-     * numbers.
+     * Tests the constructor by passing invalid values for the number of sides.
      */
-
     @Test
     void testInvalidSides() {
         assertThrows(IllegalArgumentException.class, () -> new DiceImpl(INVALID_SIDES_LOW));
@@ -41,10 +38,8 @@ final class DiceTest {
     }
 
     /**
-     * Tests that the distribution of the dice rolls is uniform,an accettable range
-     * is between 80% and 120% of the expected value.
+     * Tests the rollDice method by rolling the dice multiple times and checking if the distribution is uniform.
      */
-
     @Test
     void testRollDistribution() {
         final DiceImpl dice = new DiceImpl(MAX_SIDES);
@@ -62,9 +57,8 @@ final class DiceTest {
     }
 
     /**
-     * Stress test for the roll method with a large number of rolls.
+     * Tests the rollDice method by rolling the dice multiple times and checking if the result is within the expected bounds.
      */
-
     @Test
     void testStressRoll() {
         final DiceImpl dice = new DiceImpl(MAX_SIDES);

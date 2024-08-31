@@ -21,5 +21,4 @@ public final class ReRollDiceEffect implements UnforeseenEffect {
     public String getType() {
         return "ReRollDice";
     }
-
 }

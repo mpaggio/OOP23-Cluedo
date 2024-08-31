@@ -4,7 +4,6 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
 import it.unibo.cluedo.model.unforeseen.impl.SkipTurnEffect;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-
 import org.junit.jupiter.api.Test;
 
 /**

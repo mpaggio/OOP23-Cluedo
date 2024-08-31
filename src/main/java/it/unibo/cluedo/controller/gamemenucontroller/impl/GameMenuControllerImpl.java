@@ -2,15 +2,12 @@ package it.unibo.cluedo.controller.gamemenucontroller.impl;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
-
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
-
 import java.awt.Window;
 import java.awt.Color;
 
@@ -95,5 +92,4 @@ public class GameMenuControllerImpl implements GameMenuController {
             window.dispose();
         }
     }
-
 }
