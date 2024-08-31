@@ -100,7 +100,7 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
             .findAny();
     }
 
-    private Map<Position, Character> getPositionAndymbolMap() {
+    private Map<Position, Character> getPositionAndSymbolMap() {
         final Map<Position, Character> positionToSymbolMap = new HashMap<>();
         for (final Room room : visitedRoom) {
             for (final Square square : room.getSquares()) {
@@ -131,8 +131,8 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      */
     @Override
     public String printMap() {
-        final Map<Position, Character> positionToSymbolMap = getPositionAndymbolMap();
-        final List<Position> sortedPositions = new LinkedList<>(getPositionAndymbolMap().keySet());
+        final Map<Position, Character> positionToSymbolMap = getPositionAndSymbolMap();
+        final List<Position> sortedPositions = new LinkedList<>(getPositionAndSymbolMap().keySet());
         Collections.sort(
             sortedPositions,
             Comparator.comparingInt(Position::getX).thenComparingInt(Position::getY)
@@ -157,7 +157,20 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      * {@inheritDoc}
      */
     @Override
-    public List<Position> getOrderedPositions() {
-        return List.copyOf(getPositionAndymbolMap().keySet());
+    public List<Square> getOrderedVisitedSquares() {
+        final List<Square> sortedSquares = new LinkedList<>(this.visitedSquare);
+        Collections.sort(
+            sortedSquares,
+            new Comparator<Square>() {
+                public int compare(final Square s1, final Square s2) {
+                    int cmp = Integer.compare(s1.getPosition().getX(), s2.getPosition().getX());
+                    if (cmp == 0) {
+                        cmp = Integer.compare(s1.getPosition().getY(), s2.getPosition().getY());
+                    }
+                    return cmp;
+                }
+            }
+        );
+        return sortedSquares;
     }
 }
