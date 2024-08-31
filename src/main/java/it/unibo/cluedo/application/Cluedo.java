@@ -1,9 +1,9 @@
 package it.unibo.cluedo.application;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
+//import javax.swing.JFrame;
+//import javax.swing.SwingUtilities;
 
-import it.unibo.cluedo.view.MapView;
+//import it.unibo.cluedo.view.MapView;
 
 /**
  * The main class for the Cluedo application.
@@ -21,6 +21,8 @@ public final class Cluedo {
      * @param args the command line arguments (not used)
      */
     public static void main(final String[] args) {
+        /*             USED BY PAGGETTI
+        -----------------------------------------------
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -35,5 +37,7 @@ public final class Cluedo {
                 frame.setVisible(true);
             }
         });
+        -----------------------------------------------
+        */
     }
 }
