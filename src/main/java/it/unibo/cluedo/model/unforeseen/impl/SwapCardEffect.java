@@ -54,9 +54,7 @@ public final class SwapCardEffect implements UnforeseenEffect {
                     ((MutablePlayer) otherPlayer).setPlayerCards(otherPlayerCards);
                 }
             }
-
         }
-
     }
 
     @Override
