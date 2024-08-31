@@ -15,7 +15,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.Date;
 import java.util.Locale;
-
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.component.api.MapComponent;
@@ -180,7 +179,6 @@ public class GameSaveControllerImpl implements GameSaveController {
             LOGGER.log(Level.SEVERE, message, ioException);
         }
     }
-
 }
 
 

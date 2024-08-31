@@ -11,7 +11,8 @@ import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 public class SkipTurnEffect implements UnforeseenEffect {
 
     /**
-     * Constructor of the class.
+     * This method is used to apply the effect of the card to the player.
+     * @param player the player that has to apply the effect of the card.
      */
     @Override
     public void applyEffect(final Player player) {
@@ -22,7 +23,8 @@ public class SkipTurnEffect implements UnforeseenEffect {
     }
 
     /**
-     * This method returns the type of the effect.
+     * This method is used to get the type of the card.
+     * @return the type of the card.
      */
     @Override
     public String getType() {

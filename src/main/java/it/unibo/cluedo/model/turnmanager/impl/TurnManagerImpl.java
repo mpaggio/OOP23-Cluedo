@@ -2,7 +2,6 @@ package it.unibo.cluedo.model.turnmanager.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.api.Player;
@@ -10,10 +9,10 @@ import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 
 /**
  * Class that implements the TurnManager interface, it has a constructor that
- * takes the
- * list of players as parameter.
+ * takes the list of players as parameter.
  */
 public class TurnManagerImpl implements TurnManager {
+
     private final List<Player> players;
     private int currentPlayerIndex;
     private boolean gameFinished;
@@ -21,7 +20,7 @@ public class TurnManagerImpl implements TurnManager {
     /**
      * Constructor of the class.
      *
-     * @param players
+     * @param players the list of the players.
      */
     public TurnManagerImpl(final List<Player> players) {
         if (players == null || players.isEmpty()) {

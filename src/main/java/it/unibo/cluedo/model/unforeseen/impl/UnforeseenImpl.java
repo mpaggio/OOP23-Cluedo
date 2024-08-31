@@ -1,8 +1,8 @@
 package it.unibo.cluedo.model.unforeseen.impl;
+
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.unforeseen.api.Unforeseen;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
-
 
 /**
  * Implementation of the EventCard interface.
@@ -42,11 +42,5 @@ public abstract class UnforeseenImpl implements Unforeseen {
     public String getDescription() {
         return description;
     }
-
-
-
-
-
-
 }
 

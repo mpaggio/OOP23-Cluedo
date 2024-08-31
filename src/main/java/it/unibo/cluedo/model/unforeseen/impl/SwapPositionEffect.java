@@ -35,5 +35,4 @@ public final class SwapPositionEffect implements UnforeseenEffect {
     public String getType() {
         return "SwapPosition";
     }
-
 }
