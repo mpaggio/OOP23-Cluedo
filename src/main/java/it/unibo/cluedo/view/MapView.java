@@ -26,12 +26,12 @@ import it.unibo.cluedo.utilities.Position;
  * The MapView class is responsible for rendering the game map.
  * It extends JPanel and uses MapSetupController to get tile informations.
  */
-public class MapView extends JPanel{
+public class MapView extends JPanel {
     private static final Logger LOGGER = Logger.getLogger(MapView.class.getName());
     private static final MapSetupController CONTROLLER = new MapSetupController();
     private static final long serialVersionUID = 1L;
     private static final Color TILE_BORDER_COLOR = new Color(0, 0, 0, 0.8f);
-    private BufferedImage mapImage;
+    private transient BufferedImage mapImage;
 
     /**
      * Constructs a MapView with the specified visitor.
@@ -82,7 +82,7 @@ public class MapView extends JPanel{
     }
 
     /**
-     * Draws a single tile on the map
+     * Draws a single tile on the map.
      * 
      * @param x the x-coordinate of the tile
      * @param y the y-coordinate of the tile
@@ -92,13 +92,13 @@ public class MapView extends JPanel{
      */
     private void drawTile(final double x, final double y, final Graphics g,
         final Optional<Color> playerColor, final double tileSize) {
-            Graphics2D g2 = (Graphics2D) g;
-            Rectangle2D rect = new Rectangle2D.Double(x, y, tileSize, tileSize);
+            final Graphics2D g2 = (Graphics2D) g;
+            final Rectangle2D rect = new Rectangle2D.Double(x, y, tileSize, tileSize);
             g2.setPaint(TILE_BORDER_COLOR);
             g2.draw(rect);
             if (playerColor.isPresent()) {
                 g2.setPaint(playerColor.get());
-                Ellipse2D circle = new Ellipse2D.Double(
+                final Ellipse2D circle = new Ellipse2D.Double(
                     x + tileSize / 4,
                     y + tileSize / 4,
                     tileSize / 2,
@@ -127,8 +127,8 @@ public class MapView extends JPanel{
             final double offsetY = originalOffsetY * scaleY;
             final double tileSize = originalTileSize * scaleX;
             for (final Position pos : CONTROLLER.getTilesPositions()) {
-                double x = offsetX + ((double) pos.getY()) * tileSize;
-                double y = offsetY + ((double) pos.getX()) * tileSize;
+                final double x = offsetX + ((double) pos.getY()) * tileSize;
+                final double y = offsetY + ((double) pos.getX()) * tileSize;
                 if (Position.getDefaultPositions().contains(pos) && colorIterator.hasNext()) {
                     drawTile(x, y, g, Optional.of(colorIterator.next()), tileSize);
                 } else {

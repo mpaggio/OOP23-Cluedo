@@ -8,7 +8,7 @@ import it.unibo.cluedo.view.MapView;
 /**
  * The main class for the Cluedo application.
  */
-public class Cluedo {
+public final class Cluedo {
     /**
      * Private constructor to prevent instantiation.
      */
