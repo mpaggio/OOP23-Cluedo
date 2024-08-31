@@ -162,6 +162,7 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
         Collections.sort(
             sortedSquares,
             new Comparator<Square>() {
+                @Override
                 public int compare(final Square s1, final Square s2) {
                     int cmp = Integer.compare(s1.getPosition().getX(), s2.getPosition().getX());
                     if (cmp == 0) {
