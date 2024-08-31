@@ -74,6 +74,7 @@ final class MapTest {
             assertFalse(room.getSquares().isEmpty());
             assertEquals(roomNormalSquares.size(), room.getSquares().size());
             assertTrue(roomNormalSquares.containsAll(room.getSquares()));
+            assertTrue(room.getSquares().containsAll(room.getEntrances()));
         }
         assertEquals(
             this.map.getVisitor().getVisitedRoom().stream()
