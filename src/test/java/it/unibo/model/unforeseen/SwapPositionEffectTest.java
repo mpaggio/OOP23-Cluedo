@@ -28,7 +28,7 @@ class SwapPositionEffectTest {
 
         mutablePlayer1.setPosition(new Position(0, 0));
         mutablePlayer2.setPosition(new Position(DEFAULT_COORD, DEFAULT_COORD));
-        SwapPositionEffect effect = new SwapPositionEffect(player2);
+        final SwapPositionEffect effect = new SwapPositionEffect(player2);
         effect.applyEffect(player1);
         assertEquals(new Position(DEFAULT_COORD, DEFAULT_COORD), player1.getCurrentPosition());
         assertEquals(new Position(0, 0), player2.getCurrentPosition());

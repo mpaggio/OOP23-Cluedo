@@ -10,7 +10,7 @@ import it.unibo.cluedo.utilities.Position;
  */
 public final class SwapPositionEffect implements UnforeseenEffect {
 
-    private Player otherPlayer;
+    private final Player otherPlayer;
 
     /**
      *  Constructor of the class.
