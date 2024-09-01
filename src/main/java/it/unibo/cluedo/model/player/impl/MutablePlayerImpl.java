@@ -20,6 +20,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
      */
     public MutablePlayerImpl(final String username, final String color) {
         super(username, color);
+        this.setCurrentPosition(Position.getRandomDefaultPosition());
     }
 
     /**
