@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
+//import it.unibo.cluedo.utilities.Position;
 
 /**
  * Test class for a {@link MutablePlayerImpl} class.
