@@ -31,8 +31,6 @@ public class TurnManagerImpl implements TurnManager {
         if (this.players.get(currentPlayerIndex) instanceof MutablePlayer) {
             ((MutablePlayer) this.players.get(currentPlayerIndex)).setPlayerTurn(true);
         }
-
-
     }
 
     /**
@@ -46,25 +44,51 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
+     * Remove a player from the game.
+     *
+     * @param player the player to remove.
+     */
+    @Override
+    public void removePlayer(final Player player) {
+        if (player == null || !players.contains(player)) {
+            throw new IllegalArgumentException("The player cannot be null or not present in the game");
+        }
+        if (players.indexOf(player) == currentPlayerIndex) {
+        players.remove(player);
+        if (!players.isEmpty()) {
+            switchTurn();
+        } else {
+            gameFinished = true;
+            }
+        } else {
+            players.remove(player);
+            if (players.isEmpty()) {
+                gameFinished = true;
+            }
+        }
+    }
+
+    /**
      * Advances the turn to the next player.
      */
     @Override
     public void switchTurn() {
-        if (gameFinished) {
+        if (gameFinished || players.size() <= 1) {
+            gameFinished = true;
             return;
         }
         MutablePlayer currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
         currentPlayer.setPlayerTurn(false);
+
         do {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         } while (players.get(currentPlayerIndex).hasWon());
 
-        currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
-        currentPlayer.setPlayerTurn(true);
-
-        if (checkGameEndCondition()) {
-            gameFinished = true;
+        if (!gameFinished) {
+            currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
+            currentPlayer.setPlayerTurn(true);
         }
+        gameFinished = checkGameEndCondition();
     }
 
     /**
