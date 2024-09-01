@@ -71,10 +71,14 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
      */
     @Override
     public Square getSquareByPosition(final Position position) {
-        return this.visitedSquare.stream()
+        final Optional<Square> serchedSquare = this.visitedSquare.stream()
             .filter(square -> square.getPosition().equals(position))
-            .findAny()
-            .get();
+            .findAny();
+        if (serchedSquare.isPresent()) {
+            return serchedSquare.get();
+        } else {
+            throw new IllegalArgumentException("The given position does not correspond to a visited square");
+        }
     }
 
     /**
@@ -96,11 +100,7 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
             .findAny();
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String printMap() {
+    private Map<Position, Character> getPositionAndSymbolMap() {
         final Map<Position, Character> positionToSymbolMap = new HashMap<>();
         for (final Room room : visitedRoom) {
             for (final Square square : room.getSquares()) {
@@ -123,7 +123,16 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
                 positionToSymbolMap.put(position, '_');
             }
         }
-        final List<Position> sortedPositions = new LinkedList<>(positionToSymbolMap.keySet());
+        return positionToSymbolMap;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String printMap() {
+        final Map<Position, Character> positionToSymbolMap = getPositionAndSymbolMap();
+        final List<Position> sortedPositions = new LinkedList<>(getPositionAndSymbolMap().keySet());
         Collections.sort(
             sortedPositions,
             Comparator.comparingInt(Position::getX).thenComparingInt(Position::getY)
@@ -142,5 +151,30 @@ public class MapComponentVisitorImpl implements MapComponentVisitor {
             mapBuilder.append('\n');
         }
         return mapBuilder.toString();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Square> getOrderedVisitedSquares() {
+        final List<Square> sortedSquares = new LinkedList<>(this.visitedSquare);
+        for (final Room rooms : this.visitedRoom) {
+            sortedSquares.addAll(rooms.getSquares());
+        }
+        Collections.sort(
+            sortedSquares,
+            new Comparator<Square>() {
+                @Override
+                public int compare(final Square s1, final Square s2) {
+                    int cmp = Integer.compare(s1.getPosition().getX(), s2.getPosition().getX());
+                    if (cmp == 0) {
+                        cmp = Integer.compare(s1.getPosition().getY(), s2.getPosition().getY());
+                    }
+                    return cmp;
+                }
+            }
+        );
+        return sortedSquares;
     }
 }

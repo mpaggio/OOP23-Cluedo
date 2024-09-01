@@ -9,13 +9,13 @@ public enum TurnFase {
      */
     ROLL_DICE,
     /**
+     * The unforseen cards get distributed.
+     */
+    DRAW_UNFORESEEN,
+    /**
      * The player has to choose where to move.
      */
     MOVE_PLAYER,
-    /**
-     * If the player landed on a a square with an effect, it gets applied.
-     */
-    APPLY_EFFECT,
     /**
      * The player has to make an accusation or the final accusation.
      */

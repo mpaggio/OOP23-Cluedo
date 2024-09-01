@@ -3,17 +3,18 @@ package it.unibo.cluedo.model;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.Collections;
 import java.util.ArrayList;
 
 import it.unibo.cluedo.model.accusation.api.Accusation;
 import it.unibo.cluedo.model.accusation.impl.AccusationImpl;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.deck.api.Deck;
-import it.unibo.cluedo.model.deck.impl.DeckImpl;
 import it.unibo.cluedo.model.dice.api.Dice;
 import it.unibo.cluedo.model.dice.impl.DiceImpl;
+import it.unibo.cluedo.model.movement.impl.BoardMovement;
+import it.unibo.cluedo.model.movement.impl.MoveInSingleDirection;
 import it.unibo.cluedo.model.notebook.api.Notebook;
-import it.unibo.cluedo.model.notebook.impl.NotebookImpl;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
@@ -23,6 +24,12 @@ import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.statistics.impl.StatisticsImpl;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
+import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
+import it.unibo.cluedo.model.unforeseen.impl.UnforeseenEffectFactory;
+import it.unibo.cluedo.model.unforeseen.impl.ReRollDiceEffect;
+import it.unibo.cluedo.model.movement.api.MovementStrategy;
+import it.unibo.cluedo.model.map.impl.MapImpl;
+import it.unibo.cluedo.utilities.Position;
 import it.unibo.cluedo.utilities.TurnFase;
 
 /**
@@ -32,76 +39,78 @@ import it.unibo.cluedo.utilities.TurnFase;
 
 final class GameModelImpl implements GameModel {
 
-    private TurnFase fase = TurnFase.ROLL_DICE;
-    private final Accusation accusation = new AccusationImpl();
+    private static final int DICE_SIDES = 6;
+
+    private boolean hasMovedInThisTurn;
+    private TurnFase fase;
+    private int currentDiceResult;
+    private final Accusation accusation;
     private final List<Player> players;
     private final TurnManager turnManager;
     private final Statistics statistics;
     private final Set<Card> solution;
-    private final List<Notebook> notebooks;
+    private final MapImpl map;
 
     /**
      * Constructor of the class.
      * @param players the players of the game.
+     * @param deck the deck of the game.
+     * @param solution the solution of the game.
      */
-    GameModelImpl(final List<Player> players) {
-        this.players = players;
+    GameModelImpl(final List<Player> players, final Deck deck, final Set<Card> solution) {
+        this.players = List.copyOf(players);
         turnManager = new TurnManagerImpl(players);
         statistics = new StatisticsImpl(players);
-        final Deck deck = new DeckImpl();
-        deck.initializeDeck();
-        solution = deck.drawSolution();
-        notebooks = new ArrayList();
+        this.solution = solution;
         final List<Set<Card>> cards = List.copyOf(deck.distributeCards(players.size()));
         players.forEach(player -> {
             if (player instanceof MutablePlayer) {
                 ((MutablePlayer) this.players.get(players.indexOf(player)))
                     .setPlayerCards(List.copyOf(cards.get(players.indexOf(player))));
-                final Notebook notebook = new NotebookImpl();
-                final List<String> playerCards = new ArrayList<>();
-                for (final Card card : player.getPlayerCards()) {
-                    playerCards.add(card.getName());
-                }
-                notebook.initialize(playerCards);
-                notebooks.add(notebook);
+            }
+        });
+        fase = TurnFase.ROLL_DICE;
+        accusation = new AccusationImpl();
+        map = new MapImpl();
+        final List<Position> defaultPositions = new ArrayList<>(Position.getDefaultPositions());
+        Collections.shuffle(defaultPositions);
+        players.forEach(player -> {
+            if (player instanceof MutablePlayer) {
+                ((MutablePlayer) player).setPosition(defaultPositions.get(players.indexOf(player)));
             }
         });
     }
-
     /**
-     * {@inheritDoc}
+     * Constructor of the class by a saved game.
+     * @param players the players of the game.
+     * @param solution the solution of the game.
+     * @param turnManager the turn manager of the previous game.
+     * @param statistics the statistics of the previous game.
+     * @param map the map of the previous game.
      */
-    @Override
-    public void applyEffect(final Square position) {
-        if (fase == TurnFase.APPLY_EFFECT) {
-            switch (position.getEffect().getType()) {
-                case BONUS:
-                    fase = fase.ROLL_DICE;
-                    position.getEffect().apply(getCurrentPlayer());
-                    break;
-                case MALUS:
-                    position.getEffect().apply(getCurrentPlayer());
-                    fase = fase.nextFase();
-                    break;
-                default:
-                    fase = fase.nextFase();
-                    break;
-            }
-        } else {
-            throw new IllegalStateException("Effects can't be applied now");
-        }
+    GameModelImpl(final List<Player> players, final Set<Card> solution,
+        final TurnManager turnManager, final Statistics statistics,
+        final MapImpl map) {
+        this.players = List.copyOf(players);
+        this.turnManager = turnManager;
+        this.statistics = statistics;
+        this.solution = solution;
+        fase = TurnFase.ROLL_DICE;
+        accusation = new AccusationImpl();
+        this.map = map;
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void endTurn() {
+    public Player endTurn() {
         if (fase == TurnFase.END_TURN) {
             turnManager.switchTurn();
-            fase = fase.nextFase();
+            fase = TurnFase.ROLL_DICE;
+            return getCurrentPlayer();
         } else {
-            throw new IllegalStateException("You can't end the turn now");
+            throw new IllegalStateException("You can't end your turn now");
         }
     }
 
@@ -112,12 +121,13 @@ final class GameModelImpl implements GameModel {
     public Player getCurrentPlayer() {
         return turnManager.getCurrentPlayer();
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public Notebook getNotebook() {
-        return notebooks.get(players.indexOf(getCurrentPlayer()));
+        return getCurrentPlayer().getPlayerNotebook();
     }
 
     /**
@@ -147,65 +157,121 @@ final class GameModelImpl implements GameModel {
     @Override
     public Optional<Card> makeAccusation(final Card weapon, final Card room, final Card character, final Room roomPosition) {
         if (fase == TurnFase.MAKE_ACCUSATION) {
-            checkConsistencyAcc(weapon, room, character, roomPosition);
+            try {
+                checkConsistencyAcc(weapon, room, character, roomPosition);
+            } catch (IllegalArgumentException e) {
+                return Optional.empty();
+            }
             if ("Cluedo".equals(roomPosition.getName())) {
                 throw new IllegalArgumentException("You can't make an accusation in the Cluedo room");
             }
-            int index = (players.indexOf(getCurrentPlayer()) + 1) % players.size() + 1;
+            int index = (players.indexOf(getCurrentPlayer())) % players.size() + 1;
             Optional<Card> result = Optional.empty();
-            while (index != players.indexOf(getCurrentPlayer()) && result.equals(Optional.empty())) {
+            while (index != players.indexOf(getCurrentPlayer()) && result.isEmpty()) {
                 result = accusation.accuse(weapon, room, character, Set.copyOf(players.get(index).getPlayerCards()));
                 index = (index + 1) % players.size();
             }
             statistics.incrementAccusationsMade(getCurrentPlayer());
-            fase = fase.nextFase();
-            result.ifPresent(card -> notebooks.get(players.indexOf(getCurrentPlayer())).logSeenCards(card.getName()));
+            fase = TurnFase.END_TURN;
+            result.ifPresent(card -> getNotebook().logSeenCards(card.getName()));
             return result;
         }
         throw new IllegalStateException("You can't make an accusation now");
     }
 
     @Override
-    public void movePlayer(final Square position) {
-        // TODO Auto-generated method stub
+    public void movePlayer(final Square position, final MovementStrategy.Direction direction) {
+        final BoardMovement boardMovement = new BoardMovement(map);
+        final MoveInSingleDirection move = new MoveInSingleDirection((MutablePlayer) getCurrentPlayer(), 
+        1, direction, boardMovement, map);
+        if (fase.equals(TurnFase.MOVE_PLAYER)) {
+            if (getCurrentPlayer().getCurrentSteps() > 0) {
+                try {
+                    move.execute();
+                } catch (IllegalArgumentException e) {
+                    return;
+                }
+                if (!map.getVisitor().isSquareInRoom(position) && getCurrentPlayer() instanceof MutablePlayer) {
+                    ((MutablePlayer) getCurrentPlayer()).setInRoom(false);
+                }
+                hasMovedInThisTurn = true;
+                statistics.incrementSteps(getCurrentPlayer(), 1);
+                if (hasMovedInThisTurn && getCurrentPlayer().isInRoom() && getCurrentPlayer() instanceof MutablePlayer) {
+                    fase = TurnFase.MAKE_ACCUSATION;
+                    ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
+                    statistics.incrementRoomsVisited(getCurrentPlayer());
+                    return;
+                } else {
+                    applyEffect(position);
+                }
+                if (getCurrentPlayer().getCurrentSteps() == 0) {
+                    fase = TurnFase.END_TURN;
+                }
+            } else {
+                throw new IllegalStateException("You can't move now");
+            }
+        } else {
+            throw new IllegalStateException("You can't move now");
+        }
     }
+
     /**
      * {@inheritDoc}
      */
     @Override
     public int rollDice() {
         if (fase == TurnFase.ROLL_DICE) {
-            if (getCurrentPlayer().canNextTurn()) {
-                final Dice dice = new DiceImpl(6);
-                fase = fase.nextFase();
-                return dice.rollDice();
+            hasMovedInThisTurn = false;
+            if (getCurrentPlayer().canDoubleRollDice() && getCurrentPlayer() instanceof MutablePlayer) {
+                final Dice dice = new DiceImpl(DICE_SIDES);
+                fase = TurnFase.MOVE_PLAYER;
+                currentDiceResult = dice.rollDice();
+                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
+                ((MutablePlayer) getCurrentPlayer()).setDoubleRollDice(false);
+                return currentDiceResult;
+            }
+            if (getCurrentPlayer().canNextTurn() && getCurrentPlayer() instanceof MutablePlayer) {
+                final Dice dice = new DiceImpl(DICE_SIDES);
+                fase = TurnFase.DRAW_UNFORESEEN;
+                currentDiceResult = dice.rollDice();
+                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
+                return currentDiceResult;
             } else if (getCurrentPlayer() instanceof MutablePlayer) {
                 ((MutablePlayer) getCurrentPlayer()).setNextTurn(true);
-                fase = fase.END_TURN;
+                fase = TurnFase.END_TURN;
                 return 0;
             }
         }
         throw new IllegalStateException("You can't roll the dice now");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean makeFinalAccusation(final Card weapon, final Card room, final Card character, final Room roomPosition) {
-        if (fase == TurnFase.MAKE_ACCUSATION) {
+        if (fase.equals(TurnFase.MAKE_ACCUSATION)) {
             checkConsistencyAcc(weapon, room, character, roomPosition);
             if (!"Cluedo".equals(roomPosition.getName())) {
                 throw new IllegalArgumentException("You can only make the final accusation in the Cluedo room");
             }
-            fase = fase.nextFase();
+            fase = TurnFase.END_TURN;
             statistics.incrementAccusationsMade(getCurrentPlayer());
             if (accusation.finalAccuse(weapon, room, character, solution)) {
-                final int index = players.indexOf(getCurrentPlayer());
                 if (getCurrentPlayer() instanceof MutablePlayer) {
-                    ((MutablePlayer) players.get(index)).setHasWon(isOver());
+                    ((MutablePlayer) getCurrentPlayer()).setHasWon(true);
                 }
                 return true;
             }
         }
         return false;
+    }
+
+    private void applyEffect(final Square position) {
+        position.landOn(getCurrentPlayer());
+        if (position.getEffect().getType().equals(Effect.EffectType.BONUS)) {
+            fase = TurnFase.ROLL_DICE;
+        }
     }
 
     private void checkConsistencyAcc(final Card weapon, final Card room, final Card character, final Room roomPosition) {
@@ -220,6 +286,61 @@ final class GameModelImpl implements GameModel {
         }
         if (character.getType() != Card.Type.CHARACTER) {
             throw new IllegalArgumentException("The card is not a character");
+        }
+        if ("Cluedo".equals(roomPosition.getName())) {
+            return;
+        }
+        if (!room.getName().equals(roomPosition.getName())) {
+            throw new IllegalArgumentException("You must be in the room you are accusing");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void useTrapdoor(final Room room) {
+        if (fase == TurnFase.MOVE_PLAYER) {
+            if (room.isPlayerInRoom(getCurrentPlayer())) {
+                if (room.getTrapDoor().isPresent()) {
+                    final Square newPosition = room.getTrapDoor().get().getConnectedRoom().getSquares().get(0);
+                    if (getCurrentPlayer() instanceof MutablePlayer) {
+                        map.getVisitor().getRoomBySquare(map.getVisitor()
+                            .getSquareByPosition(getCurrentPlayer().getCurrentPosition()))
+                            .get().removePlayerFromRoom(getCurrentPlayer());
+                        ((MutablePlayer) getCurrentPlayer()).setPosition(newPosition.getPosition());
+                        ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
+                        map.getVisitor().getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
+                        fase = TurnFase.MAKE_ACCUSATION;
+                    }
+                } else {
+                    throw new IllegalArgumentException("There is no trapdoor in this room");
+                }
+            } else {
+                throw new IllegalArgumentException("You are not in a room");
+            }
+        } else {
+            throw new IllegalStateException("You can't use the trapdoor now");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public UnforeseenEffect drawUnforeseen() {
+        if (fase.equals(TurnFase.DRAW_UNFORESEEN)) {
+            final Player nextPlayer = players.get((players.indexOf(getCurrentPlayer()) + 1) % players.size());
+            final UnforeseenEffect unforeseen = UnforeseenEffectFactory.createUnforeseenEffect(nextPlayer);
+            unforeseen.applyEffect(getCurrentPlayer());
+            if (unforeseen instanceof ReRollDiceEffect) {
+                fase = TurnFase.ROLL_DICE;
+            } else {
+                fase = TurnFase.MOVE_PLAYER;
+            }
+            return unforeseen;
+        } else {
+            throw new IllegalStateException("You can't draw an unforeseen card now");
         }
     }
 }

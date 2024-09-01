@@ -2,14 +2,12 @@ package it.unibo.model.unforeseen;
 
 import java.util.List;
 import java.util.Objects;
-
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
 import it.unibo.cluedo.model.unforeseen.impl.SwapCardEffect;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -82,6 +80,5 @@ class SwapCardEffectTest {
         public int hashCode() {
             return Objects.hash(name, type);
         }
-
     }
 }

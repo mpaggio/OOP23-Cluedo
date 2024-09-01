@@ -1,5 +1,6 @@
 package it.unibo.cluedo.model.map.impl;
 
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -48,18 +49,24 @@ public class MapImpl implements Map {
         {12, 12, 12, 12, 12, 12, 12, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 1, 7, 7, 7, 7, 3, 7},
         {12, 12, 12, 12, 12, 12, 12, 3, 1, 1, 13, 13, 13, 13, 13, 1, 1, 1, 1, 1, 1, 1, 1, 0},
         {12, 12, 12, 12, 12, 12, 12, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 1, 8, 8, 3, 8, 8, 0},
-        {12, 12, 12, 12, 12, 12, 12, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 8, 8, 8, 8, 8, 8, 8},
-        {12, 12, 12, 12, 12, 12, 3, 12, 1, 1, 13, 13, 3, 13, 13, 1, 1, 3, 8, 8, 8, 8, 8, 8},
-        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, 8, 8, 8, 8, 8},
-        {1, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10, 3, 3, 10, 10, 1, 1, 1, 8, 8, 8, 8, 8, 0},
-        {0, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10, 10, 10, 10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-        {4, 11, 11, 11, 11, 11, 3, 1, 1, 10, 10, 10, 10, 10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 0},
+        {12, 12, 12, 12, 12, 12, 3, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 8, 8, 8, 8, 8, 8, 8},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 13, 13, 3, 13, 13, 1, 1, 3, 8, 8, 8, 8, 8, 8},
+        {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 8, 8, 8, 8, 8, 8, 8},
+        {0, 1, 1, 1, 1, 1, 1, 1, 1, 10, 10, 3, 3, 10, 10, 1, 1, 1, 8, 8, 8, 8, 8, 0},
+        {4, 11, 11, 11, 11, 11, 3, 1, 1, 10, 10, 10, 10, 10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+        {11, 11, 11, 11, 11, 11, 11, 1, 1, 10, 10, 10, 10, 10, 10, 1, 1, 1, 1, 1, 1, 1, 1, 0},
         {11, 11, 11, 11, 11, 11, 11, 1, 1, 10, 10, 10, 10, 10, 10, 1, 1, 3, 9, 9, 9, 9, 9, 4},
         {11, 11, 11, 11, 11, 11, 11, 1, 1, 10, 10, 10, 10, 10, 10, 1, 1, 9, 9, 9, 9, 9, 9, 9},
         {11, 11, 11, 11, 11, 11, 11, 1, 1, 10, 10, 10, 10, 10, 10, 1, 1, 9, 9, 9, 9, 9, 9, 9},
         {11, 11, 11, 11, 11, 11, 0, 1, 0, 10, 10, 10, 10, 10, 10, 0, 1, 0, 9, 9, 9, 9, 9, 9}
     };
     private static final Random RANDOM = new Random();
+    private static final String IMAGE_PATH = Paths.get(
+        "src",
+        "main",
+        "resources",
+        "Board.jpg"
+    ).toString();
     private List<MapComponent> tiles;
     private MapComponentVisitor visitor;
 
@@ -139,12 +146,14 @@ public class MapImpl implements Map {
         final List<Position> validPositionForEffects = new ArrayList<>();
         int bonusCount = 0;
         int malusCount = 0;
+
         // Initialising rooms
         for (final RoomType type : RoomType.values()) {
             rooms[type.ordinal()] =  new RoomImpl(type.getName());
             rooms[type.ordinal()].accept(visitor);
             localTiles.add(rooms[type.ordinal()]);
         }
+
         // Collecting valid position
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
@@ -155,6 +164,7 @@ public class MapImpl implements Map {
                 }
             }
         }
+
         // Shuffling valid position
         Collections.shuffle(validPositionForEffects);
         for (final Position position : validPositionForEffects) {
@@ -174,6 +184,7 @@ public class MapImpl implements Map {
             }
             localTiles.add(squareToAdd);
         }
+
         // Adding squares and assigning to rooms if necessary
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
@@ -184,9 +195,9 @@ public class MapImpl implements Map {
                     startingSquare.accept(visitor);
                     localTiles.add(startingSquare);
                 } else if (tileType == 3) {
-                    rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(
-                        SquareFactory.createNormalSquare(position)
-                    );
+                    final Square entranceSquare =  SquareFactory.createNormalSquare(position);
+                    rooms[findRoomForEntrance(i, j).ordinal()].addSquare(entranceSquare);
+                    rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(entranceSquare);
                 } else if (tileType == 4) {
                     final TrapDoor trapDoor = new TrapDoorImpl(
                         rooms[findConnectedRoomFromPosition(i, j).ordinal()],
@@ -325,5 +336,14 @@ public class MapImpl implements Map {
      */
     public static int getMapWidth() {
         return MAP_WIDTH;
+    }
+
+    /**
+     * Returns the image path of the map.
+     * 
+     * @return the image path of the map
+     */
+    public static String getMapImagePath() {
+        return IMAGE_PATH;
     }
 }

@@ -45,8 +45,7 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Log the card that the player has seen.
-     * 
-     * @param card
+     * @param card the card that the player has seen.
      */
     @Override
     public void logSeenCards(final String card) {
@@ -62,8 +61,8 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Get the type of the card.
-     * 
-     * @param card
+     *
+     * @param card the card.
      * @return the type of the card.
      */
     private Type getCardType(final String card) {
@@ -79,8 +78,8 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Check if the card is a suspect.
-     * 
-     * @param card
+     *
+     * @param card the card.
      * @return true if the card is a suspect, false otherwise.
      */
     private boolean isSuspect(final String card) {
@@ -90,8 +89,8 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Check if the card is a weapon.
-     * 
-     * @param card
+     *
+     * @param card the card.
      * @return true if the card is a weapon, false otherwise.
      */
     private boolean isWeapon(final String card) {
@@ -101,8 +100,8 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Check if the card is a room.
-     * 
-     * @param card
+     *
+     * @param card the card.
      * @return true if the card is a room, false otherwise.
      */
     private boolean isRoom(final String card) {
@@ -112,7 +111,7 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * The following methods return a new ArrayList with the elements of the
+     * The following method return a new ArrayList with the elements of the
      * corresponding Set.
      */
     @Override
@@ -121,7 +120,7 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * The following methods return a new ArrayList with the elements of the
+     * The following method return a new ArrayList with the elements of the
      * corresponding Set.
      */
     @Override
@@ -130,12 +129,11 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * The following methods return a new ArrayList with the elements of the
+     * The following method return a new ArrayList with the elements of the
      * corresponding Set.
      */
     @Override
     public List<String> getSeenRooms() {
         return new ArrayList<>(this.seenRooms);
     }
-
 }

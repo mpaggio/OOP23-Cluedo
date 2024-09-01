@@ -121,12 +121,12 @@ final class RoomTest {
     @Test
     void testPlyerPresence() {
         assertFalse(room1.isPlayerInRoom(player));
-        assertTrue(room1.getPlayersInRoom().isEmpty());
+        assertTrue(room1.getPlayersIn().isEmpty());
         this.room1.addPlayerInRoom(player);
         assertTrue(room1.isPlayerInRoom(player));
-        assertFalse(room1.getPlayersInRoom().isEmpty());
+        assertFalse(room1.getPlayersIn().isEmpty());
         this.room1.removePlayerFromRoom(player);
         assertFalse(room1.isPlayerInRoom(player));
-        assertTrue(room1.getPlayersInRoom().isEmpty());
+        assertTrue(room1.getPlayersIn().isEmpty());
     }
 }

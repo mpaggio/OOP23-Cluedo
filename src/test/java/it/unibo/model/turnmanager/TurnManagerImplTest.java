@@ -1,19 +1,14 @@
 package it.unibo.model.turnmanager;
 
-
-
 import java.util.Arrays;
 import java.util.List;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
-
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -24,6 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * Test class for the TurnManagerImpl class.
  */
 class TurnManagerImplTest {
+
     private Player player1;
     private Player player2;
     private Player player3;
