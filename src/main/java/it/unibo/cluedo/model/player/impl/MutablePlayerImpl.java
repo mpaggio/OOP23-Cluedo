@@ -106,4 +106,13 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
         super.setCurrentSteps(steps);
     }
 
+    /**
+     * Set wheter the player has lost.
+     * @param hasLost true if the player lost the game, false otherwise
+     */
+    @Override
+    public void setHasLost(final boolean hasLost) {
+        super.setHasLost(hasLost);
+    }
+
 }
