@@ -74,6 +74,7 @@ final class MapTest {
             assertFalse(room.getSquares().isEmpty());
             assertEquals(roomNormalSquares.size(), room.getSquares().size());
             assertTrue(roomNormalSquares.containsAll(room.getSquares()));
+            assertTrue(room.getSquares().containsAll(room.getEntrances()));
         }
         assertEquals(
             this.map.getVisitor().getVisitedRoom().stream()
@@ -108,7 +109,11 @@ final class MapTest {
 
     @Test
     void testMapEffectiveSquare() {
-        //System.out.println(map.getVisitor().printMap());
+        /*System.out.println(map.getVisitor().printMap());
+        System.out.println("\n");
+        for(final Square square : map.getVisitor().getOrderedVisitedSquares()) {
+            System.out.println(square.getPosition().toString());
+        }*/
         final List<Square> effectiveSquares = map.getVisitor().getVisitedSquare().stream()
             .filter(square -> !square.getEffect().getType().equals(Effect.EffectType.NONE))
             .toList();

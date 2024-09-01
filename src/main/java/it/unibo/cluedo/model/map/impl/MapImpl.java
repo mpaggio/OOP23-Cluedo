@@ -146,12 +146,14 @@ public class MapImpl implements Map {
         final List<Position> validPositionForEffects = new ArrayList<>();
         int bonusCount = 0;
         int malusCount = 0;
+
         // Initialising rooms
         for (final RoomType type : RoomType.values()) {
             rooms[type.ordinal()] =  new RoomImpl(type.getName());
             rooms[type.ordinal()].accept(visitor);
             localTiles.add(rooms[type.ordinal()]);
         }
+
         // Collecting valid position
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
@@ -162,6 +164,7 @@ public class MapImpl implements Map {
                 }
             }
         }
+
         // Shuffling valid position
         Collections.shuffle(validPositionForEffects);
         for (final Position position : validPositionForEffects) {
@@ -181,6 +184,7 @@ public class MapImpl implements Map {
             }
             localTiles.add(squareToAdd);
         }
+
         // Adding squares and assigning to rooms if necessary
         for (int i = 0; i < MAP_HEIGHT; i++) {
             for (int j = 0; j < MAP_WIDTH; j++) {
@@ -191,9 +195,9 @@ public class MapImpl implements Map {
                     startingSquare.accept(visitor);
                     localTiles.add(startingSquare);
                 } else if (tileType == 3) {
-                    rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(
-                        SquareFactory.createNormalSquare(position)
-                    );
+                    final Square entranceSquare =  SquareFactory.createNormalSquare(position);
+                    rooms[findRoomForEntrance(i, j).ordinal()].addSquare(entranceSquare);
+                    rooms[findRoomForEntrance(i, j).ordinal()].addEntrance(entranceSquare);
                 } else if (tileType == 4) {
                     final TrapDoor trapDoor = new TrapDoorImpl(
                         rooms[findConnectedRoomFromPosition(i, j).ordinal()],

@@ -6,7 +6,6 @@ import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
 import it.unibo.cluedo.model.unforeseen.impl.SwapPositionEffect;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
 import org.junit.jupiter.api.Test;
 
 /**
@@ -15,6 +14,7 @@ import org.junit.jupiter.api.Test;
 class SwapPositionEffectTest {
 
     private static final int DEFAULT_COORD = 5;
+
     /**
      * This method tests the applyEffect method of the SwapPositionEffect class.
      */

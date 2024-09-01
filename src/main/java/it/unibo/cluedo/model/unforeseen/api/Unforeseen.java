@@ -1,10 +1,12 @@
 package it.unibo.cluedo.model.unforeseen.api;
+
 import it.unibo.cluedo.model.player.api.Player;
 
 /**
  * Interface that represents an unforeseen card in the Cluedo game.
  */
 public interface Unforeseen {
+
     /**
      * Apply the unforeseen card's effect to the given player.
      *
