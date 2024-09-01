@@ -197,7 +197,7 @@ final class PlayerImplTest {
     }
 
     /**
-     * Test the set of player's lost condition.
+     * Test the set of player's loose condition.
      */
     @Test
     void testHasLost() {
