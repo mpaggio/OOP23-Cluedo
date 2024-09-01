@@ -20,6 +20,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
      */
     public MutablePlayerImpl(final String username, final String color) {
         super(username, color);
+        this.setCurrentPosition(Position.getRandomDefaultPosition());
     }
 
     /**
@@ -104,6 +105,15 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     @Override
     public void setCurrentSteps(final int steps) {
         super.setCurrentSteps(steps);
+    }
+
+    /**
+     * Set wheter the player has lost.
+     * @param hasLost true if the player lost the game, false otherwise
+     */
+    @Override
+    public void setHasLost(final boolean hasLost) {
+        super.setHasLost(hasLost);
     }
 
 }

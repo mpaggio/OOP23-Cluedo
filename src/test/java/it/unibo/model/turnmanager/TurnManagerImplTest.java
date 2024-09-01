@@ -106,4 +106,94 @@ class TurnManagerImplTest {
         assertThrows(IllegalArgumentException.class, () -> new TurnManagerImpl(null));
         assertThrows(IllegalArgumentException.class, () -> new TurnManagerImpl(Arrays.asList()));
     }
+
+    /**
+     * Test the removal of the current player.
+     */
+    @Test
+    void testRemoveCurrentPlayerAndCheckTurn() {
+        turnManager.removePlayer(player1);
+        turnManager.switchTurn();
+        assertTrue(((MutablePlayer) player2).isPlayerTurn());
+        assertFalse(((MutablePlayer) player3).isPlayerTurn());
+        turnManager.switchTurn();
+        assertFalse(((MutablePlayer) player2).isPlayerTurn());
+        assertTrue(((MutablePlayer) player3).isPlayerTurn());
+    }
+
+    /**
+     * Test the removal of one of the not current players.
+     */
+    @Test
+    void testRemoveNonCurrentPlayerAndCheckTurn() {
+        turnManager.removePlayer(player2);
+        turnManager.switchTurn();
+        assertFalse(((MutablePlayer) player1).isPlayerTurn());
+        assertTrue(((MutablePlayer) player3).isPlayerTurn());
+        turnManager.switchTurn();
+        assertTrue(((MutablePlayer) player1).isPlayerTurn());
+        assertFalse(((MutablePlayer) player3).isPlayerTurn());
+    }
+
+    /**
+     * Test the removal of all the players.
+     */
+    @Test
+    void testRemoveAllPlayer() {
+        turnManager.removePlayer(player1);
+        turnManager.removePlayer(player2);
+        turnManager.removePlayer(player3);
+        assertTrue(turnManager.isGameFinished());
+    }
+
+    /**
+     * Test the removal of a player and the continuation of the game.
+     */
+    @Test
+    void testRemovePlayerAndGameContinues() {
+        turnManager.removePlayer(player2);
+        assertFalse(turnManager.isGameFinished());
+        turnManager.switchTurn();
+        assertTrue(((MutablePlayer) player3).isPlayerTurn());
+    }
+
+    /**
+     * Test the removal of a player that is not in the game.
+     */
+    @Test
+    void testRemovePlayerNotInGame() {
+        final Player player4 = new MutablePlayerImpl("Player4", "Yellow");
+        assertThrows(IllegalArgumentException.class, () -> turnManager.removePlayer(player4));
+    }
+
+    /**
+     * Test the removal of a null player.
+     */
+    @Test
+    void testRemoveNullPlayer() {
+        assertThrows(IllegalArgumentException.class, () -> turnManager.removePlayer(null));
+    }
+
+    /**
+     * Test if the game ends after removing the winning player.
+     */
+    @Test
+    void testGameEndsAfterRemovingWinningPlayer() {
+        ((MutablePlayer) player1).setHasWon(true);
+        ((MutablePlayer) player2).setHasWon(true);
+        turnManager.removePlayer(player1);
+        turnManager.removePlayer(player2);
+        turnManager.switchTurn();
+        assertTrue(turnManager.isGameFinished());
+    }
+
+    /**
+     * Test if the game continues if more than one player remains.
+     */
+    @Test
+    void testGameContinuesIfMoreThanOnePlayerRemains() {
+        ((MutablePlayer) player3).setHasWon(true);
+        turnManager.removePlayer(player3);
+        assertFalse(turnManager.isGameFinished());
+    }
 }

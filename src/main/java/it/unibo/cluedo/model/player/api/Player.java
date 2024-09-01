@@ -38,13 +38,13 @@ public interface Player {
     String getColor();
 
     /**
-     * Checks if the player is in a room.
+     * Check if the player is in a room.
      * @return a boolean which indicates if a player is in a room.
      */
     boolean isInRoom();
 
     /**
-     * Checks if the player has won.
+     * Check if the player has won.
      * @return a boolean which indicates if a player has won or not.
      */
     boolean hasWon();
@@ -56,13 +56,13 @@ public interface Player {
     List<Card> getPlayerCards();
 
     /**
-     * Checks if the player can double roll the dice.
+     * Check if the player can double roll the dice.
      * @return a boolean which indicates if the player can double roll the dice.
      */
     boolean canDoubleRollDice();
 
     /**
-     * Checks if the player can take the next turn.
+     * Check if the player can take the next turn.
      * @return a boolean which indicates if the player can take the next turn.
      */
     boolean canNextTurn();
@@ -74,7 +74,7 @@ public interface Player {
     Notebook getPlayerNotebook();
 
     /**
-     * Get the number of steps the player can do.
+     * Get the number of steps that the player can do.
      * @return the number of steps
      */
     int getSteps();
@@ -84,5 +84,11 @@ public interface Player {
      * @return the number of steps
      */
     int getCurrentSteps();
+
+    /**
+     * Check if the player has lost the game.
+     * @return a boolean which indicates the end game for the player condition
+     */
+    boolean hasLost();
 
 }

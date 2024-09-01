@@ -1,6 +1,7 @@
 package it.unibo.cluedo.utilities;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * This record model a 2-D position.
@@ -9,6 +10,8 @@ import java.util.List;
  * @param y - y axis coordinate
  */
 public record Position(int x, int y) {
+
+    private static final Random RANDOM = new Random();
 
     /**
      * Default position 1 (0,9).
@@ -42,7 +45,6 @@ public record Position(int x, int y) {
 
     /**
      * Method to get the x coordinate.
-     * 
      * @return - x coordinate
      */
     public int getX() {
@@ -51,7 +53,6 @@ public record Position(int x, int y) {
 
     /**
      * Method to get te y coordinate.
-     * 
      * @return - y coordinate
      */
     public int getY() {
@@ -60,7 +61,6 @@ public record Position(int x, int y) {
 
     /**
      * Method to get the default position of the players.
-     * 
      * @return a list of Position
      */
     public static List<Position> getDefaultPositions() {
@@ -71,6 +71,15 @@ public record Position(int x, int y) {
                 DEFAULT_POSITION_4,
                 DEFAULT_POSITION_5,
                 DEAFULT_POSITION_6);
+    }
+
+    /**
+     * Method to get a random default position of the player.
+     * @return a random default Position
+     */
+    public static Position getRandomDefaultPosition() {
+        final List<Position> defaultPositions = getDefaultPositions();
+        return defaultPositions.get(RANDOM.nextInt(defaultPositions.size()));
     }
 
 }

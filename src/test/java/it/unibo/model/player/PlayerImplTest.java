@@ -49,6 +49,7 @@ final class PlayerImplTest {
         assertFalse(testPlayer.hasWon());
         assertFalse(testPlayer.canDoubleRollDice());
         assertTrue(testPlayer.canNextTurn());
+        assertFalse(testPlayer.hasLost());
         assertEquals(0, testPlayer.getPlayerCards().size());
     }
 
@@ -192,6 +193,20 @@ final class PlayerImplTest {
             assertTrue(notebook.getSeenRooms().contains("card1"));
             assertTrue(notebook.getSeenWeapons().contains("card2"));
             assertTrue(notebook.getSeenSuspects().contains("card3"));
+        }
+    }
+
+    /**
+     * Test the set of player's loose condition.
+     */
+    @Test
+    void testHasLost() {
+        if (testPlayer instanceof MutablePlayer) { 
+            final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
+            mutablePlayer.setHasWon(false);
+            assertFalse(testPlayer.hasLost());
+            mutablePlayer.setHasWon(true);
+            assertTrue(testPlayer.hasLost());
         }
     }
 }

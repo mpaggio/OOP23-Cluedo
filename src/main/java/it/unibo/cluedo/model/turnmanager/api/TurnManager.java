@@ -16,6 +16,13 @@ public interface TurnManager {
     Player getCurrentPlayer();
 
     /**
+     * Remove a player from the game.
+     *
+     * @param player the player to remove.
+     */
+    void removePlayer(Player player);
+
+    /**
      * Advances the turn to the next player.
      */
     void switchTurn();
