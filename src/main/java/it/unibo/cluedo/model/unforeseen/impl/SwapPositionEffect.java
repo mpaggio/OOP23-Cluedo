@@ -16,7 +16,7 @@ public final class SwapPositionEffect implements UnforeseenEffect {
      *  Constructor of the class.
      * @param otherPlayer the player with whom the current player will swap position
      */
-    public void setSwapPositionEffect(final Player otherPlayer) {
+    public SwapPositionEffect(final Player otherPlayer) {
         this.otherPlayer = otherPlayer;
     }
 
