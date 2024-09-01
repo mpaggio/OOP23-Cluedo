@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 import it.unibo.cluedo.model.accusation.api.Accusation;
 import it.unibo.cluedo.model.accusation.impl.AccusationImpl;
+import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.deck.api.Deck;
 import it.unibo.cluedo.model.dice.api.Dice;
@@ -28,7 +29,6 @@ import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 import it.unibo.cluedo.model.unforeseen.impl.UnforeseenEffectFactory;
 import it.unibo.cluedo.model.unforeseen.impl.ReRollDiceEffect;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
-import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.utilities.Position;
 import it.unibo.cluedo.utilities.TurnFase;
 
@@ -49,7 +49,7 @@ final class GameModelImpl implements GameModel {
     private final TurnManager turnManager;
     private final Statistics statistics;
     private final Set<Card> solution;
-    private final MapImpl map;
+    private final BoardImpl map;
 
     /**
      * Constructor of the class.
@@ -71,7 +71,7 @@ final class GameModelImpl implements GameModel {
         });
         fase = TurnFase.ROLL_DICE;
         accusation = new AccusationImpl();
-        map = new MapImpl();
+        map = new BoardImpl();
         final List<Position> defaultPositions = new ArrayList<>(Position.getDefaultPositions());
         Collections.shuffle(defaultPositions);
         players.forEach(player -> {
@@ -90,7 +90,7 @@ final class GameModelImpl implements GameModel {
      */
     GameModelImpl(final List<Player> players, final Set<Card> solution,
         final TurnManager turnManager, final Statistics statistics,
-        final MapImpl map) {
+        final BoardImpl map) {
         this.players = List.copyOf(players);
         this.turnManager = turnManager;
         this.statistics = statistics;

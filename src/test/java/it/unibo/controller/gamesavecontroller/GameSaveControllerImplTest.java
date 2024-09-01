@@ -16,9 +16,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.ArrayList;
 import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
+import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.component.api.MapComponent;
-import it.unibo.cluedo.model.map.impl.MapImpl;
 
 /**
  * This class is used to test the GameSaveControllerImpl class.
@@ -28,7 +28,7 @@ class GameSaveControllerImplTest {
     private static final String FILE_NAME = "cluedo_saved_games.txt";
     private GameSaveControllerImpl gameSaveManager;
     private MutablePlayer player;
-    private MapImpl map;
+    private BoardImpl map;
 
     @BeforeEach
     void setUp() {
@@ -36,7 +36,7 @@ class GameSaveControllerImplTest {
         player = new MutablePlayerImpl("TestPlayer", "Red");
         player.setPosition(new Position(0, 0));
         player.setPlayerCards(new ArrayList<Card>());
-        map = new MapImpl();
+        map = new BoardImpl();
     }
 
     @AfterEach

@@ -1,8 +1,8 @@
 package it.unibo.cluedo.model.movement.impl;
 
+import it.unibo.cluedo.model.board.api.Board;
+import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.model.component.api.MapComponentVisitor;
-import it.unibo.cluedo.model.map.api.Map;
-import it.unibo.cluedo.model.map.impl.MapImpl;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
@@ -20,10 +20,10 @@ public final class BoardMovement implements MovementStrategy {
      * Constructor for BoardMovement.
      * @param map the map of Cluedo game
      */
-    public BoardMovement(final Map map) {
+    public BoardMovement(final Board map) {
         this.visitor = map.getVisitor();
-        this.width = MapImpl.getMapWidth();
-        this.heigth = MapImpl.getMapHeight();
+        this.width = BoardImpl.getMapWidth();
+        this.heigth = BoardImpl.getMapHeight();
     }
 
     @Override

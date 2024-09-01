@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.LinkedList;
 import java.util.Optional;
 
-import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
@@ -20,7 +19,6 @@ public class RoomImpl implements Room {
     private final List<Square> entrances;
     private final List<Player> players;
     private Optional<TrapDoor> trapDoor;
-    private boolean visited;
 
     /**
      * Constructor for the room.
@@ -33,7 +31,6 @@ public class RoomImpl implements Room {
         this.entrances = new LinkedList<>();
         this.trapDoor = Optional.empty();
         this.players = new LinkedList<>();
-        this.visited = false;
     }
 
     /**
@@ -74,15 +71,6 @@ public class RoomImpl implements Room {
     @Override
     public void setTrapDoor(final Optional<TrapDoor> trapDoor) {
         this.trapDoor = trapDoor;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void accept(final MapComponentVisitor visitor) {
-        this.visited = true;
-        visitor.visitRoom(this);
     }
 
     /**
@@ -153,15 +141,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public boolean hasBeenVisited() {
-        return this.visited;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Player> getPlayersIn() {
+    public List<Player> getPlayersInRoom() {
         return List.copyOf(this.players);
     }
 }

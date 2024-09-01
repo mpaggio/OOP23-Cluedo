@@ -1,7 +1,7 @@
 package it.unibo.cluedo.model.movement.impl;
 
+import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.component.api.MapComponentVisitor;
-import it.unibo.cluedo.model.map.api.Map;
 import it.unibo.cluedo.model.movement.api.MovementCommand;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
@@ -28,7 +28,7 @@ public final class MoveInSingleDirection implements MovementCommand {
      * @param map the map of Cluedo game
      */
     public MoveInSingleDirection(final Player player, final int steps, final MovementStrategy.Direction direction,
-                                 final MovementStrategy movementStrategy, final Map map) {
+                                 final MovementStrategy movementStrategy, final Board map) {
         this.player = player;
         this.steps = steps;
         this.direction = direction;

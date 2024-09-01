@@ -3,8 +3,8 @@ package it.unibo.cluedo.controller.mapsetupcontroller.impl;
 import java.util.LinkedList;
 import java.util.List;
 
-import it.unibo.cluedo.model.map.api.Map;
-import it.unibo.cluedo.model.map.impl.MapImpl;
+import it.unibo.cluedo.model.board.api.Board;
+import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;
 
@@ -12,7 +12,7 @@ import it.unibo.cluedo.utilities.Position;
  * Controller for setting up the map in the Cluedo game.
  */
 public class MapSetupController {
-    private static final Map MAP = new MapImpl();
+    private static final Board MAP = new BoardImpl();
     private static final double TILE_SIZE = 23;
     private static final double OFFSET_X = 41.7;
     private static final double OFFSET_Y = 23.3;

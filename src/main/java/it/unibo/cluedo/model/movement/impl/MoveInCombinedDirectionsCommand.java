@@ -1,7 +1,7 @@
 
 package it.unibo.cluedo.model.movement.impl;
 
-import it.unibo.cluedo.model.map.api.Map;
+import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.movement.api.MovementCommand;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
@@ -15,7 +15,7 @@ public final class MoveInCombinedDirectionsCommand implements MovementCommand {
     private final MovementStrategy.Direction direction;
     private final MovementStrategy movementStrategy;
     private static final int STEPS = 1;
-    private final Map map;
+    private final Board map;
     /**
      * Constructor a new command for moving the player in multiple directions.
      * @param player player to move
@@ -24,7 +24,7 @@ public final class MoveInCombinedDirectionsCommand implements MovementCommand {
      * @param map the map of Cluedo game
      */
     public MoveInCombinedDirectionsCommand(final Player player, final MovementStrategy.Direction direction,
-                                        final MovementStrategy movementStrategy, final Map map) {
+                                        final MovementStrategy movementStrategy, final Board map) {
         this.player = player;
         this.direction = direction;
         this.movementStrategy = movementStrategy;

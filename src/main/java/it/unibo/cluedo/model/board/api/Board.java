@@ -1,4 +1,4 @@
-package it.unibo.cluedo.model.component.api;
+package it.unibo.cluedo.model.board.api;
 
 import java.util.List;
 import java.util.Optional;
@@ -8,36 +8,22 @@ import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;
 
 /**
- * Interface made for pattern visitor of the map component.
+ * Represents the map of the game of Cluedo.
  */
-public interface MapComponentVisitor {
+public interface Board {
     /**
-     * Visit a square component.
+     * Get the list of squares of the map.
      * 
-     * @param square the square to visit
+     * @return the list of squares of the map
      */
-    void visitSquare(Square square);
+    List<Square> getSquares();
 
     /**
-     * Visit a room component.
+     * Gets the list of rooms of the map.
      * 
-     * @param room the room to visit
+     * @return the list of rooms of the map
      */
-    void visitRoom(Room room);
-
-    /**
-     * Gets the list of visited rooms.
-     * 
-     * @return the list of visited rooms
-     */
-    List<Room> getVisitedRoom();
-
-    /**
-     * Gets the list of visited squares.
-     * 
-     * @return the list of visited squares
-     */
-    List<Square> getVisitedSquare();
+    List<Room> getRooms();
 
     /**
      * Gets the square by the specified position.

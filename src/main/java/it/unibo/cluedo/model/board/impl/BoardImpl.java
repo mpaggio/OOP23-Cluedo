@@ -1,20 +1,22 @@
-package it.unibo.cluedo.model.map.impl;
+package it.unibo.cluedo.model.board.impl;
 
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Optional;
 import java.util.Random;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 
-import it.unibo.cluedo.model.component.api.MapComponent;
-import it.unibo.cluedo.model.component.api.MapComponentVisitor;
-import it.unibo.cluedo.model.component.impl.MapComponentVisitorImpl;
-import it.unibo.cluedo.model.map.api.Map;
+import it.unibo.cluedo.model.board.api.Board;
+import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.room.impl.RoomImpl;
+import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.impl.BonusEffectImpl;
 import it.unibo.cluedo.model.square.impl.MalusEffectImpl;
@@ -28,7 +30,7 @@ import it.unibo.cluedo.utilities.Position;
  * This class represents the game map and initializes the rooms and squares based
  * on a predefined layout.
  */
-public class MapImpl implements Map {
+public class BoardImpl implements Board {
     private static final int MAP_HEIGHT = 25;
     private static final int MAP_WIDTH = 24;
     private static final int MAX_SQUARE_WITH_EFFECT = 3;
@@ -67,8 +69,8 @@ public class MapImpl implements Map {
         "resources",
         "Board.jpg"
     ).toString();
-    private List<MapComponent> tiles;
-    private MapComponentVisitor visitor;
+    private final List<Square> squares;
+    private final List<Room> rooms;
 
     /**
      * Enum representing the different types of room in the Cluedo game.
@@ -138,9 +140,9 @@ public class MapImpl implements Map {
      * Constructor for MapImpl.
      * Initializes the rooms and adds the square to the map based on the predefined layout.
      */
-    public MapImpl() {
-        final MapComponentVisitor visitor = new MapComponentVisitorImpl();
-        final List<MapComponent> localTiles = new ArrayList<>();
+    public BoardImpl() {
+        final List<Square> localSquares = new ArrayList<>();
+        final List<Room> localRooms = new ArrayList<>();
         final RoomImpl[] rooms = new RoomImpl[RoomType.values().length];
         final Set<Position> prohibitedPositions = new HashSet<>(Position.getDefaultPositions());
         final List<Position> validPositionForEffects = new ArrayList<>();
@@ -150,8 +152,7 @@ public class MapImpl implements Map {
         // Initialising rooms
         for (final RoomType type : RoomType.values()) {
             rooms[type.ordinal()] =  new RoomImpl(type.getName());
-            rooms[type.ordinal()].accept(visitor);
-            localTiles.add(rooms[type.ordinal()]);
+            localRooms.add(rooms[type.ordinal()]);
         }
 
         // Collecting valid position
@@ -168,21 +169,18 @@ public class MapImpl implements Map {
         // Shuffling valid position
         Collections.shuffle(validPositionForEffects);
         for (final Position position : validPositionForEffects) {
-            final MapComponent squareToAdd = createRandomSquare(
+            final Square squareToAdd = createRandomSquare(
                 position,
                 bonusCount,
                 malusCount,
                 prohibitedPositions
             );
-            final LinkedList<Square> visitedSquare = new LinkedList<>();
-            squareToAdd.accept(visitor);
-            visitedSquare.addAll(visitor.getVisitedSquare());
-            if (visitedSquare.getLast().getEffect() instanceof BonusEffectImpl) {
+            if (squareToAdd instanceof BonusEffectImpl) {
                 bonusCount++;
-            } else if (visitedSquare.getLast().getEffect() instanceof MalusEffectImpl) {
+            } else if (squareToAdd instanceof MalusEffectImpl) {
                 malusCount++;
             }
-            localTiles.add(squareToAdd);
+            localSquares.add(squareToAdd);
         }
 
         // Adding squares and assigning to rooms if necessary
@@ -191,9 +189,8 @@ public class MapImpl implements Map {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 final Position position = new Position(i, j);
                 if (tileType == 1 && !validPositionForEffects.contains(position)) {
-                    final MapComponent startingSquare = SquareFactory.createNormalSquare(position);
-                    startingSquare.accept(visitor);
-                    localTiles.add(startingSquare);
+                    final Square startingSquare = SquareFactory.createNormalSquare(position);
+                    localSquares.add(startingSquare);
                 } else if (tileType == 3) {
                     final Square entranceSquare =  SquareFactory.createNormalSquare(position);
                     rooms[findRoomForEntrance(i, j).ordinal()].addSquare(entranceSquare);
@@ -211,8 +208,8 @@ public class MapImpl implements Map {
                 }
             }
         } 
-        this.tiles = localTiles;
-        this.visitor = visitor;
+        this.rooms = localRooms;
+        this.squares = localSquares;
     }
 
     /**
@@ -224,7 +221,7 @@ public class MapImpl implements Map {
      * @param prohibPositions the prohibited positions for the square with effect
      * @return the created map component
      */
-    private MapComponent createRandomSquare(final Position position, final int bonusCount,
+    private Square createRandomSquare(final Position position, final int bonusCount,
         final int malusCount, final Set<Position> prohibPositions) {
         if (prohibPositions.contains(position)) {
             return SquareFactory.createNormalSquare(position);
@@ -308,16 +305,16 @@ public class MapImpl implements Map {
      * {@inheritDoc}
      */
     @Override
-    public List<MapComponent> getMap() {
-        return List.copyOf(this.tiles);
+    public List<Square> getSquares() {
+        return List.copyOf(this.squares);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public MapComponentVisitor getVisitor() {
-        return this.visitor;
+    public List<Room> getRooms() {
+        return List.copyOf(rooms);
     }
 
     /**
@@ -345,5 +342,117 @@ public class MapImpl implements Map {
      */
     public static String getMapImagePath() {
         return IMAGE_PATH;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Square getSquareByPosition(final Position position) {
+        final Optional<Square> serchedSquare = this.squares.stream()
+            .filter(square -> square.getPosition().equals(position))
+            .findAny();
+        if (serchedSquare.isPresent()) {
+            return serchedSquare.get();
+        } else {
+            throw new IllegalArgumentException("The given position does not correspond to a visited square");
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isSquareInRoom(final Square square) {
+        return this.rooms.stream()
+            .anyMatch(room -> room.getSquares().contains(square));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Room> getRoomBySquare(final Square square) {
+        return this.getRooms().stream()
+            .filter(room -> room.getSquares().contains(square))
+            .findAny();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Square> getOrderedVisitedSquares() {
+        final List<Square> sortedSquares = new LinkedList<>(this.squares);
+        for (final Room rooms : this.rooms) {
+            sortedSquares.addAll(rooms.getSquares());
+        }
+        Collections.sort(
+            sortedSquares,
+            new Comparator<Square>() {
+                @Override
+                public int compare(final Square s1, final Square s2) {
+                    int cmp = Integer.compare(s1.getPosition().getX(), s2.getPosition().getX());
+                    if (cmp == 0) {
+                        cmp = Integer.compare(s1.getPosition().getY(), s2.getPosition().getY());
+                    }
+                    return cmp;
+                }
+            }
+        );
+        return sortedSquares;
+    }
+
+    private Map<Position, Character> getPositionAndSymbolMap() {
+        final Map<Position, Character> positionToSymbolMap = new HashMap<>();
+        for (final Room room : rooms) {
+            for (final Square square : room.getSquares()) {
+                positionToSymbolMap.put(square.getPosition(), '*');
+            }
+            for (final Square square : room.getEntrances()) {
+                positionToSymbolMap.put(square.getPosition(), '=');
+            }
+            if (room.hasTrapDoor()) {
+                positionToSymbolMap.put(room.getTrapDoor().get().getPosition(), '<');
+            }
+        }
+        for (final Square square : squares) {
+            final Position position = square.getPosition();
+            if (square.getEffect().getType().equals(Effect.EffectType.BONUS)) {
+                positionToSymbolMap.put(position, '$');
+            } else if (square.getEffect().getType().equals(Effect.EffectType.MALUS)) {
+                positionToSymbolMap.put(position, '%');
+            } else {
+                positionToSymbolMap.put(position, '_');
+            }
+        }
+        return positionToSymbolMap;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public String printMap() {
+        final Map<Position, Character> positionToSymbolMap = getPositionAndSymbolMap();
+        final List<Position> sortedPositions = new LinkedList<>(getPositionAndSymbolMap().keySet());
+        Collections.sort(
+            sortedPositions,
+            Comparator.comparingInt(Position::getX).thenComparingInt(Position::getY)
+        );
+        final StringBuilder mapBuilder = new StringBuilder();
+        for (int i = 0; i < BoardImpl.getMapHeight(); i++) {
+            for (int j = 0; j < BoardImpl.getMapWidth(); j++) {
+                final Position position = new Position(i, j);
+                final Character symbol = positionToSymbolMap.get(position);
+                if (symbol != null) {
+                    mapBuilder.append(symbol).append(' ');
+                } else {
+                    mapBuilder.append(". ");
+                }
+            }
+            mapBuilder.append('\n');
+        }
+        return mapBuilder.toString();
     }
 }

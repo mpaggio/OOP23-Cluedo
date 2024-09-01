@@ -3,7 +3,6 @@ package it.unibo.cluedo.model.room.api;
 import java.util.List;
 import java.util.Optional;
 
-import it.unibo.cluedo.model.component.api.MapComponent;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
@@ -13,7 +12,7 @@ import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
  * A room contains squares and has at least one entrance.
  * A room can contain a trap door.
  */
-public interface Room extends MapComponent {
+public interface Room{
     /**
      * Adds a square to the room.
      * 
@@ -99,4 +98,11 @@ public interface Room extends MapComponent {
      * @return true if the player is in the room, false otherwise
      */
     boolean isPlayerInRoom(Player player);
+
+    /**
+     * Returns the list of players located in the room.
+     * 
+     * @return the list of players located in the room
+     */
+    List<Player> getPlayersInRoom();
 }

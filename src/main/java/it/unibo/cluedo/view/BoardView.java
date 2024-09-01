@@ -19,15 +19,15 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
-import it.unibo.cluedo.model.map.impl.MapImpl;
+import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.utilities.Position;
 
 /**
  * The MapView class is responsible for rendering the game map.
  * It extends JPanel and uses MapSetupController to get tile informations.
  */
-public class MapView extends JPanel {
-    private static final Logger LOGGER = Logger.getLogger(MapView.class.getName());
+public class BoardView extends JPanel {
+    private static final Logger LOGGER = Logger.getLogger(BoardView.class.getName());
     private static final MapSetupController CONTROLLER = new MapSetupController();
     private static final long serialVersionUID = 1L;
     private static final Color TILE_BORDER_COLOR = new Color(0, 0, 0, 0.8f);
@@ -36,9 +36,9 @@ public class MapView extends JPanel {
     /**
      * Constructs a MapView with the specified visitor.
      */
-    public MapView() {
+    public BoardView() {
         try {
-            this.mapImage = ImageIO.read(new File(MapImpl.getMapImagePath()));
+            this.mapImage = ImageIO.read(new File(BoardImpl.getMapImagePath()));
             this.setLayout(null);
             this.setPreferredSize(new Dimension(this.mapImage.getWidth(), this.mapImage.getHeight()));
         } catch (IOException e) {

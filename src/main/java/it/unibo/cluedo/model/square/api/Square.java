@@ -1,6 +1,7 @@
 package it.unibo.cluedo.model.square.api;
 
-import it.unibo.cluedo.model.component.api.MapComponent;
+import java.util.Optional;
+
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.utilities.Position;
 
@@ -8,7 +9,7 @@ import it.unibo.cluedo.utilities.Position;
  * Represents a single square of the game table.
  * Each square can have an effect that is applied when a player lands on it.
  */
-public interface Square extends MapComponent {
+public interface Square{
     /**
      * Returns the position (coordinates x and y) of the square.
      * 
@@ -42,4 +43,11 @@ public interface Square extends MapComponent {
      * false otherwise
      */
     boolean isAlreadyOccupied();
+
+    /**
+     * Return the player located in the square (if present).
+     * 
+     * @return an optional containing the Player located in the square, if present
+     */
+    Optional<Player> getPlayer();
 }
