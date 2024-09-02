@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.awt.Color;
 import javax.swing.SwingConstants;
+
 import javax.swing.JComboBox;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,7 +13,6 @@ import javax.swing.BorderFactory;
 import java.awt.BorderLayout;
 import java.awt.Font;
 
-import it.unibo.cluedo.model.statistics.api.Statistics;
 /**
  * This class is used to show the statistics of the game.
  */
@@ -25,14 +25,11 @@ public class StatisticsView extends JPanel {
     //private final Statistics playersStatistics;
     /**
      * Class constructor.
-     * @param statistics the statistics to show.
      */
-    public StatisticsView(final Statistics statistics) {
+    public StatisticsView() {
         //impostazione della finestra
         final JFrame window;
         window = new JFrame("Statistics");
-        //playersStatistics = statistics;
-        //playersStatistics.getAccusationsMade();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(WIDTH, HEIGHT);
         //label principale
@@ -48,19 +45,19 @@ public class StatisticsView extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 final String selected = comboBox.getSelectedItem().toString();
-                updateStatisticView(selected);
+                window.add(new JLabel(selected));
             }
         });
         //Layout del pannello
         setLayout(new BorderLayout());
-        add(comboBox, BorderLayout.CENTER);
-        add(label, BorderLayout.NORTH);
+        super.add(comboBox, BorderLayout.CENTER);
+        super.add(label, BorderLayout.NORTH);
 
-        add(this);
+        super.add(this);
         setVisible(true);
     }
 
-    private void updateStatisticView(final String selectedView) {
+    /*private void updateStatisticView(final String selectedView) {
         //each case should create a view for the selected statistic
         switch (selectedView) {
             case "Steps":
@@ -74,5 +71,5 @@ public class StatisticsView extends JPanel {
             default:
                 break;
         }
-    }
+    }*/
 }
