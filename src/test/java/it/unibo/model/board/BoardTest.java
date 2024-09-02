@@ -102,9 +102,9 @@ final class BoardTest {
 
     @Test
     void testMapEffectiveSquare() {
-        /*System.out.println(map.getVisitor().printMap());
+        System.out.println(map.printMap());
         System.out.println("\n");
-        for(final Square square : map.getVisitor().getOrderedVisitedSquares()) {
+        /*for(final Square square : map.getOrderedVisitedSquares()) {
             System.out.println(square.getPosition().toString());
         }*/
         final List<Square> effectiveSquares = map.getSquares().stream()

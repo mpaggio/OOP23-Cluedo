@@ -20,7 +20,7 @@ import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.room.api.Room;
-import it.unibo.cluedo.model.square.api.Square;;
+import it.unibo.cluedo.model.square.api.Square;
 
 /**
  * Class that implements the GameSaveManager interface.
@@ -33,10 +33,9 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Save the current game state in a file.
-     * 
+     *
      * @param players the list of players in the game.
      * @param map     the list of the map components.
-     * @param visitor the visitor used to save the map components.
      */
     @Override
     public void saveGame(final List<Player> players, final Board map) {
@@ -52,10 +51,9 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Save the game to a file.
-     * 
+     *
      * @param players
      * @param map
-     * @param visitor
      * @throws IOException
      */
     private void saveGameToFile(final List<Player> players, final Board map) throws IOException {
@@ -82,7 +80,7 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Format the player information.
-     * 
+     *
      * @param player
      * @return the formatted string.
      */
@@ -108,16 +106,16 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Format the map information.
-     * 
+     *
      * @param map
      * @return the formatted string.
      */
     private String formatMapInfo(final Board map) {
         final StringBuilder info = new StringBuilder();
-        for (Room room : map.getRooms()) {
+        for (final Room room : map.getRooms()) {
             info.append(room.toString()).append(',');
         }
-        for (Square square : map.getSquares()) {
+        for (final Square square : map.getSquares()) {
             info.append(square.toString()).append(',');
         }
         return info.toString();
@@ -125,7 +123,7 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * View the saved games.
-     * 
+     *
      * @return the list of saved games.
      */
     @Override
@@ -151,7 +149,7 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Get the output of the saved games.
-     * 
+     *
      * @return an optional containing the string representing the saved games.
      */
     @Override
@@ -165,7 +163,7 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Write the error message to the log file.
-     * 
+     *
      * @param message
      * @param e
      */
