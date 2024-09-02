@@ -30,7 +30,6 @@ final class GameModelBuilderImplTest {
     @BeforeEach
     void setUp() {
         final Deck deck = new DeckImpl();
-        deck.initializeDeck();
         builder = new GameModelBuilderImpl(deck);
     }
 

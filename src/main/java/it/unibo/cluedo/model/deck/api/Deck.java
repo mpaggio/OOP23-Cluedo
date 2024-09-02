@@ -7,11 +7,6 @@ import java.util.Set;
  */
 public interface Deck {
     /**
-     * Initialize the deck with the right number and type of cards.
-     */
-    void initializeDeck();
-
-    /**
      * Get the solution of the game, consisting of one card for each type
      * (character, weapon, room).
      * 

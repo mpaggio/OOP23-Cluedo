@@ -30,7 +30,6 @@ final class DeckTest {
     @BeforeEach
     void setUp() {
         this.deck = new DeckImpl();
-        deck.initializeDeck();
     }
 
     /**

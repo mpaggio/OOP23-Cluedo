@@ -45,6 +45,16 @@ public class DeckImpl implements Deck {
     private final Set<Card> cards = new HashSet<>();
 
     /**
+     * Constructs and initialize a new DeckImpl object.
+     */
+    public DeckImpl() {
+        this.cards.clear();
+        CHARACTER_NAMES.forEach(name -> this.cards.add(CardFactory.createCharacterCard(name, getImagePath(name))));
+        WEAPON_NAMES.forEach(name -> this.cards.add(CardFactory.createWeaponCard(name, getImagePath(name))));
+        ROOM_NAMES.forEach(name -> this.cards.add(CardFactory.createRoomCard(name, getImagePath(name))));
+    }
+
+    /**
      * Generates the file path for the image corresponding to the given card name.
      * The path is constructed in a way that is compatible with different operating systems.
      * 
@@ -53,17 +63,6 @@ public class DeckImpl implements Deck {
      */
     private String getImagePath(final String name) {
         return Paths.get("src", "main", "resources", name.replace(" ", "") + ".PNG").toString();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void initializeDeck() {
-        this.cards.clear();
-        CHARACTER_NAMES.forEach(name -> this.cards.add(CardFactory.createCharacterCard(name, getImagePath(name))));
-        WEAPON_NAMES.forEach(name -> this.cards.add(CardFactory.createWeaponCard(name, getImagePath(name))));
-        ROOM_NAMES.forEach(name -> this.cards.add(CardFactory.createRoomCard(name, getImagePath(name))));
     }
 
     /**
