@@ -21,7 +21,7 @@ public class GameSolutionView {
         this.gameSolutionButton = new JButton("Game Solution");
         initComponent();
     }
-    
+
     /**
      * Initializes the components of the view.
      */
@@ -37,7 +37,7 @@ public class GameSolutionView {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'enableGameSolutionButton'");
     }
-    
+
     /**
      * Show a message in the view when the final accusation is incorrect.
      * @param string an error messagge

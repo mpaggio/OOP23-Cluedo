@@ -25,6 +25,7 @@ public class GameSolutionControllerImpl implements GameSolutionController {
      * Sets the view for this controller.
      * @param solutionView the GameSolutionView to set
      */
+    @Override
     public void setView(final GameSolutionView solutionView) {
         this.solutionView = solutionView;
     }
@@ -38,6 +39,7 @@ public class GameSolutionControllerImpl implements GameSolutionController {
      * @param character the Card representing thee character in the accusation
      * @param roomPosition the Room where the player can make the final accusation
      */
+    @Override
     public void handleFinalAccusation(final Card weapon, final Card room, final Card character, final Room roomPosition) {
         final boolean accusationCorrect = this.model.makeFinalAccusation(weapon, room, character, roomPosition);
         if (model.getCurrentPlayer().hasWon()) {
@@ -51,6 +53,7 @@ public class GameSolutionControllerImpl implements GameSolutionController {
      * Displays the solution cards in the view when the "Game solution" button is clicked.
      * Only works if the player has won the game
      */
+    @Override
     public void showSolution() {
         if (this.model.getCurrentPlayer().hasWon()) {
             final Set<Card> solution = this.model.getSolution();
