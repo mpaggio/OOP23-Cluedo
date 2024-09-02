@@ -191,7 +191,7 @@ final class GameModelImpl implements GameModel {
                 } catch (IllegalArgumentException e) {
                     return;
                 }
-                if (!map.getVisitor().isSquareInRoom(position) && getCurrentPlayer() instanceof MutablePlayer) {
+                if (!map.isSquareInRoom(position) && getCurrentPlayer() instanceof MutablePlayer) {
                     ((MutablePlayer) getCurrentPlayer()).setInRoom(false);
                 }
                 hasMovedInThisTurn = true;
@@ -305,12 +305,11 @@ final class GameModelImpl implements GameModel {
                 if (room.getTrapDoor().isPresent()) {
                     final Square newPosition = room.getTrapDoor().get().getConnectedRoom().getSquares().get(0);
                     if (getCurrentPlayer() instanceof MutablePlayer) {
-                        map.getVisitor().getRoomBySquare(map.getVisitor()
-                            .getSquareByPosition(getCurrentPlayer().getCurrentPosition()))
+                        map.getRoomBySquare(map.getSquareByPosition(getCurrentPlayer().getCurrentPosition()))
                             .get().removePlayerFromRoom(getCurrentPlayer());
                         ((MutablePlayer) getCurrentPlayer()).setPosition(newPosition.getPosition());
                         ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
-                        map.getVisitor().getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
+                        map.getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
                         fase = TurnFase.MAKE_ACCUSATION;
                     }
                 } else {
