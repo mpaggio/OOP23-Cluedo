@@ -138,6 +138,9 @@ final class GameModelImpl implements GameModel {
         return players;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Effect getSquareEffects(final Square position) {
         return position.getEffect();
@@ -151,6 +154,13 @@ final class GameModelImpl implements GameModel {
         return players.stream().anyMatch(Player::hasWon) || turnManager.isGameFinished();
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Card> getSolution() {
+        return solution;
+    }
     /**
      * {@inheritDoc}
      */
@@ -269,34 +279,6 @@ final class GameModelImpl implements GameModel {
         throw new IllegalStateException("You can't make the final accusation now");
     }
 
-    private void applyEffect(final Square position) {
-        position.landOn(getCurrentPlayer());
-        if (position.getEffect().getType().equals(Effect.EffectType.BONUS)) {
-            fase = TurnFase.ROLL_DICE;
-        }
-    }
-
-    private void checkConsistencyAcc(final Card weapon, final Card room, final Card character, final Room roomPosition) {
-        if (roomPosition == null) {
-            throw new IllegalArgumentException("You must be in a room to make an accusation");
-        }
-        if (weapon.getType() != Card.Type.WEAPON) {
-            throw new IllegalArgumentException("The card is not a weapon");
-        }
-        if (room.getType() != Card.Type.ROOM) {
-            throw new IllegalArgumentException("The card is not a room");
-        }
-        if (character.getType() != Card.Type.CHARACTER) {
-            throw new IllegalArgumentException("The card is not a character");
-        }
-        if ("Cluedo".equals(roomPosition.getName())) {
-            return;
-        }
-        if (!room.getName().equals(roomPosition.getName())) {
-            throw new IllegalArgumentException("You must be in the room you are accusing");
-        }
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -342,6 +324,34 @@ final class GameModelImpl implements GameModel {
             return unforeseen;
         } else {
             throw new IllegalStateException("You can't draw an unforeseen card now");
+        }
+    }
+
+    private void applyEffect(final Square position) {
+        position.landOn(getCurrentPlayer());
+        if (position.getEffect().getType().equals(Effect.EffectType.BONUS)) {
+            fase = TurnFase.ROLL_DICE;
+        }
+    }
+
+    private void checkConsistencyAcc(final Card weapon, final Card room, final Card character, final Room roomPosition) {
+        if (roomPosition == null) {
+            throw new IllegalArgumentException("You must be in a room to make an accusation");
+        }
+        if (weapon.getType() != Card.Type.WEAPON) {
+            throw new IllegalArgumentException("The card is not a weapon");
+        }
+        if (room.getType() != Card.Type.ROOM) {
+            throw new IllegalArgumentException("The card is not a room");
+        }
+        if (character.getType() != Card.Type.CHARACTER) {
+            throw new IllegalArgumentException("The card is not a character");
+        }
+        if ("Cluedo".equals(roomPosition.getName())) {
+            return;
+        }
+        if (!room.getName().equals(roomPosition.getName())) {
+            throw new IllegalArgumentException("You must be in the room you are accusing");
         }
     }
 }

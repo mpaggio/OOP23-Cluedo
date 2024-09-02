@@ -56,8 +56,8 @@ public class StatisticsView extends JPanel {
         add(comboBox, BorderLayout.CENTER);
         add(label, BorderLayout.NORTH);
 
-        window.add(this);
-        window.setVisible(true);
+        add(this);
+        setVisible(true);
     }
 
     private void updateStatisticView(final String selectedView) {
