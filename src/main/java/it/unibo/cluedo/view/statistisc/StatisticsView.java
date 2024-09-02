@@ -13,33 +13,40 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 
 import it.unibo.cluedo.model.statistics.api.Statistics;
-
+/**
+ * This class is used to show the statistics of the game.
+ */
 public class StatisticsView extends JPanel {
-
+    private static final long serialVersionUID = 1L;
     private static final int WIDTH = 400;
     private static final int HEIGHT = 400;
-    
-    final JFrame window;
-    final Statistics playersStatistics;
-
+    private static final int FONT_SIZE = 24;
+    private static final int BORDER_SIZE = 20;
+    private final Statistics playersStatistics;
+    /**
+     * Class constructor.
+     * @param statistics the statistics to show.
+     */
     public StatisticsView(final Statistics statistics) {
         //impostazione della finestra
+        final JFrame window;
         window = new JFrame("Statistics");
         playersStatistics = statistics;
+        playersStatistics.getAccusationsMade();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(WIDTH, HEIGHT);
         //label principale
         final JLabel label = new JLabel("Choose a statistic to view");
-        label.setForeground(new Color(1, 200, 32));
-        label.setFont(new Font("Serif", Font.BOLD, 24));
+        label.setForeground(Color.GREEN);
+        label.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
         label.setHorizontalAlignment(SwingConstants.CENTER);
-        label.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+        label.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
         //menu per selezionare la statistica
         final String[] options = {"Steps", "Rooms", "Accusations", "Cards"};
-        JComboBox<String> comboBox = new JComboBox<>(options);
+        final JComboBox<String> comboBox = new JComboBox<>(options);
         comboBox.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed(final ActionEvent e) {
                 final String selected = comboBox.getSelectedItem().toString();
                 updateStatisticView(selected);
             }

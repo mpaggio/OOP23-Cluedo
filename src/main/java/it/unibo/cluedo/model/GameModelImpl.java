@@ -148,10 +148,7 @@ final class GameModelImpl implements GameModel {
      */
     @Override
     public boolean isOver() {
-        if (players.stream().anyMatch(Player::hasWon) || turnManager.isGameFinished()) {
-            return true;
-        }
-        return false;
+        return players.stream().anyMatch(Player::hasWon) || turnManager.isGameFinished();
     }
 
     /**
