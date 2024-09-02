@@ -22,7 +22,7 @@ public class DiceView extends JPanel {
     private static final int DICE_SIDES = 6;
     private static final long serialVersionUID = 1L;
 
-    private  transient final Dice dice;
+    private final transient Dice dice;
     private final JLabel diceLabel;
     private final Random random = new Random();
 
