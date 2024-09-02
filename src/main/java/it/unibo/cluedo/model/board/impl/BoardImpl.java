@@ -175,9 +175,9 @@ public class BoardImpl implements Board {
                 malusCount,
                 prohibitedPositions
             );
-            if (squareToAdd instanceof BonusEffectImpl) {
+            if (squareToAdd.getEffect() instanceof BonusEffectImpl) {
                 bonusCount++;
-            } else if (squareToAdd instanceof MalusEffectImpl) {
+            } else if (squareToAdd.getEffect() instanceof MalusEffectImpl) {
                 malusCount++;
             }
             localSquares.add(squareToAdd);
