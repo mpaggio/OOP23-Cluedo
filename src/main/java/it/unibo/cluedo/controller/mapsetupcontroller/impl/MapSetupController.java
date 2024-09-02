@@ -24,7 +24,7 @@ public class MapSetupController {
      */
     public List<Position> getTilesPositions() {
         final List<Position> tilesPositions = new LinkedList<>();
-        for (final Square square : MAP.getVisitor().getOrderedVisitedSquares()) {
+        for (final Square square : MAP.getOrderedVisitedSquares()) {
             tilesPositions.add(square.getPosition());
         }
         return tilesPositions;
