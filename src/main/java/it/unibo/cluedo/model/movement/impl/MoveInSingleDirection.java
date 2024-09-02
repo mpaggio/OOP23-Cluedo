@@ -1,7 +1,6 @@
 package it.unibo.cluedo.model.movement.impl;
 
 import it.unibo.cluedo.model.board.api.Board;
-import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.movement.api.MovementCommand;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
@@ -18,7 +17,8 @@ public final class MoveInSingleDirection implements MovementCommand {
     private final int steps;
     private final MovementStrategy.Direction direction;
     private final MovementStrategy movementStrategy;
-    private final MapComponentVisitor visitor;
+    private final Board map;
+
     /**
      * Construct a new command for moving the player in a single direction.
      * @param player the player to be moved
@@ -33,24 +33,24 @@ public final class MoveInSingleDirection implements MovementCommand {
         this.steps = steps;
         this.direction = direction;
         this.movementStrategy = movementStrategy;
-        this.visitor = map.getVisitor();
+        this.map = map;
     }
 
     @Override
     public void execute() {
         final Position newPosition = movementStrategy.calculatePosition(player.getCurrentPosition(), steps, direction);
-        final Square square = this.visitor.getSquareByPosition(newPosition);
+        final Square square = this.map.getSquareByPosition(newPosition);
         if (movementStrategy.isValidMove(player, newPosition)) {
             ((MutablePlayer) player).setCurrentSteps(player.getSteps() - 1);
-            if (this.visitor.isSquareInRoom(square) && this.visitor.getRoomBySquare(square).isPresent()) {
-                this.visitor.getRoomBySquare(this.visitor.getSquareByPosition(player.getCurrentPosition()))
+            if (this.map.isSquareInRoom(square) && this.map.getRoomBySquare(square).isPresent()) {
+                this.map.getRoomBySquare(this.map.getSquareByPosition(player.getCurrentPosition()))
                             .get().removePlayerFromRoom(player);
                 ((MutablePlayer) player).setPosition(newPosition);
-                this.visitor.getRoomBySquare(square).get().addPlayerInRoom(player);
-            } else if (!this.visitor.isSquareInRoom(square)) {
-                this.visitor.getSquareByPosition(player.getCurrentPosition()).removePlayer();
+                this.map.getRoomBySquare(square).get().addPlayerInRoom(player);
+            } else if (!this.map.isSquareInRoom(square)) {
+                this.map.getSquareByPosition(player.getCurrentPosition()).removePlayer();
                 ((MutablePlayer) player).setPosition(newPosition);
-                this.visitor.getSquareByPosition(newPosition).landOn(player);
+                this.map.getSquareByPosition(newPosition).landOn(player);
             } 
         } else {
             throw new IllegalArgumentException("Invalid move: the player cannot move outside the board or into an invalid area");

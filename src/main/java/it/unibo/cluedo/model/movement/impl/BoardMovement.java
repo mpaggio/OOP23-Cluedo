@@ -2,7 +2,6 @@ package it.unibo.cluedo.model.movement.impl;
 
 import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.board.impl.BoardImpl;
-import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
@@ -12,7 +11,7 @@ import it.unibo.cluedo.utilities.Position;
  * Provides the basic movement and validation operation.
  */
 public final class BoardMovement implements MovementStrategy {
-    private final MapComponentVisitor visitor;
+    private final Board map;
     private final int width;
     private final int heigth;
 
@@ -21,7 +20,7 @@ public final class BoardMovement implements MovementStrategy {
      * @param map the map of Cluedo game
      */
     public BoardMovement(final Board map) {
-        this.visitor = map.getVisitor();
+        this.map = map;
         this.width = BoardImpl.getMapWidth();
         this.heigth = BoardImpl.getMapHeight();
     }
@@ -46,12 +45,12 @@ public final class BoardMovement implements MovementStrategy {
     public boolean isValidMove(final Player player, final Position newPosition) {
         return newPosition.getX() >= 0 && newPosition.getX() < this.width
         && newPosition.getY() >= 0 && newPosition.getY() < this.heigth
-        && visitor.getSquareByPosition(newPosition).isAlreadyOccupied();
+        && map.getSquareByPosition(newPosition).isAlreadyOccupied();
     }
 
     @Override
     public boolean isTrapDoorUsable(final Player player) {
-        return visitor.getVisitedRoom().stream()
+        return map.getRooms().stream()
             .filter(r -> r.isPlayerInRoom(player))
             .filter(Room::hasTrapDoor)
             .map(room -> room.getTrapDoor().get().getConnectedRoom())
@@ -61,7 +60,7 @@ public final class BoardMovement implements MovementStrategy {
 
     @Override
     public boolean hasPlayerEnteredInRoom(final Player player, final Position newPosition) {
-        return visitor.getVisitedRoom().stream()
-            .anyMatch(room -> room.isEntrance(this.visitor.getSquareByPosition(newPosition)));
+        return map.getRooms().stream()
+            .anyMatch(room -> room.isEntrance(this.map.getSquareByPosition(newPosition)));
     }
 }
