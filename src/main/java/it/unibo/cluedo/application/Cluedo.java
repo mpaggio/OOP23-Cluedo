@@ -6,7 +6,11 @@ import it.unibo.cluedo.controller.maincontroller.impl.MainControllerImpl;
  * The main class for the Cluedo application.
  */
 public final class Cluedo {
+    /**
+     * The main controller for the Cluedo application.
+     */
     public static final MainControllerImpl CONTROLLER = new MainControllerImpl();
+
     /**
      * Private constructor to prevent instantiation.
      */
