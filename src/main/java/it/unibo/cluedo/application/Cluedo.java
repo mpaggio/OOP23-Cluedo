@@ -6,7 +6,7 @@ import it.unibo.cluedo.controller.maincontroller.impl.MainControllerImpl;
  * The main class for the Cluedo application.
  */
 public final class Cluedo {
-    private static final MainControllerImpl CONTROLLER = new MainControllerImpl();
+    public static final MainControllerImpl CONTROLLER = new MainControllerImpl();
     /**
      * Private constructor to prevent instantiation.
      */
@@ -15,7 +15,7 @@ public final class Cluedo {
 
     /**
      * The main method to start the Cluedo application.
-     * 
+     *
      * @param args the command line arguments (not used)
      */
     public static void main(final String[] args) {
