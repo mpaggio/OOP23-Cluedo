@@ -1,10 +1,12 @@
-package it.unibo.cluedo.view;
+package it.unibo.cluedo.view.maingamepanel;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import it.unibo.cluedo.view.board.BoardView;
 
 //import it.unibo.cluedo.view.dice.DiceView;
 
@@ -16,7 +18,7 @@ import java.awt.GridLayout;
  * GamePanel is the main view class for the Cluedo game.
  * It sets up the user interface components and layout for the game.
  */
-public class GamePanel extends JFrame {
+public class MainGamePanel extends JFrame {
     private static final int PREFERRED_WIDTH = 200;
     private static final int PREFERRED_HEIGHT = 100;
     private static final int MAX_BUTTON_HEIGHT = 50;
@@ -26,7 +28,7 @@ public class GamePanel extends JFrame {
      * It initializes the game panel by setting up the layout and adding various
      * sub-panels for different game components. 
      */
-    public GamePanel() {
+    public MainGamePanel() {
         // Sets the layout
         setLayout(new GridLayout(1, 2));
 

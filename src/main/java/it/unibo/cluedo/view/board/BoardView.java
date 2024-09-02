@@ -1,4 +1,4 @@
-package it.unibo.cluedo.view;
+package it.unibo.cluedo.view.board;
 
 import java.awt.Color;
 import java.awt.Dimension;

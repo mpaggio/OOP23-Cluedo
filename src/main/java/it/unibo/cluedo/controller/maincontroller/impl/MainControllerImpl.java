@@ -3,7 +3,7 @@ package it.unibo.cluedo.controller.maincontroller.impl;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
-import it.unibo.cluedo.view.GamePanel;
+import it.unibo.cluedo.view.maingamepanel.MainGamePanel;
 
 /**
  * MainControllerImpl is responsible for initializing and managing the main game controller.
@@ -29,7 +29,7 @@ public class MainControllerImpl {
      * Starts the game view by creating a new GamePanel.
      */
     public void startView() {
-        new GamePanel();
+        new MainGamePanel();
     }
 
     /**
