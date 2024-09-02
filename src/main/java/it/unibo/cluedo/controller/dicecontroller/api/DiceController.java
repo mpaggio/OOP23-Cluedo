@@ -7,6 +7,7 @@ public interface DiceController {
 
     /**
      * Paints the result of the dice roll.
+     * @param result the result of the dice roll.
      */
     void paintdICE(int result);
 }
