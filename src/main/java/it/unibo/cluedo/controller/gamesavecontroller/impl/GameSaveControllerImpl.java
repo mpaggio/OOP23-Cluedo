@@ -17,9 +17,8 @@ import java.util.Date;
 import java.util.Locale;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.card.api.Card;
-import it.unibo.cluedo.model.component.api.MapComponent;
-import it.unibo.cluedo.model.component.api.MapComponentVisitor;
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.board.api.Board;
 
 /**
  * Class that implements the GameSaveManager interface.
@@ -37,12 +36,12 @@ public class GameSaveControllerImpl implements GameSaveController {
      * @param visitor  the visitor used to save the map components.
      */
     @Override
-    public void saveGame(final List<Player> players, final List<MapComponent> map, final MapComponentVisitor visitor) {
+    public void saveGame(final List<Player> players, final Board map) {
         if (players == null || players.isEmpty()) {
             throw new IllegalArgumentException("The list of players cannot be null or empty");
         }
         try {
-            saveGameToFile(players, map, visitor);
+            saveGameToFile(players, map);
         } catch (IOException e) {
             writeErrorToLogFile("An error occurred while saving the game", e);
         }
@@ -55,8 +54,7 @@ public class GameSaveControllerImpl implements GameSaveController {
      * @param visitor
      * @throws IOException
      */
-    private void saveGameToFile(final List<Player> players, final List<MapComponent> map,
-                 final MapComponentVisitor visitor) throws IOException {
+    private void saveGameToFile(final List<Player> players, final Board map) throws IOException {
         final File file = new File(FILE_NAME);
         if (!file.exists() && !file.createNewFile()) {
             throw new IOException("Cannot create the file " + FILE_NAME);
@@ -70,7 +68,6 @@ public class GameSaveControllerImpl implements GameSaveController {
                 writer.println(formatPlayerInfo(player));
             }
             writer.println("Map:" + formatMapInfo(map));
-            writer.println("Visitor:" + formatVisitorInfo(visitor));
             writer.println("\n");
 
             if (writer.checkError()) {
@@ -109,22 +106,11 @@ public class GameSaveControllerImpl implements GameSaveController {
      * @param map
      * @return the formatted string.
      */
-    private String formatMapInfo(final List<MapComponent> map) {
+    private String formatMapInfo(final Board map) {
         final StringBuilder info = new StringBuilder();
         for (final MapComponent component : map) {
             info.append(component.toString()).append(',');
         }
-        return info.toString();
-    }
-
-    /**
-     * Format the visitor information.
-     * @param visitor
-     * @return the formatted string.
-     */
-    private String formatVisitorInfo(final MapComponentVisitor visitor) {
-        final StringBuilder info = new StringBuilder();
-        info.append(visitor.printMap());
         return info.toString();
     }
 
