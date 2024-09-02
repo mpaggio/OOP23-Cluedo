@@ -3,8 +3,7 @@ package it.unibo.cluedo.controller.gamesavecontroller.api;
 import java.util.List;
 import java.util.Optional;
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.component.api.MapComponent;
-import it.unibo.cluedo.model.component.api.MapComponentVisitor;
+import it.unibo.cluedo.model.board.api.Board;
 
 /**
  * Interface used to save and load the game.
@@ -18,8 +17,7 @@ public interface GameSaveController {
      * @param map the list of the map components.
      * @param visitor the visitor used to save the map components.
      */
-    void saveGame(List<Player> players, List<MapComponent> map, MapComponentVisitor visitor);
-
+    void saveGame(List<Player> players, Board mao);
     /**
      * Shows the data of the saved games.
      *
