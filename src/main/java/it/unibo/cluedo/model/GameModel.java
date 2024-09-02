@@ -11,6 +11,7 @@ import it.unibo.cluedo.model.movement.api.MovementStrategy;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Interface to represent the model of the Cluedo game.
@@ -86,5 +87,10 @@ public interface GameModel {
      * @return the effects of the square.
      */
     Effect getSquareEffects(Square position);
+    /**
+     * Method to get the solution of the game.
+     * @return the solution of the game.
+     */
+    Set<Card> getSolution();
 
 }

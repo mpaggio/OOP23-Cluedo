@@ -22,7 +22,7 @@ public class StatisticsView extends JPanel {
     private static final int HEIGHT = 400;
     private static final int FONT_SIZE = 24;
     private static final int BORDER_SIZE = 20;
-    private final Statistics playersStatistics;
+    //private final Statistics playersStatistics;
     /**
      * Class constructor.
      * @param statistics the statistics to show.
@@ -31,8 +31,8 @@ public class StatisticsView extends JPanel {
         //impostazione della finestra
         final JFrame window;
         window = new JFrame("Statistics");
-        playersStatistics = statistics;
-        playersStatistics.getAccusationsMade();
+        //playersStatistics = statistics;
+        //playersStatistics.getAccusationsMade();
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         window.setSize(WIDTH, HEIGHT);
         //label principale
@@ -56,8 +56,8 @@ public class StatisticsView extends JPanel {
         add(comboBox, BorderLayout.CENTER);
         add(label, BorderLayout.NORTH);
 
-        window.add(this);
-        window.setVisible(true);
+        add(this);
+        setVisible(true);
     }
 
     private void updateStatisticView(final String selectedView) {
