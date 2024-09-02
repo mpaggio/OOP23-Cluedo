@@ -15,9 +15,9 @@ public interface GameSaveController {
      *
      * @param players the list of players in the game.
      * @param map the list of the map components.
-     * @param visitor the visitor used to save the map components.
      */
-    void saveGame(List<Player> players, Board mao);
+    void saveGame(List<Player> players, Board map);
+
     /**
      * Shows the data of the saved games.
      *
