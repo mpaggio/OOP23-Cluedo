@@ -148,7 +148,10 @@ final class GameModelImpl implements GameModel {
      */
     @Override
     public boolean isOver() {
-        return players.stream().anyMatch(Player::hasWon);
+        if (players.stream().anyMatch(Player::hasWon) || turnManager.isGameFinished()) {
+            return true;
+        }
+        return false;
     }
 
     /**
@@ -263,8 +266,10 @@ final class GameModelImpl implements GameModel {
                 }
                 return true;
             }
+            turnManager.removePlayer(getCurrentPlayer());
+            return false;
         }
-        return false;
+        throw new IllegalStateException("You can't make the final accusation now");
     }
 
     private void applyEffect(final Square position) {
