@@ -19,6 +19,8 @@ import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.board.api.Board;
+import it.unibo.cluedo.model.room.api.Room;
+import it.unibo.cluedo.model.square.api.Square;;
 
 /**
  * Class that implements the GameSaveManager interface.
@@ -31,9 +33,10 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Save the current game state in a file.
-     * @param players  the list of players in the game.
-     * @param map  the list of the map components.
-     * @param visitor  the visitor used to save the map components.
+     * 
+     * @param players the list of players in the game.
+     * @param map     the list of the map components.
+     * @param visitor the visitor used to save the map components.
      */
     @Override
     public void saveGame(final List<Player> players, final Board map) {
@@ -49,6 +52,7 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Save the game to a file.
+     * 
      * @param players
      * @param map
      * @param visitor
@@ -78,22 +82,23 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Format the player information.
+     * 
      * @param player
      * @return the formatted string.
      */
     private String formatPlayerInfo(final Player player) {
         final StringBuilder info = new StringBuilder(50);
         info.append("Player: ").append(player.getUsername())
-            .append("Position: ").append(player.getCurrentPosition())
-            .append("Cards: ");
+                .append("Position: ").append(player.getCurrentPosition())
+                .append("Cards: ");
 
         final List<Card> cards = player.getPlayerCards();
         for (int i = 0; i < cards.size(); i++) {
             final Card card = cards.get(i);
             info.append(card.getName())
-                .append(" (")
-                .append(card.getType())
-                .append(')');
+                    .append(" (")
+                    .append(card.getType())
+                    .append(')');
             if (i < cards.size() - 1) {
                 info.append(", ");
             }
@@ -103,19 +108,24 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Format the map information.
+     * 
      * @param map
      * @return the formatted string.
      */
     private String formatMapInfo(final Board map) {
         final StringBuilder info = new StringBuilder();
-        for (final MapComponent component : map) {
-            info.append(component.toString()).append(',');
+        for (Room room : map.getRooms()) {
+            info.append(room.toString()).append(',');
+        }
+        for (Square square : map.getSquares()) {
+            info.append(square.toString()).append(',');
         }
         return info.toString();
     }
 
     /**
      * View the saved games.
+     * 
      * @return the list of saved games.
      */
     @Override
@@ -141,6 +151,7 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Get the output of the saved games.
+     * 
      * @return an optional containing the string representing the saved games.
      */
     @Override
@@ -154,6 +165,7 @@ public class GameSaveControllerImpl implements GameSaveController {
 
     /**
      * Write the error message to the log file.
+     * 
      * @param message
      * @param e
      */
@@ -166,5 +178,3 @@ public class GameSaveControllerImpl implements GameSaveController {
         }
     }
 }
-
-
