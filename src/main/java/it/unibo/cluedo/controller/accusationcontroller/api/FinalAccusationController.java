@@ -2,6 +2,9 @@ package it.unibo.cluedo.controller.accusationcontroller.api;
 
 import it.unibo.cluedo.model.card.api.Card;
 
+/**
+ * Interface of the FinalAccusationController.
+ */
 public interface FinalAccusationController {
     /**
      * Method that allows the player to make a final accusation.
