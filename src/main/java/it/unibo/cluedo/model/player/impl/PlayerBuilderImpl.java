@@ -38,6 +38,6 @@ public class PlayerBuilderImpl implements PlayerBuilder {
         if (this.username == null || this.color == null) {
             throw new IllegalArgumentException("Missing fields: cannot create a new Player");
         }
-        return new PlayerImpl(this.username, this.color);
+        return new MutablePlayerImpl(this.username, this.color);
     }
 }
