@@ -1,5 +1,6 @@
 package it.unibo.cluedo.controller.gamesolutioncontroller.impl;
 
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.card.api.Card;
@@ -14,15 +15,13 @@ import java.util.Set;
 public class GameSolutionControllerImpl implements GameSolutionController {
     private final GameModel model;
     private final GameSolutionView solutionView;
-    
+
     /**
      * Contructor for the GameSolutionController class.
-     * @param model the GameModel representing the game state and logic
-     * @param solutionView the view representing the game solution
      */
-    public GameSolutionControllerImpl(final GameModel model, final GameSolutionView solutionView) {
-        this.model = model;
-        this.solutionView = solutionView;
+    public GameSolutionControllerImpl() {
+        this.model = Cluedo.CONTROLLER.getGameInstance();
+        this.solutionView = new GameSolutionView();
     }
 
     /**

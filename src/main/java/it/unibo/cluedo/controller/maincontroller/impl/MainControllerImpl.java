@@ -2,11 +2,11 @@ package it.unibo.cluedo.controller.maincontroller.impl;
 
 import java.util.List;
 import java.util.ArrayList;
-
+import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
+import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
-import it.unibo.cluedo.view.gamesolution.GameSolutionView;
 import it.unibo.cluedo.view.maingameframe.MainGameFrame;
 import it.unibo.cluedo.model.card.api.Card;
 
@@ -16,7 +16,7 @@ import it.unibo.cluedo.model.card.api.Card;
  */
 public class MainControllerImpl {
     private final GameModel gameModel;
-    private GameSolutionView gameSolutionView;
+    private final GameSolutionController gameSolutionController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -29,6 +29,7 @@ public class MainControllerImpl {
         .addPlayer("Charlie", "Blue")
         .withGameSolution()
         .build();
+        this.gameSolutionController = new GameSolutionControllerImpl();
     }
 
     /**
@@ -61,10 +62,10 @@ public class MainControllerImpl {
     }
 
     /**
-     * Returns a istance of the GameSolutionView.
-     * @return the gameSolutionView
+     * Returns a instance of GameSolutionController.
+     * @return the GameSolutionController
      */
-    public GameSolutionView getGameSolutionView() {
-        return this.gameSolutionView;
+    public GameSolutionController getGameSolutionController() {
+        return this.gameSolutionController;
     }
 }

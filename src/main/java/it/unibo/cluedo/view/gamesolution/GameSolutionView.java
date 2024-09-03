@@ -13,17 +13,16 @@ import java.awt.FlowLayout;
  */
 public class GameSolutionView extends JPanel {
     private static final long serialVersionUID = 1L;
+    private List<String> imagesPath;
+
     /**
      * Constructor for the GameSolutionView class.
-     * @param imagesPath a list of strings representing the paths to the card images
      */
-    public GameSolutionView(final List<String> imagesPath) {
+    public GameSolutionView() {
         setLayout(new BorderLayout());
-
         final JPanel imagePanel = new JPanel();
         imagePanel.setLayout(new FlowLayout());
-
-        for (final String path : imagesPath) {
+        for (final String path : this.imagesPath) {
             final ImageIcon image = new ImageIcon(path);
             final JLabel imageLabel = new JLabel(image);
             imagePanel.add(imageLabel);
@@ -43,6 +42,7 @@ public class GameSolutionView extends JPanel {
      * @param cardInfo the Set of Cards representing the solution
      */
     public void displaySolution(final List<String> cardInfo) {
-        JOptionPane.showMessageDialog(null, new GameSolutionView(cardInfo), "Game Solution", JOptionPane.PLAIN_MESSAGE);
+        this.imagesPath = List.copyOf(cardInfo);
+        JOptionPane.showMessageDialog(null, new GameSolutionView(), "Game Solution", JOptionPane.PLAIN_MESSAGE);
     }
 }
