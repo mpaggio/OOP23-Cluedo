@@ -1,0 +1,32 @@
+Objective:
+The objective of Cluedo is to solve the mistery by correctly identifying
+the Weapon,Room and Character that constitute the Solution.
+The first player to make a correct final accusation win the games and ends
+the match.
+
+GamePlay:
+- At the start of each turn, roll the dice to determine the number of steps
+  you can move.
+- You can move UP,RIGHT,LEFT and RIGHT directions one step a time
+- You may also land on special square like Bonus or Malus
+    -Bonus squares: allow you to roll the dice again
+    -Trap squares: make you lose your next turn
+
+Entering rooms:
+- When you enter a room, you may make an accusation by selecting a Weapon,Room
+  and a Character card that you believe are part of the solution.
+- The next player with one of the accused cards must show it to you.
+- Use your notebook to keep track of cards you've seen.
+
+Trapdoors:
+- Some rooms contains trapdoors. If you start your turn in such a room, you can
+  move directly to the connected room without rolling the dice.
+
+Unforseen effects:
+- At the start of your turn, you will get an unforseen, then you will see a bonus 
+  or suffer a penalty
+
+Final accusation:
+- To win, you must enter the CLUEDO ROOM at the center of the map and make a final
+  accusation.
+- If your accusation matches the solution, you win, else your are out of the game.

@@ -1,22 +1,19 @@
 package it.unibo.cluedo.controller.notebookcontroller.impl;
 
 import java.util.List;
+
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
-import it.unibo.cluedo.model.GameModel;
 
 /**
  * Class that implements the NotebookController interface.
  */
 public class NotebookControllerImpl  implements NotebookController {
 
-    private final GameModel model;
-
     /**
      * Constructor for the NotebookControllerImpl class.
-     * @param model the GameModel to set
      */
-    public NotebookControllerImpl(final GameModel model) {
-        this.model = model;
+    public NotebookControllerImpl() {
     }
 
     /**
@@ -25,7 +22,7 @@ public class NotebookControllerImpl  implements NotebookController {
      */
     @Override
     public List<String> getSeenSuspect() {
-        return model.getNotebook().getSeenSuspects();
+        return Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getPlayerNotebook().getSeenSuspects();
     }
 
     /**
@@ -34,7 +31,7 @@ public class NotebookControllerImpl  implements NotebookController {
      */
     @Override
     public List<String> getSeenWeapon() {
-        return model.getNotebook().getSeenWeapons();
+        return Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getPlayerNotebook().getSeenWeapons();
     }
 
     /**
@@ -43,6 +40,6 @@ public class NotebookControllerImpl  implements NotebookController {
      */
     @Override
     public List<String> getSeenRoom() {
-        return model.getNotebook().getSeenRooms();
+        return Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getPlayerNotebook().getSeenRooms();
     }
 }

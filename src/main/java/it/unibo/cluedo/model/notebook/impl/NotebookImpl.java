@@ -6,6 +6,7 @@ import java.util.Set;
 import java.util.HashSet;
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.card.api.Card.Type;
+import it.unibo.cluedo.model.deck.impl.DeckImpl;
 
 /**
  * Class that represents the notebook of the player.
@@ -83,8 +84,7 @@ public class NotebookImpl implements Notebook {
      * @return true if the card is a suspect, false otherwise.
      */
     private boolean isSuspect(final String card) {
-        return Set.of("Professor Plum", "Miss Scarlet", "Colonel Mustard",
-                "Reverend Green", "Mrs. Peacock", "Dr. Orchid").contains(card);
+        return DeckImpl.getCharacterNames().contains(card);
     }
 
     /**
@@ -94,8 +94,7 @@ public class NotebookImpl implements Notebook {
      * @return true if the card is a weapon, false otherwise.
      */
     private boolean isWeapon(final String card) {
-        return Set.of("Candlestick", "Revolver", "Lead Pipe",
-                "Rope", "Wrench", "Knife").contains(card);
+        return DeckImpl.getWeaponNames().contains(card);
     }
 
     /**
@@ -105,9 +104,7 @@ public class NotebookImpl implements Notebook {
      * @return true if the card is a room, false otherwise.
      */
     private boolean isRoom(final String card) {
-        return Set.of("Kitchen", "Ballroom", "Conservatory",
-                "Dining Room", "Lounge", "Hall",
-                "Study", "Library", "Billiard Room").contains(card);
+        return DeckImpl.getRoomNames().contains(card);
     }
 
     /**

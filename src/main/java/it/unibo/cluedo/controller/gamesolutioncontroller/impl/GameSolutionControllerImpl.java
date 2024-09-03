@@ -2,7 +2,7 @@ package it.unibo.cluedo.controller.gamesolutioncontroller.impl;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
-import it.unibo.cluedo.model.GameModel;
+import it.unibo.cluedo.controller.maincontroller.impl.MainControllerImpl;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.view.gamesolution.GameSolutionView;
@@ -13,14 +13,14 @@ import java.util.Set;
  * Controller class for handling the game solution logic in the Cluedo game.
  */
 public class GameSolutionControllerImpl implements GameSolutionController {
-    private final GameModel model;
+    private final MainControllerImpl mainController;
     private final GameSolutionView solutionView;
 
     /**
      * Contructor for the GameSolutionController class.
      */
     public GameSolutionControllerImpl() {
-        this.model = Cluedo.CONTROLLER.getGameInstance();
+        this.mainController = Cluedo.CONTROLLER;
         this.solutionView = new GameSolutionView();
     }
 
@@ -35,8 +35,9 @@ public class GameSolutionControllerImpl implements GameSolutionController {
      */
     @Override
     public void handleFinalAccusation(final Card weapon, final Card room, final Card character, final Room roomPosition) {
-        final boolean accusationCorrect = this.model.makeFinalAccusation(weapon, room, character, roomPosition);
-        if (this.model.getCurrentPlayer().hasWon()) {
+        final boolean accusationCorrect = this.mainController.getGameInstance()
+        .makeFinalAccusation(weapon, room, character, roomPosition);
+        if (this.mainController.getGameInstance().getCurrentPlayer().hasWon()) {
             showSolution();
         } else if (!accusationCorrect) {
             this.solutionView.showFailureMessage("Final accusation incorrect. You have lost the game");
@@ -49,8 +50,8 @@ public class GameSolutionControllerImpl implements GameSolutionController {
      */
     private void showSolution() {
         final List<String> cardInfo = new ArrayList<>();
-        if (this.model.getCurrentPlayer().hasWon()) {
-            final Set<Card> solution = this.model.getSolution();
+        if (this.mainController.getGameInstance().getCurrentPlayer().hasWon()) {
+            final Set<Card> solution = this.mainController.getGameInstance().getSolution();
             for (final var card : solution) {
                 cardInfo.add(card.getImagePath());
             }
