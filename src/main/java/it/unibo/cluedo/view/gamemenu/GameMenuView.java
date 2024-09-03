@@ -53,7 +53,7 @@ public class GameMenuView  extends JPanel {
 
     private JPanel createPlayerPanel() {
         final JPanel playerPanel = new JPanel(new GridLayout(3, 2));
-        final String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "Orange"};
+        final String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "White"};
         for (int i = 0; i < 3; i++) {
             playerUsernameFields[i] = new JTextField();
             playerColorCombos[i] = new JComboBox<>(colors);
