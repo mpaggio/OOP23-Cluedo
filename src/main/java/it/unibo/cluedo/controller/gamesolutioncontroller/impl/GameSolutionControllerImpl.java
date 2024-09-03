@@ -14,7 +14,7 @@ import java.util.Set;
 public class GameSolutionControllerImpl implements GameSolutionController {
     private final GameModel model;
     private final GameSolutionView solutionView;
-
+    
     /**
      * Contructor for the GameSolutionController class.
      * @param model the GameModel representing the game state and logic
