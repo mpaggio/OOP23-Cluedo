@@ -18,7 +18,7 @@ import it.unibo.cluedo.model.card.api.Card;
  */
 public class MainControllerImpl {
     private final GameModel gameModel;
-    private final GameSolutionController gameSolutionController;
+    //private final GameSolutionController gameSolutionController;
     private final NotebookController notebookController;
 
     /**
@@ -32,7 +32,7 @@ public class MainControllerImpl {
         .addPlayer("Charlie", "Blue")
         .withGameSolution()
         .build();
-        this.gameSolutionController = new GameSolutionControllerImpl();
+        //this.gameSolutionController = new GameSolutionControllerImpl();
         this.notebookController = new NotebookControllerImpl();
     }
 
@@ -69,9 +69,9 @@ public class MainControllerImpl {
      * Returns a instance of GameSolutionController.
      * @return the GameSolutionController
      */
-    public GameSolutionController getGameSolutionController() {
+    /*public GameSolutionController getGameSolutionController() {
         return this.gameSolutionController;
-    }
+    }*/
 
     /**
      * Returns a instance of NotebookController.

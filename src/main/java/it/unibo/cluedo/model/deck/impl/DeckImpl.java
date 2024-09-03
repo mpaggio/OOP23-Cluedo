@@ -113,4 +113,31 @@ public class DeckImpl implements Deck {
     public Set<Card> getAllCards() {
         return Collections.unmodifiableSet(new HashSet<>(this.cards));
     }
+
+    /**
+     * Return the list of character cards name.
+     * 
+     * @return the list of character cards name
+     */
+    public static List<String> getCharacterNames() {
+        return CHARACTER_NAMES;
+    }
+
+    /**
+     * Return the list of room cards name.
+     * 
+     * @return the list of room cards name
+     */
+    public static List<String> getRoomNames() {
+        return ROOM_NAMES;
+    }
+
+    /**
+     * Return the list of weapon cards name.
+     * 
+     * @return the list of weapon cards name
+     */
+    public static List<String> getWeaponNames() {
+        return WEAPON_NAMES;
+    }
 }
