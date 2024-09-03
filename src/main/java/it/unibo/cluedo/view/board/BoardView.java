@@ -173,14 +173,11 @@ public class BoardView extends JPanel {
      */
     private void drawTiles(final Graphics g, final Iterator<String> colorIterator,
         final int newWidth, final int newHeight) {
-            final double originalOffsetX = OFFSET_X;
-            final double originalOffsetY = OFFSET_Y;
-            final double originalTileSize = TILE_SIZE;
             final double scaleX = (double) newWidth / mapImage.getWidth();
             final double scaleY = (double) newHeight / mapImage.getHeight();
-            final double offsetX = originalOffsetX * scaleX;
-            final double offsetY = originalOffsetY * scaleY;
-            final double tileSize = originalTileSize * scaleX;
+            final double offsetX = OFFSET_X * scaleX;
+            final double offsetY = OFFSET_Y * scaleY;
+            final double tileSize = TILE_SIZE * scaleX;
             for (final Position pos : Cluedo.CONTROLLER.getMapController().getTilesPositions()) {
                 final double x = offsetX + ((double) pos.getY()) * tileSize;
                 final double y = offsetY + ((double) pos.getX()) * tileSize;

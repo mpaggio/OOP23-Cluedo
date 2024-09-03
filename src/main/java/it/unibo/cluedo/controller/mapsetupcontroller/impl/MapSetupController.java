@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import it.unibo.cluedo.application.Cluedo;
-import it.unibo.cluedo.model.board.api.Board;
-import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;
@@ -14,8 +12,6 @@ import it.unibo.cluedo.utilities.Position;
  * Controller for setting up the map in the Cluedo game.
  */
 public class MapSetupController {
-    private static final Board MAP = new BoardImpl();
-
     /**
      * Retrieves the positions of all tiles on the map.
      * 
@@ -23,7 +19,7 @@ public class MapSetupController {
      */
     public List<Position> getTilesPositions() {
         final List<Position> tilesPositions = new ArrayList<>();
-        for (final Square square : MAP.getOrderedVisitedSquares()) {
+        for (final Square square : Cluedo.CONTROLLER.getGameInstance().getMap().getOrderedVisitedSquares()) {
             tilesPositions.add(square.getPosition());
         }
         return tilesPositions;
