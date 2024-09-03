@@ -45,7 +45,7 @@ public class StatisticsView extends JPanel {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 final String selected = comboBox.getSelectedItem().toString();
-                window.add(new JLabel(selected));
+                updateStatisticView(selected);
             }
         });
         //Layout del pannello
@@ -57,19 +57,23 @@ public class StatisticsView extends JPanel {
         setVisible(true);
     }
 
-    /*private void updateStatisticView(final String selectedView) {
+    private void updateStatisticView(final String selectedView) {
         //each case should create a view for the selected statistic
         switch (selectedView) {
             case "Steps":
+                new StepStatisticView();
                 break;
             case "Rooms":
+                new RoomStatisticView();
                 break;
             case "Accusations":
+                new AccusationStatisticView();
                 break;
             case "Cards":
+                new StatisticsView();
                 break;
             default:
                 break;
         }
-    }*/
+    }
 }

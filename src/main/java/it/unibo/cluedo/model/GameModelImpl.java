@@ -118,6 +118,14 @@ final class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Player getCurrentPlayer() {
         return turnManager.getCurrentPlayer();
     }

@@ -6,6 +6,7 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
+import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 
@@ -61,6 +62,11 @@ public interface GameModel {
      * @return the notebook of the current player.
      */
     Notebook getNotebook();
+    /**
+     * Method to get the statistics of the game.
+     * @return the statistics of the game.
+     */
+    Statistics getStatistics();
     /**
      * Method to end the turn of the current player.
      * @return the next player.
