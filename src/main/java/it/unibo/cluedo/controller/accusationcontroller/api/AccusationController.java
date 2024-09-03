@@ -8,8 +8,11 @@ import it.unibo.cluedo.model.card.api.Card;
 public interface AccusationController {
     /**
      * Method that allows the player to make an accusation.
+     * @param suspect the suspect card.
+     * @param weapon the weapon card.
+     * @param room the room card.
      */
-    void makeAccusation();
+    void makeAccusation(Card suspect, Card weapon, Card room);
     /**
      * Method that checks if the accusation made by the player is correct.
      * @return true if the accusation is correct, false otherwise.

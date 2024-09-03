@@ -2,9 +2,11 @@ package it.unibo.cluedo.controller.statisticscontroller.impl;
 
 import java.util.Iterator;
 
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
-import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.GameModel;
+
 /**
  * Controller to manage the statistics of the game.
  */
@@ -26,17 +28,17 @@ public class StatisticsControllerImpl implements StatisticsController {
 
     /**
      * Constructor for the StatisticsController class.
-     * @param statistics the statistics of the game.
      */
-    public StatisticsControllerImpl(final Statistics statistics) {
-        this.stepsLeaderboardIterator = statistics.getStepsMade().getFirst().iterator();
-        this.accusationsLeaderboardIterator = statistics.getAccusationsMade().getFirst().iterator();
-        this.roomsLeaderboardIterator = statistics.getRoomsVisited().getFirst().iterator();
-        this.cardsLeaderboardIterator = statistics.getViewedCards().getFirst().iterator();
-        this.stepsIterator = statistics.getAccusationsMade().getSecond().iterator();
-        this.accusationIterator = statistics.getAccusationsMade().getSecond().iterator();
-        this.roomsIterator = statistics.getRoomsVisited().getSecond().iterator();
-        this.cardsIterator = statistics.getViewedCards().getSecond().iterator();
+    public StatisticsControllerImpl() {
+        final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
+        this.stepsLeaderboardIterator = gameModel.getStatistics().getStepsMade().getFirst().iterator();
+        this.accusationsLeaderboardIterator = gameModel.getStatistics().getAccusationsMade().getFirst().iterator();
+        this.roomsLeaderboardIterator = gameModel.getStatistics().getRoomsVisited().getFirst().iterator();
+        this.cardsLeaderboardIterator = gameModel.getStatistics().getViewedCards().getFirst().iterator();
+        this.stepsIterator = gameModel.getStatistics().getAccusationsMade().getSecond().iterator();
+        this.accusationIterator = gameModel.getStatistics().getAccusationsMade().getSecond().iterator();
+        this.roomsIterator = gameModel.getStatistics().getRoomsVisited().getSecond().iterator();
+        this.cardsIterator = gameModel.getStatistics().getViewedCards().getSecond().iterator();
     }
 
     /**
