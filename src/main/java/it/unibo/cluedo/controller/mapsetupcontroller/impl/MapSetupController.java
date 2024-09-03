@@ -29,6 +29,11 @@ public class MapSetupController {
         return tilesPositions;
     }
 
+    /**
+     * Retrieves the positions of all players on the map.
+     * 
+     * @return a list of positions of all players on the map
+     */
     public List<Position> getPlayersPositions() {
         final List<Position> playersPositions = new ArrayList<>();
         for (final Player player : Cluedo.CONTROLLER.getGameInstance().getPlayers()) {
