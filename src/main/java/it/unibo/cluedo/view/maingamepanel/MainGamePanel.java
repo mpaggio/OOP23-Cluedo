@@ -98,6 +98,7 @@ public class MainGamePanel extends JFrame {
 
         // Bottom panel and buttons
         final JPanel bottomPanel = new JPanel();
+        bottomPanel.setBorder(BorderFactory.createTitledBorder("Options"));
         bottomPanel.setLayout(new GridLayout(1, 2));
         final JButton rulesButton = new JButton("Rules");
         final JButton quitButton = new JButton("Quit");
