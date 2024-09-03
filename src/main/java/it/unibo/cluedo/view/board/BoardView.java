@@ -18,7 +18,7 @@ import java.util.Optional;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.utilities.Position;
 
@@ -28,13 +28,38 @@ import it.unibo.cluedo.utilities.Position;
  */
 public class BoardView extends JPanel {
     private static final Logger LOGGER = Logger.getLogger(BoardView.class.getName());
-    private static final MapSetupController CONTROLLER = new MapSetupController();
     private static final long serialVersionUID = 1L;
     private static final Color TILE_BORDER_COLOR = new Color(0, 0, 0, 0.8f);
     private static final double TILE_SIZE = 23;
     private static final double OFFSET_X = 41.7;
     private static final double OFFSET_Y = 23.3;
     private transient BufferedImage mapImage;
+    public enum ColorEnum {
+        RED(Color.RED),
+        GREEN(Color.GREEN),
+        BLUE(Color.BLUE),
+        WHITE(Color.WHITE),
+        PINK(Color.PINK),
+        YELLOW(Color.YELLOW);
+
+        private final Color color;
+        
+        ColorEnum(final Color color) {
+            this.color = color;
+        }
+
+        public Color getColor() {
+            return this.color;
+        }
+
+        public static Color getColorByName(final String name) {
+            try {
+                return ColorEnum.valueOf(name.toUpperCase()).getColor();
+            } catch (IllegalArgumentException e) {
+                return null;
+            }
+        }
+    }
 
     /**
      * Constructs a MapView with the specified visitor.
@@ -57,15 +82,8 @@ public class BoardView extends JPanel {
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        final List<Color> playerColors = List.of(
-            Color.CYAN,
-            Color.GREEN,
-            Color.MAGENTA,
-            Color.RED,
-            Color.WHITE,
-            Color.BLACK
-        );
-        final Iterator<Color> colorIterator = playerColors.iterator();
+        final List<String> playerColors = Cluedo.CONTROLLER.getMapController().getPlayersColors();
+        final Iterator<String> colorIterator = playerColors.iterator();
         final int panelWidth = getSize().width;
         final int panelHeight = getSize().height;
         final int imageWidth = mapImage.getWidth();
@@ -119,7 +137,7 @@ public class BoardView extends JPanel {
      * @param newWidth the new width of the resized image
      * @param newHeight the new heigth of the resized image
      */
-    private void drawTiles(final Graphics g, final Iterator<Color> colorIterator,
+    private void drawTiles(final Graphics g, final Iterator<String> colorIterator,
         final int newWidth, final int newHeight) {
             final double originalOffsetX = OFFSET_X;
             final double originalOffsetY = OFFSET_Y;
@@ -129,11 +147,11 @@ public class BoardView extends JPanel {
             final double offsetX = originalOffsetX * scaleX;
             final double offsetY = originalOffsetY * scaleY;
             final double tileSize = originalTileSize * scaleX;
-            for (final Position pos : CONTROLLER.getTilesPositions()) {
+            for (final Position pos : Cluedo.CONTROLLER.getMapController().getTilesPositions()) {
                 final double x = offsetX + ((double) pos.getY()) * tileSize;
                 final double y = offsetY + ((double) pos.getX()) * tileSize;
-                if (CONTROLLER.getPlayersPositions().contains(pos) && colorIterator.hasNext()) {
-                    drawTile(x, y, g, Optional.of(colorIterator.next()), tileSize);
+                if (Cluedo.CONTROLLER.getMapController().getPlayersPositions().contains(pos) && colorIterator.hasNext()) {
+                    drawTile(x, y, g, Optional.of(ColorEnum.getColorByName(colorIterator.next())), tileSize);
                 } else {
                     drawTile(x, y, g, Optional.empty(), tileSize);
                 }

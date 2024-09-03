@@ -2,6 +2,8 @@ package it.unibo.cluedo.controller.maincontroller.impl;
 
 import java.util.List;
 import java.util.ArrayList;
+
+import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 // import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 // import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
@@ -20,6 +22,7 @@ public class MainControllerImpl {
     private final GameModel gameModel;
     //private final GameSolutionController gameSolutionController;
     private final NotebookController notebookController;
+    private final MapSetupController mapController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -34,6 +37,7 @@ public class MainControllerImpl {
         .build();
         //this.gameSolutionController = new GameSolutionControllerImpl();
         this.notebookController = new NotebookControllerImpl();
+        this.mapController = new MapSetupController();
     }
 
     /**
@@ -79,5 +83,13 @@ public class MainControllerImpl {
      */
     public NotebookController getNotebookController() {
         return this.notebookController;
+    }
+
+    /**
+     * Returns a instance of MapSetUpController.
+     * @return the MapSetUpController
+     */
+    public MapSetupController getMapController() {
+        return this.mapController;
     }
 }

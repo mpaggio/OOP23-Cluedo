@@ -41,4 +41,17 @@ public class MapSetupController {
         }
         return playersPositions;
     }
+
+    /**
+     * Retrieves the colors of all players.
+     * 
+     * @return a list of string representing the colors of all players
+     */
+    public List<String> getPlayersColors() {
+        final List<String> playersColors = new ArrayList<>();
+        for (final Player player : Cluedo.CONTROLLER.getGameInstance().getPlayers()) {
+            playersColors.add(player.getColor());
+        }
+        return playersColors;
+    }
 }
