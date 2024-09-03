@@ -1,5 +1,6 @@
 package it.unibo.cluedo.controller.gamesolutioncontroller.impl;
 
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.card.api.Card;
@@ -17,19 +18,18 @@ public class GameSolutionControllerImpl implements GameSolutionController {
 
     /**
      * Contructor for the GameSolutionController class.
-     * @param model the GameModel representing the game state and logic
-     * @param solutionView the view representing the game solution
      */
-    public GameSolutionControllerImpl(final GameModel model, final GameSolutionView solutionView) {
-        this.model = model;
-        this.solutionView = solutionView;
+    public GameSolutionControllerImpl() {
+        this.model = Cluedo.CONTROLLER.getGameInstance();
+        this.solutionView = new GameSolutionView();
     }
+
     /**
      * Handles the player's final accusation.
      * If the accusation is correct, the player's status is updated and
      * the "Game solution" button in the view is enabled.
      * @param weapon the Card representing the weapon in the accusation
-     * @param room the Card representing the room in the accusation 
+     * @param room the Card representing the room in the accusation
      * @param character the Card representing thee character in the accusation
      * @param roomPosition the Room where the player can make the final accusation
      */

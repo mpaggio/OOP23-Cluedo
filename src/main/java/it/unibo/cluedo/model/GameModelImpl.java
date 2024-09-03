@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import it.unibo.cluedo.model.accusation.api.Accusation;
 import it.unibo.cluedo.model.accusation.impl.AccusationImpl;
 import it.unibo.cluedo.model.board.impl.BoardImpl;
+import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.deck.api.Deck;
 import it.unibo.cluedo.model.dice.api.Dice;
@@ -40,6 +41,7 @@ import it.unibo.cluedo.utilities.TurnFase;
 final class GameModelImpl implements GameModel {
 
     private static final int DICE_SIDES = 6;
+    private static final int NUM_OF_STEPS = 1;
 
     private boolean hasMovedInThisTurn;
     private TurnFase fase;
@@ -49,7 +51,7 @@ final class GameModelImpl implements GameModel {
     private final TurnManager turnManager;
     private final Statistics statistics;
     private final Set<Card> solution;
-    private final BoardImpl map;
+    private final Board map;
 
     /**
      * Constructor of the class.
@@ -80,6 +82,7 @@ final class GameModelImpl implements GameModel {
             }
         });
     }
+
     /**
      * Constructor of the class by a saved game.
      * @param players the players of the game.
@@ -118,53 +121,6 @@ final class GameModelImpl implements GameModel {
      * {@inheritDoc}
      */
     @Override
-    public Player getCurrentPlayer() {
-        return turnManager.getCurrentPlayer();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Notebook getNotebook() {
-        return getCurrentPlayer().getPlayerNotebook();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<Player> getPlayers() {
-        return players;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Effect getSquareEffects(final Square position) {
-        return position.getEffect();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public boolean isOver() {
-        return players.stream().anyMatch(Player::hasWon) || turnManager.isGameFinished();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Set<Card> getSolution() {
-        return solution;
-    }
-    /**
-     * {@inheritDoc}
-     */
-    @Override
     public Optional<Card> makeAccusation(final Card weapon, final Card room, final Card character, final Room roomPosition) {
         if (fase == TurnFase.MAKE_ACCUSATION) {
             try {
@@ -192,8 +148,8 @@ final class GameModelImpl implements GameModel {
     @Override
     public void movePlayer(final Square position, final MovementStrategy.Direction direction) {
         final BoardMovement boardMovement = new BoardMovement(map);
-        final MoveInSingleDirection move = new MoveInSingleDirection((MutablePlayer) getCurrentPlayer(), 
-        1, direction, boardMovement, map);
+        final MoveInSingleDirection move = new MoveInSingleDirection(getCurrentPlayer(), NUM_OF_STEPS,
+            direction, boardMovement, map);
         if (fase.equals(TurnFase.MOVE_PLAYER)) {
             if (getCurrentPlayer().getCurrentSteps() > 0) {
                 try {
@@ -325,6 +281,86 @@ final class GameModelImpl implements GameModel {
         } else {
             throw new IllegalStateException("You can't draw an unforeseen card now");
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Statistics getStatistics() {
+        return statistics;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Player getCurrentPlayer() {
+        return turnManager.getCurrentPlayer();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Notebook getNotebook() {
+        return getCurrentPlayer().getPlayerNotebook();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<Player> getPlayers() {
+        return players;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Effect getSquareEffects(final Square position) {
+        return position.getEffect();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public TurnFase getTurnFase() {
+        return fase;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDiceResult() {
+        return currentDiceResult;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isOver() {
+        return players.stream().anyMatch(Player::hasWon) || turnManager.isGameFinished();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Card> getSolution() {
+        return solution;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Board getMap() {
+        return map;
     }
 
     private void applyEffect(final Square position) {
