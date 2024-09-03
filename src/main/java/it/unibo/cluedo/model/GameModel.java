@@ -6,8 +6,11 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
+import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
+import it.unibo.cluedo.utilities.TurnFase;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
+import it.unibo.cluedo.model.board.api.Board;
 
 import java.util.List;
 import java.util.Optional;
@@ -62,6 +65,21 @@ public interface GameModel {
      */
     Notebook getNotebook();
     /**
+     * Method to get the statistics of the game.
+     * @return the statistics of the game.
+     */
+    Statistics getStatistics();
+    /**
+     * Method to get the current turn fase.
+     * @return the current turn fase.
+     */
+    TurnFase getTurnFase();
+    /**
+     * Method to get the result of the dice roll.
+     * @return the result of the dice roll.
+     */
+    int getDiceResult();
+    /**
      * Method to end the turn of the current player.
      * @return the next player.
      */
@@ -92,5 +110,10 @@ public interface GameModel {
      * @return the solution of the game.
      */
     Set<Card> getSolution();
+    /**
+     * Method to get the map of the game.
+     * @return the map of the game.
+     */
+    Board getMap();
 
 }

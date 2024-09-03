@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.ArrayList;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
+import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
+import it.unibo.cluedo.controller.notebookcontroller.impl.NotebookControllerImpl;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -17,6 +19,7 @@ import it.unibo.cluedo.model.card.api.Card;
 public class MainControllerImpl {
     private final GameModel gameModel;
     private final GameSolutionController gameSolutionController;
+    private final NotebookController notebookController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -30,6 +33,7 @@ public class MainControllerImpl {
         .withGameSolution()
         .build();
         this.gameSolutionController = new GameSolutionControllerImpl();
+        this.notebookController = new NotebookControllerImpl();
     }
 
     /**
@@ -41,7 +45,7 @@ public class MainControllerImpl {
 
     /**
      * Returns the current game model instance.
-     * 
+     *
      * @return the current game model instance
      */
     public GameModel getGameInstance() {
@@ -50,7 +54,7 @@ public class MainControllerImpl {
 
     /**
      * Returns a list of the current player's cards path.
-     * 
+     *
      * @return a list of the current player's cards path
      */
     public List<String> getCurrentPlayerCardsPaths() {
@@ -67,5 +71,13 @@ public class MainControllerImpl {
      */
     public GameSolutionController getGameSolutionController() {
         return this.gameSolutionController;
+    }
+
+    /**
+     * Returns a instance of NotebookController.
+     * @return the NotebookController
+     */
+    public NotebookController getNotebookController() {
+        return this.notebookController;
     }
 }

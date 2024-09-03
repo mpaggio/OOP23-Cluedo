@@ -6,6 +6,8 @@ import javax.swing.JTextArea;
 import javax.swing.JScrollPane;
 import javax.swing.JLabel;
 import java.util.List;
+
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 
 /**
@@ -23,10 +25,9 @@ public class NotebookView  extends JPanel {
 
     /**
      * Constructor for the NotebookView class.
-     * @param controller the NotebookController to set
      */
-    public NotebookView(final NotebookController controller) {
-        this.controller = controller;
+    public NotebookView() {
+        this.controller = Cluedo.CONTROLLER.getNotebookController();
 
         setLayout(new BorderLayout());
 
