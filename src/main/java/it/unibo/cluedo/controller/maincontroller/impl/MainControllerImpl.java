@@ -1,8 +1,12 @@
 package it.unibo.cluedo.controller.maincontroller.impl;
 
+import java.util.List;
+import java.util.ArrayList;
+
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
+import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.view.maingamepanel.MainGamePanel;
 
 /**
@@ -39,5 +43,18 @@ public class MainControllerImpl {
      */
     public GameModel getGameInstance() {
         return this.gameModel;
+    }
+
+    /**
+     * Returns a list of the current player's cards path.
+     * 
+     * @return a list of the current player's cards path
+     */
+    public List<String> getCurrentPlayerCardsPaths() {
+        final List<String> cardsPaths = new ArrayList<>();
+        for (final Card card : this.gameModel.getCurrentPlayer().getPlayerCards()) {
+            cardsPaths.add(card.getImagePath());
+        }
+        return cardsPaths;
     }
 }
