@@ -40,6 +40,7 @@ import it.unibo.cluedo.utilities.TurnFase;
 final class GameModelImpl implements GameModel {
 
     private static final int DICE_SIDES = 6;
+    private static final int NUM_OF_STEPS = 1;
 
     private boolean hasMovedInThisTurn;
     private TurnFase fase;
@@ -217,8 +218,7 @@ final class GameModelImpl implements GameModel {
     @Override
     public void movePlayer(final Square position, final MovementStrategy.Direction direction) {
         final BoardMovement boardMovement = new BoardMovement(map);
-        final MoveInSingleDirection move = new MoveInSingleDirection((MutablePlayer) getCurrentPlayer(), 
-        1, direction, boardMovement, map);
+        final MoveInSingleDirection move = new MoveInSingleDirection(getCurrentPlayer(), NUM_OF_STEPS, direction, boardMovement, map);
         if (fase.equals(TurnFase.MOVE_PLAYER)) {
             if (getCurrentPlayer().getCurrentSteps() > 0) {
                 try {
