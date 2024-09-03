@@ -10,6 +10,7 @@ import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 import it.unibo.cluedo.utilities.TurnFase;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
+import it.unibo.cluedo.model.board.api.Board;
 
 import java.util.List;
 import java.util.Optional;
@@ -109,5 +110,10 @@ public interface GameModel {
      * @return the solution of the game.
      */
     Set<Card> getSolution();
+    /**
+     * Method to get the map of the game.
+     * @return the map of the game.
+     */
+    Board getMap();
 
 }
