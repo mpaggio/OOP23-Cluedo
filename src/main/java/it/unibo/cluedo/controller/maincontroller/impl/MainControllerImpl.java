@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
+import it.unibo.cluedo.view.gamesolution.GameSolutionView;
 import it.unibo.cluedo.view.maingameframe.MainGameFrame;
 import it.unibo.cluedo.model.card.api.Card;
 
@@ -15,6 +16,7 @@ import it.unibo.cluedo.model.card.api.Card;
  */
 public class MainControllerImpl {
     private final GameModel gameModel;
+    private GameSolutionView gameSolutionView;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -56,5 +58,13 @@ public class MainControllerImpl {
             cardsPaths.add(card.getImagePath());
         }
         return cardsPaths;
+    }
+
+    /**
+     * Returns a istance of the GameSolutionView.
+     * @return the gameSolutionView
+     */
+    public GameSolutionView getGameSolutionView() {
+        return this.gameSolutionView;
     }
 }
