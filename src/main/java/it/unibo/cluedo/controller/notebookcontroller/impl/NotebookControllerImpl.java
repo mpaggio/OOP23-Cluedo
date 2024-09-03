@@ -4,7 +4,6 @@ import java.util.List;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
-import it.unibo.cluedo.model.GameModel;
 
 /**
  * Class that implements the NotebookController interface.
