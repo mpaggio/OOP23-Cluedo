@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.awt.FlowLayout;
+import java.util.Objects;
 
 /**
  * Class used to show the game menu in the view.
@@ -39,7 +40,7 @@ public class GameMenuView  extends JPanel {
      * @param controller the GameMenuController to set
      */
     public GameMenuView(final GameMenuController controller) {
-        this.controller = controller;
+        this.controller = Objects.requireNonNull(controller, "Controller cannot be null");
         this.playerUsernameFields = new JTextField[3];
         this.playerColorCombos = new JComboBox[3];
         this.startGameButton = new JButton("Start Game");
