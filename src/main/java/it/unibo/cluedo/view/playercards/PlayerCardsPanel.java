@@ -13,7 +13,7 @@ import java.util.List;
  * PlayerCardsPopUpPanel is a custom Panel that displays a collection of player cards.
  * It shows the images of the cards in a popup window.
  */
-public class PlayerCardsPopUpPanel extends JPanel {
+public class PlayerCardsPanel extends JPanel {
     private static final long serialVersionUID = 3L;
 
     /**
@@ -21,7 +21,7 @@ public class PlayerCardsPopUpPanel extends JPanel {
      * 
      * @param imagesPaths a list of strings representing the paths to the card images
      */
-    public PlayerCardsPopUpPanel(final List<String> imagesPaths) {
+    public PlayerCardsPanel(final List<String> imagesPaths) {
         setLayout(new BorderLayout());
 
         // Panel for disposing cards images

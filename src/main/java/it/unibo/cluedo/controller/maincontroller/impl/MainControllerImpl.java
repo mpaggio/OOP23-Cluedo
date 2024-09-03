@@ -6,8 +6,8 @@ import java.util.ArrayList;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
+import it.unibo.cluedo.view.maingameframe.MainGameFrame;
 import it.unibo.cluedo.model.card.api.Card;
-import it.unibo.cluedo.view.maingamepanel.MainGamePanel;
 
 /**
  * MainControllerImpl is responsible for initializing and managing the main game controller.
@@ -33,7 +33,7 @@ public class MainControllerImpl {
      * Starts the game view by creating a new GamePanel.
      */
     public void startView() {
-        new MainGamePanel();
+        new MainGameFrame();
     }
 
     /**
