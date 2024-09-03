@@ -5,6 +5,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.view.board.BoardView;
@@ -23,8 +24,6 @@ import java.awt.GridLayout;
 public class MainGamePanel extends JFrame {
     private static final int PREFERRED_WIDTH = 200;
     private static final int PREFERRED_HEIGHT = 100;
-    private static final int POP_UP_PREFERRED_WIDTH = 600;
-    private static final int POP_UP_PREFERRED_HEIGHT = 400;
     private static final int MAX_BUTTON_HEIGHT = 50;
     private static final long serialVersionUID = 2L;
     /**
@@ -74,13 +73,8 @@ public class MainGamePanel extends JFrame {
         final JButton showCardsButton = new JButton("Show cards");
 
         showCardsButton.addActionListener(e -> {
-            final JFrame popUpFrame = new JFrame("Player cards");
             final PlayerCardsPopUpPanel cardPanel = new PlayerCardsPopUpPanel(Cluedo.CONTROLLER.getCurrentPlayerCardsPaths());
-            popUpFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-            popUpFrame.add(cardPanel);
-            popUpFrame.setSize(POP_UP_PREFERRED_WIDTH, POP_UP_PREFERRED_HEIGHT);
-            popUpFrame.setLocationRelativeTo(null);
-            popUpFrame.setVisible(true);
+            JOptionPane.showMessageDialog(null, cardPanel, "Player cards", JOptionPane.PLAIN_MESSAGE);
         });
 
         buttonsPanel.setLayout(new GridLayout(2, 2));

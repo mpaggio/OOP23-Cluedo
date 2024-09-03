@@ -2,14 +2,8 @@ package it.unibo.cluedo.view.playercards;
 
 import javax.swing.JPanel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JButton;
 import javax.swing.ImageIcon;
-import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 
@@ -17,7 +11,7 @@ import java.util.List;
 
 /**
  * PlayerCardsPopUpPanel is a custom Panel that displays a collection of player cards.
- * It shows the images of the cards in a popup window and includes a button to close the popup.
+ * It shows the images of the cards in a popup window.
  */
 public class PlayerCardsPopUpPanel extends JPanel {
     private static final long serialVersionUID = 3L;
@@ -41,16 +35,5 @@ public class PlayerCardsPopUpPanel extends JPanel {
         }
 
         add(imagePanel, BorderLayout.CENTER);
-
-        final JButton closeButton = new JButton("Close");
-        closeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(final ActionEvent e) {
-                final JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor(PlayerCardsPopUpPanel.this);
-                topFrame.dispose();
-            }
-        });
-
-        add(closeButton, BorderLayout.SOUTH);
     }
 }
