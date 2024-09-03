@@ -55,7 +55,8 @@ class GameSaveControllerImplTest {
     void testSaveGame() {
         final List<Player> players = new ArrayList<>();
         players.add(player);
-        gameSaveManager.saveGame(players, map);
+        final int currentPlayerIndex = 0;
+        gameSaveManager.saveGame(players, map, currentPlayerIndex);
         final File file = new File(FILE_NAME);
         assertTrue(file.exists());
         final List<String> savedGames = gameSaveManager.viewSavedGames();
@@ -64,14 +65,15 @@ class GameSaveControllerImplTest {
 
     /**
      * Test the viewSavedGames method.
-     * 
+     *
      * @throws IOException
      */
     @Test
     void testViewSavedGames() throws IOException {
         final List<Player> players = new ArrayList<>();
         players.add(player);
-        gameSaveManager.saveGame(players, map);
+        final int currentPlayerIndex = 0;
+        gameSaveManager.saveGame(players, map, currentPlayerIndex);
         final List<String> savedGames = gameSaveManager.viewSavedGames();
         assertFalse(savedGames.isEmpty());
         assertTrue(savedGames.stream().anyMatch(s -> s.contains("TestPlayer")));
@@ -84,7 +86,8 @@ class GameSaveControllerImplTest {
     void testGetOutputSavedGames() {
         final List<Player> players = new ArrayList<>();
         players.add(player);
-        gameSaveManager.saveGame(players, map);
+        final int currentPlayerIndex = 0;
+        gameSaveManager.saveGame(players, map, currentPlayerIndex);
         final Optional<String> output = gameSaveManager.getOutputSavedGames();
         assertTrue(output.isPresent());
         assertTrue(output.get().contains("TestPlayer"));
@@ -96,7 +99,8 @@ class GameSaveControllerImplTest {
     @Test
     void testSaveGameWithEmptyPlayerList() {
         final List<Player> players = new ArrayList<>();
-        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame(players, map));
+        final int currentPlayerIndex = 0;
+        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame(players, map, currentPlayerIndex));
     }
 
     /**
@@ -104,6 +108,7 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testSaveGameWithNullPlayerList() {
-        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame(null, map));
+        final int currentPlayerIndex = 0;
+        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame(null, map, currentPlayerIndex));
     }
 }
