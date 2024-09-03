@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.view.board.BoardView;
+import it.unibo.cluedo.view.notebook.NotebookView;
 import it.unibo.cluedo.view.playercards.PlayerCardsPanel;
 
 //import it.unibo.cluedo.view.dice.DiceView;
@@ -71,15 +72,22 @@ public class MainGameFrame extends JFrame {
         // Buttons panel
         final JPanel buttonsPanel = new JPanel();
         final JButton showCardsButton = new JButton("Show cards");
+        final JButton showNotebookButton = new JButton("Show notebook");
 
         showCardsButton.addActionListener(e -> {
             final PlayerCardsPanel cardPanel = new PlayerCardsPanel(Cluedo.CONTROLLER.getCurrentPlayerCardsPaths());
             JOptionPane.showMessageDialog(null, cardPanel, "Player cards", JOptionPane.PLAIN_MESSAGE);
         });
 
+        showNotebookButton.addActionListener(e -> {
+            final NotebookView notebookPanel = new NotebookView();
+            notebookPanel.initView();
+            JOptionPane.showMessageDialog(null, notebookPanel, "Player notebook", JOptionPane.PLAIN_MESSAGE);
+        });
+
         buttonsPanel.setLayout(new GridLayout(2, 2));
         buttonsPanel.add(showCardsButton);
-        buttonsPanel.add(new JButton("Show notebook"));
+        buttonsPanel.add(showNotebookButton);
         buttonsPanel.add(new JButton("Use trapdoor"));
         buttonsPanel.add(new JButton("Make accusation"));
         rightPanel.add(buttonsPanel, BorderLayout.CENTER);

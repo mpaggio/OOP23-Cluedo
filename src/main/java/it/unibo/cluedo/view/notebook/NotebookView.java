@@ -15,7 +15,7 @@ import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
  */
 public class NotebookView  extends JPanel {
 
-    private final NotebookController controller;
+    private final NotebookController controller = Cluedo.CONTROLLER.getNotebookController();
     private final JTextArea suspectsArea;
     private final JTextArea weaponsArea;
     private final JTextArea roomsArea;
@@ -27,7 +27,6 @@ public class NotebookView  extends JPanel {
      * Constructor for the NotebookView class.
      */
     public NotebookView() {
-        this.controller = Cluedo.CONTROLLER.getNotebookController();
 
         setLayout(new BorderLayout());
 

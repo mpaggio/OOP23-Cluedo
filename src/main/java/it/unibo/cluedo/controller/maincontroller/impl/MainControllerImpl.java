@@ -2,8 +2,10 @@ package it.unibo.cluedo.controller.maincontroller.impl;
 
 import java.util.List;
 import java.util.ArrayList;
-import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
-import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
+
+import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
+// import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
+// import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.notebookcontroller.impl.NotebookControllerImpl;
 import it.unibo.cluedo.model.GameModel;
@@ -18,8 +20,9 @@ import it.unibo.cluedo.model.card.api.Card;
  */
 public class MainControllerImpl {
     private final GameModel gameModel;
-    private final GameSolutionController gameSolutionController;
+    //private final GameSolutionController gameSolutionController;
     private final NotebookController notebookController;
+    private final MapSetupController mapController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -32,8 +35,9 @@ public class MainControllerImpl {
         .addPlayer("Charlie", "Blue")
         .withGameSolution()
         .build();
-        this.gameSolutionController = new GameSolutionControllerImpl();
+        //this.gameSolutionController = new GameSolutionControllerImpl();
         this.notebookController = new NotebookControllerImpl();
+        this.mapController = new MapSetupController();
     }
 
     /**
@@ -69,9 +73,9 @@ public class MainControllerImpl {
      * Returns a instance of GameSolutionController.
      * @return the GameSolutionController
      */
-    public GameSolutionController getGameSolutionController() {
+    /*public GameSolutionController getGameSolutionController() {
         return this.gameSolutionController;
-    }
+    }*/
 
     /**
      * Returns a instance of NotebookController.
@@ -79,5 +83,13 @@ public class MainControllerImpl {
      */
     public NotebookController getNotebookController() {
         return this.notebookController;
+    }
+
+    /**
+     * Returns a instance of MapSetUpController.
+     * @return the MapSetUpController
+     */
+    public MapSetupController getMapController() {
+        return this.mapController;
     }
 }
