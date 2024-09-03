@@ -11,13 +11,6 @@ import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 public class NotebookControllerImpl  implements NotebookController {
 
     /**
-     * Constructor for the NotebookControllerImpl class.
-     * @param model the GameModel to set
-     */
-    public NotebookControllerImpl() {
-    }
-
-    /**
      * Gets the list of seen suspects.
      * @return the list of seen suspects
      */

@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -23,7 +24,7 @@ import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.utilities.Position;
 
 /**
- * The MapView class is responsible for rendering the game map.
+ * The BoardView class is responsible for rendering the game map.
  * It extends JPanel and uses MapSetupController to get tile informations.
  */
 public class BoardView extends JPanel {
@@ -34,27 +35,60 @@ public class BoardView extends JPanel {
     private static final double OFFSET_X = 41.7;
     private static final double OFFSET_Y = 23.3;
     private transient BufferedImage mapImage;
+
+    /**
+     * Enum representing player colors.
+     */
     public enum ColorEnum {
+        /**
+         * Red color.
+         */
         RED(Color.RED),
+        /**
+         * Green color.
+         */
         GREEN(Color.GREEN),
+        /**
+         * Blue color.
+         */
         BLUE(Color.BLUE),
+        /**
+         * White color.
+         */
         WHITE(Color.WHITE),
+        /**
+         * Pink color.
+         */
         PINK(Color.PINK),
+        /**
+         * Yellow color.
+         */
         YELLOW(Color.YELLOW);
 
         private final Color color;
-        
+
         ColorEnum(final Color color) {
             this.color = color;
         }
 
+        /**
+         * Gets the color object associated with the enum constant.
+         * 
+         * @return the color object associated with the enum constant
+         */
         public Color getColor() {
             return this.color;
         }
 
+        /**
+         * Gets the Color object by name.
+         * 
+         * @param name the name of the color
+         * @return the Color object, or null if the name is invalid
+         */
         public static Color getColorByName(final String name) {
             try {
-                return ColorEnum.valueOf(name.toUpperCase()).getColor();
+                return ColorEnum.valueOf(name.toUpperCase(Locale.ROOT)).getColor();
             } catch (IllegalArgumentException e) {
                 return null;
             }
@@ -62,7 +96,7 @@ public class BoardView extends JPanel {
     }
 
     /**
-     * Constructs a MapView with the specified visitor.
+     * Constructs a BoardView with the specified visitor.
      */
     public BoardView() {
         try {
