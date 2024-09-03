@@ -24,12 +24,13 @@ public class GameSolutionControllerImpl implements GameSolutionController {
         this.model = model;
         this.solutionView = solutionView;
     }
+
     /**
      * Handles the player's final accusation.
      * If the accusation is correct, the player's status is updated and
      * the "Game solution" button in the view is enabled.
      * @param weapon the Card representing the weapon in the accusation
-     * @param room the Card representing the room in the accusation 
+     * @param room the Card representing the room in the accusation
      * @param character the Card representing thee character in the accusation
      * @param roomPosition the Room where the player can make the final accusation
      */
