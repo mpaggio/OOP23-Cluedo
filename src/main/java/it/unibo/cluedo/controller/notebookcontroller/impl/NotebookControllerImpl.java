@@ -26,7 +26,7 @@ public class NotebookControllerImpl  implements NotebookController {
      */
     @Override
     public List<String> getSeenSuspect() {
-        return mainController.getGameInstance().getNotebook().getSeenSuspects();
+        return mainController.getGameInstance().getCurrentPlayer().getPlayerNotebook().getSeenSuspects();
     }
 
     /**
@@ -35,7 +35,7 @@ public class NotebookControllerImpl  implements NotebookController {
      */
     @Override
     public List<String> getSeenWeapon() {
-        return mainController.getGameInstance().getNotebook().getSeenWeapons();
+        return mainController.getGameInstance().getCurrentPlayer().getPlayerNotebook().getSeenWeapons();
     }
 
     /**
@@ -44,6 +44,6 @@ public class NotebookControllerImpl  implements NotebookController {
      */
     @Override
     public List<String> getSeenRoom() {
-        return mainController.getGameInstance().getNotebook().getSeenRooms();
+        return mainController.getGameInstance().getCurrentPlayer().getPlayerNotebook().getSeenRooms();
     }
 }
