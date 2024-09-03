@@ -31,6 +31,9 @@ public class BoardView extends JPanel {
     private static final MapSetupController CONTROLLER = new MapSetupController();
     private static final long serialVersionUID = 1L;
     private static final Color TILE_BORDER_COLOR = new Color(0, 0, 0, 0.8f);
+    private static final double TILE_SIZE = 23;
+    private static final double OFFSET_X = 41.7;
+    private static final double OFFSET_Y = 23.3;
     private transient BufferedImage mapImage;
 
     /**
@@ -118,9 +121,9 @@ public class BoardView extends JPanel {
      */
     private void drawTiles(final Graphics g, final Iterator<Color> colorIterator,
         final int newWidth, final int newHeight) {
-            final double originalOffsetX = MapSetupController.getOffsetX();
-            final double originalOffsetY = MapSetupController.getOffsetY();
-            final double originalTileSize = MapSetupController.getTileSize();
+            final double originalOffsetX = OFFSET_X;
+            final double originalOffsetY = OFFSET_Y;
+            final double originalTileSize = TILE_SIZE;
             final double scaleX = (double) newWidth / mapImage.getWidth();
             final double scaleY = (double) newHeight / mapImage.getHeight();
             final double offsetX = originalOffsetX * scaleX;
@@ -129,7 +132,7 @@ public class BoardView extends JPanel {
             for (final Position pos : CONTROLLER.getTilesPositions()) {
                 final double x = offsetX + ((double) pos.getY()) * tileSize;
                 final double y = offsetY + ((double) pos.getX()) * tileSize;
-                if (Position.getDefaultPositions().contains(pos) && colorIterator.hasNext()) {
+                if (CONTROLLER.getPlayersPositions().contains(pos) && colorIterator.hasNext()) {
                     drawTile(x, y, g, Optional.of(colorIterator.next()), tileSize);
                 } else {
                     drawTile(x, y, g, Optional.empty(), tileSize);

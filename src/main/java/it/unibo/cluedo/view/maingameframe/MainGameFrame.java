@@ -1,12 +1,15 @@
-package it.unibo.cluedo.view.maingamepanel;
+package it.unibo.cluedo.view.maingameframe;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.view.board.BoardView;
+import it.unibo.cluedo.view.playercards.PlayerCardsPanel;
 
 //import it.unibo.cluedo.view.dice.DiceView;
 
@@ -18,7 +21,7 @@ import java.awt.GridLayout;
  * GamePanel is the main view class for the Cluedo game.
  * It sets up the user interface components and layout for the game.
  */
-public class MainGamePanel extends JFrame {
+public class MainGameFrame extends JFrame {
     private static final int PREFERRED_WIDTH = 200;
     private static final int PREFERRED_HEIGHT = 100;
     private static final int MAX_BUTTON_HEIGHT = 50;
@@ -28,7 +31,7 @@ public class MainGamePanel extends JFrame {
      * It initializes the game panel by setting up the layout and adding various
      * sub-panels for different game components. 
      */
-    public MainGamePanel() {
+    public MainGameFrame() {
         // Sets the layout
         setLayout(new GridLayout(1, 2));
 
@@ -67,8 +70,15 @@ public class MainGamePanel extends JFrame {
 
         // Buttons panel
         final JPanel buttonsPanel = new JPanel();
+        final JButton showCardsButton = new JButton("Show cards");
+
+        showCardsButton.addActionListener(e -> {
+            final PlayerCardsPanel cardPanel = new PlayerCardsPanel(Cluedo.CONTROLLER.getCurrentPlayerCardsPaths());
+            JOptionPane.showMessageDialog(null, cardPanel, "Player cards", JOptionPane.PLAIN_MESSAGE);
+        });
+
         buttonsPanel.setLayout(new GridLayout(2, 2));
-        buttonsPanel.add(new JButton("Show cards"));
+        buttonsPanel.add(showCardsButton);
         buttonsPanel.add(new JButton("Show notebook"));
         buttonsPanel.add(new JButton("Use trapdoor"));
         buttonsPanel.add(new JButton("Make accusation"));
@@ -88,6 +98,7 @@ public class MainGamePanel extends JFrame {
 
         // Bottom panel and buttons
         final JPanel bottomPanel = new JPanel();
+        bottomPanel.setBorder(BorderFactory.createTitledBorder("Options"));
         bottomPanel.setLayout(new GridLayout(1, 2));
         final JButton rulesButton = new JButton("Rules");
         final JButton quitButton = new JButton("Quit");
