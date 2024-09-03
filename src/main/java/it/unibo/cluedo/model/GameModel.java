@@ -8,6 +8,7 @@ import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
+import it.unibo.cluedo.utilities.TurnFase;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 
 import java.util.List;
@@ -67,6 +68,16 @@ public interface GameModel {
      * @return the statistics of the game.
      */
     Statistics getStatistics();
+    /**
+     * Method to get the current turn fase.
+     * @return the current turn fase.
+     */
+    TurnFase getTurnFase();
+    /**
+     * Method to get the result of the dice roll.
+     * @return the result of the dice roll.
+     */
+    int getDiceResult();
     /**
      * Method to end the turn of the current player.
      * @return the next player.

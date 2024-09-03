@@ -20,5 +20,4 @@ public interface AccusationController {
      * @return the card to show to the player.
      */
     Card getCardToShow();
-} 
-
+}

@@ -80,6 +80,7 @@ final class GameModelImpl implements GameModel {
             }
         });
     }
+
     /**
      * Constructor of the class by a saved game.
      * @param players the players of the game.
@@ -152,6 +153,22 @@ final class GameModelImpl implements GameModel {
     @Override
     public Effect getSquareEffects(final Square position) {
         return position.getEffect();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public TurnFase getTurnFase() {
+        return fase;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public int getDiceResult() {
+        return currentDiceResult;
     }
 
     /**
