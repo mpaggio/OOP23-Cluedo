@@ -8,18 +8,19 @@ import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.view.maingameframe.MainGameFrame;
 
 import javax.swing.JTextField;
-
 import javax.swing.JComboBox;
 import javax.swing.JButton;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
 import javax.swing.JLabel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
+import java.awt.Font;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.GridLayout;
 
 /**
  * Class used to show the game menu in the view.
@@ -33,8 +34,8 @@ public class GameMenuView  extends JFrame {
     private final JButton quitGameButton;
     private final JButton viewSavedGamesButton;
     private static final long serialVersionUID = 1L;
-    private static final int WIDTH = 400;
-    private static final int LENGTH = 300;
+    private static final int WIDTH = 500;
+    private static final int HEIGHT = 400;
 
     /**
      * Constructor for the GameMenuView class.
@@ -47,32 +48,45 @@ public class GameMenuView  extends JFrame {
         this.viewSavedGamesButton = new JButton("View Saved Games");
 
         setLayout(new BorderLayout());
+        JLabel titleLabel = new JLabel("Cluedo - Start New Game");
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
+        titleLabel.setPreferredSize(new Dimension(WIDTH, 50));
+        add(titleLabel, BorderLayout.NORTH);
+
         add(createPlayerPanel(), BorderLayout.CENTER);
         add(createButtonPanel(), BorderLayout.SOUTH);
         addListeners();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(WIDTH, LENGTH);
+        setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
         setVisible(true);
     }
 
     private JPanel createPlayerPanel() {
-        final JPanel playerPanel = new JPanel(new GridLayout(3, 2));
-        final String[] colors = {"Red", "Green", "Blue", "Yellow", "Pink", "White"};
+        final JPanel playerPanel = new JPanel(new GridLayout(3, 2, 10, 10));
+        final String[] colors = { "Red", "Green", "Blue", "Yellow", "Pink", "White" };
+
         for (int i = 0; i < 3; i++) {
-            playerUsernameFields[i] = new JTextField();
+            playerUsernameFields[i] = new JTextField(20);
             playerColorCombos.add(new JComboBox<>(colors));
+
+            final JPanel userColorPanel = new JPanel(new GridLayout(1, 2, 10, 10));
+            userColorPanel.add(playerUsernameFields[i]);
+            userColorPanel.add(playerColorCombos.get(i));
+
             playerPanel.add(new JLabel("Player " + (i + 1) + " Username:"));
-            playerPanel.add(playerUsernameFields[i]);
-            playerPanel.add(new JLabel("Player " + (i + 1) + " Color:"));
-            playerPanel.add(playerColorCombos.get(i));
+            playerPanel.add(userColorPanel);
         }
         return playerPanel;
     }
 
     private JPanel createButtonPanel() {
         final JPanel buttonPanel = new JPanel(new FlowLayout());
+        startGameButton.setFont(new Font("Arial", Font.BOLD, 16));
+        quitGameButton.setFont(new Font("Arial", Font.BOLD, 16));
+        viewSavedGamesButton.setFont(new Font("Arial", Font.BOLD, 16));
+
         buttonPanel.add(startGameButton);
         buttonPanel.add(quitGameButton);
         buttonPanel.add(viewSavedGamesButton);
@@ -102,10 +116,10 @@ public class GameMenuView  extends JFrame {
 
         quitGameButton.addActionListener(new ActionListener() {
 
-                @Override
-                public void actionPerformed(final ActionEvent e) {
-                    controller.quitGame();
-                }
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                controller.quitGame();
+            }
         });
 
         viewSavedGamesButton.addActionListener(new ActionListener() {
