@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Arrays;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.controller.gamemenucontroller.impl.GameMenuControllerImpl;
-import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.model.player.api.Player;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
@@ -27,7 +26,7 @@ class GameMenuControllerImplTest {
 
     @BeforeEach
     void setUp() {
-        gameMenuController = new GameMenuControllerImpl(new GameSaveControllerImpl());
+        gameMenuController = new GameMenuControllerImpl();
     }
 
     @Test
