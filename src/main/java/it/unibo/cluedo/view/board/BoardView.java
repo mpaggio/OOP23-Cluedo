@@ -11,8 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.Iterator;
-import java.util.List;
 import java.util.Optional;
 import java.util.Locale;
 
@@ -116,8 +114,6 @@ public class BoardView extends JPanel {
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
-        final List<String> playerColors = Cluedo.CONTROLLER.getMapController().getPlayersColors();
-        final Iterator<String> colorIterator = playerColors.iterator();
         final int panelWidth = getSize().width;
         final int panelHeight = getSize().height;
         final int imageWidth = mapImage.getWidth();
@@ -133,7 +129,7 @@ public class BoardView extends JPanel {
         }
         g.drawImage(mapImage, 0, 0, newWidth, newHeight, this);
         g.setColor(Color.GRAY);
-        drawTiles(g, colorIterator, newWidth, newHeight);
+        drawTiles(g, newWidth, newHeight);
     }
 
     /**
@@ -167,12 +163,10 @@ public class BoardView extends JPanel {
      * Draws all the tiles on the map.
      * 
      * @param g the Graphics object used for drawing
-     * @param colorIterator an iterator over the player colors
      * @param newWidth the new width of the resized image
      * @param newHeight the new heigth of the resized image
      */
-    private void drawTiles(final Graphics g, final Iterator<String> colorIterator,
-        final int newWidth, final int newHeight) {
+    private void drawTiles(final Graphics g, final int newWidth, final int newHeight) {
             final double scaleX = (double) newWidth / mapImage.getWidth();
             final double scaleY = (double) newHeight / mapImage.getHeight();
             final double offsetX = OFFSET_X * scaleX;
@@ -181,8 +175,9 @@ public class BoardView extends JPanel {
             for (final Position pos : Cluedo.CONTROLLER.getMapController().getTilesPositions()) {
                 final double x = offsetX + ((double) pos.getY()) * tileSize;
                 final double y = offsetY + ((double) pos.getX()) * tileSize;
-                if (Cluedo.CONTROLLER.getMapController().getPlayersPositions().contains(pos) && colorIterator.hasNext()) {
-                    drawTile(x, y, g, Optional.of(ColorEnum.getColorByName(colorIterator.next())), tileSize);
+                if (Cluedo.CONTROLLER.getMapController().getPlayersPositions().contains(pos)) {
+                    final String color = Cluedo.CONTROLLER.getMapController().getPlayersPositionsAndColors().get(pos);
+                    drawTile(x, y, g, Optional.of(ColorEnum.getColorByName(color)), tileSize);
                 } else {
                     drawTile(x, y, g, Optional.empty(), tileSize);
                 }

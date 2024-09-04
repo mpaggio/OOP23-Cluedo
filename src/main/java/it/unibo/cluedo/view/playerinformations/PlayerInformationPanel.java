@@ -9,6 +9,7 @@ import it.unibo.cluedo.view.board.BoardView;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 
 /**
  * PlayerInformationPanel is a panle that displays the current player's information.
@@ -19,6 +20,7 @@ public class PlayerInformationPanel extends JPanel {
     private static final long serialVersionUID = 4L;
     private static final int COLOR_PREFERRED_SIZE = 50;
     private static final int AREA_BORDER_SIZE = 10;
+    private static final int FONT_SIZE = 25;
     private final JPanel colorPanel;
     private final JLabel infoArea;
 
@@ -31,14 +33,11 @@ public class PlayerInformationPanel extends JPanel {
 
         // Create the player's color panel
         colorPanel = new JPanel();
-        colorPanel.setBackground(
-            BoardView.ColorEnum.getColorByName(
-                Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor()
-            )
-        );
         colorPanel.setPreferredSize(new Dimension(COLOR_PREFERRED_SIZE, COLOR_PREFERRED_SIZE));
 
+        // Create the player's information area
         infoArea = new JLabel();
+        infoArea.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
         updatePlayerInfo();
 
         // Add a board to the text area
@@ -65,6 +64,11 @@ public class PlayerInformationPanel extends JPanel {
     }
 
     private void updatePlayerInfo() {
+        colorPanel.setBackground(
+            BoardView.ColorEnum.getColorByName(
+                Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor()
+            )
+        );
         final String playerName = Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getUsername();
         final String playerPositionX = String.valueOf(
             Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getX()
@@ -74,21 +78,14 @@ public class PlayerInformationPanel extends JPanel {
         );
         final String playerSteps = String.valueOf(Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentSteps());
         infoArea.setText(
-            "<html><body style='font-size: 14px; font-family: Arial;'>"
-            + playerName
-            + "\t- current steps: "
+            playerName
+            + " - current steps: "
             + playerSteps
-            + "\t- current position: ("
+            + " - current position: ("
             + playerPositionX
             + ", "
             + playerPositionY
             + ")"
-            + "</body></html>"
-        );
-        colorPanel.setBackground(
-            BoardView.ColorEnum.getColorByName(
-                Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor()
-            )
         );
     }
 }

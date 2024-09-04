@@ -2,6 +2,8 @@ package it.unibo.cluedo.controller.mapsetupcontroller.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.player.api.Player;
@@ -26,6 +28,19 @@ public class MapSetupController {
     }
 
     /**
+     * Retrieves a map containing linked color and position of every player in the game.
+     * 
+     * @return a map containing linked color and position of every player in the game
+     */
+    public Map<Position, String> getPlayersPositionsAndColors() {
+        final Map<Position, String> playerInfo = new HashMap<>();
+        for (final Player player : Cluedo.CONTROLLER.getGameInstance().getPlayers()) {
+            playerInfo.put(player.getCurrentPosition(), player.getColor());
+        }
+        return playerInfo;
+    }
+
+    /**
      * Retrieves the positions of all players on the map.
      * 
      * @return a list of positions of all players on the map
@@ -36,18 +51,5 @@ public class MapSetupController {
             playersPositions.add(player.getCurrentPosition());
         }
         return playersPositions;
-    }
-
-    /**
-     * Retrieves the colors of all players.
-     * 
-     * @return a list of string representing the colors of all players
-     */
-    public List<String> getPlayersColors() {
-        final List<String> playersColors = new ArrayList<>();
-        for (final Player player : Cluedo.CONTROLLER.getGameInstance().getPlayers()) {
-            playersColors.add(player.getColor());
-        }
-        return playersColors;
     }
 }

@@ -6,11 +6,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.view.accusation.AccusationView;
 import it.unibo.cluedo.view.accusation.FinalAccusationView;
 import it.unibo.cluedo.view.board.BoardView;
+import it.unibo.cluedo.view.dice.DiceView;
 import it.unibo.cluedo.view.gamerules.GameRulesView;
 import it.unibo.cluedo.view.joistick.JoystickView;
 import it.unibo.cluedo.view.notebook.NotebookView;
@@ -68,11 +70,10 @@ public class MainGameFrame extends JFrame {
         boardPanel = new BoardView();
         boardPanel.setAlignmentX(CENTER_ALIGNMENT);
         mapPanel.add(boardPanel);
-        leftPanel.add(mapPanel);
+        leftPanel.add(new JScrollPane(mapPanel));
 
         // Dice panel
-        final JPanel dicePanel = new JPanel();
-            //JPanel dicePanel = new DiceView(null);
+        final DiceView dicePanel = new DiceView();
         dicePanel.setBorder(BorderFactory.createTitledBorder("Dice"));
         dicePanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
         rightPanel.add(dicePanel, BorderLayout.NORTH);
@@ -126,7 +127,7 @@ public class MainGameFrame extends JFrame {
         // Joystick panel
         final JPanel joystickPanel = new JoystickView();
         joystickPanel.setBorder(BorderFactory.createTitledBorder("Joystick"));
-        joystickPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, 3 * PREFERRED_HEIGHT));
+        // joystickPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, 3 * PREFERRED_HEIGHT));
         bottomRightPanel.add(joystickPanel);
 
         // Cluedo panel
