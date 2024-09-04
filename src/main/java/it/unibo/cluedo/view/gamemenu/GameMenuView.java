@@ -26,7 +26,7 @@ import java.util.Objects;
 /**
  * Class used to show the game menu in the view.
  */
-public class GameMenuView  extends JFrame{
+public class GameMenuView  extends JFrame {
 
     private final GameMenuController controller;
     private final JTextField[] playerUsernameFields;
@@ -35,6 +35,8 @@ public class GameMenuView  extends JFrame{
     private final JButton quitGameButton;
     private final JButton viewSavedGamesButton;
     private static final long serialVersionUID = 1L;
+    private final int width = 400;
+    private final int length = 300;
 
     /**
      * Suppresed unchecked warning for JComboBox.
@@ -60,7 +62,7 @@ public class GameMenuView  extends JFrame{
         addListeners();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(400, 300);
+        setSize(width, length);
         setLocationRelativeTo(null);
         setVisible(true);
     }

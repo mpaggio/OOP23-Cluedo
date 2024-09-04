@@ -24,8 +24,9 @@ public class GameMenuControllerImpl implements GameMenuController {
 
     /**
      * This constructor is used to create a new GameMenuControllerImpl.
+     * @param gameSaveController the game save controller
      */
-    public GameMenuControllerImpl(GameSaveController gameSaveController) {
+    public GameMenuControllerImpl(final GameSaveController gameSaveController) {
         this.players = new ArrayList<>();
         this.availableColors = new ArrayList<>();
         this.gameSaveController = Objects.requireNonNull(gameSaveController, "GameSaveController cannot be null");
@@ -101,6 +102,11 @@ public class GameMenuControllerImpl implements GameMenuController {
         }
     }
 
+    /**
+     * This method is used to view the saved games.
+     *
+     * @return the list of the saved games
+     */
     @Override
     public List<String> viewSavedGames() {
         return gameSaveController.viewSavedGames();
