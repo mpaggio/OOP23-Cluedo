@@ -8,11 +8,15 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 
 import it.unibo.cluedo.application.Cluedo;
+import it.unibo.cluedo.view.accusation.AccusationView;
+import it.unibo.cluedo.view.accusation.FinalAccusationView;
 import it.unibo.cluedo.view.board.BoardView;
 import it.unibo.cluedo.view.gamerules.GameRulesView;
+import it.unibo.cluedo.view.joistick.JoystickView;
 import it.unibo.cluedo.view.notebook.NotebookView;
 import it.unibo.cluedo.view.playercards.PlayerCardsPanel;
 import it.unibo.cluedo.view.playerinformations.PlayerInformationPanel;
+import it.unibo.cluedo.view.unforeseen.UnforeseenView;
 
 //import it.unibo.cluedo.view.dice.DiceView;
 
@@ -79,6 +83,8 @@ public class MainGameFrame extends JFrame {
         final JButton showCardsButton = new JButton("Show cards");
         final JButton showNotebookButton = new JButton("Show notebook");
         final JButton endTurnButton = new JButton("End turn");
+        final JButton normalAccusationButton = new JButton("Make normal accusation");
+        final JButton finalAccusationButton = new JButton("Make final accusation");
 
         showCardsButton.addActionListener(e -> {
             final PlayerCardsPanel cardPanel = new PlayerCardsPanel(Cluedo.CONTROLLER.getCurrentPlayerCardsPaths());
@@ -93,7 +99,19 @@ public class MainGameFrame extends JFrame {
 
         endTurnButton.addActionListener(e -> {
             Cluedo.CONTROLLER.getGameInstance().endTurn();
-            playerPanel.updatePlayerInformationPanel();;
+            playerPanel.updatePlayerInformationPanel();
+            final UnforeseenView unforseenMessage = new UnforeseenView();
+            unforseenMessage.showEffect();
+        });
+
+        normalAccusationButton.addActionListener(e -> {
+            final AccusationView normalAccusationView = new AccusationView();
+            JOptionPane.showMessageDialog(null, normalAccusationView, "Make normal accuse", JOptionPane.PLAIN_MESSAGE);
+        });
+
+        finalAccusationButton.addActionListener(e -> {
+            final FinalAccusationView finalAccusationView = new FinalAccusationView();
+            JOptionPane.showMessageDialog(null, finalAccusationView, "Make normal accuse", JOptionPane.PLAIN_MESSAGE);
         });
 
         buttonsPanel.setLayout(new GridLayout(3, 2));
@@ -101,12 +119,12 @@ public class MainGameFrame extends JFrame {
         buttonsPanel.add(showNotebookButton);
         buttonsPanel.add(new JButton("Use trapdoor"));
         buttonsPanel.add(endTurnButton);
-        buttonsPanel.add(new JButton("Make normal accusation"));
-        buttonsPanel.add(new JButton("Make final accusation"));
+        buttonsPanel.add(normalAccusationButton);
+        buttonsPanel.add(finalAccusationButton);
         rightPanel.add(buttonsPanel, BorderLayout.CENTER);
 
         // Joystick panel
-        final JPanel joystickPanel = new JPanel();
+        final JPanel joystickPanel = new JoystickView();
         joystickPanel.setBorder(BorderFactory.createTitledBorder("Joystick"));
         joystickPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, 3 * PREFERRED_HEIGHT));
         bottomRightPanel.add(joystickPanel);

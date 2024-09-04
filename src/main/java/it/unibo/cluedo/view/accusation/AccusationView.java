@@ -1,6 +1,5 @@
 package it.unibo.cluedo.view.accusation;
 
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
@@ -17,15 +16,11 @@ import it.unibo.cluedo.model.deck.impl.DeckImpl;
 public class AccusationView extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final int WIDTH = 400;
-    private static final int HEIGHT = 300;
 
     /**
      * Constructor for the class.
      */
     public AccusationView() {
-        final JFrame frame = new JFrame("Accusation");
-        frame.setSize(WIDTH, HEIGHT);
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
         final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));
         final JComboBox<String> roomComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
@@ -43,13 +38,10 @@ public class AccusationView extends JPanel {
             final String suspect = suspectComboBox.getSelectedItem().toString();
             final String weapon = weaponComboBox.getSelectedItem().toString();
             final String room = roomComboBox.getSelectedItem().toString();
-            JOptionPane.showMessageDialog(frame, "You accused " + suspect + " using " + weapon + " int the room " + room,
+            JOptionPane.showMessageDialog(null, "You accused " + suspect + " using " + weapon + " int the room " + room,
             "Accusation",
             JOptionPane.INFORMATION_MESSAGE);
             Cluedo.CONTROLLER.getAccusationController().makeAccusation(suspect, weapon, room);
         });
-
-        frame.add(this);
-        frame.setVisible(true);
     }
 }
