@@ -99,8 +99,8 @@ public class NotebookView extends JPanel {
     }
 
     private JTextArea createTextArea() {
-        final JTextArea textArea = new JTextArea(LAY,COLS);
-        textArea.setFont(new Font("Arial", Font.PLAIN, 20));
+        final JTextArea textArea = new JTextArea(LAY, COLS);
+        textArea.setFont(new Font("Arial", Font.PLAIN, COLS));
         textArea.setBackground(Color.LIGHT_GRAY);
         textArea.setForeground(Color.BLACK);
         textArea.setLineWrap(true);
