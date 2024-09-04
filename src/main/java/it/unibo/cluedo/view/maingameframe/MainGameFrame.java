@@ -18,7 +18,6 @@ import it.unibo.cluedo.view.joistick.JoystickView;
 import it.unibo.cluedo.view.notebook.NotebookView;
 import it.unibo.cluedo.view.playercards.PlayerCardsPanel;
 import it.unibo.cluedo.view.playerinformations.PlayerInformationPanel;
-import it.unibo.cluedo.view.unforeseen.UnforeseenView;
 
 //import it.unibo.cluedo.view.dice.DiceView;
 
@@ -101,8 +100,6 @@ public class MainGameFrame extends JFrame {
         endTurnButton.addActionListener(e -> {
             Cluedo.CONTROLLER.getGameInstance().endTurn();
             playerPanel.updatePlayerInformationPanel();
-            final UnforeseenView unforseenMessage = new UnforeseenView();
-            unforseenMessage.showEffect();
         });
 
         normalAccusationButton.addActionListener(e -> {
