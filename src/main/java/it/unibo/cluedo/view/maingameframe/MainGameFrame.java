@@ -34,7 +34,7 @@ public class MainGameFrame extends JFrame {
     /**
      * Constructs a new GamePanel object.
      * It initializes the game panel by setting up the layout and adding various
-     * sub-panels for different game components. 
+     * sub-panels for different game components.
      */
     public MainGameFrame() {
         // Sets the layout
@@ -94,7 +94,6 @@ public class MainGameFrame extends JFrame {
         endTurnButton.addActionListener(e -> {
             Cluedo.CONTROLLER.getGameInstance().endTurn();
             playerPanel.updatePlayerInformationPanel();;
-            
         });
 
         buttonsPanel.setLayout(new GridLayout(3, 2));

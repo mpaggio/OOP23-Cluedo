@@ -31,6 +31,10 @@ public class SkipTurnEffect implements UnforeseenEffect {
         return "SkipTurn";
     }
 
+    /**
+     * This method is used to get the description of the card.
+     * @return the description of the card.
+     */
     @Override
     public String getDescription() {
         return "You will skip your next turn";

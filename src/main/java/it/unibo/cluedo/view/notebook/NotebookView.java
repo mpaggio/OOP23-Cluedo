@@ -13,7 +13,7 @@ import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 /**
  * Class used to show the notebook in the view.
  */
-public class NotebookView  extends JPanel {
+public class NotebookView extends JPanel {
 
     private final NotebookController controller = Cluedo.CONTROLLER.getNotebookController();
     private final JTextArea suspectsArea;
