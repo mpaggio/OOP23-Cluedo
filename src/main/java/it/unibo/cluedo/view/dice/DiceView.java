@@ -11,8 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.ImageIcon;
-import java.nio.file.Paths;
-
+import java.awt.Image;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.dicecontroller.api.DiceController;
@@ -24,10 +23,10 @@ public class DiceView extends JPanel {
 
     private final DiceController controller = Cluedo.CONTROLLER.getDiceController();
 
-    private static final int ANIMATION_DURATION = 1000;
-    private static final int ANIMATION_INTERVAL = 100;
+    private static final int ANIMATION_DURATION = 2000;
+    private static final int ANIMATION_INTERVAL = 300;
     private static final int DICE_SIDES = 6;
-    private static final int SIZE = 48;
+    private static final int TEXT_SIZE = 32;
     private static final long serialVersionUID = 1L;
 
     private final JLabel diceLabel;
@@ -38,18 +37,19 @@ public class DiceView extends JPanel {
      * Class constructor.
      */
     public DiceView() {
-        this.diceLabel = new JLabel("Dice: ", SwingConstants.CENTER);
+        this.diceLabel = new JLabel("Click the button to roll the dice ! ", SwingConstants.CENTER);
         this.diceImageLabel = new JLabel();
         final JButton rollButton = new JButton("Roll Dice");
 
         setLayout(new BorderLayout());
-        diceLabel.setFont(new Font("Arial", Font.BOLD, SIZE));
+        diceLabel.setFont(new Font("Arial", Font.BOLD, TEXT_SIZE));
 
-        final JPanel centerPanel = new JPanel(new BorderLayout());
-        centerPanel.add(diceLabel, BorderLayout.NORTH);
-        centerPanel.add(diceImageLabel, BorderLayout.CENTER);
-        add(centerPanel, BorderLayout.CENTER);
-        add(rollButton, BorderLayout.SOUTH);
+        final JPanel resultPanel = new JPanel(new BorderLayout());
+        resultPanel.add(diceLabel, BorderLayout.CENTER);
+        resultPanel.add(rollButton, BorderLayout.SOUTH);
+        add(resultPanel, BorderLayout.CENTER);
+
+        add(diceImageLabel, BorderLayout.EAST);
 
         rollButton.addActionListener(new ActionListener() {
             @Override
@@ -67,7 +67,9 @@ public class DiceView extends JPanel {
             public void actionPerformed(final ActionEvent e) {
                 final long elapsed = System.currentTimeMillis() - startTime;
                 if (elapsed < ANIMATION_DURATION) {
-                    diceLabel.setText("Rolling dice..." + (random.nextInt(DICE_SIDES) + 1));
+                    int rollingResult = random.nextInt(DICE_SIDES) + 1;
+                    diceLabel.setText("Rolling dice..." + rollingResult);
+                    updateDiceImage(rollingResult);
                 } else {
                     ((Timer) e.getSource()).stop();
                     showFinalDiceResult();
@@ -77,11 +79,18 @@ public class DiceView extends JPanel {
         animationTimer.start();
     }
 
+    private void updateDiceImage(final int result) {
+        final String imagePath = "/dice" + result + ".png";
+        final ImageIcon diceIcon = new ImageIcon(getClass().getResource(imagePath));
+        final int newWidth = 80;
+        final int newHeight = 80;
+        final Image scaledImage = diceIcon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
+        diceImageLabel.setIcon(new ImageIcon(scaledImage));
+    }
+
     private void showFinalDiceResult() {
         final int result = controller.getResult();
-        diceLabel.setText("You rolled: " + result);
-        final String imagePath = Paths.get("src", "main", "resources", "dice" + result + ".png").toString();
-        final ImageIcon diceIcon = new ImageIcon(imagePath);
-        diceImageLabel.setIcon(diceIcon);
+        diceLabel.setText("Congratulations ! You rolled : " + result);
+        updateDiceImage(result);
     }
 }

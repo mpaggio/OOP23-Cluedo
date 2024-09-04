@@ -48,7 +48,7 @@ public class GameMenuView  extends JFrame {
         this.viewSavedGamesButton = new JButton("View Saved Games");
 
         setLayout(new BorderLayout());
-        JLabel titleLabel = new JLabel("Cluedo - Start New Game");
+        JLabel titleLabel = new JLabel("                CLUEDO - START NEW GAME");
         titleLabel.setFont(new Font("Arial", Font.BOLD, 24));
         titleLabel.setPreferredSize(new Dimension(WIDTH, 50));
         add(titleLabel, BorderLayout.NORTH);
@@ -109,7 +109,7 @@ public class GameMenuView  extends JFrame {
                     openMainGameFrame();
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(GameMenuView.this, "Game not started! Check Username Lenght (<20)");
+                    JOptionPane.showMessageDialog(GameMenuView.this, "Game not started! Check your Username or Color!");
                 }
             }
         });
