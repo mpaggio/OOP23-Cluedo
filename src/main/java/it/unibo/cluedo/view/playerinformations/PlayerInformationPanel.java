@@ -10,12 +10,21 @@ import it.unibo.cluedo.view.board.BoardView;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 
+/**
+ * PlayerInformationPanel is a panle that displays the current player's information.
+ * The panle includes a colored square on the left representing the player's color
+ * and a not editable text area on the right showing player's name, steps and position.
+ */
 public class PlayerInformationPanel extends JPanel {
     private static final long serialVersionUID = 4L;
     private static final int COLOR_PREFERRED_SIZE = 50;
     private static final int AREA_BORDER_SIZE = 10;
 
+    /**
+     * Constructs a PlayerInformationPanel.
+     */
     public PlayerInformationPanel() {
+        // Set the layout
         this.setLayout(new BorderLayout());
 
         // Create the player's color panel
@@ -37,16 +46,16 @@ public class PlayerInformationPanel extends JPanel {
         );
         final String playerSteps = String.valueOf(Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentSteps());
         final JLabel infoArea = new JLabel(
-            "<html><body style='font-size: 14px; font-family: Arial;'>" +
-            playerName +
-            "\t- current steps: " +
-            playerSteps +
-            "\t- current position: (" +
-            playerPositionX +
-            ", " +
-            playerPositionY +
-            ")" +
-            "</body></html>"
+            "<html><body style='font-size: 14px; font-family: Arial;'>"
+            + playerName
+            + "\t- current steps: "
+            + playerSteps
+            + "\t- current position: ("
+            + playerPositionX
+            + ", "
+            + playerPositionY
+            + ")"
+            + "</body></html>"
         );
 
         // Add a board to the text area
@@ -59,6 +68,7 @@ public class PlayerInformationPanel extends JPanel {
             )
         );
 
+        // Add component to the main panel
         super.add(colorPanel, BorderLayout.WEST);
         super.add(infoArea, BorderLayout.CENTER);
     }
