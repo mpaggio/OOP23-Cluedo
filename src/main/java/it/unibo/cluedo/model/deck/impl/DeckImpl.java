@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import it.unibo.cluedo.model.card.api.Card;
@@ -91,9 +92,11 @@ public class DeckImpl implements Deck {
      */
     @Override
     public Set<Set<Card>> distributeCards(final int numberOfPlayers) {
+        final List<Card> cardList = new ArrayList<>(this.cards);
+        Collections.shuffle(cardList);
         final Set<Set<Card>> distributedSet = new HashSet<>();
-        final Iterator<Card> cardIterator = this.cards.iterator();
-        final int numberOfCardsPerPlayer = this.cards.size() / numberOfPlayers;
+        final Iterator<Card> cardIterator = cardList.iterator();
+        final int numberOfCardsPerPlayer = cardList.size() / numberOfPlayers;
         for (int i = 0; i < numberOfPlayers; i++) {
             final Set<Card> playerCards = new HashSet<>();
             for (int j = 0; j < numberOfCardsPerPlayer; j++) {
