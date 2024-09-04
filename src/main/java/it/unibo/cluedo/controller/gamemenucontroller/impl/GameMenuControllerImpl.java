@@ -7,9 +7,9 @@ import java.util.HashSet;
 import java.util.Set;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
+import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
-import java.util.Objects;
 import java.awt.Window;
 
 /**
@@ -26,10 +26,10 @@ public class GameMenuControllerImpl implements GameMenuController {
      * This constructor is used to create a new GameMenuControllerImpl.
      * @param gameSaveController the game save controller
      */
-    public GameMenuControllerImpl(final GameSaveController gameSaveController) {
+    public GameMenuControllerImpl() {
         this.players = new ArrayList<>();
         this.availableColors = new ArrayList<>();
-        this.gameSaveController = Objects.requireNonNull(gameSaveController, "GameSaveController cannot be null");
+        this.gameSaveController = new GameSaveControllerImpl();
     }
 
     /**
