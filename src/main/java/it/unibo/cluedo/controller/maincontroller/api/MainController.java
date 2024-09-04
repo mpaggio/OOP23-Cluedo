@@ -6,15 +6,11 @@ import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.model.GameModel;
 
-/**
- * MainController is the primary interface for providing the access to the model
- * and to the different controllers related to the game.
- */
 public interface MainController {
     /**
      * Starts the game view by creating a new GamePanel.
      */
-    void startView(); 
+    void startView();
 
     /**
      * Returns the current game model instance.

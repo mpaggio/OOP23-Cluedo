@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
+import it.unibo.cluedo.controller.maincontroller.api.MainController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.notebookcontroller.impl.NotebookControllerImpl;
