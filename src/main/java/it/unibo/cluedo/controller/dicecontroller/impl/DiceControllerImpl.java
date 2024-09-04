@@ -14,6 +14,7 @@ public class DiceControllerImpl implements DiceController {
      */
     @Override
     public int getResult() {
+        Cluedo.CONTROLLER.getGameInstance().rollDice();
         return Cluedo.CONTROLLER.getGameInstance().getDiceResult();
     }
 
