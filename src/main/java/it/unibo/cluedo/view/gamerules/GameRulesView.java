@@ -8,7 +8,6 @@ import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
@@ -31,7 +30,6 @@ public class GameRulesView extends JScrollPane {
         rulesArea.setWrapStyleWord(true);
         final JScrollPane scrollPane = new JScrollPane(rulesArea);
         scrollPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        JOptionPane.showMessageDialog(null, scrollPane, "Cluedo Game Rules", JOptionPane.INFORMATION_MESSAGE);
     }
 
     /**
