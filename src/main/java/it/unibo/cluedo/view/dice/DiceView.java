@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Font;
+import javax.swing.ImageIcon;
 
 
 import it.unibo.cluedo.application.Cluedo;
@@ -29,6 +30,7 @@ public class DiceView extends JPanel {
     private static final long serialVersionUID = 1L;
 
     private final JLabel diceLabel;
+    private final JLabel diceImageLabel;
     private final Random random = new Random();
 
     /**
@@ -36,11 +38,16 @@ public class DiceView extends JPanel {
      */
     public DiceView() {
         this.diceLabel = new JLabel("Dice: ", SwingConstants.CENTER);
+        this.diceImageLabel = new JLabel();
         final JButton rollButton = new JButton("Roll Dice");
 
         setLayout(new BorderLayout());
         diceLabel.setFont(new Font("Arial", Font.BOLD, SIZE));
-        add(diceLabel, BorderLayout.CENTER);
+
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.add(diceLabel, BorderLayout.NORTH);
+        centerPanel.add(diceImageLabel, BorderLayout.CENTER);
+        add(centerPanel, BorderLayout.CENTER);
         add(rollButton, BorderLayout.SOUTH);
 
         rollButton.addActionListener(new ActionListener() {
@@ -59,7 +66,7 @@ public class DiceView extends JPanel {
             public void actionPerformed(final ActionEvent e) {
                 final long elapsed = System.currentTimeMillis() - startTime;
                 if (elapsed < ANIMATION_DURATION) {
-                    diceLabel.setText("Rolling dice..." + random.nextInt(DICE_SIDES) + 1);
+                    diceLabel.setText("Rolling dice..." + (random.nextInt(DICE_SIDES) + 1));
                 } else {
                     ((Timer) e.getSource()).stop();
                     showFinalDiceResult();
@@ -72,5 +79,8 @@ public class DiceView extends JPanel {
     private void showFinalDiceResult() {
         final int result = controller.getResult();
         diceLabel.setText("You rolled: " + result);
+        String imagePath = "/dice" + result + ".png";
+        ImageIcon diceIcon = new ImageIcon(getClass().getResource(imagePath));
+        diceImageLabel.setIcon(diceIcon);
     }
 }
