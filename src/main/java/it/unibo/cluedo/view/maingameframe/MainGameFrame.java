@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.view.board.BoardView;
+import it.unibo.cluedo.view.gamerules.GameRulesView;
 import it.unibo.cluedo.view.notebook.NotebookView;
 import it.unibo.cluedo.view.playercards.PlayerCardsPanel;
 import it.unibo.cluedo.view.playerinformations.PlayerInformationPanel;
@@ -86,11 +87,13 @@ public class MainGameFrame extends JFrame {
             JOptionPane.showMessageDialog(null, notebookPanel, "Player notebook", JOptionPane.PLAIN_MESSAGE);
         });
 
-        buttonsPanel.setLayout(new GridLayout(2, 2));
+        buttonsPanel.setLayout(new GridLayout(3, 2));
         buttonsPanel.add(showCardsButton);
         buttonsPanel.add(showNotebookButton);
         buttonsPanel.add(new JButton("Use trapdoor"));
-        buttonsPanel.add(new JButton("Make accusation"));
+        buttonsPanel.add(new JButton("End turn"));
+        buttonsPanel.add(new JButton("Make normal accusation"));
+        buttonsPanel.add(new JButton("Make final accusation"));
         rightPanel.add(buttonsPanel, BorderLayout.CENTER);
 
         // Joystick panel
@@ -110,6 +113,12 @@ public class MainGameFrame extends JFrame {
         bottomPanel.setBorder(BorderFactory.createTitledBorder("Options"));
         bottomPanel.setLayout(new GridLayout(1, 2));
         final JButton rulesButton = new JButton("Rules");
+
+        rulesButton.addActionListener(e -> {
+            final GameRulesView rulesPanel = new GameRulesView();
+            JOptionPane.showMessageDialog(null, rulesPanel, "Game rules", JOptionPane.PLAIN_MESSAGE);
+        });
+
         final JButton quitButton = new JButton("Quit");
         bottomPanel.add(rulesButton);
         bottomPanel.add(quitButton);
