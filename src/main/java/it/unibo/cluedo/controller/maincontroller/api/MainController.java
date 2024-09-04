@@ -9,6 +9,8 @@ import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
+import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;
+
 import it.unibo.cluedo.model.GameModel;
 
 /**
@@ -76,4 +78,10 @@ public interface MainController {
      * @return a instance of JoystickController
      */
     JoystickController getJoystickController();
+
+    /**
+     * Returns a instance of UnforeseenController.
+     * @return a instance of UnforeseenController
+     */
+    UnforeseenController getUnforeseenController();
 }

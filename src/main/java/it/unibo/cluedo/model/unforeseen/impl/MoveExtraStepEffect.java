@@ -37,4 +37,9 @@ public final class MoveExtraStepEffect implements UnforeseenEffect {
     public String getType() {
         return "MoveExtraStep";
     }
+
+    @Override
+    public String getDescription() {
+        return "You can move " + extraSteps + " extra steps";
+    }
 }

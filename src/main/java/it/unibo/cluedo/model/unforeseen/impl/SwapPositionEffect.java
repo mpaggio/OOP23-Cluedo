@@ -35,4 +35,9 @@ public final class SwapPositionEffect implements UnforeseenEffect {
     public String getType() {
         return "SwapPosition";
     }
+
+    @Override
+    public String getDescription() {
+        return "You will swap position with another player";
+    }
 }

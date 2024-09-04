@@ -35,8 +35,8 @@ public class GameMenuView  extends JFrame {
     private final JButton quitGameButton;
     private final JButton viewSavedGamesButton;
     private static final long serialVersionUID = 1L;
-    private final int width = 400;
-    private final int length = 300;
+    private static final int WIDTH = 400;
+    private static final int LENGTH = 300;
 
     /**
      * Suppresed unchecked warning for JComboBox.
@@ -62,7 +62,7 @@ public class GameMenuView  extends JFrame {
         addListeners();
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(width, length);
+        setSize(WIDTH, LENGTH);
         setLocationRelativeTo(null);
         setVisible(true);
     }
@@ -122,13 +122,13 @@ public class GameMenuView  extends JFrame {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                List<String> savedGames = controller.viewSavedGames();
+                final List<String> savedGames = controller.viewSavedGames();
                 if (savedGames.isEmpty()) {
                     JOptionPane.showMessageDialog(GameMenuView.this, "No saved games found!");
                 } else {
-                    StringBuilder message = new StringBuilder("Saved games:\n");
-                    for (String savedGame : savedGames) {
-                        message.append(savedGame).append("\n");
+                    final StringBuilder message = new StringBuilder("Saved games:\n");
+                    for (final String savedGame : savedGames) {
+                        message.append(savedGame).append('\n');
                     }
                     JOptionPane.showMessageDialog(GameMenuView.this, message.toString());
                 }
@@ -137,7 +137,7 @@ public class GameMenuView  extends JFrame {
     }
 
     private void openMainGameFrame() {
-        MainGameFrame mainGameFrame = new MainGameFrame();
+        final MainGameFrame mainGameFrame = new MainGameFrame();
         mainGameFrame.setVisible(true);
     }
 }

@@ -20,4 +20,11 @@ public interface UnforeseenEffect {
      * @return the type of the unforeseen card
      */
     String getType();
+
+    /**
+     * Gets the description of the unforeseen card.
+     *
+     * @return the description of the unforeseen card
+     */
+    String getDescription();
 }

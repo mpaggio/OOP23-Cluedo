@@ -21,4 +21,9 @@ public final class ReRollDiceEffect implements UnforeseenEffect {
     public String getType() {
         return "ReRollDice";
     }
+
+    @Override
+    public String getDescription() {
+        return "You can re-roll the dice";
+    }
 }
