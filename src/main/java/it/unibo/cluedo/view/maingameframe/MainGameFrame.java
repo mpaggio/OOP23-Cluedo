@@ -73,6 +73,7 @@ public class MainGameFrame extends JFrame {
 
         // Buttons panel
         final JPanel buttonsPanel = new JPanel();
+        buttonsPanel.setBorder(BorderFactory.createTitledBorder("Action buttons"));
         final JButton showCardsButton = new JButton("Show cards");
         final JButton showNotebookButton = new JButton("Show notebook");
 
