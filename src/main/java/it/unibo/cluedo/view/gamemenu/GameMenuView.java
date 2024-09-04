@@ -3,9 +3,8 @@ package it.unibo.cluedo.view.gamemenu;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
 
-//import it.unibo.cluedo.application.Cluedo;
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
-//import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.view.maingameframe.MainGameFrame;
 
 import javax.swing.JTextField;
@@ -21,14 +20,13 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.awt.FlowLayout;
-import java.util.Objects;
 
 /**
  * Class used to show the game menu in the view.
  */
 public class GameMenuView  extends JFrame {
 
-    private final GameMenuController controller;
+    private final GameMenuController controller = Cluedo.CONTROLLER.getGameMenuController();
     private final JTextField[] playerUsernameFields;
     private final JComboBox<String>[] playerColorCombos;
     private final JButton startGameButton;
@@ -48,8 +46,7 @@ public class GameMenuView  extends JFrame {
      * Constructor for the GameMenuView class.
      * @param controller the GameMenuController to set
      */
-    public GameMenuView(final GameMenuController controller) {
-        this.controller = Objects.requireNonNull(controller, "Controller cannot be null");
+    public GameMenuView() {
         this.playerUsernameFields = new JTextField[3];
         this.playerColorCombos = new JComboBox[3];
         this.startGameButton = new JButton("Start Game");

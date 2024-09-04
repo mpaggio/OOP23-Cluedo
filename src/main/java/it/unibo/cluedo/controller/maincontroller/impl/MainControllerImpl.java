@@ -21,6 +21,8 @@ import it.unibo.cluedo.controller.statisticscontroller.impl.StatisticsController
 import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;
 import it.unibo.cluedo.controller.unforeseencontroller.impl.UnforeseenControllerImpl;
 import it.unibo.cluedo.controller.dicecontroller.impl.DiceControllerImpl;
+import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
+import it.unibo.cluedo.controller.gamemenucontroller.impl.GameMenuControllerImpl;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -42,6 +44,7 @@ public class MainControllerImpl implements MainController {
     private final JoystickController joystickController;
     private final UnforeseenController unforeseenController;
     private final DiceController diceController;
+    private final GameMenuController gameMenuController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -63,6 +66,7 @@ public class MainControllerImpl implements MainController {
         this.joystickController = new JoystickControllerImpl();
         this.unforeseenController = new UnforeseenControllerImpl();
         this.diceController = new DiceControllerImpl();
+        this.gameMenuController = new GameMenuControllerImpl();
     }
 
     /**
@@ -163,5 +167,9 @@ public class MainControllerImpl implements MainController {
     @Override
     public DiceController getDiceController() {
         return this.diceController;
+    }
+
+    public GameMenuController getGameMenuController() {
+        return this.gameMenuController;
     }
 }
