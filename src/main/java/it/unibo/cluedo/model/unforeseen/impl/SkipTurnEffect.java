@@ -37,6 +37,6 @@ public class SkipTurnEffect implements UnforeseenEffect {
      */
     @Override
     public String getDescription() {
-        return "You will skip your next turn";
+        return "You will skip your next turn.";
     }
 }

@@ -12,10 +12,13 @@ public class UnforeseenView {
 
     private final UnforeseenController controller = Cluedo.CONTROLLER.getUnforeseenController();
 
+    /**
+     * Shows the effect of the unforeseen.
+     */
     public void showEffect() {
         final String effectType = controller.getEffectType();
         final String effectDescription = controller.getEffectDescription();
-        String message = "You picked " + effectType + "! \n\n" + effectDescription;
+        final String message = "You picked " + effectType + "! \n\n" + effectDescription;
         JOptionPane.showMessageDialog(null, message, "Unforeseen Effect", JOptionPane.INFORMATION_MESSAGE);
     }
 }

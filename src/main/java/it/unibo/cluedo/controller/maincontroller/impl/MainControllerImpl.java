@@ -7,6 +7,7 @@ import it.unibo.cluedo.controller.accusationcontroller.api.AccusationController;
 import it.unibo.cluedo.controller.accusationcontroller.api.FinalAccusationController;
 import it.unibo.cluedo.controller.accusationcontroller.impl.AccusationControllerImpl;
 import it.unibo.cluedo.controller.accusationcontroller.impl.FinalAccusationControllerImpl;
+import it.unibo.cluedo.controller.dicecontroller.api.DiceController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
 import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
@@ -19,6 +20,7 @@ import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
 import it.unibo.cluedo.controller.statisticscontroller.impl.StatisticsControllerImpl;
 import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;
 import it.unibo.cluedo.controller.unforeseencontroller.impl.UnforeseenControllerImpl;
+import it.unibo.cluedo.controller.dicecontroller.impl.DiceControllerImpl;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -39,6 +41,7 @@ public class MainControllerImpl implements MainController {
     private final StatisticsController statisticsController;
     private final JoystickController joystickController;
     private final UnforeseenController unforeseenController;
+    private final DiceController diceController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -59,6 +62,7 @@ public class MainControllerImpl implements MainController {
         this.statisticsController = new StatisticsControllerImpl();
         this.joystickController = new JoystickControllerImpl();
         this.unforeseenController = new UnforeseenControllerImpl();
+        this.diceController = new DiceControllerImpl();
     }
 
     /**
@@ -151,5 +155,13 @@ public class MainControllerImpl implements MainController {
     @Override
     public UnforeseenController getUnforeseenController() {
         return this.unforeseenController;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public DiceController getDiceController() {
+        return this.diceController;
     }
 }
