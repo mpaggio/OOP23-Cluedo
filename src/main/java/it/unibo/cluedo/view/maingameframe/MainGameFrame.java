@@ -76,6 +76,7 @@ public class MainGameFrame extends JFrame {
         buttonsPanel.setBorder(BorderFactory.createTitledBorder("Action buttons"));
         final JButton showCardsButton = new JButton("Show cards");
         final JButton showNotebookButton = new JButton("Show notebook");
+        final JButton endTurnButton = new JButton("End turn");
 
         showCardsButton.addActionListener(e -> {
             final PlayerCardsPanel cardPanel = new PlayerCardsPanel(Cluedo.CONTROLLER.getCurrentPlayerCardsPaths());
@@ -88,11 +89,15 @@ public class MainGameFrame extends JFrame {
             JOptionPane.showMessageDialog(null, notebookPanel, "Player notebook", JOptionPane.PLAIN_MESSAGE);
         });
 
+        endTurnButton.addActionListener(e -> {
+            Cluedo.CONTROLLER.getGameInstance().endTurn();
+        });
+
         buttonsPanel.setLayout(new GridLayout(3, 2));
         buttonsPanel.add(showCardsButton);
         buttonsPanel.add(showNotebookButton);
         buttonsPanel.add(new JButton("Use trapdoor"));
-        buttonsPanel.add(new JButton("End turn"));
+        buttonsPanel.add(endTurnButton);
         buttonsPanel.add(new JButton("Make normal accusation"));
         buttonsPanel.add(new JButton("Make final accusation"));
         rightPanel.add(buttonsPanel, BorderLayout.CENTER);

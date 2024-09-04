@@ -1,11 +1,7 @@
 package it.unibo.cluedo.controller.statisticscontroller.impl;
 
-import java.util.Iterator;
-
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
-import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.GameModel;
 
 /**
  * Controller to manage the statistics of the game.
@@ -17,36 +13,17 @@ public class StatisticsControllerImpl implements StatisticsController {
     private static final String ACCUSATIONS = " accusations: ";
     private static final String ROOMS = " rooms: ";
 
-    private final Iterator<Player> stepsLeaderboardIterator;
-    private final Iterator<Player> accusationsLeaderboardIterator;
-    private final Iterator<Player> roomsLeaderboardIterator;
-    private final Iterator<Player> cardsLeaderboardIterator;
-    private final Iterator<Integer> stepsIterator;
-    private final Iterator<Integer> accusationIterator;
-    private final Iterator<Integer> roomsIterator;
-    private final Iterator<Integer> cardsIterator;
-
-    /**
-     * Constructor for the StatisticsController class.
-     */
-    public StatisticsControllerImpl() {
-        final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
-        this.stepsLeaderboardIterator = gameModel.getStatistics().getStepsMade().getFirst().iterator();
-        this.accusationsLeaderboardIterator = gameModel.getStatistics().getAccusationsMade().getFirst().iterator();
-        this.roomsLeaderboardIterator = gameModel.getStatistics().getRoomsVisited().getFirst().iterator();
-        this.cardsLeaderboardIterator = gameModel.getStatistics().getViewedCards().getFirst().iterator();
-        this.stepsIterator = gameModel.getStatistics().getAccusationsMade().getSecond().iterator();
-        this.accusationIterator = gameModel.getStatistics().getAccusationsMade().getSecond().iterator();
-        this.roomsIterator = gameModel.getStatistics().getRoomsVisited().getSecond().iterator();
-        this.cardsIterator = gameModel.getStatistics().getViewedCards().getSecond().iterator();
-    }
-
     /**
      * {@inheritDoc}
      */
     @Override
     public boolean stepsLeaderboardHasNext() {
-        return stepsLeaderboardIterator.hasNext();
+        return Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getStepsMade()
+            .getFirst()
+            .iterator()
+            .hasNext();
     }
 
     /**
@@ -54,7 +31,12 @@ public class StatisticsControllerImpl implements StatisticsController {
      */
     @Override
     public boolean accusationsLeaderboardHasNext() {
-        return accusationsLeaderboardIterator.hasNext();
+        return Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getRoomsVisited()
+            .getFirst()
+            .iterator()
+            .hasNext();
     }
 
     /**
@@ -62,7 +44,12 @@ public class StatisticsControllerImpl implements StatisticsController {
      */
     @Override
     public boolean roomsLeaderboardHasNext() {
-        return roomsLeaderboardIterator.hasNext();
+        return Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getAccusationsMade()
+            .getFirst()
+            .iterator()
+            .hasNext();
     }
 
     /**
@@ -70,7 +57,12 @@ public class StatisticsControllerImpl implements StatisticsController {
      */
     @Override
     public boolean cardsLeaderboardHasNext() {
-        return cardsLeaderboardIterator.hasNext();
+        return Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getViewedCards()
+            .getFirst()
+            .iterator()
+            .hasNext();
     }
 
     /**
@@ -78,8 +70,19 @@ public class StatisticsControllerImpl implements StatisticsController {
      */
     @Override
     public String getStepsLeaderboard() {
-        final String playerName = stepsLeaderboardIterator.next().getUsername();
-        final int steps = stepsIterator.next();
+        final String playerName = Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getStepsMade()
+            .getFirst()
+            .iterator()
+            .next()
+            .getUsername();
+        final int steps = Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getAccusationsMade()
+            .getSecond()
+            .iterator()
+            .next();
         return PLAYER + playerName + STEPS + steps;
     }
 
@@ -88,8 +91,19 @@ public class StatisticsControllerImpl implements StatisticsController {
      */
     @Override
     public String getAccusationsLeaderboard() {
-        final String playerName = accusationsLeaderboardIterator.next().getUsername();
-        final int accusations = accusationIterator.next();
+        final String playerName = Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getAccusationsMade()
+            .getFirst()
+            .iterator()
+            .next()
+            .getUsername();
+        final int accusations = Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getAccusationsMade()
+            .getSecond()
+            .iterator()
+            .next();
         return PLAYER + playerName + ACCUSATIONS + accusations;
     }
 
@@ -98,8 +112,19 @@ public class StatisticsControllerImpl implements StatisticsController {
      */
     @Override
     public String getCardsLeaderboard() {
-        final String playerName = accusationsLeaderboardIterator.next().getUsername();
-        final int cards = cardsIterator.next();
+        final String playerName = Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getViewedCards()
+            .getFirst()
+            .iterator()
+            .next()
+            .getUsername();
+        final int cards = Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getViewedCards()
+            .getSecond()
+            .iterator()
+            .next();
         return PLAYER + playerName + ACCUSATIONS + cards;
     }
 
@@ -108,8 +133,19 @@ public class StatisticsControllerImpl implements StatisticsController {
      */
     @Override
     public String getRoomsLeaderboard() {
-        final String playerName = roomsLeaderboardIterator.next().getUsername();
-        final int rooms = roomsIterator.next();
+        final String playerName = Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getRoomsVisited()
+            .getFirst()
+            .iterator()
+            .next()
+            .getUsername();
+        final int rooms = Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getRoomsVisited()
+            .getSecond()
+            .iterator()
+            .next();
         return PLAYER + playerName + ROOMS + rooms;
     }
 }

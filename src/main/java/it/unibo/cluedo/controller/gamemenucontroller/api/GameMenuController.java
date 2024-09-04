@@ -39,4 +39,10 @@ public interface GameMenuController {
      * This method is used to quit the game.
      */
     void quitGame();
+
+    /**
+     * This method is used to view the saved games.
+     * @return the list of the saved games
+     */
+    List<String> viewSavedGames();
 }

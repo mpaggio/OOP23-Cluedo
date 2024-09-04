@@ -29,4 +29,11 @@ public interface Deck {
      * @return a set containing all the cards of the deck
      */
     Set<Card> getAllCards();
+
+    /**
+     * Get all the remaining cards in the deck.
+     * 
+     * @return a set containing all the remaining cards in the deck
+     */
+    Set<Card> getRemainingCards();
 }
