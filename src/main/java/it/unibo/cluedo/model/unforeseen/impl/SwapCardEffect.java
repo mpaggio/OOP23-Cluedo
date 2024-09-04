@@ -61,4 +61,9 @@ public final class SwapCardEffect implements UnforeseenEffect {
     public String getType() {
         return "SwapCard";
     }
+
+    @Override
+    public String getDescription() {
+        return "You will swap one of your cards with one of the other player's cards of the same type";
+    }
 }

@@ -30,4 +30,9 @@ public class SkipTurnEffect implements UnforeseenEffect {
     public String getType() {
         return "SkipTurn";
     }
+
+    @Override
+    public String getDescription() {
+        return "You will skip your next turn";
+    }
 }
