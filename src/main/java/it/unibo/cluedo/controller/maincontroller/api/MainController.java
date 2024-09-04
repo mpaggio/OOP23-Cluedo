@@ -5,6 +5,7 @@ import java.util.List;
 import it.unibo.cluedo.controller.accusationcontroller.api.AccusationController;
 import it.unibo.cluedo.controller.accusationcontroller.api.FinalAccusationController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
+import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
@@ -69,4 +70,10 @@ public interface MainController {
     * @return the AccusationController
     */
     AccusationController getAccusationController();
+
+    /**
+     * Returns a instance of JoystickController.
+     * @return a instance of JoystickController
+     */
+    JoystickController getJoystickController();
 }

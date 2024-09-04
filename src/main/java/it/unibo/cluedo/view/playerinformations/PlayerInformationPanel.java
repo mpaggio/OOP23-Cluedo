@@ -19,6 +19,8 @@ public class PlayerInformationPanel extends JPanel {
     private static final long serialVersionUID = 4L;
     private static final int COLOR_PREFERRED_SIZE = 50;
     private static final int AREA_BORDER_SIZE = 10;
+    private final JPanel colorPanel;
+    private final JLabel infoArea;
 
     /**
      * Constructs a PlayerInformationPanel.
@@ -28,7 +30,7 @@ public class PlayerInformationPanel extends JPanel {
         this.setLayout(new BorderLayout());
 
         // Create the player's color panel
-        final JPanel colorPanel = new JPanel();
+        colorPanel = new JPanel();
         colorPanel.setBackground(
             BoardView.ColorEnum.getColorByName(
                 Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor()
@@ -36,27 +38,8 @@ public class PlayerInformationPanel extends JPanel {
         );
         colorPanel.setPreferredSize(new Dimension(COLOR_PREFERRED_SIZE, COLOR_PREFERRED_SIZE));
 
-        // Create the player's not editable text information area
-        final String playerName = Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getUsername();
-        final String playerPositionX = String.valueOf(
-            Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getX()
-        );
-        final String playerPositionY = String.valueOf(
-            Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getY()
-        );
-        final String playerSteps = String.valueOf(Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentSteps());
-        final JLabel infoArea = new JLabel(
-            "<html><body style='font-size: 14px; font-family: Arial;'>"
-            + playerName
-            + "\t- current steps: "
-            + playerSteps
-            + "\t- current position: ("
-            + playerPositionX
-            + ", "
-            + playerPositionY
-            + ")"
-            + "</body></html>"
-        );
+        infoArea = new JLabel();
+        updatePlayerInfo();
 
         // Add a board to the text area
         infoArea.setBorder(
@@ -71,5 +54,41 @@ public class PlayerInformationPanel extends JPanel {
         // Add component to the main panel
         super.add(colorPanel, BorderLayout.WEST);
         super.add(infoArea, BorderLayout.CENTER);
+    }
+
+    /**
+     * Updates the player information view by repainting it.
+     */
+    public void updatePlayerInformationPanel() {
+        updatePlayerInfo();
+        super.repaint();
+    }
+
+    private void updatePlayerInfo() {
+        final String playerName = Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getUsername();
+        final String playerPositionX = String.valueOf(
+            Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getX()
+        );
+        final String playerPositionY = String.valueOf(
+            Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getY()
+        );
+        final String playerSteps = String.valueOf(Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentSteps());
+        infoArea.setText(
+            "<html><body style='font-size: 14px; font-family: Arial;'>"
+            + playerName
+            + "\t- current steps: "
+            + playerSteps
+            + "\t- current position: ("
+            + playerPositionX
+            + ", "
+            + playerPositionY
+            + ")"
+            + "</body></html>"
+        );
+        colorPanel.setBackground(
+            BoardView.ColorEnum.getColorByName(
+                Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor()
+            )
+        );
     }
 }
