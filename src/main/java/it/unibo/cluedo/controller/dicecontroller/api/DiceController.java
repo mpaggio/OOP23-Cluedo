@@ -6,8 +6,8 @@ package it.unibo.cluedo.controller.dicecontroller.api;
 public interface DiceController {
 
     /**
-     * Paints the result of the dice roll.
-     * @param result the result of the dice roll.
+     * Gets the result of the dice roll.
+     * @return the result of the dice roll
      */
-    void paintdICE(int result);
+    int getResult();
 }

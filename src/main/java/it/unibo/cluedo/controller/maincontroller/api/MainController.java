@@ -4,6 +4,7 @@ import java.util.List;
 
 import it.unibo.cluedo.controller.accusationcontroller.api.AccusationController;
 import it.unibo.cluedo.controller.accusationcontroller.api.FinalAccusationController;
+import it.unibo.cluedo.controller.dicecontroller.api.DiceController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
@@ -84,4 +85,10 @@ public interface MainController {
      * @return a instance of UnforeseenController
      */
     UnforeseenController getUnforeseenController();
+
+    /**
+     * Returns a instance of DiceController.
+     * @return a instance of DiceController
+     */
+    DiceController getDiceController();
 }
