@@ -46,7 +46,6 @@ public class MainControllerImpl implements MainController {
         .withGameSolution()
         .build();
         this.gameSolutionController = new GameSolutionControllerImpl();
-        //this.gameSolutionController = new GameSolutionControllerImpl();
         this.notebookController = new NotebookControllerImpl();
         this.mapController = new MapSetupController();
         this.accusationController = new AccusationControllerImpl();
