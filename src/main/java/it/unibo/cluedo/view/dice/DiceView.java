@@ -67,7 +67,7 @@ public class DiceView extends JPanel {
             public void actionPerformed(final ActionEvent e) {
                 final long elapsed = System.currentTimeMillis() - startTime;
                 if (elapsed < ANIMATION_DURATION) {
-                    int rollingResult = random.nextInt(DICE_SIDES) + 1;
+                    final int rollingResult = random.nextInt(DICE_SIDES) + 1;
                     diceLabel.setText("Rolling dice..." + rollingResult);
                     updateDiceImage(rollingResult);
                 } else {
@@ -81,7 +81,7 @@ public class DiceView extends JPanel {
 
     private void updateDiceImage(final int result) {
         final String imagePath = "/dice" + result + ".png";
-        final ImageIcon diceIcon = new ImageIcon(getClass().getResource(imagePath));
+        final ImageIcon diceIcon = new ImageIcon(DiceView.class.getResource(imagePath));
         final int newWidth = 80;
         final int newHeight = 80;
         final Image scaledImage = diceIcon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);
