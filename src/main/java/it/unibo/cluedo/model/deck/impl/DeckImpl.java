@@ -43,6 +43,7 @@ public class DeckImpl implements Deck {
         "Lounge",
         "Study"
     );
+    private final Set<Card> allCards = new HashSet<>();
     private final Set<Card> cards = new HashSet<>();
 
     /**
@@ -50,9 +51,11 @@ public class DeckImpl implements Deck {
      */
     public DeckImpl() {
         this.cards.clear();
+        this.allCards.clear();
         CHARACTER_NAMES.forEach(name -> this.cards.add(CardFactory.createCharacterCard(name, getImagePath(name))));
         WEAPON_NAMES.forEach(name -> this.cards.add(CardFactory.createWeaponCard(name, getImagePath(name))));
         ROOM_NAMES.forEach(name -> this.cards.add(CardFactory.createRoomCard(name, getImagePath(name))));
+        this.allCards.addAll(this.cards);
     }
 
     /**
@@ -114,7 +117,15 @@ public class DeckImpl implements Deck {
      */
     @Override
     public Set<Card> getAllCards() {
-        return Collections.unmodifiableSet(new HashSet<>(this.cards));
+        return Collections.unmodifiableSet(this.allCards);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Card> getRemainingCards() {
+        return Collections.unmodifiableSet(this.cards);
     }
 
     /**
