@@ -25,10 +25,16 @@ public class AccusationControllerImpl implements AccusationController {
      * {@inheritDoc}
      */
     @Override
-    public void makeAccusation(final Card suspect, final Card weapon, final Card room) {
+    public void makeAccusation(final String suspect, final String weapon, final String room) {
         final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
+        final Card suspectCard = gameModel.getAllCards().stream().filter(card -> card.getName()
+            .equals(suspect)).findFirst().get();
+        final Card weaponCard = gameModel.getAllCards().stream().filter(card -> card.getName()
+            .equals(weapon)).findFirst().get();
+        final Card roomCard = gameModel.getAllCards().stream().filter(card -> card.getName()
+            .equals(room)).findFirst().get();
         try {
-            cardToShow = gameModel.makeAccusation(weapon, room, room, gameModel.getMap()
+            cardToShow = gameModel.makeAccusation(suspectCard, weaponCard, roomCard, gameModel.getMap()
                 .getRoomBySquare(gameModel.getMap().
                 getSquareByPosition(gameModel.getCurrentPlayer()
                 .getCurrentPosition())).get());

@@ -3,6 +3,7 @@ package it.unibo.cluedo.model;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+
 import java.util.Collections;
 import java.util.ArrayList;
 
@@ -51,6 +52,7 @@ final class GameModelImpl implements GameModel {
     private final TurnManager turnManager;
     private final Statistics statistics;
     private final Set<Card> solution;
+    private final Set<Card> allCards;
     private final Board map;
 
     /**
@@ -64,6 +66,7 @@ final class GameModelImpl implements GameModel {
         turnManager = new TurnManagerImpl(players);
         statistics = new StatisticsImpl(players);
         this.solution = solution;
+        this.allCards = Set.copyOf(deck.getAllCards());
         final List<Set<Card>> cards = List.copyOf(deck.distributeCards(players.size()));
         players.forEach(player -> {
             if (player instanceof MutablePlayer) {
@@ -90,10 +93,12 @@ final class GameModelImpl implements GameModel {
      * @param turnManager the turn manager of the previous game.
      * @param statistics the statistics of the previous game.
      * @param map the map of the previous game.
+     * @param allCards all the cards of the game.
      */
     GameModelImpl(final List<Player> players, final Set<Card> solution,
         final TurnManager turnManager, final Statistics statistics,
-        final BoardImpl map) {
+        final BoardImpl map, final Set<Card> allCards) {
+        this.allCards = allCards;
         this.players = List.copyOf(players);
         this.turnManager = turnManager;
         this.statistics = statistics;
@@ -359,6 +364,14 @@ final class GameModelImpl implements GameModel {
     @Override
     public Board getMap() {
         return map;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Card> getAllCards() {
+        return allCards;
     }
 
     private void applyEffect(final Square position) {

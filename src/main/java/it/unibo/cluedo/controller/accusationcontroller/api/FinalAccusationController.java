@@ -1,7 +1,5 @@
 package it.unibo.cluedo.controller.accusationcontroller.api;
 
-import it.unibo.cluedo.model.card.api.Card;
-
 /**
  * Interface of the FinalAccusationController.
  */
@@ -12,7 +10,7 @@ public interface FinalAccusationController {
      * @param weapon the weapon card.
      * @param room the room card.
      */
-    void makeFinalAccusation(Card suspect, Card weapon, Card room);
+    void makeFinalAccusation(String suspect, String weapon, String room);
     /**
      * Method that checks if the final accusation made by the player is correct.
      * @return true if the accusation is correct, false otherwise.
