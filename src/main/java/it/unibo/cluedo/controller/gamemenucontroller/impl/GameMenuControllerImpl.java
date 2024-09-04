@@ -24,7 +24,6 @@ public class GameMenuControllerImpl implements GameMenuController {
 
     /**
      * This constructor is used to create a new GameMenuControllerImpl.
-     * @param gameSaveController the game save controller
      */
     public GameMenuControllerImpl() {
         this.players = new ArrayList<>();

@@ -11,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.ImageIcon;
+import java.nio.file.Paths;
 
 
 import it.unibo.cluedo.application.Cluedo;
@@ -44,7 +45,7 @@ public class DiceView extends JPanel {
         setLayout(new BorderLayout());
         diceLabel.setFont(new Font("Arial", Font.BOLD, SIZE));
 
-        JPanel centerPanel = new JPanel(new BorderLayout());
+        final JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(diceLabel, BorderLayout.NORTH);
         centerPanel.add(diceImageLabel, BorderLayout.CENTER);
         add(centerPanel, BorderLayout.CENTER);
@@ -79,8 +80,8 @@ public class DiceView extends JPanel {
     private void showFinalDiceResult() {
         final int result = controller.getResult();
         diceLabel.setText("You rolled: " + result);
-        String imagePath = "/dice" + result + ".png";
-        ImageIcon diceIcon = new ImageIcon(getClass().getResource(imagePath));
+        final String imagePath = Paths.get("src", "main", "resources", "dice" + result + ".png").toString();
+        final ImageIcon diceIcon = new ImageIcon(imagePath);
         diceImageLabel.setIcon(diceIcon);
     }
 }

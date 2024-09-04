@@ -28,7 +28,7 @@ public class GameMenuView  extends JFrame {
 
     private final GameMenuController controller = Cluedo.CONTROLLER.getGameMenuController();
     private final JTextField[] playerUsernameFields;
-    private final JComboBox<String>[] playerColorCombos;
+    private final List<JComboBox<String>> playerColorCombos;
     private final JButton startGameButton;
     private final JButton quitGameButton;
     private final JButton viewSavedGamesButton;
@@ -37,18 +37,11 @@ public class GameMenuView  extends JFrame {
     private static final int LENGTH = 300;
 
     /**
-     * Suppresed unchecked warning for JComboBox.
-     * @param controller
-     */
-    @SuppressWarnings("unchecked")
-
-    /**
      * Constructor for the GameMenuView class.
-     * @param controller the GameMenuController to set
      */
     public GameMenuView() {
         this.playerUsernameFields = new JTextField[3];
-        this.playerColorCombos = new JComboBox[3];
+        this.playerColorCombos = new ArrayList<>(3);
         this.startGameButton = new JButton("Start Game");
         this.quitGameButton = new JButton("Quit Game");
         this.viewSavedGamesButton = new JButton("View Saved Games");
@@ -69,11 +62,11 @@ public class GameMenuView  extends JFrame {
         final String[] colors = {"Red", "Green", "Blue", "Yellow", "Purple", "White"};
         for (int i = 0; i < 3; i++) {
             playerUsernameFields[i] = new JTextField();
-            playerColorCombos[i] = new JComboBox<>(colors);
+            playerColorCombos.add(new JComboBox<>(colors));
             playerPanel.add(new JLabel("Player " + (i + 1) + " Username:"));
             playerPanel.add(playerUsernameFields[i]);
             playerPanel.add(new JLabel("Player " + (i + 1) + " Color:"));
-            playerPanel.add(playerColorCombos[i]);
+            playerPanel.add(playerColorCombos.get(i));
         }
         return playerPanel;
     }
@@ -95,7 +88,7 @@ public class GameMenuView  extends JFrame {
                 final List<String> playerColors = new ArrayList<>();
                 for (int i = 0; i < 3; i++) {
                     playerUsernames.add(playerUsernameFields[i].getText().trim());
-                    playerColors.add((String) playerColorCombos[i].getSelectedItem());
+                    playerColors.add((String) playerColorCombos.get(i).getSelectedItem());
                 }
                 if (controller.startGame(playerUsernames, playerColors)) {
                     JOptionPane.showMessageDialog(GameMenuView.this, "Game started successfully!");

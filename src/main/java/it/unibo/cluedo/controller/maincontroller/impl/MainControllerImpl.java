@@ -169,6 +169,10 @@ public class MainControllerImpl implements MainController {
         return this.diceController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public GameMenuController getGameMenuController() {
         return this.gameMenuController;
     }

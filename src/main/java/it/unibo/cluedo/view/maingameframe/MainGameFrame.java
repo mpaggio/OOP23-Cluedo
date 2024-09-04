@@ -34,7 +34,6 @@ public class MainGameFrame extends JFrame {
     private static final int PREFERRED_HEIGHT = 100;
     private static final int MAX_BUTTON_HEIGHT = 50;
     private static final long serialVersionUID = 2L;
-    private final BoardView boardPanel;
     private final PlayerInformationPanel playerPanel;
     /**
      * Constructs a new GamePanel object.
@@ -66,7 +65,7 @@ public class MainGameFrame extends JFrame {
         // Map panel
         final JPanel mapPanel = new JPanel();
         mapPanel.setBorder(BorderFactory.createTitledBorder("Map"));
-        boardPanel = new BoardView();
+        final BoardView boardPanel = new BoardView();
         boardPanel.setAlignmentX(CENTER_ALIGNMENT);
         mapPanel.add(boardPanel);
         leftPanel.add(new JScrollPane(mapPanel));
