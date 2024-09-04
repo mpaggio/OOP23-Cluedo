@@ -188,4 +188,11 @@ public class BoardView extends JPanel {
                 }
             }
     }
+
+    /**
+     * Updates the board view by repainting it.
+     */
+    public void updateBoard() {
+        super.repaint();
+    }
 }

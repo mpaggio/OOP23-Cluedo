@@ -35,6 +35,7 @@ public class MainControllerImpl implements MainController {
     private final AccusationController accusationController;
     private final FinalAccusationController finalAccusationController;
     private final StatisticsController statisticsController;
+    private final JoystickController joystickController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -53,6 +54,7 @@ public class MainControllerImpl implements MainController {
         this.accusationController = new AccusationControllerImpl();
         this.finalAccusationController = new FinalAccusationControllerImpl();
         this.statisticsController = new StatisticsControllerImpl();
+        this.joystickController = new JoystickControllerImpl();
     }
 
     /**
@@ -129,5 +131,13 @@ public class MainControllerImpl implements MainController {
     @Override
     public StatisticsController getStatisticsController() {
         return this.statisticsController;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public JoystickController getJoystickController() {
+        return this.joystickController;
     }
 }

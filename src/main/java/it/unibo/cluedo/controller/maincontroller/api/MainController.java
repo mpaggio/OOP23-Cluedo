@@ -70,4 +70,10 @@ public interface MainController {
     * @return the AccusationController
     */
     AccusationController getAccusationController();
+
+    /**
+     * Returns a instance of JoystickController.
+     * @return a instance of JoystickController
+     */
+    JoystickController getJoystickController();
 }
