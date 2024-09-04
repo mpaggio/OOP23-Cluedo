@@ -7,7 +7,7 @@ the match.
 GamePlay:
 - At the start of each turn, roll the dice to determine the number of steps
   you can move.
-- You can move UP,RIGHT,LEFT and RIGHT directions one step a time
+- You can move UP,RIGHT,LEFT and DOWN directions one step a time
 - You may also land on special square like Bonus or Malus
     -Bonus squares: allow you to roll the dice again
     -Trap squares: make you lose your next turn

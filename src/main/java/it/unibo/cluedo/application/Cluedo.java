@@ -1,5 +1,6 @@
 package it.unibo.cluedo.application;
 
+import it.unibo.cluedo.controller.maincontroller.api.MainController;
 import it.unibo.cluedo.controller.maincontroller.impl.MainControllerImpl;
 
 /**
@@ -9,7 +10,7 @@ public final class Cluedo {
     /**
      * The main controller for the Cluedo application.
      */
-    public static final MainControllerImpl CONTROLLER = new MainControllerImpl();
+    public static final MainController CONTROLLER = new MainControllerImpl();
 
     /**
      * Private constructor to prevent instantiation.

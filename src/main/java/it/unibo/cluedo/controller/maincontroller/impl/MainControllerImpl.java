@@ -9,6 +9,7 @@ import it.unibo.cluedo.controller.accusationcontroller.impl.AccusationController
 import it.unibo.cluedo.controller.accusationcontroller.impl.FinalAccusationControllerImpl;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
+import it.unibo.cluedo.controller.maincontroller.api.MainController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.notebookcontroller.impl.NotebookControllerImpl;
@@ -24,7 +25,7 @@ import it.unibo.cluedo.model.card.api.Card;
  * MainControllerImpl is responsible for initializing and managing the main game controller.
  * It sets up the game model with predefined players and starts the game view.
  */
-public class MainControllerImpl {
+public class MainControllerImpl implements MainController {
     private final GameModel gameModel;
     private final GameSolutionController gameSolutionController;
     private final NotebookController notebookController;
@@ -54,26 +55,25 @@ public class MainControllerImpl {
     }
 
     /**
-     * Starts the game view by creating a new GamePanel.
+     * {@inheritDoc}
      */
+    @Override
     public void startView() {
         new MainGameFrame();
     }
 
     /**
-     * Returns the current game model instance.
-     *
-     * @return the current game model instance
+     * {@inheritDoc}
      */
+    @Override
     public GameModel getGameInstance() {
         return this.gameModel;
     }
 
     /**
-     * Returns a list of the current player's cards path.
-     *
-     * @return a list of the current player's cards path
+     * {@inheritDoc}
      */
+    @Override
     public List<String> getCurrentPlayerCardsPaths() {
         final List<String> cardsPaths = new ArrayList<>();
         for (final Card card : this.gameModel.getCurrentPlayer().getPlayerCards()) {
@@ -83,25 +83,25 @@ public class MainControllerImpl {
     }
 
     /**
-     * Returns a instance of GameSolutionController.
-     * @return the GameSolutionController
+     * {@inheritDoc}
      */
+    @Override
     public GameSolutionController getGameSolutionController() {
         return this.gameSolutionController;
     }
 
     /**
-     * Returns a instance of NotebookController.
-     * @return the NotebookController
+     * {@inheritDoc}
      */
+    @Override
     public NotebookController getNotebookController() {
         return this.notebookController;
     }
 
     /**
-     * Returns a instance of MapSetUpController.
-     * @return the MapSetUpController
+     * {@inheritDoc}
      */
+    @Override
     public MapSetupController getMapController() {
         return this.mapController;
     }

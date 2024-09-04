@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import it.unibo.cluedo.model.card.api.Card;
@@ -42,6 +43,7 @@ public class DeckImpl implements Deck {
         "Lounge",
         "Study"
     );
+    private final Set<Card> allCards = new HashSet<>();
     private final Set<Card> cards = new HashSet<>();
 
     /**
@@ -49,9 +51,11 @@ public class DeckImpl implements Deck {
      */
     public DeckImpl() {
         this.cards.clear();
+        this.allCards.clear();
         CHARACTER_NAMES.forEach(name -> this.cards.add(CardFactory.createCharacterCard(name, getImagePath(name))));
         WEAPON_NAMES.forEach(name -> this.cards.add(CardFactory.createWeaponCard(name, getImagePath(name))));
         ROOM_NAMES.forEach(name -> this.cards.add(CardFactory.createRoomCard(name, getImagePath(name))));
+        this.allCards.addAll(this.cards);
     }
 
     /**
@@ -91,9 +95,11 @@ public class DeckImpl implements Deck {
      */
     @Override
     public Set<Set<Card>> distributeCards(final int numberOfPlayers) {
+        final List<Card> cardList = new ArrayList<>(this.cards);
+        Collections.shuffle(cardList);
         final Set<Set<Card>> distributedSet = new HashSet<>();
-        final Iterator<Card> cardIterator = this.cards.iterator();
-        final int numberOfCardsPerPlayer = this.cards.size() / numberOfPlayers;
+        final Iterator<Card> cardIterator = cardList.iterator();
+        final int numberOfCardsPerPlayer = cardList.size() / numberOfPlayers;
         for (int i = 0; i < numberOfPlayers; i++) {
             final Set<Card> playerCards = new HashSet<>();
             for (int j = 0; j < numberOfCardsPerPlayer; j++) {
@@ -111,7 +117,15 @@ public class DeckImpl implements Deck {
      */
     @Override
     public Set<Card> getAllCards() {
-        return Collections.unmodifiableSet(new HashSet<>(this.cards));
+        return Collections.unmodifiableSet(this.allCards);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Set<Card> getRemainingCards() {
+        return Collections.unmodifiableSet(this.cards);
     }
 
     /**

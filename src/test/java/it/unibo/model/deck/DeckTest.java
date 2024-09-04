@@ -121,8 +121,13 @@ final class DeckTest {
         );
         assertEquals(
             TOT_NUM_CARDS - TOT_NUM_CARDS_SOLUTION, 
-            this.deck.getAllCards().size(), 
+            this.deck.getRemainingCards().size(), 
             "After the solution is taken, there should be 18 cards in the deck"
+        );
+        assertEquals(
+            TOT_NUM_CARDS,
+            this.deck.getAllCards().size(),
+            "After the solution is taken, all cards should remaining in the all card list"
         );
     }
 
