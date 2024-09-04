@@ -28,8 +28,8 @@ public class GameRulesView extends JScrollPane {
         rulesArea.setEditable(false);
         rulesArea.setLineWrap(true);
         rulesArea.setWrapStyleWord(true);
-        final JScrollPane scrollPane = new JScrollPane(rulesArea);
-        scrollPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
+        super.setViewportView(rulesArea);
+        super.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
     /**
