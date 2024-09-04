@@ -11,6 +11,7 @@ import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.view.board.BoardView;
 import it.unibo.cluedo.view.notebook.NotebookView;
 import it.unibo.cluedo.view.playercards.PlayerCardsPanel;
+import it.unibo.cluedo.view.playerinformations.PlayerInformationPanel;
 
 //import it.unibo.cluedo.view.dice.DiceView;
 
@@ -49,7 +50,7 @@ public class MainGameFrame extends JFrame {
         bottomRightPanel.setLayout(new GridLayout(2, 1));
 
         // Player panel
-        final JPanel playerPanel = new JPanel();
+        final JPanel playerPanel = new PlayerInformationPanel();
         playerPanel.setBorder(BorderFactory.createTitledBorder("Player"));
         playerPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, MAX_BUTTON_HEIGHT));
         leftPanel.add(playerPanel, BorderLayout.NORTH);
