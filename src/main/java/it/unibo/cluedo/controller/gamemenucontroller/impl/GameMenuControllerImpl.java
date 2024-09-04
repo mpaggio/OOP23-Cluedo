@@ -9,6 +9,7 @@ import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
+import java.util.Objects;
 import java.awt.Window;
 
 /**
@@ -27,7 +28,7 @@ public class GameMenuControllerImpl implements GameMenuController {
     public GameMenuControllerImpl(GameSaveController gameSaveController) {
         this.players = new ArrayList<>();
         this.availableColors = new ArrayList<>();
-        this.gameSaveController = gameSaveController;
+        this.gameSaveController = Objects.requireNonNull(gameSaveController, "GameSaveController cannot be null");
     }
 
     /**

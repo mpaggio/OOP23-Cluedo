@@ -1,7 +1,13 @@
 package it.unibo.cluedo.view.gamemenu;
 
 import javax.swing.JPanel;
+import javax.swing.JFrame;
+
+//import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
+//import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
+import it.unibo.cluedo.view.maingameframe.MainGameFrame;
+
 import javax.swing.JTextField;
 
 import javax.swing.JComboBox;
@@ -20,13 +26,14 @@ import java.util.Objects;
 /**
  * Class used to show the game menu in the view.
  */
-public class GameMenuView  extends JPanel {
+public class GameMenuView  extends JFrame{
 
     private final GameMenuController controller;
     private final JTextField[] playerUsernameFields;
     private final JComboBox<String>[] playerColorCombos;
     private final JButton startGameButton;
     private final JButton quitGameButton;
+    private final JButton viewSavedGamesButton;
     private static final long serialVersionUID = 1L;
 
     /**
@@ -45,11 +52,17 @@ public class GameMenuView  extends JPanel {
         this.playerColorCombos = new JComboBox[3];
         this.startGameButton = new JButton("Start Game");
         this.quitGameButton = new JButton("Quit Game");
+        this.viewSavedGamesButton = new JButton("View Saved Games");
 
         setLayout(new BorderLayout());
         add(createPlayerPanel(), BorderLayout.CENTER);
         add(createButtonPanel(), BorderLayout.SOUTH);
         addListeners();
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(400, 300);
+        setLocationRelativeTo(null);
+        setVisible(true);
     }
 
     private JPanel createPlayerPanel() {
@@ -70,6 +83,7 @@ public class GameMenuView  extends JPanel {
         final JPanel buttonPanel = new JPanel(new FlowLayout());
         buttonPanel.add(startGameButton);
         buttonPanel.add(quitGameButton);
+        buttonPanel.add(viewSavedGamesButton);
         return buttonPanel;
     }
 
@@ -86,6 +100,8 @@ public class GameMenuView  extends JPanel {
                 }
                 if (controller.startGame(playerUsernames, playerColors)) {
                     JOptionPane.showMessageDialog(GameMenuView.this, "Game started successfully!");
+                    openMainGameFrame();
+                    dispose();
                 } else {
                     JOptionPane.showMessageDialog(GameMenuView.this, "Game not started!");
                 }
@@ -99,5 +115,27 @@ public class GameMenuView  extends JPanel {
                     controller.quitGame();
                 }
         });
+
+        viewSavedGamesButton.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(final ActionEvent e) {
+                List<String> savedGames = controller.viewSavedGames();
+                if (savedGames.isEmpty()) {
+                    JOptionPane.showMessageDialog(GameMenuView.this, "No saved games found!");
+                } else {
+                    StringBuilder message = new StringBuilder("Saved games:\n");
+                    for (String savedGame : savedGames) {
+                        message.append(savedGame).append("\n");
+                    }
+                    JOptionPane.showMessageDialog(GameMenuView.this, message.toString());
+                }
+            }
+        });
+    }
+
+    private void openMainGameFrame() {
+        MainGameFrame mainGameFrame = new MainGameFrame();
+        mainGameFrame.setVisible(true);
     }
 }
