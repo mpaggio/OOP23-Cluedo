@@ -95,7 +95,7 @@ public class GameMenuView  extends JFrame {
                     openMainGameFrame();
                     dispose();
                 } else {
-                    JOptionPane.showMessageDialog(GameMenuView.this, "Game not started!");
+                    JOptionPane.showMessageDialog(GameMenuView.this, "Game not started! Check Username Lenght (<20)");
                 }
             }
         });
