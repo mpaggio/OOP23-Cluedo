@@ -8,8 +8,8 @@ import javax.swing.BoxLayout;
 import javax.swing.Box;
 import javax.swing.JFrame;
 
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
-import it.unibo.cluedo.controller.statisticscontroller.impl.StatisticsControllerImpl;
 
 /**
  * This class is used to show the leaderboard of the viewed cards.
@@ -24,7 +24,7 @@ public class CardStatisticView extends JPanel {
      * Class constructor.
      */
     public CardStatisticView() {
-        final StatisticsController statisticsController = new StatisticsControllerImpl();
+        final StatisticsController statisticsController = Cluedo.CONTROLLER.getStatisticsController();
         final JFrame window;
         window = new JFrame("Statistics");
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
