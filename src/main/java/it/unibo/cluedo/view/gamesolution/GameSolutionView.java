@@ -1,5 +1,6 @@
 package it.unibo.cluedo.view.gamesolution;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -13,7 +14,7 @@ import java.awt.FlowLayout;
  */
 public class GameSolutionView extends JPanel {
     private static final long serialVersionUID = 1L;
-    private List<String> imagesPath;
+    private List<String> imagesPath = new ArrayList<>();
 
     /**
      * Constructor for the GameSolutionView class.
