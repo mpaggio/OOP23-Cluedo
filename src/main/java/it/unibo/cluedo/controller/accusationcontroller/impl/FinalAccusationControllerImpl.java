@@ -1,5 +1,7 @@
 package it.unibo.cluedo.controller.accusationcontroller.impl;
 
+import java.util.Set;
+
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.accusationcontroller.api.FinalAccusationController;
 import it.unibo.cluedo.model.card.api.Card;
@@ -13,10 +15,14 @@ public class FinalAccusationControllerImpl implements FinalAccusationController 
      * {@inheritDoc}
      */
     @Override
-    public void makeFinalAccusation(final Card suspect, final Card weapon, final Card room) {
+    public void makeFinalAccusation(final String suspect, final String weapon, final String room) {
         final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
+        final Set<Card> allCards = Set.copyOf(gameModel.getAllCards());
+        final Card suspectCard = allCards.stream().filter(card -> card.getName().equals(suspect)).findFirst().get();
+        final Card weaponCard = allCards.stream().filter(card -> card.getName().equals(weapon)).findFirst().get();
+        final Card roomCard = allCards.stream().filter(card -> card.getName().equals(room)).findFirst().get();
         try {
-            gameModel.makeFinalAccusation(weapon, room, room, gameModel.getMap()
+            gameModel.makeFinalAccusation(suspectCard, weaponCard, roomCard, gameModel.getMap()
                 .getRoomBySquare(gameModel.getMap()
                 .getSquareByPosition(gameModel.getCurrentPlayer()
                 .getCurrentPosition())).get());

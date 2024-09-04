@@ -12,10 +12,9 @@ import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
 
 /**
- * This class is used to show the accusation view.
+ * This class is used to show the final accusation view.
  */
-public class AccusationView extends JPanel {
-
+public class FinalAccusationView extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int WIDTH = 400;
     private static final int HEIGHT = 300;
@@ -23,13 +22,17 @@ public class AccusationView extends JPanel {
     /**
      * Constructor for the class.
      */
-    public AccusationView() {
-        final JFrame frame = new JFrame("Accusation");
+    public FinalAccusationView() {
+        final JFrame frame = new JFrame("Final Accusation");
         frame.setSize(WIDTH, HEIGHT);
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
-        final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));
+        final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
         final JComboBox<String> roomComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
         final JButton confirmButton = new JButton("Confirm");
+        JOptionPane.showMessageDialog(frame, "Remember, you can only make one final accusation!",
+                "Warning",
+                JOptionPane.INFORMATION_MESSAGE);
+
         setLayout(new GridLayout(4, 2));
         add(new JLabel("Suspect:"));
         add(suspectComboBox);
@@ -43,10 +46,16 @@ public class AccusationView extends JPanel {
             final String suspect = suspectComboBox.getSelectedItem().toString();
             final String weapon = weaponComboBox.getSelectedItem().toString();
             final String room = roomComboBox.getSelectedItem().toString();
-            JOptionPane.showMessageDialog(frame, "You accused " + suspect + " using " + weapon + " int the room " + room,
-            "Accusation",
-            JOptionPane.INFORMATION_MESSAGE);
-            Cluedo.CONTROLLER.getAccusationController().makeAccusation(suspect, weapon, room);
+            Cluedo.CONTROLLER.getFinalAccusationController().makeFinalAccusation(suspect, weapon, room);
+            if (Cluedo.CONTROLLER.getFinalAccusationController().isFinalAccusationCorrect()) {
+                JOptionPane.showMessageDialog(frame, "Congratulations! You won the game!",
+                "Congratulations!",
+                JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(frame, "Sorry, you lost the game!",
+                "Game Over",
+                JOptionPane.INFORMATION_MESSAGE);
+            }
         });
 
         frame.add(this);

@@ -115,5 +115,10 @@ public interface GameModel {
      * @return the map of the game.
      */
     Board getMap();
+    /**
+     * Method to get the cards of the game.
+     * @return the cards of the game.
+     */
+    Set<Card> getAllCards();
 
 }
