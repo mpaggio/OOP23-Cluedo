@@ -2,10 +2,15 @@ package it.unibo.cluedo.controller.maincontroller.api;
 
 import java.util.List;
 
+import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.model.GameModel;
 
+/**
+ * MainController is the primary interface that provides access to the model
+ * and to the various controllers related to the game.
+ */
 public interface MainController {
     /**
      * Starts the game view by creating a new GamePanel.
@@ -31,6 +36,12 @@ public interface MainController {
      * @return the NotebookController
      */
     NotebookController getNotebookController();
+
+    /**
+     * Returns a instance of GameSolutionController.
+     * @return the GameSolutionController
+     */
+    GameSolutionController getGameSolutionController();
 
     /**
      * Returns a instance of MapSetUpController.
