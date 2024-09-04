@@ -3,6 +3,7 @@ package it.unibo.cluedo.controller.maincontroller.impl;
 import java.util.List;
 import java.util.ArrayList;
 
+import it.unibo.cluedo.controller.maincontroller.api.MainController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 // import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 // import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
@@ -18,7 +19,7 @@ import it.unibo.cluedo.model.card.api.Card;
  * MainControllerImpl is responsible for initializing and managing the main game controller.
  * It sets up the game model with predefined players and starts the game view.
  */
-public class MainControllerImpl {
+public class MainControllerImpl implements MainController {
     private final GameModel gameModel;
     //private final GameSolutionController gameSolutionController;
     private final NotebookController notebookController;
