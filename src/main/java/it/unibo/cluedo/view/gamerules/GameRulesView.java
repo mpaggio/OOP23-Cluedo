@@ -29,9 +29,8 @@ public class GameRulesView extends JScrollPane {
         rulesArea.setEditable(false);
         rulesArea.setLineWrap(true);
         rulesArea.setWrapStyleWord(true);
-        final JScrollPane scrollPane = new JScrollPane(rulesArea);
-        scrollPane.setPreferredSize(new Dimension(WIDTH, HEIGHT));
-        JOptionPane.showMessageDialog(null, scrollPane, "Cluedo Game Rules", JOptionPane.INFORMATION_MESSAGE);
+        super.setViewportView(rulesArea);
+        super.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
 
     /**
