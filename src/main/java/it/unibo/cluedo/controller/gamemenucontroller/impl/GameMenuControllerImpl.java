@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
+import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
 import java.awt.Window;
@@ -18,13 +19,15 @@ public class GameMenuControllerImpl implements GameMenuController {
     private static final int NUMBER_OF_PLAYERS = 3;
     private final List<Player> players;
     private final List<String> availableColors;
+    private final GameSaveController gameSaveController;
 
     /**
      * This constructor is used to create a new GameMenuControllerImpl.
      */
-    public GameMenuControllerImpl() {
+    public GameMenuControllerImpl(GameSaveController gameSaveController) {
         this.players = new ArrayList<>();
         this.availableColors = new ArrayList<>();
+        this.gameSaveController = gameSaveController;
     }
 
     /**
@@ -95,5 +98,10 @@ public class GameMenuControllerImpl implements GameMenuController {
         for (final Window window : windows) {
             window.dispose();
         }
+    }
+
+    @Override
+    public List<String> viewSavedGames() {
+        return gameSaveController.viewSavedGames();
     }
 }
