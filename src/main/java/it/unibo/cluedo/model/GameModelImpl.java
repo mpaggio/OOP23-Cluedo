@@ -108,16 +108,12 @@ final class GameModelImpl implements GameModel {
      */
     @Override
     public Player endTurn() {
-        if (fase == TurnFase.END_TURN) {
-            if (getCurrentPlayer().hasLost()) {
-                turnManager.removePlayer(getCurrentPlayer());
-            }
-            turnManager.switchTurn();
-            fase = TurnFase.ROLL_DICE;
-            return getCurrentPlayer();
-        } else {
-            throw new IllegalStateException("You can't end your turn now");
+        if (getCurrentPlayer().hasLost()) {
+            turnManager.removePlayer(getCurrentPlayer());
         }
+        turnManager.switchTurn();
+        fase = TurnFase.ROLL_DICE;
+        return getCurrentPlayer();
     }
 
     /**

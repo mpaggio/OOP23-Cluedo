@@ -107,25 +107,25 @@ public class MainControllerImpl implements MainController {
     }
 
     /**
-     * Returns a instance of AccusationController.
-     * @return the AccusationController
+     * {@inheritDoc}
      */
+    @Override
     public AccusationController getAccusationController() {
         return this.accusationController;
     }
 
     /**
-     * Returns a instance of FinalAccusationController.
-     * @return the FinalAccusationController
+     * {@inheritDoc}
      */
+    @Override
     public FinalAccusationController getFinalAccusationController() {
         return this.finalAccusationController;
     }
 
     /**
-     * Returns a instance of StatisticsController.
-     * @return the StatisticsController
+     * {@inheritDoc}
      */
+    @Override
     public StatisticsController getStatisticsController() {
         return this.statisticsController;
     }
