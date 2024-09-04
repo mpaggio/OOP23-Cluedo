@@ -18,6 +18,7 @@ import java.awt.Window;
 public class GameMenuControllerImpl implements GameMenuController {
 
     private static final int NUMBER_OF_PLAYERS = 3;
+    private static final int LIMIT = 20;
     private final List<Player> players;
     private final List<String> availableColors;
     private final GameSaveController gameSaveController;
@@ -44,6 +45,11 @@ public class GameMenuControllerImpl implements GameMenuController {
                 || playerColors.size() != NUMBER_OF_PLAYERS) {
             return false;
         }
+        for (final String username : playerUsernames) {
+            if (username.length() > LIMIT) {
+                return false;
+            }
+        }
         final Set<String> uniqueNames = playerUsernames.stream()
                 .filter(name -> name != null && !name.trim().isEmpty())
                 .map(String::toLowerCase)
@@ -64,6 +70,9 @@ public class GameMenuControllerImpl implements GameMenuController {
                 && playerColors.size() == NUMBER_OF_PLAYERS) {
             this.players.clear();
             for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
+                if (playerUsernames.get(i).length() > LIMIT) {
+                    throw new IllegalArgumentException("The username is too long");
+                }
                 final Player player = new PlayerImpl(playerUsernames.get(i), playerColors.get(i));
                 this.players.add(player);
             }
