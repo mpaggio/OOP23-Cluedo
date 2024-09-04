@@ -3,6 +3,7 @@ package it.unibo.cluedo.controller.maincontroller.api;
 import java.util.List;
 
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
+import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.model.GameModel;
@@ -48,4 +49,10 @@ public interface MainController {
      * @return the MapSetUpController
      */
     MapSetupController getMapController();
+
+    /**
+     * Returns a instance of JoystickController.
+     * @return the JoystickController
+     */
+    JoystickController getJoystickController();
 }

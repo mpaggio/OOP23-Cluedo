@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
+import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
+import it.unibo.cluedo.controller.joystickcontroller.impl.JoystickControllerImpl;
 import it.unibo.cluedo.controller.maincontroller.api.MainController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
@@ -24,6 +26,7 @@ public class MainControllerImpl implements MainController {
     private final GameSolutionController gameSolutionController;
     private final NotebookController notebookController;
     private final MapSetupController mapController;
+    private final JoystickController joystickController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -37,9 +40,9 @@ public class MainControllerImpl implements MainController {
         .withGameSolution()
         .build();
         this.gameSolutionController = new GameSolutionControllerImpl();
-        //this.gameSolutionController = new GameSolutionControllerImpl();
         this.notebookController = new NotebookControllerImpl();
         this.mapController = new MapSetupController();
+        this.joystickController = new JoystickControllerImpl();
     }
 
     /**
@@ -92,5 +95,13 @@ public class MainControllerImpl implements MainController {
     @Override
     public MapSetupController getMapController() {
         return this.mapController;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public JoystickController getJoystickController() {
+        return this.joystickController;
     }
 }
