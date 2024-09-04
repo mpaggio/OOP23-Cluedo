@@ -3,12 +3,18 @@ package it.unibo.cluedo.controller.maincontroller.impl;
 import java.util.List;
 import java.util.ArrayList;
 
+import it.unibo.cluedo.controller.accusationcontroller.api.AccusationController;
+import it.unibo.cluedo.controller.accusationcontroller.api.FinalAccusationController;
+import it.unibo.cluedo.controller.accusationcontroller.impl.AccusationControllerImpl;
+import it.unibo.cluedo.controller.accusationcontroller.impl.FinalAccusationControllerImpl;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionControllerImpl;
 import it.unibo.cluedo.controller.maincontroller.api.MainController;
 import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.notebookcontroller.impl.NotebookControllerImpl;
+import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
+import it.unibo.cluedo.controller.statisticscontroller.impl.StatisticsControllerImpl;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -24,6 +30,9 @@ public class MainControllerImpl implements MainController {
     private final GameSolutionController gameSolutionController;
     private final NotebookController notebookController;
     private final MapSetupController mapController;
+    private final AccusationController accusationController;
+    private final FinalAccusationController finalAccusationController;
+    private final StatisticsController statisticsController;
 
     /**
      * Constructs a new MainControllerImpl object.
@@ -40,6 +49,9 @@ public class MainControllerImpl implements MainController {
         //this.gameSolutionController = new GameSolutionControllerImpl();
         this.notebookController = new NotebookControllerImpl();
         this.mapController = new MapSetupController();
+        this.accusationController = new AccusationControllerImpl();
+        this.finalAccusationController = new FinalAccusationControllerImpl();
+        this.statisticsController = new StatisticsControllerImpl();
     }
 
     /**
@@ -92,5 +104,29 @@ public class MainControllerImpl implements MainController {
     @Override
     public MapSetupController getMapController() {
         return this.mapController;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public AccusationController getAccusationController() {
+        return this.accusationController;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public FinalAccusationController getFinalAccusationController() {
+        return this.finalAccusationController;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public StatisticsController getStatisticsController() {
+        return this.statisticsController;
     }
 }

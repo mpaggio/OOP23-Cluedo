@@ -9,16 +9,6 @@ import it.unibo.cluedo.model.GameModel;
  * Implementation of the FinalAccusationController.
  */
 public class FinalAccusationControllerImpl implements FinalAccusationController {
-
-    private boolean correct;
-
-    /**
-     * Class constructor.
-     */
-    public FinalAccusationControllerImpl() {
-        correct = false;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -26,7 +16,7 @@ public class FinalAccusationControllerImpl implements FinalAccusationController 
     public void makeFinalAccusation(final Card suspect, final Card weapon, final Card room) {
         final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
         try {
-            correct = gameModel.makeFinalAccusation(weapon, room, room, gameModel.getMap()
+            gameModel.makeFinalAccusation(weapon, room, room, gameModel.getMap()
                 .getRoomBySquare(gameModel.getMap()
                 .getSquareByPosition(gameModel.getCurrentPlayer()
                 .getCurrentPosition())).get());
@@ -40,6 +30,6 @@ public class FinalAccusationControllerImpl implements FinalAccusationController 
      */
     @Override
     public boolean isFinalAccusationCorrect() {
-        return correct;
+        return Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().hasWon();
     }
 }
