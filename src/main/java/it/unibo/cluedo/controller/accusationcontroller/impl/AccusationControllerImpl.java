@@ -34,7 +34,7 @@ public class AccusationControllerImpl implements AccusationController {
         final Card roomCard = gameModel.getAllCards().stream().filter(card -> card.getName()
             .equals(room)).findFirst().get();
         try {
-            cardToShow = gameModel.makeAccusation(suspectCard, weaponCard, roomCard, gameModel.getMap()
+            cardToShow = gameModel.makeAccusation(weaponCard, roomCard, suspectCard, gameModel.getMap()
                 .getRoomBySquare(gameModel.getMap().
                 getSquareByPosition(gameModel.getCurrentPlayer()
                 .getCurrentPosition())).get());
