@@ -6,6 +6,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.Window;
 
 /**
  * A button that allows the user to quit the game.
@@ -44,7 +45,10 @@ public class QuitGameView extends JButton {
         );
         switch (choice) {
             case 0:
-                System.exit(0);
+                Window[] windows = Window.getWindows();
+                for (Window window : windows) {
+                    window.dispose();
+                }
                 break;
             case 1:
                 saveAndQuit();
@@ -60,6 +64,9 @@ public class QuitGameView extends JButton {
     private void saveAndQuit() {
         controller.saveGame();
         JOptionPane.showMessageDialog(null, "Game saved successfully!", "Game Saved", JOptionPane.INFORMATION_MESSAGE);
-        System.exit(0);
+        Window[] windows = Window.getWindows();
+        for (Window window : windows) {
+            window.dispose();
+        }
     }
 }
