@@ -16,6 +16,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.logging.Level;
 import java.util.Date;
 import java.util.Locale;
+
+import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.player.api.Player;
@@ -47,12 +49,14 @@ public class GameSaveControllerImpl implements GameSaveController {
     /**
      * Save the current game state in a file.
      *
-     * @param players the list of players in the game.
-     * @param map     the list of the map components.
-     * @param currentPlayerIndex the index of the current player.
      */
     @Override
-    public void saveGame(final List<Player> players, final Board map, final int currentPlayerIndex) {
+    public void saveGame() {
+        final List<Player> players = Cluedo.CONTROLLER.getGameInstance().getPlayers();
+        final Board map = Cluedo.CONTROLLER.getGameInstance().getMap();
+        final int currentPlayerIndex = Cluedo.CONTROLLER.getGameInstance().getPlayers().
+            indexOf(Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer());
+
         if (players == null || players.isEmpty()) {
             throw new IllegalArgumentException("The list of players cannot be null or empty");
         }

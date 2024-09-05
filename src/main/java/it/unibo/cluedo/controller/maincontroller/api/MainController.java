@@ -12,7 +12,7 @@ import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
 import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
-
+import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.GameModel;
 
 /**
@@ -32,7 +32,7 @@ public interface MainController {
 
     /**
      * Initializes game model.
-     * 
+     *
      * @param playerNames a list of player names to be set
      * @param playerColors a list of player colors to be set
      */
@@ -115,4 +115,6 @@ public interface MainController {
     void updateBoard();
 
     void updateInformations();
+
+    GameSaveController getGameSaveController();
 }

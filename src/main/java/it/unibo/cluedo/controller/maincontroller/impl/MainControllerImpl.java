@@ -23,6 +23,8 @@ import it.unibo.cluedo.controller.unforeseencontroller.impl.UnforeseenController
 import it.unibo.cluedo.controller.dicecontroller.impl.DiceControllerImpl;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.controller.gamemenucontroller.impl.GameMenuControllerImpl;
+import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
+import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilder;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
@@ -46,6 +48,7 @@ public class MainControllerImpl implements MainController {
     private final UnforeseenController unforeseenController;
     private final DiceController diceController;
     private final GameMenuController gameMenuController;
+    private final GameSaveController gameSaveController;
     private MainGameFrame mainFrame;
     private GameModel gameModel;
 
@@ -64,6 +67,7 @@ public class MainControllerImpl implements MainController {
         this.unforeseenController = new UnforeseenControllerImpl();
         this.diceController = new DiceControllerImpl();
         this.gameMenuController = new GameMenuControllerImpl();
+        this.gameSaveController = new GameSaveControllerImpl();
     }
 
     /**
@@ -82,7 +86,7 @@ public class MainControllerImpl implements MainController {
         this.mainFrame = new MainGameFrame();
     }
 
-    
+
 
     /**
      * {@inheritDoc}
@@ -202,5 +206,10 @@ public class MainControllerImpl implements MainController {
     @Override
     public void updateInformations() {
         this.mainFrame.updateInformations();
+    }
+
+    @Override
+    public GameSaveController getGameSaveController() {
+        return this.gameSaveController;
     }
 }
