@@ -21,9 +21,22 @@ import it.unibo.cluedo.model.GameModel;
  */
 public interface MainController {
     /**
-     * Starts the game view by creating a new GamePanel.
+     * Starts the game view by creating a GameMenuView.
      */
     void startView();
+
+    /**
+     * Display the main game frame view.
+     */
+    void displayMainFrame();
+
+    /**
+     * Initializes game model.
+     * 
+     * @param playerNames a list of player names to be set
+     * @param playerColors a list of player colors to be set
+     */
+    void initializeGameModel(List<String> playerNames, List<String> playerColors);
 
     /**
      * Returns the current game model instance.
@@ -98,4 +111,8 @@ public interface MainController {
      * @return a instance of GameMenuController
      */
     GameMenuController getGameMenuController();
+
+    void updateBoard();
+
+    void updateInformations();
 }

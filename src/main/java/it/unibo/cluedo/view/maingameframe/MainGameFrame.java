@@ -35,6 +35,7 @@ public class MainGameFrame extends JFrame {
     private static final int MAX_BUTTON_HEIGHT = 50;
     private static final long serialVersionUID = 2L;
     private final PlayerInformationPanel playerPanel;
+    private final BoardView boardPanel;
     /**
      * Constructs a new GamePanel object.
      * It initializes the game panel by setting up the layout and adding various
@@ -65,7 +66,7 @@ public class MainGameFrame extends JFrame {
         // Map panel
         final JPanel mapPanel = new JPanel();
         mapPanel.setBorder(BorderFactory.createTitledBorder("Map"));
-        final BoardView boardPanel = new BoardView();
+        this.boardPanel = new BoardView();
         boardPanel.setAlignmentX(CENTER_ALIGNMENT);
         mapPanel.add(boardPanel);
         leftPanel.add(new JScrollPane(mapPanel));
@@ -98,7 +99,8 @@ public class MainGameFrame extends JFrame {
 
         endTurnButton.addActionListener(e -> {
             Cluedo.CONTROLLER.getGameInstance().endTurn();
-            playerPanel.updatePlayerInformationPanel();
+            updateInformations();
+            updateBoard();
         });
 
         normalAccusationButton.addActionListener(e -> {
@@ -158,5 +160,13 @@ public class MainGameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setVisible(true);
+    }
+
+    public void updateBoard() {
+        this.boardPanel.updateBoard();
+    }
+
+    public void updateInformations() {
+        this.playerPanel.updatePlayerInformationPanel();
     }
 }

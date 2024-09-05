@@ -24,8 +24,10 @@ import it.unibo.cluedo.controller.dicecontroller.impl.DiceControllerImpl;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.controller.gamemenucontroller.impl.GameMenuControllerImpl;
 import it.unibo.cluedo.model.GameModel;
+import it.unibo.cluedo.model.GameModelBuilder;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
+import it.unibo.cluedo.view.gamemenu.GameMenuView;
 import it.unibo.cluedo.view.maingameframe.MainGameFrame;
 import it.unibo.cluedo.model.card.api.Card;
 
@@ -34,7 +36,6 @@ import it.unibo.cluedo.model.card.api.Card;
  * It sets up the game model with predefined players and starts the game view.
  */
 public class MainControllerImpl implements MainController {
-    private final GameModel gameModel;
     private final GameSolutionController gameSolutionController;
     private final NotebookController notebookController;
     private final MapSetupController mapController;
@@ -45,18 +46,14 @@ public class MainControllerImpl implements MainController {
     private final UnforeseenController unforeseenController;
     private final DiceController diceController;
     private final GameMenuController gameMenuController;
+    private MainGameFrame mainFrame;
+    private GameModel gameModel;
 
     /**
      * Constructs a new MainControllerImpl object.
      * The constructor initialize the game model using the GameModelBuilderImpl.
      */
     public MainControllerImpl() {
-        this.gameModel = new GameModelBuilderImpl(new DeckImpl())
-        .addPlayer("Alice", "Red")
-        .addPlayer("Bob", "Green")
-        .addPlayer("Charlie", "Blue")
-        .withGameSolution()
-        .build();
         this.gameSolutionController = new GameSolutionControllerImpl();
         this.notebookController = new NotebookControllerImpl();
         this.mapController = new MapSetupController();
@@ -74,8 +71,18 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void startView() {
-        new MainGameFrame();
+        new GameMenuView();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void displayMainFrame() {
+        this.mainFrame = new MainGameFrame();
+    }
+
+    
 
     /**
      * {@inheritDoc}
@@ -175,5 +182,24 @@ public class MainControllerImpl implements MainController {
     @Override
     public GameMenuController getGameMenuController() {
         return this.gameMenuController;
+    }
+
+    @Override
+    public void initializeGameModel(List<String> playerNames, List<String> playerColors) {
+        final GameModelBuilder builder = new GameModelBuilderImpl(new DeckImpl());
+        for (int i = 0; i < playerNames.size(); i ++) {
+            builder.addPlayer(playerNames.get(i), playerColors.get(i));
+        }
+        this.gameModel = builder.withGameSolution().build();
+    }
+
+    @Override
+    public void updateBoard() {
+        this.mainFrame.updateBoard();
+    }
+
+    @Override
+    public void updateInformations() {
+        this.mainFrame.updateInformations();
     }
 }

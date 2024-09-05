@@ -50,5 +50,7 @@ public class JoystickControllerImpl implements JoystickController {
                                     .getSquareByPosition(Cluedo.CONTROLLER.getGameInstance()
                                     .getCurrentPlayer().getCurrentPosition());
         Cluedo.CONTROLLER.getGameInstance().movePlayer(currentSquare, direction);
+        Cluedo.CONTROLLER.updateBoard();
+        Cluedo.CONTROLLER.updateInformations();
     }
 }
