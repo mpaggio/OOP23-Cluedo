@@ -85,6 +85,7 @@ final class SquareTest {
     void testPlayerPresence() {
         this.square = SquareFactory.createNormalSquare(position);
         assertFalse(this.square.isAlreadyOccupied());
+        this.square.setPlayer(player);
         this.square.landOn(player);
         assertTrue(this.square.isAlreadyOccupied());
         this.square.removePlayer();

@@ -12,8 +12,8 @@ import java.awt.Window;
  * A button that allows the user to quit the game.
  */
 public class QuitGameView extends JButton {
-
-    private final GameSaveController controller = Cluedo.CONTROLLER.getGameSaveController();
+    private static final long serialVersionUID = 5L;
+    private final transient GameSaveController controller = Cluedo.CONTROLLER.getGameSaveController();
 
     /**
      * Constructs a new QuitGameView object.
@@ -32,8 +32,8 @@ public class QuitGameView extends JButton {
      * Shows a dialog asking the user if they want to save the game before quitting.
      */
     public void showQuitGameView() {
-        String[] options = {"Quit without saving the game", "Quit and save the game", "Cancel"};
-        int choice = JOptionPane.showOptionDialog(
+        final String[] options = {"Quit without saving the game", "Quit and save the game", "Cancel"};
+        final int choice = JOptionPane.showOptionDialog(
                 null,
                 "Do you want to save the game before quitting?",
                 "Quit Game",
@@ -45,8 +45,8 @@ public class QuitGameView extends JButton {
         );
         switch (choice) {
             case 0:
-                Window[] windows = Window.getWindows();
-                for (Window window : windows) {
+                final Window[] windows = Window.getWindows();
+                for (final Window window : windows) {
                     window.dispose();
                 }
                 break;
@@ -64,8 +64,8 @@ public class QuitGameView extends JButton {
     private void saveAndQuit() {
         controller.saveGame();
         JOptionPane.showMessageDialog(null, "Game saved successfully!", "Game Saved", JOptionPane.INFORMATION_MESSAGE);
-        Window[] windows = Window.getWindows();
-        for (Window window : windows) {
+        final Window[] windows = Window.getWindows();
+        for (final Window window : windows) {
             window.dispose();
         }
     }

@@ -53,13 +53,12 @@ public class GameSaveControllerImpl implements GameSaveController {
     @Override
     public void saveGame() {
         final List<Player> players = Cluedo.CONTROLLER.getGameInstance().getPlayers();
-        final Board map = Cluedo.CONTROLLER.getGameInstance().getMap();
-        final int currentPlayerIndex = Cluedo.CONTROLLER.getGameInstance().getPlayers().
-            indexOf(Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer());
-
         if (players == null || players.isEmpty()) {
             throw new IllegalArgumentException("The list of players cannot be null or empty");
         }
+        final Board map = Cluedo.CONTROLLER.getGameInstance().getMap();
+        final int currentPlayerIndex = Cluedo.CONTROLLER.getGameInstance().getPlayers().
+            indexOf(Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer());
         try {
             saveGameToFile(players, map, currentPlayerIndex);
         } catch (IOException e) {
