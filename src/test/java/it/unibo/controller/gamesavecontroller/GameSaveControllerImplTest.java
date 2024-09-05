@@ -56,7 +56,7 @@ class GameSaveControllerImplTest {
         final List<Player> players = new ArrayList<>();
         players.add(player);
         final int currentPlayerIndex = 0;
-        gameSaveManager.saveGame(players, map, currentPlayerIndex);
+        gameSaveManager.saveGame();
         final File file = new File(FILE_NAME);
         assertTrue(file.exists());
         final List<String> savedGames = gameSaveManager.viewSavedGames();
@@ -73,7 +73,7 @@ class GameSaveControllerImplTest {
         final List<Player> players = new ArrayList<>();
         players.add(player);
         final int currentPlayerIndex = 0;
-        gameSaveManager.saveGame(players, map, currentPlayerIndex);
+        gameSaveManager.saveGame();
         final List<String> savedGames = gameSaveManager.viewSavedGames();
         assertFalse(savedGames.isEmpty());
         assertTrue(savedGames.stream().anyMatch(s -> s.contains("TestPlayer")));
@@ -87,7 +87,7 @@ class GameSaveControllerImplTest {
         final List<Player> players = new ArrayList<>();
         players.add(player);
         final int currentPlayerIndex = 0;
-        gameSaveManager.saveGame(players, map, currentPlayerIndex);
+        gameSaveManager.saveGame();
         final Optional<String> output = gameSaveManager.getOutputSavedGames();
         assertTrue(output.isPresent());
         assertTrue(output.get().contains("TestPlayer"));
@@ -100,7 +100,7 @@ class GameSaveControllerImplTest {
     void testSaveGameWithEmptyPlayerList() {
         final List<Player> players = new ArrayList<>();
         final int currentPlayerIndex = 0;
-        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame(players, map, currentPlayerIndex));
+        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame());
     }
 
     /**
@@ -109,6 +109,6 @@ class GameSaveControllerImplTest {
     @Test
     void testSaveGameWithNullPlayerList() {
         final int currentPlayerIndex = 0;
-        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame(null, map, currentPlayerIndex));
+        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame());
     }
 }
