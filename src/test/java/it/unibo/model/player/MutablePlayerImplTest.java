@@ -151,7 +151,7 @@ final class MutablePlayerImplTest {
      */
     @Test
     void testRollDiceAndGetSteps() {
-        final int steps = player.getSteps();
+        final int steps = player.getCurrentSteps();
         assertTrue(steps >= MIN_STEPS && steps <= MAX_STEPS);
 
     }

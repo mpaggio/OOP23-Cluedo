@@ -42,7 +42,7 @@ public final class MoveInSingleDirection implements MovementCommand {
         final Square square = this.map.getSquareByPosition(newPosition);
         if (movementStrategy.isValidMove(player, newPosition)) {
             if (this.player instanceof MutablePlayer) {
-                ((MutablePlayer) player).setCurrentSteps(player.getSteps() - 1);
+                ((MutablePlayer) player).setCurrentSteps(player.getCurrentSteps() - 1);
             }
             if (this.map.isSquareInRoom(square) && this.map.getRoomBySquare(square).isPresent()) {
                 this.map.getSquareByPosition(player.getCurrentPosition()).removePlayer();

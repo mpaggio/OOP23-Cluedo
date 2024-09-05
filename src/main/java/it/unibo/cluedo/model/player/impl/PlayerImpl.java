@@ -3,8 +3,6 @@ package it.unibo.cluedo.model.player.impl;
 import java.util.List;
 
 import it.unibo.cluedo.model.card.api.Card;
-import it.unibo.cluedo.model.dice.api.Dice;
-import it.unibo.cluedo.model.dice.impl.DiceImpl;
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.notebook.impl.NotebookImpl;
 import it.unibo.cluedo.model.player.api.Player;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
  */
 public class PlayerImpl implements Player {
 
-    private static final int DICE_SIDES = 6;
     private final String username;
     private final String color;
     private Position currentPosition;
@@ -28,7 +25,6 @@ public class PlayerImpl implements Player {
     private boolean doubleRollDice;
     private boolean nextTurn;
     private final Notebook notebook;
-    private final Dice dice;
     private int currentSteps;
     private boolean hasLost;
     /**
@@ -48,7 +44,6 @@ public class PlayerImpl implements Player {
         this.doubleRollDice = false;
         this.nextTurn = true;
         this.notebook = new NotebookImpl();
-        this.dice = new DiceImpl(DICE_SIDES);
         this.currentSteps = 0;
         this.hasLost = false;
     }
@@ -206,19 +201,6 @@ public class PlayerImpl implements Player {
     @Override
     public Notebook getPlayerNotebook() {
         return this.notebook;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public int getSteps() {
-        int steps = this.dice.rollDice();
-        if (this.doubleRollDice) {
-            steps += this.dice.rollDice();
-            this.doubleRollDice = false;
-        }
-        return steps;
     }
 
     /**

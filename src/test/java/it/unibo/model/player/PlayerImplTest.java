@@ -159,7 +159,7 @@ final class PlayerImplTest {
      */
     @Test
     void testGetSteps() {
-        final int steps = testPlayer.getSteps();
+        final int steps = testPlayer.getCurrentSteps();
         assertTrue(steps >= MIN_DICE_ROLL && steps <= MAX_DICE_ROLL);
     }
 
@@ -171,7 +171,7 @@ final class PlayerImplTest {
         if (testPlayer instanceof MutablePlayer) {
             final MutablePlayer mutablePlayer = (MutablePlayer) testPlayer;
             mutablePlayer.setDoubleRollDice(true);
-            final int steps = testPlayer.getSteps();
+            final int steps = testPlayer.getCurrentSteps();
             assertTrue(steps >= MIN_DOUBLE_DICE_ROLL && steps <= MAX_DOUBLE_DICE_ROLL);
         }
     }
