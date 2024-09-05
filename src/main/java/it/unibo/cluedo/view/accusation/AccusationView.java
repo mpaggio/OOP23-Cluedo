@@ -6,9 +6,11 @@ import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JOptionPane;
+import javax.swing.ImageIcon;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
+import it.unibo.cluedo.model.card.api.Card;
 
 /**
  * This class is used to show the accusation view.
@@ -42,6 +44,11 @@ public class AccusationView extends JPanel {
             "Accusation",
             JOptionPane.INFORMATION_MESSAGE);
             Cluedo.CONTROLLER.getAccusationController().makeAccusation(suspect, weapon, room);
+            if (Cluedo.CONTROLLER.getAccusationController().isAccusationCorrect()) {
+                final Card card = Cluedo.CONTROLLER.getAccusationController().getCardToShow();
+                ImageIcon image = new ImageIcon(card.getImagePath(), card.getName());
+                JOptionPane.showMessageDialog(frame, image);
+            }
         });
     }
 }
