@@ -13,6 +13,13 @@ public class UnforeseenControllerImpl implements UnforeseenController {
     private UnforeseenEffect unforeseen;
 
     /**
+     * Constructor for UnforeseenControllerImpl.
+     */
+    public UnforeseenControllerImpl() {
+        this.unforeseen = null;
+    }
+
+    /**
      * Gets the type of the unforeseen.
      * 
      * @return the type of the unforeseen

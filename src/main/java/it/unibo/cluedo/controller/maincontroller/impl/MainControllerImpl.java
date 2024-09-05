@@ -68,6 +68,8 @@ public class MainControllerImpl implements MainController {
         this.diceController = new DiceControllerImpl();
         this.gameMenuController = new GameMenuControllerImpl();
         this.gameSaveController = new GameSaveControllerImpl();
+        this.mainFrame = null;
+        this.gameModel = null;
     }
 
     /**

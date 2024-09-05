@@ -43,7 +43,7 @@ class GameSaveControllerImplTest {
         MutablePlayerImpl player1 =  new MutablePlayerImpl("TestPlayer", "Red");
         player1.setPosition(new Position(1, 1));
         player1.setPlayerCards(List.of(
-                new CardImpl(Type.ROOM , "TestWeapon",""),
+                new CardImpl(Type.ROOM, "TestWeapon", ""),
                 new CardImpl(Type.ROOM, "TestRoom", "")
         ));
         players.add(player1);

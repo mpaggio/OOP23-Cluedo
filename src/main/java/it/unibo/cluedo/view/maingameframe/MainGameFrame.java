@@ -126,7 +126,6 @@ public class MainGameFrame extends JFrame {
         // Joystick panel
         final JPanel joystickPanel = new JoystickView();
         joystickPanel.setBorder(BorderFactory.createTitledBorder("Joystick"));
-        // joystickPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, 3 * PREFERRED_HEIGHT));
         bottomRightPanel.add(joystickPanel);
 
         // Cluedo panel
@@ -141,7 +140,7 @@ public class MainGameFrame extends JFrame {
         bottomPanel.setLayout(new GridLayout(1, 2));
         final JButton rulesButton = new JButton("Rules");
         final QuitGameView quitButton = new QuitGameView();
-        
+
         rulesButton.addActionListener(e -> {
             final GameRulesView rulesPanel = new GameRulesView();
             JOptionPane.showMessageDialog(null, rulesPanel, "Game rules", JOptionPane.PLAIN_MESSAGE);
@@ -163,11 +162,17 @@ public class MainGameFrame extends JFrame {
         setVisible(true);
     }
 
-    public void updateBoard() {
+    /**
+     * Updates the board view.
+     */
+    public final void updateBoard() {
         this.boardPanel.updateBoard();
     }
 
-    public void updateInformations() {
+    /**
+     * Updates the information view.
+     */
+    public final void updateInformations() {
         this.playerPanel.updatePlayerInformationPanel();
     }
 }
