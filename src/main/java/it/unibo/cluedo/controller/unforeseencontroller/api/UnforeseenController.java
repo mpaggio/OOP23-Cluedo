@@ -16,4 +16,14 @@ public interface UnforeseenController {
      * @return the description of the unforeseen.
      */
     String getEffectDescription();
+
+    /**
+     * This method is used to show the unforeseen.
+     */
+    void showUnforeseen();
+
+    /**
+     * This method is used to initialize the controller.
+     */
+    void initializeController();
 }

@@ -2,11 +2,15 @@ package it.unibo.cluedo.controller.unforeseencontroller.impl;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;
+import it.unibo.cluedo.view.unforeseen.UnforeseenView;
+import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 
 /**
  * Class that implements the UnforeseenController interface.
  */
 public class UnforeseenControllerImpl implements UnforeseenController {
+
+    private UnforeseenEffect unforeseen;
 
     /**
      * Gets the type of the unforeseen.
@@ -14,7 +18,7 @@ public class UnforeseenControllerImpl implements UnforeseenController {
      */
     @Override
     public String getEffectType() {
-        return Cluedo.CONTROLLER.getGameInstance().drawUnforeseen().getType();
+        return this.unforeseen.getType();
     }
 
     /**
@@ -23,7 +27,24 @@ public class UnforeseenControllerImpl implements UnforeseenController {
      */
     @Override
     public String getEffectDescription() {
-        return Cluedo.CONTROLLER.getGameInstance().drawUnforeseen().getDescription();
+        return this.unforeseen.getDescription();
+    }
+
+    /**
+     * Shows the unforeseen.
+     */
+    @Override
+    public void showUnforeseen() {
+        final UnforeseenView unforeseenView = new UnforeseenView();
+        unforeseenView.showEffect();
+    }
+
+    /**
+     * Initializes the controller.
+     */
+    @Override
+    public void initializeController() {
+        this.unforeseen = Cluedo.CONTROLLER.getGameInstance().drawUnforeseen();
     }
 
 }

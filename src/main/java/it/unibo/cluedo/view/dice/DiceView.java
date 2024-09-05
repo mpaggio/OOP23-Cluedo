@@ -92,5 +92,6 @@ public class DiceView extends JPanel {
         final int result = controller.getResult();
         diceLabel.setText("Congratulations ! You rolled : " + result);
         updateDiceImage(result);
+        Cluedo.CONTROLLER.getUnforeseenController().showUnforeseen();
     }
 }
