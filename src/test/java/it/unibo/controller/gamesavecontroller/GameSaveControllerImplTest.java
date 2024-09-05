@@ -1,6 +1,5 @@
 package it.unibo.controller.gamesavecontroller;
 
-import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
 import it.unibo.cluedo.utilities.Position;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
@@ -18,8 +17,11 @@ import java.util.ArrayList;
 import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.board.impl.BoardImpl;
-import it.unibo.cluedo.model.card.api.Card;
+import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
+import it.unibo.cluedo.model.card.api.Card.Type;
+import it.unibo.cluedo.model.card.impl.CardImpl;
 import it.unibo.cluedo.model.board.api.Board;
+import it.unibo.cluedo.model.GameModel;
 
 /**
  * This class is used to test the GameSaveControllerImpl class.
@@ -27,16 +29,33 @@ import it.unibo.cluedo.model.board.api.Board;
 class GameSaveControllerImplTest {
 
     private static final String FILE_NAME = "cluedo_saved_games.txt";
-    private GameSaveController gameSaveManager;
-    private Player player;
+    private GameSaveController gameSaveController;
+    private GameModel gameModel;
+    private List<Player> players;
     private Board map;
+
 
     @BeforeEach
     void setUp() {
-        gameSaveManager = new GameSaveControllerImpl();
-        player = new MutablePlayerImpl("TestPlayer", "Red");
-        ((MutablePlayer) player).setPosition(new Position(0, 0));
-        ((MutablePlayer) player).setPlayerCards(new ArrayList<Card>());
+        gameSaveController = new GameSaveControllerImpl();
+        players = new ArrayList<>();
+
+        MutablePlayerImpl player1 =  new MutablePlayerImpl("TestPlayer", "Red");
+        player1.setPosition(new Position(1, 1));
+        player1.setPlayerCards(List.of(
+                new CardImpl(Type.ROOM , "TestWeapon",""),
+                new CardImpl(Type.ROOM, "TestRoom", "")
+        ));
+        players.add(player1);
+
+        MutablePlayer player2 =  new MutablePlayerImpl("TestPlayer", "Red");
+        player2.setPosition(new Position(1, 1));
+        player2.setPlayerCards(List.of(
+                new CardImpl(Type.WEAPON, "TestWeapon", ""),
+                new CardImpl(Type.ROOM, "TestRoom", "")
+        ));
+        players.add(player2);
+
         map = new BoardImpl();
     }
 
@@ -53,13 +72,10 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testSaveGame() {
-        final List<Player> players = new ArrayList<>();
-        players.add(player);
-        final int currentPlayerIndex = 0;
-        gameSaveManager.saveGame();
+        gameSaveController.saveGame();
         final File file = new File(FILE_NAME);
         assertTrue(file.exists());
-        final List<String> savedGames = gameSaveManager.viewSavedGames();
+        final List<String> savedGames = gameSaveController.viewSavedGames();
         assertFalse(savedGames.isEmpty());
     }
 
@@ -70,11 +86,8 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testViewSavedGames() throws IOException {
-        final List<Player> players = new ArrayList<>();
-        players.add(player);
-        final int currentPlayerIndex = 0;
-        gameSaveManager.saveGame();
-        final List<String> savedGames = gameSaveManager.viewSavedGames();
+        gameSaveController.saveGame();
+        final List<String> savedGames = gameSaveController.viewSavedGames();
         assertFalse(savedGames.isEmpty());
         assertTrue(savedGames.stream().anyMatch(s -> s.contains("TestPlayer")));
     }
@@ -84,11 +97,8 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testGetOutputSavedGames() {
-        final List<Player> players = new ArrayList<>();
-        players.add(player);
-        final int currentPlayerIndex = 0;
-        gameSaveManager.saveGame();
-        final Optional<String> output = gameSaveManager.getOutputSavedGames();
+        gameSaveController.saveGame();
+        final Optional<String> output = gameSaveController.getOutputSavedGames();
         assertTrue(output.isPresent());
         assertTrue(output.get().contains("TestPlayer"));
     }
@@ -98,9 +108,7 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testSaveGameWithEmptyPlayerList() {
-        final List<Player> players = new ArrayList<>();
-        final int currentPlayerIndex = 0;
-        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame());
+        assertThrows(IllegalArgumentException.class, () -> gameSaveController.saveGame());
     }
 
     /**
@@ -108,7 +116,6 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testSaveGameWithNullPlayerList() {
-        final int currentPlayerIndex = 0;
-        assertThrows(IllegalArgumentException.class, () -> gameSaveManager.saveGame());
+        assertThrows(IllegalArgumentException.class, () -> gameSaveController.saveGame());
     }
 }
