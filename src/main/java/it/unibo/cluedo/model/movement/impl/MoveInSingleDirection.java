@@ -45,8 +45,7 @@ public final class MoveInSingleDirection implements MovementCommand {
                 ((MutablePlayer) player).setCurrentSteps(player.getSteps() - 1);
             }
             if (this.map.isSquareInRoom(square) && this.map.getRoomBySquare(square).isPresent()) {
-                this.map.getRoomBySquare(this.map.getSquareByPosition(player.getCurrentPosition()))
-                            .get().removePlayerFromRoom(player);
+                this.map.getSquareByPosition(player.getCurrentPosition()).removePlayer();
                 if (this.player instanceof MutablePlayer) {
                     ((MutablePlayer) player).setPosition(newPosition);
                 }
@@ -56,7 +55,7 @@ public final class MoveInSingleDirection implements MovementCommand {
                 if (this.player instanceof MutablePlayer) {
                     ((MutablePlayer) player).setPosition(newPosition);
                 }
-                this.map.getSquareByPosition(newPosition).landOn(player);
+                this.map.getSquareByPosition(newPosition).setPlayer(player);
             } 
         } else {
             throw new IllegalArgumentException("Invalid move: the player cannot move outside the board or into an invalid area");
