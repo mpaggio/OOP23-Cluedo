@@ -139,13 +139,17 @@ public class MainGameFrame extends JFrame {
         bottomPanel.setBorder(BorderFactory.createTitledBorder("Options"));
         bottomPanel.setLayout(new GridLayout(1, 2));
         final JButton rulesButton = new JButton("Rules");
+        final JButton quitButton = new JButton("Quit");
 
         rulesButton.addActionListener(e -> {
             final GameRulesView rulesPanel = new GameRulesView();
             JOptionPane.showMessageDialog(null, rulesPanel, "Game rules", JOptionPane.PLAIN_MESSAGE);
         });
 
-        final JButton quitButton = new JButton("Quit");
+        quitButton.addActionListener(e -> {
+            
+        });
+
         bottomPanel.add(rulesButton);
         bottomPanel.add(quitButton);
         bottomPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, MAX_BUTTON_HEIGHT));
