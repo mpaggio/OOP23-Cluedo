@@ -37,6 +37,13 @@ public interface Square {
     void removePlayer();
 
     /**
+     * Sets the presence of the specified player in the square.
+     * 
+     * @param player the player to be set
+     */
+    void setPlayer(Player player);
+
+    /**
      * Says wether there is a player located in the square.
      * 
      * @return true if there is a player in the square
