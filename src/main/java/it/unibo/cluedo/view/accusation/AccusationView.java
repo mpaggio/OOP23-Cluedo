@@ -46,7 +46,7 @@ public class AccusationView extends JPanel {
             Cluedo.CONTROLLER.getAccusationController().makeAccusation(suspect, weapon, room);
             if (Cluedo.CONTROLLER.getAccusationController().isAccusationCorrect()) {
                 final Card card = Cluedo.CONTROLLER.getAccusationController().getCardToShow();
-                ImageIcon image = new ImageIcon(card.getImagePath(), card.getName());
+                final ImageIcon image = new ImageIcon(card.getImagePath(), card.getName());
                 JOptionPane.showMessageDialog(null, image);
             }
         });
