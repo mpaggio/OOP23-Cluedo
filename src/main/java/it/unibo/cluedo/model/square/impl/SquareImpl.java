@@ -15,6 +15,7 @@ public class SquareImpl implements Square {
     private final Position position;
     private final Effect effect;
     private Optional<Player> player;
+    private boolean isForEntrance;
 
     /**
      * Constructor for the square implementation.
@@ -76,7 +77,27 @@ public class SquareImpl implements Square {
         this.player = Optional.of(player);
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void setIsForEntrance() {
+        this.isForEntrance = true;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public Optional<Player> getPlayer() {
         return this.player; 
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isForEntrance() {
+        return this.isForEntrance;
     }
 }

@@ -44,6 +44,11 @@ public interface Square {
     void setPlayer(Player player);
 
     /**
+     * Sets that the square is made for entering in a room.
+     */
+    void setIsForEntrance();
+
+    /**
      * Says wether there is a player located in the square.
      * 
      * @return true if there is a player in the square
@@ -57,4 +62,11 @@ public interface Square {
      * @return an optional containing the Player located in the square, if present
      */
     Optional<Player> getPlayer();
+
+    /**
+     * Returns if the square is made for entering in a room or not.
+     * 
+     * @return true if the square is made for entering in a room, false otherwise
+     */
+    boolean isForEntrance();
 }

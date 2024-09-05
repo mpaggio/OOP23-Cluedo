@@ -152,9 +152,6 @@ final class GameModelImpl implements GameModel {
         throw new IllegalStateException("You can't make an accusation now");
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void movePlayer(final Square position, final MovementStrategy.Direction direction) {
         final BoardMovement boardMovement = new BoardMovement(map);
