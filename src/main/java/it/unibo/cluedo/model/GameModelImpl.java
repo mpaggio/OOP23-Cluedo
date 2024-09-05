@@ -169,9 +169,8 @@ final class GameModelImpl implements GameModel {
                 }
                 hasMovedInThisTurn = true;
                 statistics.incrementSteps(getCurrentPlayer(), 1);
-                if (hasMovedInThisTurn && getCurrentPlayer().isInRoom() && getCurrentPlayer() instanceof MutablePlayer) {
+                if (hasMovedInThisTurn && getCurrentPlayer().isInRoom()) {
                     fase = TurnFase.MAKE_ACCUSATION;
-                    ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
                     statistics.incrementRoomsVisited(getCurrentPlayer());
                     return;
                 } else {
