@@ -41,7 +41,6 @@ public class SquareImpl implements Square {
      */
     @Override
     public void landOn(final Player player) {
-        setPlayer(player);
         this.effect.apply(player);
     }
 
@@ -70,18 +69,13 @@ public class SquareImpl implements Square {
     }
 
     /**
-     * Sets the player moved in the square.
-     * 
-     * @param player the player that moved into the square
-     */
-    private void setPlayer(final Player player) {
-        this.player = Optional.of(player);
-    }
-
-    /**
      * {@inheritDoc}
      */
     @Override
+    public void setPlayer(final Player player) {
+        this.player = Optional.of(player);
+    }
+
     public Optional<Player> getPlayer() {
         return this.player; 
     }
