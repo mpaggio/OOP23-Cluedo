@@ -29,13 +29,13 @@ public final class BoardMovement implements MovementStrategy {
     public Position calculatePosition(final Position currentPosition, final int steps, final Direction direction) {
         switch (direction) {
             case UP:
-                return new Position(currentPosition.getX(), currentPosition.getY() - steps);
-            case DOWN:
-                return new Position(currentPosition.getX(), currentPosition.getY() + steps);
-            case RIGHT:
-                return new Position(currentPosition.getX() + steps, currentPosition.getY());
-            case LEFT:
                 return new Position(currentPosition.getX() - steps, currentPosition.getY());
+            case DOWN:
+                return new Position(currentPosition.getX() + steps, currentPosition.getY());
+            case RIGHT:
+                return new Position(currentPosition.getX(), currentPosition.getY() + steps);
+            case LEFT:
+                return new Position(currentPosition.getX(), currentPosition.getY() - steps);
             default:
                 throw new IllegalStateException("Invalid direction: " + direction);
         }
@@ -45,7 +45,7 @@ public final class BoardMovement implements MovementStrategy {
     public boolean isValidMove(final Player player, final Position newPosition) {
         return newPosition.getX() >= 0 && newPosition.getX() < this.width
         && newPosition.getY() >= 0 && newPosition.getY() < this.heigth
-        && map.getSquareByPosition(newPosition).isAlreadyOccupied();
+        && !map.getSquareByPosition(newPosition).isAlreadyOccupied();
     }
 
     @Override
