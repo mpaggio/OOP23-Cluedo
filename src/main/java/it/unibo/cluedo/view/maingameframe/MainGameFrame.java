@@ -18,6 +18,7 @@ import it.unibo.cluedo.view.joistick.JoystickView;
 import it.unibo.cluedo.view.notebook.NotebookView;
 import it.unibo.cluedo.view.playercards.PlayerCardsPanel;
 import it.unibo.cluedo.view.playerinformations.PlayerInformationPanel;
+import it.unibo.cluedo.view.quitgame.QuitGameView;
 
 //import it.unibo.cluedo.view.dice.DiceView;
 
@@ -145,7 +146,7 @@ public class MainGameFrame extends JFrame {
             JOptionPane.showMessageDialog(null, rulesPanel, "Game rules", JOptionPane.PLAIN_MESSAGE);
         });
 
-        final JButton quitButton = new JButton("Quit");
+        final QuitGameView quitButton = new QuitGameView();
         bottomPanel.add(rulesButton);
         bottomPanel.add(quitButton);
         bottomPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, MAX_BUTTON_HEIGHT));
