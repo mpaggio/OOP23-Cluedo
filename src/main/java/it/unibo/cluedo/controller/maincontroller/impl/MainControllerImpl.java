@@ -188,26 +188,37 @@ public class MainControllerImpl implements MainController {
         return this.gameMenuController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
-    public void initializeGameModel(List<String> playerNames, List<String> playerColors) {
+    public void initializeGameModel(final List<String> playerNames, final List<String> playerColors) {
         final GameModelBuilder builder = new GameModelBuilderImpl(new DeckImpl());
-        for (int i = 0; i < playerNames.size(); i ++) {
+        for (int i = 0; i < playerNames.size(); i++) {
             builder.addPlayer(playerNames.get(i), playerColors.get(i));
         }
         this.gameModel = builder.withGameSolution().build();
-        System.out.println(this.gameModel.getMap().printMap());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateBoard() {
         this.mainFrame.updateBoard();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void updateInformations() {
         this.mainFrame.updateInformations();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public GameSaveController getGameSaveController() {
         return this.gameSaveController;

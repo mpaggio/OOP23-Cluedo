@@ -31,14 +31,6 @@ public interface MainController {
     void displayMainFrame();
 
     /**
-     * Initializes game model.
-     *
-     * @param playerNames a list of player names to be set
-     * @param playerColors a list of player colors to be set
-     */
-    void initializeGameModel(List<String> playerNames, List<String> playerColors);
-
-    /**
      * Returns the current game model instance.
      *
      * @return the current game model instance
@@ -112,9 +104,28 @@ public interface MainController {
      */
     GameMenuController getGameMenuController();
 
+    /**
+     * Initializes the game model.
+     * 
+     * @param playerNames the list of names of the players
+     * @param playerColors the list of colors of the players
+     */
+    void initializeGameModel(List<String> playerNames, List<String> playerColors);
+
+    /**
+     * Updates the board panel.
+     */
     void updateBoard();
 
+    /**
+     * Updates the information panel.
+     */
     void updateInformations();
 
+    /**
+     * Returns the game save controller.
+     * 
+     * @return the game save controller
+     */
     GameSaveController getGameSaveController();
 }

@@ -34,6 +34,7 @@ public class BoardImpl implements Board {
     private static final int MAP_HEIGHT = 25;
     private static final int MAP_WIDTH = 24;
     private static final int MAX_SQUARE_WITH_EFFECT = 3;
+    private static final int SQUARE_FOR_ENTRANCES_NUM = 14;
     // square(1), entrance(3), trapdoor(4), welcomeSquares (14)
     private static final int[][] MAP_TILES_DISPOSITION = {
         {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
@@ -160,7 +161,8 @@ public class BoardImpl implements Board {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 final Position position = new Position(i, j);
-                if ((tileType == 1 || tileType == 14) && !prohibitedPositions.contains(position)) {
+                if ((tileType == 1 || tileType == SQUARE_FOR_ENTRANCES_NUM) 
+                    && !prohibitedPositions.contains(position)) {
                     validPositionForEffects.put(position, tileType);
                 }
             }
@@ -182,7 +184,7 @@ public class BoardImpl implements Board {
             } else if (squareToAdd.getEffect() instanceof MalusEffectImpl) {
                 malusCount++;
             }
-            if (validPositionForEffects.get(position).intValue() == 14) {
+            if (validPositionForEffects.get(position).intValue() == SQUARE_FOR_ENTRANCES_NUM) {
                 squareToAdd.setIsForEntrance();
             }
             localSquares.add(squareToAdd);
@@ -207,7 +209,7 @@ public class BoardImpl implements Board {
                         new Position(i, j)
                     );
                     rooms[findRoomForEntrance(i, j).ordinal()].setTrapDoor(Optional.of(trapDoor));
-                } else if (tileType != 0 && tileType != 1 && tileType != 14) {
+                } else if (tileType != 0 && tileType != 1 && tileType != SQUARE_FOR_ENTRANCES_NUM) {
                     rooms[RoomType.fromCode(tileType).ordinal()].addSquare(
                         SquareFactory.createNormalSquare(position)
                     ); 
@@ -264,25 +266,25 @@ public class BoardImpl implements Board {
         if (i > 0
             && MAP_TILES_DISPOSITION[i - 1][j] != 1
             && MAP_TILES_DISPOSITION[i - 1][j] != 3
-            && MAP_TILES_DISPOSITION[i - 1][j] != 14
+            && MAP_TILES_DISPOSITION[i - 1][j] != SQUARE_FOR_ENTRANCES_NUM
             && MAP_TILES_DISPOSITION[i - 1][j] != 0) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i - 1][j]);
         } else if (i < MAP_HEIGHT - 1
             && MAP_TILES_DISPOSITION[i + 1][j] != 1
             && MAP_TILES_DISPOSITION[i + 1][j] != 3
-            && MAP_TILES_DISPOSITION[i + 1][j] != 14
+            && MAP_TILES_DISPOSITION[i + 1][j] != SQUARE_FOR_ENTRANCES_NUM
             && MAP_TILES_DISPOSITION[i + 1][j] != 0) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i + 1][j]);
         } else if (j > 0
             && MAP_TILES_DISPOSITION[i][j - 1] != 1
             && MAP_TILES_DISPOSITION[i][j - 1] != 3
-            && MAP_TILES_DISPOSITION[i][j - 1] != 14
+            && MAP_TILES_DISPOSITION[i][j - 1] != SQUARE_FOR_ENTRANCES_NUM
             && MAP_TILES_DISPOSITION[i][j - 1] != 0) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i][j - 1]);
         } else if (j < MAP_WIDTH - 1
             && MAP_TILES_DISPOSITION[i][j + 1] != 1
             && MAP_TILES_DISPOSITION[i][j + 1] != 3
-            && MAP_TILES_DISPOSITION[i][j + 1] != 14
+            && MAP_TILES_DISPOSITION[i][j + 1] != SQUARE_FOR_ENTRANCES_NUM
             && MAP_TILES_DISPOSITION[i][j + 1] != 0) {
             return RoomType.fromCode(MAP_TILES_DISPOSITION[i][j + 1]);
         } else {
@@ -365,7 +367,6 @@ public class BoardImpl implements Board {
         if (serchedSquare.isPresent()) {
             return serchedSquare.get();
         } else {
-            System.out.println("Non ho trovato lo square");
             throw new IllegalArgumentException("The given position does not correspond to a visited square");
         }
     }
