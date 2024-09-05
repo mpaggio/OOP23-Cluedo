@@ -48,8 +48,8 @@ public class BoardImpl implements Board {
         {12, 12, 12, 12, 12, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 14, 3, 7, 7, 7, 7, 7},
         {12, 12, 12, 12, 12, 12, 12, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 1, 7, 7, 7, 7, 7, 7},
         {12, 12, 12, 12, 12, 12, 12, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 1, 7, 7, 7, 7, 7, 7},
-        {12, 12, 12, 12, 12, 12, 12, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 1, 7, 7, 7, 7, 3, 7},
-        {12, 12, 12, 12, 12, 12, 12, 3, 14, 1, 13, 13, 13, 13, 13, 1, 1, 1, 1, 1, 14, 1, 14, 0},
+        {12, 12, 12, 12, 12, 12, 12, 3, 14, 1, 13, 13, 13, 13, 13, 1, 1, 1, 7, 7, 7, 7, 3, 7},
+        {12, 12, 12, 12, 12, 12, 12, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 1, 1, 1, 14, 1, 14, 0},
         {12, 12, 12, 12, 12, 12, 12, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 1, 8, 8, 3, 8, 8, 0},
         {12, 12, 12, 12, 12, 12, 3, 12, 1, 1, 13, 13, 13, 13, 13, 1, 1, 8, 8, 8, 8, 8, 8, 8},
         {0, 1, 1, 1, 1, 1, 14, 1, 1, 1, 13, 13, 3, 13, 13, 1, 14, 3, 8, 8, 8, 8, 8, 8},
@@ -145,8 +145,7 @@ public class BoardImpl implements Board {
         final List<Room> localRooms = new ArrayList<>();
         final RoomImpl[] rooms = new RoomImpl[RoomType.values().length];
         final Set<Position> prohibitedPositions = new HashSet<>(Position.getDefaultPositions());
-        final List<Position> validPositionForEffects = new ArrayList<>();
-        final List<Integer> indexOfSquareForEntrance = new ArrayList<>();
+        final Map<Position, Integer> validPositionForEffects = new HashMap<>();
         int bonusCount = 0;
         int malusCount = 0;
 
@@ -162,17 +161,16 @@ public class BoardImpl implements Board {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 final Position position = new Position(i, j);
                 if ((tileType == 1 || tileType == 14) && !prohibitedPositions.contains(position)) {
-                    validPositionForEffects.add(position);
-                    if (tileType == 14) {
-                        indexOfSquareForEntrance.add(validPositionForEffects.indexOf(position));
-                    }
+                    validPositionForEffects.put(position, tileType);
                 }
             }
         }
 
         // Shuffling valid position
-        Collections.shuffle(validPositionForEffects);
-        for (final Position position : validPositionForEffects) {
+        final List<Position> validPositions = new ArrayList<>();
+        validPositions.addAll(validPositionForEffects.keySet());
+        Collections.shuffle(validPositions);
+        for (final Position position : validPositions) {
             final Square squareToAdd = createRandomSquare(
                 position,
                 bonusCount,
@@ -184,7 +182,7 @@ public class BoardImpl implements Board {
             } else if (squareToAdd.getEffect() instanceof MalusEffectImpl) {
                 malusCount++;
             }
-            if (indexOfSquareForEntrance.contains(validPositionForEffects.indexOf(position))) {
+            if (validPositionForEffects.get(position).intValue() == 14) {
                 squareToAdd.setIsForEntrance();
             }
             localSquares.add(squareToAdd);
@@ -195,7 +193,7 @@ public class BoardImpl implements Board {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 final Position position = new Position(i, j);
-                if (tileType == 1 && !validPositionForEffects.contains(position)) {
+                if (tileType == 1 && !validPositions.contains(position)) {
                     final Square startingSquare = SquareFactory.createNormalSquare(position);
                     localSquares.add(startingSquare);
                 } else if (tileType == 3) {
