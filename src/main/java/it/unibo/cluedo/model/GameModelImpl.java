@@ -152,6 +152,9 @@ final class GameModelImpl implements GameModel {
         throw new IllegalStateException("You can't make an accusation now");
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void movePlayer(final Square position, final MovementStrategy.Direction direction) {
         final BoardMovement boardMovement = new BoardMovement(map);
@@ -199,7 +202,7 @@ final class GameModelImpl implements GameModel {
                 final Dice dice = new DiceImpl(DICE_SIDES);
                 fase = TurnFase.MOVE_PLAYER;
                 currentDiceResult = dice.rollDice();
-                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
+                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getCurrentSteps() + currentDiceResult);
                 ((MutablePlayer) getCurrentPlayer()).setDoubleRollDice(false);
                 return currentDiceResult;
             }
