@@ -5,7 +5,6 @@ import javax.swing.JFrame;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
-import it.unibo.cluedo.view.maingameframe.MainGameFrame;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -110,7 +109,7 @@ public class GameMenuView  extends JFrame {
                 }
                 if (controller.startGame(playerUsernames, playerColors)) {
                     JOptionPane.showMessageDialog(GameMenuView.this, "Game started successfully!");
-                    openMainGameFrame();
+                    openMainGameFrame(playerUsernames, playerColors);
                     dispose();
                 } else {
                     JOptionPane.showMessageDialog(GameMenuView.this, "Game not started! Check your Username or Color!");
@@ -144,8 +143,8 @@ public class GameMenuView  extends JFrame {
         });
     }
 
-    private void openMainGameFrame() {
-        final MainGameFrame mainGameFrame = new MainGameFrame();
-        mainGameFrame.setVisible(true);
+    private void openMainGameFrame(final List<String> playerNames, final List<String> playerColors) {
+        Cluedo.CONTROLLER.initializeGameModel(playerNames, playerColors);
+        Cluedo.CONTROLLER.displayMainFrame();
     }
 }

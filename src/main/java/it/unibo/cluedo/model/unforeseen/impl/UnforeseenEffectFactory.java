@@ -15,7 +15,7 @@ public final class UnforeseenEffectFactory {
     private static final int REROLL_DICE_PROBABILITY = MOVE_EXTRA_STEP_PROBABILITY + 20;
     private static final int SWAP_POSITION_PROBABILITY = REROLL_DICE_PROBABILITY + 15;
     private static final int SWAP_CARD_PROBABILITY = SWAP_POSITION_PROBABILITY + 10;
-    private static final int TOTAL_STEPS = 3;
+    private static final int STEPS_RANGE = 7;
 
     /**
      * Private constructor that hides the implicit public one because it is an utility class.
@@ -33,7 +33,7 @@ public final class UnforeseenEffectFactory {
         final int roll = RANDOM.nextInt(100);
 
         if (roll < MOVE_EXTRA_STEP_PROBABILITY) {
-            return new MoveExtraStepEffect(RANDOM.nextInt(TOTAL_STEPS) - 3); /* 50 % di probabilità */
+            return new MoveExtraStepEffect(RANDOM.nextInt(STEPS_RANGE) - 3); /* 50 % di probabilità */
         } else if (roll < REROLL_DICE_PROBABILITY) {
             return new ReRollDiceEffect(); /* 20 % di probabilità */
         } else if (roll < SWAP_POSITION_PROBABILITY) {
