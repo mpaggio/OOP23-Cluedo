@@ -14,6 +14,7 @@ public class UnforeseenControllerImpl implements UnforeseenController {
 
     /**
      * Gets the type of the unforeseen.
+     * 
      * @return the type of the unforeseen
      */
     @Override
@@ -23,6 +24,7 @@ public class UnforeseenControllerImpl implements UnforeseenController {
 
     /**
      * Gets the description of the unforeseen.
+     * 
      * @return the description of the unforeseen
      */
     @Override
