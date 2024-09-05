@@ -39,6 +39,7 @@ public class UnforeseenControllerImpl implements UnforeseenController {
     public void showUnforeseen() {
         final UnforeseenView unforeseenView = new UnforeseenView();
         unforeseenView.showEffect();
+        Cluedo.CONTROLLER.updateInformations();
     }
 
     /**

@@ -113,6 +113,9 @@ final class GameModelImpl implements GameModel {
      */
     @Override
     public Player endTurn() {
+        if (getCurrentPlayer() instanceof MutablePlayer) {
+            ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
+        }
         if (getCurrentPlayer().hasLost()) {
             turnManager.removePlayer(getCurrentPlayer());
         }
@@ -204,7 +207,7 @@ final class GameModelImpl implements GameModel {
                 final Dice dice = new DiceImpl(DICE_SIDES);
                 fase = TurnFase.DRAW_UNFORESEEN;
                 currentDiceResult = dice.rollDice();
-                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getSteps() + currentDiceResult);
+                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(currentDiceResult);
                 return currentDiceResult;
             } else if (getCurrentPlayer() instanceof MutablePlayer) {
                 ((MutablePlayer) getCurrentPlayer()).setNextTurn(true);
