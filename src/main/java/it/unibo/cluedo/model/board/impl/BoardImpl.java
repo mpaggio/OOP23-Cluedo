@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.io.Serializable;
 
 import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.room.api.Room;
@@ -30,7 +31,8 @@ import it.unibo.cluedo.utilities.Position;
  * This class represents the game map and initializes the rooms and squares based
  * on a predefined layout.
  */
-public class BoardImpl implements Board {
+public class BoardImpl implements Board, Serializable {
+    private static final long serialVersionUID = 1L;
     private static final int MAP_HEIGHT = 25;
     private static final int MAP_WIDTH = 24;
     private static final int MAX_SQUARE_WITH_EFFECT = 3;

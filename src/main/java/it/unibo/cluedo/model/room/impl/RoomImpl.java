@@ -3,6 +3,7 @@ package it.unibo.cluedo.model.room.impl;
 import java.util.List;
 import java.util.LinkedList;
 import java.util.Optional;
+import java.io.Serializable;
 
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.room.api.Room;
@@ -13,7 +14,8 @@ import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 /**
  * Implementation of the room of the Cluedo game.
  */
-public class RoomImpl implements Room {
+public class RoomImpl implements Room, Serializable {
+    private static final long serialVersionUID = 1L;
     private final String name;
     private final List<Square> squares;
     private final List<Square> entrances;
@@ -50,7 +52,11 @@ public class RoomImpl implements Room {
      */
     @Override
     public void addEntrance(final Square entrance) {
-        this.entrances.add(entrance);
+        if (entrance.getEffect() instanceof NoEffectImpl) {
+            this.entrances.add(entrance);
+        } else {
+            throw new IllegalArgumentException("A room can contain only normal squares");
+        }
     }
 
     /**

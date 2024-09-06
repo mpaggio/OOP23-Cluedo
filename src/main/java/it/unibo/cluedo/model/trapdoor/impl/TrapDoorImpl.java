@@ -1,5 +1,7 @@
 package it.unibo.cluedo.model.trapdoor.impl;
 
+import java.io.Serializable;
+
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 import it.unibo.cluedo.utilities.Position;
@@ -7,7 +9,8 @@ import it.unibo.cluedo.utilities.Position;
 /**
  * Implementation representing the trap door in the Cluedo game.
  */
-public class TrapDoorImpl implements TrapDoor {
+public class TrapDoorImpl implements TrapDoor, Serializable {
+    private static final long serialVersionUID = 1L;
     private final String connectedRoom;
     private final Position position;
 
