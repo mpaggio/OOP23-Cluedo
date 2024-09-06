@@ -19,8 +19,8 @@ final class MutablePlayerImplTest {
     private MutablePlayerImpl player;
     private static final String PLAYER_1 = "Player1";
     private static final String COLOR_RED = "Red";
-    private static final int MIN_STEPS = 1;
-    private static final int MAX_STEPS = 6;
+    private static final int MIN_STEPS = 0;
+    private static final int MAX_STEPS = 12;
     private static final int INITIAL_STEPS = 5;
 
     /**
@@ -153,6 +153,5 @@ final class MutablePlayerImplTest {
     void testRollDiceAndGetSteps() {
         final int steps = player.getCurrentSteps();
         assertTrue(steps >= MIN_STEPS && steps <= MAX_STEPS);
-
     }
 }

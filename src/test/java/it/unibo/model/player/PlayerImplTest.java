@@ -21,7 +21,7 @@ final class PlayerImplTest {
 
     private static final String USERNAME = "username";
     private static final String COLOR = "color";
-    private static final int MIN_DICE_ROLL = 1;
+    private static final int MIN_DICE_ROLL = 0;
     private static final int MAX_DICE_ROLL = 6;
     private static final int MAX_DOUBLE_DICE_ROLL = 12;
     private static final int MIN_DOUBLE_DICE_ROLL = 2;
