@@ -24,10 +24,10 @@ public class FinalAccusationView extends JDialog {
     public FinalAccusationView() {
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
-        final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
+        final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));
         final JComboBox<String> roomComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
         final JButton confirmButton = new JButton("Confirm");
-        JOptionPane.showMessageDialog(null, "Remember, you can only make one final accusation!",
+        JOptionPane.showMessageDialog(null, "Remember, you can make the final accusatione only once!",
                 "Warning",
                 JOptionPane.INFORMATION_MESSAGE);
         setLayout(new GridLayout(4, 2));
@@ -48,8 +48,8 @@ public class FinalAccusationView extends JDialog {
             final String room = roomComboBox.getSelectedItem().toString();
             Cluedo.CONTROLLER.getFinalAccusationController().makeFinalAccusation(suspect, weapon, room);
             if (Cluedo.CONTROLLER.getFinalAccusationController().isFinalAccusationCorrect()) {
-                JOptionPane.showMessageDialog(null, "Congratulations! You won the game!",
-                "Congratulations!",
+                JOptionPane.showMessageDialog(null, Cluedo.CONTROLLER.getGameSolutionController().showSolution(),
+                "Congratulations! You won the game!",
                 JOptionPane.INFORMATION_MESSAGE);
             } else {
                 JOptionPane.showMessageDialog(null, "Sorry, you lost the game!",
