@@ -15,9 +15,9 @@ package it.unibo.cluedo.model;
  */
 public interface GameModelBuilder {
     /**
-     * The maximum number of players that can be added to the game.
+     * The number of player to add.
      */
-    int MAX_PLAYERS = 3;
+    int PLAYERS = 3;
     /**
      * Method to add a player to the game.
      * It is not allowed to add a player with a nickname or color
