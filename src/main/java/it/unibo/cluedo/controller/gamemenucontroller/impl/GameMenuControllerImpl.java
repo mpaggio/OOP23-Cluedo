@@ -5,9 +5,11 @@ import java.util.stream.Collectors;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.Optional;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
+import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.player.impl.PlayerImpl;
 import java.awt.Window;
@@ -111,10 +113,16 @@ public class GameMenuControllerImpl implements GameMenuController {
     /**
      * This method is used to view the saved games.
      *
-     * @return the list of the saved games
      */
     @Override
-    public List<String> viewSavedGames() {
-        return Cluedo.CONTROLLER.getGameSaveController().viewSavedGames();
+    public void viewSavedGames() {
+        final Optional<GameSaveControllerImpl.GameState> savedGame = Cluedo.CONTROLLER.getGameSaveController().loadGame();
+        if (savedGame.isPresent()) {
+            final GameSaveControllerImpl.GameState gameState = savedGame.get();
+            gameState.getPlayers().forEach(player -> {
+                Cluedo.CONTROLLER.initializeGameModel(List.of(player.getUsername()), List.of(player.getColor()));
+            });
+            Cluedo.CONTROLLER.displayMainFrame();
+        }
     }
 }
