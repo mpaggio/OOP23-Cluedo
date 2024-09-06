@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * This record model a 2-D position.
- * 
+ *
  * @param x - x axis coordinate
  * @param y - y axis coordinate
  */

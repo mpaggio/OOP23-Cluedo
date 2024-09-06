@@ -2,6 +2,7 @@ package it.unibo.cluedo.view.quitgame;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
+import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl.GameState;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
@@ -62,11 +63,15 @@ public class QuitGameView extends JButton {
      * Saves the game and quits.
      */
     private void saveAndQuit() {
-        controller.saveGame();
-        JOptionPane.showMessageDialog(null, "Game saved successfully!", "Game Saved", JOptionPane.INFORMATION_MESSAGE);
-        final Window[] windows = Window.getWindows();
-        for (final Window window : windows) {
-            window.dispose();
+        try {
+            final GameState currentState = controller.getCurrentGameState();
+            controller.saveGame(currentState);
+            JOptionPane.showMessageDialog(null, "Game saved successfully!", "Game Saved", JOptionPane.INFORMATION_MESSAGE);
+        } finally {
+            final Window[] windows = Window.getWindows();
+            for (final Window window : windows) {
+                window.dispose();
+            }
         }
     }
 }

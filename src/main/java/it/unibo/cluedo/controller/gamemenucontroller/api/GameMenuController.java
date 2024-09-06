@@ -42,7 +42,6 @@ public interface GameMenuController {
 
     /**
      * This method is used to view the saved games.
-     * @return the list of the saved games
      */
-    List<String> viewSavedGames();
+    void viewSavedGames();
 }

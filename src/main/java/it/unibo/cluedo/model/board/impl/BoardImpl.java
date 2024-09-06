@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.io.Serializable;
 
 import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.room.api.Room;
@@ -30,7 +31,8 @@ import it.unibo.cluedo.utilities.Position;
  * This class represents the game map and initializes the rooms and squares based
  * on a predefined layout.
  */
-public class BoardImpl implements Board {
+public class BoardImpl implements Board, Serializable {
+    private static final long serialVersionUID = 1L;
     private static final int MAP_HEIGHT = 25;
     private static final int MAP_WIDTH = 24;
     private static final int MAX_SQUARE_WITH_EFFECT = 3;
@@ -93,7 +95,7 @@ public class BoardImpl implements Board {
 
         /**
          * Constructor for RoomType.
-         * 
+         *
          * @param code the code of the room type
          * @param name the name of the room type
          */
@@ -104,8 +106,8 @@ public class BoardImpl implements Board {
 
         /**
          * Gets the code of the room type.
-         * 
-         * @return the code of the room type 
+         *
+         * @return the code of the room type
          */
         public int getCode() {
             return this.code;
@@ -113,7 +115,7 @@ public class BoardImpl implements Board {
 
         /**
          * Gets the name of the room type.
-         * 
+         *
          * @return the name of the room type
          */
         public String getName() {
@@ -122,7 +124,7 @@ public class BoardImpl implements Board {
 
         /**
          * Returns the room type corresponding to the given code.
-         * 
+         *
          * @param code the code of the room type
          * @return the RoomType corresponding to the given code
          * @throws IllegalArgumentException if the code does not correspond to any RoomType
@@ -161,7 +163,7 @@ public class BoardImpl implements Board {
             for (int j = 0; j < MAP_WIDTH; j++) {
                 final int tileType =  MAP_TILES_DISPOSITION[i][j];
                 final Position position = new Position(i, j);
-                if ((tileType == 1 || tileType == SQUARE_FOR_ENTRANCES_NUM) 
+                if ((tileType == 1 || tileType == SQUARE_FOR_ENTRANCES_NUM)
                     && !prohibitedPositions.contains(position)) {
                     validPositionForEffects.put(position, tileType);
                 }
@@ -212,7 +214,7 @@ public class BoardImpl implements Board {
                 } else if (tileType != 0 && tileType != 1 && tileType != SQUARE_FOR_ENTRANCES_NUM) {
                     rooms[RoomType.fromCode(tileType).ordinal()].addSquare(
                         SquareFactory.createNormalSquare(position)
-                    ); 
+                    );
                 }
             }
         }
@@ -222,7 +224,7 @@ public class BoardImpl implements Board {
 
     /**
      * Generate a random square, choosing from malus, bonus and normal.
-     * 
+     *
      * @param position the position of the random square
      * @param bonusCount the count of created bonus square
      * @param malusCount the count of created malus square
@@ -257,7 +259,7 @@ public class BoardImpl implements Board {
 
     /**
      * Finds the room type for the entrance at the given position.
-     * 
+     *
      * @param i the row index of the entrance
      * @param j the column index of the entrance
      * @return the room type corresponding to the entrance position
@@ -294,7 +296,7 @@ public class BoardImpl implements Board {
 
     /**
      * Finds the room type connected to the trapdoor in the given position.
-     * 
+     *
      * @param i the row index of the entrance
      * @param j the column index of the entrance
      * @return the room type connected to the trapdoor
@@ -331,7 +333,7 @@ public class BoardImpl implements Board {
 
     /**
      * Gets the map height.
-     * 
+     *
      * @return the map height
      */
     public static int getMapHeight() {
@@ -340,7 +342,7 @@ public class BoardImpl implements Board {
 
     /**
      * Gets the map width.
-     * 
+     *
      * @return the map width
      */
     public static int getMapWidth() {
@@ -349,7 +351,7 @@ public class BoardImpl implements Board {
 
     /**
      * Returns the image path of the map.
-     * 
+     *
      * @return the image path of the map
      */
     public static String getMapImagePath() {

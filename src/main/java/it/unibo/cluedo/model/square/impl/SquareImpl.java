@@ -6,12 +6,14 @@ import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.utilities.Position;
 
 import java.util.Optional;
+import java.io.Serializable;
 
 /**
  * Implementation of the Square interface.
  * Represents a square on the Cluedo map, with a specific position and effect.
  */
-public class SquareImpl implements Square {
+public class SquareImpl implements Square, Serializable {
+    private static final long serialVersionUID = 1L;
     private final Position position;
     private final Effect effect;
     private Optional<Player> player;
