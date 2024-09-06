@@ -44,7 +44,6 @@ final class GameModelImpl implements GameModel {
     private static final int DICE_SIDES = 6;
     private static final int NUM_OF_STEPS = 1;
 
-    private boolean hasMovedInThisTurn;
     private TurnFase fase;
     private int currentDiceResult;
     private final Accusation accusation;
@@ -153,7 +152,7 @@ final class GameModelImpl implements GameModel {
     }
 
     @Override
-    public void movePlayer(final Square position, final MovementStrategy.Direction direction) {
+    public void movePlayer(final MovementStrategy.Direction direction) {
         final BoardMovement boardMovement = new BoardMovement(map);
         final MoveInSingleDirection move = new MoveInSingleDirection(getCurrentPlayer(), NUM_OF_STEPS,
             direction, boardMovement, map);
@@ -164,17 +163,16 @@ final class GameModelImpl implements GameModel {
                 } catch (IllegalArgumentException e) {
                     return;
                 }
-                if (!map.isSquareInRoom(position) && getCurrentPlayer() instanceof MutablePlayer) {
+                if (!map.isSquareInRoom(getSquare()) && getCurrentPlayer() instanceof MutablePlayer) {
                     ((MutablePlayer) getCurrentPlayer()).setInRoom(false);
                 }
-                hasMovedInThisTurn = true;
                 statistics.incrementSteps(getCurrentPlayer(), 1);
-                if (hasMovedInThisTurn && getCurrentPlayer().isInRoom()) {
+                if (getCurrentPlayer().isInRoom()) {
                     fase = TurnFase.MAKE_ACCUSATION;
                     statistics.incrementRoomsVisited(getCurrentPlayer());
                     return;
                 } else {
-                    applyEffect(position);
+                    applyEffect(getSquare());
                 }
                 if (getCurrentPlayer().getCurrentSteps() == 0) {
                     fase = TurnFase.END_TURN;
@@ -193,7 +191,6 @@ final class GameModelImpl implements GameModel {
     @Override
     public int rollDice() {
         if (fase == TurnFase.ROLL_DICE) {
-            hasMovedInThisTurn = false;
             if (getCurrentPlayer().canDoubleRollDice() && getCurrentPlayer() instanceof MutablePlayer) {
                 final Dice dice = new DiceImpl(DICE_SIDES);
                 fase = TurnFase.MOVE_PLAYER;
@@ -247,16 +244,14 @@ final class GameModelImpl implements GameModel {
     public void useTrapdoor(final Room room) {
         if (fase == TurnFase.MOVE_PLAYER) {
             if (room.isPlayerInRoom(getCurrentPlayer())) {
-                if (room.getTrapDoor().isPresent()) {
-                    final Square newPosition = room.getTrapDoor().get().getConnectedRoom().getSquares().get(0);
-                    if (getCurrentPlayer() instanceof MutablePlayer) {
-                        map.getRoomBySquare(map.getSquareByPosition(getCurrentPlayer().getCurrentPosition()))
-                            .get().removePlayerFromRoom(getCurrentPlayer());
-                        ((MutablePlayer) getCurrentPlayer()).setPosition(newPosition.getPosition());
-                        ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
-                        map.getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
-                        fase = TurnFase.MAKE_ACCUSATION;
-                    }
+                if (room.getTrapDoor().isPresent() && getCurrentPlayer() instanceof MutablePlayer) {
+                    final Square newPosition = room.getTrapDoor().get().getConnectedRoom().getEntrances().get(0);
+                    map.getRoomBySquare(map.getSquareByPosition(getCurrentPlayer().getCurrentPosition()))
+                        .get().removePlayerFromRoom(getCurrentPlayer());
+                    ((MutablePlayer) getCurrentPlayer()).setPosition(newPosition.getPosition());
+                    ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
+                    map.getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
+                    fase = TurnFase.MAKE_ACCUSATION;
                 } else {
                     throw new IllegalArgumentException("There is no trapdoor in this room");
                 }
@@ -374,6 +369,14 @@ final class GameModelImpl implements GameModel {
     @Override
     public Set<Card> getAllCards() {
         return allCards;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Square getSquare() {
+        return map.getSquareByPosition(getCurrentPlayer().getCurrentPosition());
     }
 
     private void applyEffect(final Square position) {

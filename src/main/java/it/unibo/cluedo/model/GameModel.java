@@ -37,10 +37,9 @@ public interface GameModel {
     int rollDice();
     /**
      * Move the player to the given position.
-     * @param position the position to move the player to.
      * @param direction the direction to move the player in.
      */
-    void movePlayer(Square position, MovementStrategy.Direction direction);
+    void movePlayer(MovementStrategy.Direction direction);
     /**
      * method to make an accusation.
      * @param weapon the weapon of the accusation.
@@ -120,5 +119,9 @@ public interface GameModel {
      * @return the cards of the game.
      */
     Set<Card> getAllCards();
-
+    /**
+     * Method to get the square of the player.
+     * @return the square of the player.
+     */
+    Square getSquare();
 }
