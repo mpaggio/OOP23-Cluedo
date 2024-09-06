@@ -5,6 +5,10 @@ import javax.swing.JFrame;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
+import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
+import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl.GameState;
+
+import java.util.Optional;
 
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
@@ -26,7 +30,9 @@ import java.awt.GridLayout;
  */
 public class GameMenuView  extends JFrame {
 
-    private final GameMenuController controller = Cluedo.CONTROLLER.getGameMenuController();
+    private final GameMenuController controller1 = Cluedo.CONTROLLER.getGameMenuController();
+    private final GameSaveController controller2 = Cluedo.CONTROLLER.getGameSaveController();
+
     private final JTextField[] playerUsernameFields;
     private final List<JComboBox<String>> playerColorCombos;
     private final JButton startGameButton;
@@ -51,7 +57,7 @@ public class GameMenuView  extends JFrame {
         this.viewSavedGamesButton = new JButton("View Saved Games");
 
         setLayout(new BorderLayout());
-        final JLabel titleLabel = new JLabel("                CLUEDO - START NEW GAME");
+        final JLabel titleLabel = new JLabel("              CLUEDO - START NEW GAME");
         titleLabel.setFont(new Font(ARIAL, Font.BOLD, SIZE));
         titleLabel.setPreferredSize(new Dimension(WIDTH, MINI_HEIGHT));
         add(titleLabel, BorderLayout.NORTH);
@@ -107,7 +113,7 @@ public class GameMenuView  extends JFrame {
                     playerUsernames.add(playerUsernameFields[i].getText().trim());
                     playerColors.add((String) playerColorCombos.get(i).getSelectedItem());
                 }
-                if (controller.startGame(playerUsernames, playerColors)) {
+                if (controller1.startGame(playerUsernames, playerColors)) {
                     JOptionPane.showMessageDialog(GameMenuView.this, "Game started successfully!");
                     openMainGameFrame(playerUsernames, playerColors);
                     dispose();
@@ -121,7 +127,7 @@ public class GameMenuView  extends JFrame {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                controller.quitGame();
+                controller1.quitGame();
             }
         });
 
@@ -129,22 +135,29 @@ public class GameMenuView  extends JFrame {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                final List<String> savedGames = controller.viewSavedGames();
-                if (savedGames.isEmpty()) {
-                    JOptionPane.showMessageDialog(GameMenuView.this, "No saved games found!");
+                final Optional<GameState> gameState = controller2.loadGame();
+                if (gameState.isPresent()) {
+                    final GameState state = gameState.get();
+                    final List<String> playerUsernames = new ArrayList<>();
+                    final List<String> playerColors = new ArrayList<>();
+                    state.getPlayers().forEach(player -> {
+                        playerUsernames.add(player.getUsername());
+                        playerColors.add(player.getColor());
+                    });
+                    Cluedo.CONTROLLER.initializeGameModel(playerUsernames, playerColors);
+                    //Cluedo.CONTROLLER.setCurrentPlayerIndex(state.getCurrentPlayerIndex());
+                    JOptionPane.showMessageDialog(GameMenuView.this, "Game loaded successfully, Resuming game...");
+                    openMainGameFrame(playerUsernames, playerColors);
+                    dispose();
                 } else {
-                    final StringBuilder message = new StringBuilder("Saved games:\n");
-                    for (final String savedGame : savedGames) {
-                        message.append(savedGame).append('\n');
-                    }
-                    JOptionPane.showMessageDialog(GameMenuView.this, message.toString());
+                    JOptionPane.showMessageDialog(GameMenuView.this, "No saved games found!");
                 }
             }
         });
     }
 
-    private void openMainGameFrame(final List<String> playerNames, final List<String> playerColors) {
-        Cluedo.CONTROLLER.initializeGameModel(playerNames, playerColors);
+    private void openMainGameFrame(final List<String> playerUsernames, final List<String> playerColors) {
+        Cluedo.CONTROLLER.initializeGameModel(playerUsernames, playerColors);
         Cluedo.CONTROLLER.displayMainFrame();
     }
 }
