@@ -33,7 +33,7 @@ final class TrapDoorTest {
     @Test
     void testTrapDoor() {
         assertNotEquals(this.room, this.trapDoor.getConnectedRoom());
-        assertEquals(this.room.getName(), this.trapDoor.getConnectedRoom().getName());
+        assertEquals(this.room.getName(), this.trapDoor.getConnectedRoom());
         assertEquals(this.position, this.trapDoor.getPosition());
     }
 }

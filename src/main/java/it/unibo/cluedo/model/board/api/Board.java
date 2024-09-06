@@ -50,6 +50,14 @@ public interface Board {
     Optional<Room> getRoomBySquare(Square square);
 
     /**
+     * Gets the room having the specified name if exists.
+     * 
+     * @param roomName the name of the room
+     * @return the room with the specified name if exists
+     */
+    Optional<Room> getRoomByName(String roomName);
+
+    /**
      * Returns a list of squares of the map ordered by position.
      * 
      * @return a list of of squares of the map ordered by position

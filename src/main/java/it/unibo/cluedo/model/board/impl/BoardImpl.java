@@ -144,7 +144,7 @@ public class BoardImpl implements Board {
     public BoardImpl() {
         final List<Square> localSquares = new ArrayList<>();
         final List<Room> localRooms = new ArrayList<>();
-        final RoomImpl[] rooms = new RoomImpl[RoomType.values().length];
+        final Room[] rooms = new RoomImpl[RoomType.values().length];
         final Set<Position> prohibitedPositions = new HashSet<>(Position.getDefaultPositions());
         final Map<Position, Integer> validPositionForEffects = new HashMap<>();
         int bonusCount = 0;
@@ -215,7 +215,7 @@ public class BoardImpl implements Board {
                     ); 
                 }
             }
-        } 
+        }
         this.rooms = localRooms;
         this.squares = localSquares;
     }
@@ -387,6 +387,16 @@ public class BoardImpl implements Board {
     public Optional<Room> getRoomBySquare(final Square square) {
         return this.getRooms().stream()
             .filter(room -> room.getSquares().contains(square))
+            .findAny();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Room> getRoomByName(final String roomName) {
+        return this.getRooms().stream()
+            .filter(room -> room.getName().equals(roomName))
             .findAny();
     }
 

@@ -1,7 +1,6 @@
 package it.unibo.cluedo.model.trapdoor.impl;
 
 import it.unibo.cluedo.model.room.api.Room;
-import it.unibo.cluedo.model.room.impl.RoomImpl;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 import it.unibo.cluedo.utilities.Position;
 
@@ -9,7 +8,7 @@ import it.unibo.cluedo.utilities.Position;
  * Implementation representing the trap door in the Cluedo game.
  */
 public class TrapDoorImpl implements TrapDoor {
-    private final Room connectedRoom;
+    private final String connectedRoom;
     private final Position position;
 
     /**
@@ -19,7 +18,7 @@ public class TrapDoorImpl implements TrapDoor {
      * @param position the position of the trap door in the room
      */
     public TrapDoorImpl(final Room connectedRoom, final Position position) {
-        this.connectedRoom = new RoomImpl(connectedRoom.getName());
+        this.connectedRoom = connectedRoom.getName();
         this.position = position;
     }
 
@@ -27,8 +26,8 @@ public class TrapDoorImpl implements TrapDoor {
      * {@inheritDoc}
      */
     @Override
-    public Room getConnectedRoom() {
-        return new RoomImpl(this.connectedRoom.getName());
+    public String getConnectedRoom() {
+        return this.connectedRoom;
     }
 
     /**
