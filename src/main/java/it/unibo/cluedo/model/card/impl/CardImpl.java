@@ -13,7 +13,7 @@ public class CardImpl implements Card {
 
     /**
      * Constructs a new CardImpl.
-     * 
+     *
      * @param type the type of the card
      * @param name the name of the card
      * @param imagePath the image path of the card
@@ -51,8 +51,8 @@ public class CardImpl implements Card {
     /**
      * Returns a string representation of the card.
      * The string representation consists of the card type,
-     * followed by the card name. 
-     * 
+     * followed by the card name.
+     *
      * @return a string representation of the card
      */
     @Override
