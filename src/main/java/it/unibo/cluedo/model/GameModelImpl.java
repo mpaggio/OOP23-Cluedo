@@ -137,7 +137,7 @@ final class GameModelImpl implements GameModel {
             if ("Cluedo".equals(roomPosition.getName())) {
                 throw new IllegalArgumentException("You can't make an accusation in the Cluedo room");
             }
-            int index = (players.indexOf(getCurrentPlayer())) % players.size() + 1;
+            int index = (players.indexOf(getCurrentPlayer()) + 1) % players.size();
             Optional<Card> result = Optional.empty();
             while (index != players.indexOf(getCurrentPlayer()) && result.isEmpty()) {
                 result = accusation.accuse(weapon, room, character, Set.copyOf(players.get(index).getPlayerCards()));
