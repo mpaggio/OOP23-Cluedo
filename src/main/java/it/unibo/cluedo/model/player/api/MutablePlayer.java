@@ -29,6 +29,12 @@ public interface MutablePlayer extends Player, Cloneable {
     void setHasWon(boolean hasWon);
 
     /**
+     * Sets the player's lost status.
+     * @param hasLost a boolean indicating if the player has lost the game or not
+     */
+    void setHasLost(boolean hasLost);
+
+    /**
      * Sets whether the player is currently in a room.
      * @param inRoom a boolean indicating if the player is in a room or not.
      */
