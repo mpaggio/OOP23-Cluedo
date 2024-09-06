@@ -47,6 +47,7 @@ public final class MoveInSingleDirection implements MovementCommand {
                 if (this.player instanceof MutablePlayer) {
                     ((MutablePlayer) player).setPosition(newPosition);
                     ((MutablePlayer) player).setCurrentSteps(0);
+                    ((MutablePlayer) player).setInRoom(true);
                 }
                 this.map.getRoomBySquare(square).get().addPlayerInRoom(player);
             } else if (!this.map.isSquareInRoom(square)) {
