@@ -7,7 +7,7 @@ import it.unibo.cluedo.controller.accusationcontroller.api.FinalAccusationContro
 import it.unibo.cluedo.controller.dicecontroller.api.DiceController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
-import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
+import it.unibo.cluedo.controller.mapsetupcontroller.api.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
 import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;

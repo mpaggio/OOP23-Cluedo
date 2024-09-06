@@ -106,12 +106,12 @@ public class MainGameFrame extends JFrame {
 
         normalAccusationButton.addActionListener(e -> {
             final AccusationView normalAccusationView = new AccusationView();
-            JOptionPane.showMessageDialog(null, normalAccusationView, "Make normal accuse", JOptionPane.PLAIN_MESSAGE);
+            normalAccusationView.setVisible(true);
         });
 
         finalAccusationButton.addActionListener(e -> {
             final FinalAccusationView finalAccusationView = new FinalAccusationView();
-            JOptionPane.showMessageDialog(null, finalAccusationView, "Make normal accuse", JOptionPane.PLAIN_MESSAGE);
+            finalAccusationView.setVisible(true);
         });
 
         buttonsPanel.setLayout(new GridLayout(3, 2));

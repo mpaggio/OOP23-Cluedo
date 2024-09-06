@@ -26,4 +26,11 @@ public interface UnforeseenController {
      * This method is used to initialize the controller.
      */
     void initializeController();
+
+    /**
+     * Returns true if the unforeseen has been shown.
+     * 
+     * @return true if the unforeseen has been shown, false otherwise
+     */
+    boolean hasUnforeseenBeenShown();
 }
