@@ -1,11 +1,13 @@
 package it.unibo.cluedo.view.accusation;
 
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JOptionPane;
+import java.awt.FlowLayout;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -13,13 +15,14 @@ import it.unibo.cluedo.model.deck.impl.DeckImpl;
 /**
  * This class is used to show the final accusation view.
  */
-public class FinalAccusationView extends JPanel {
+public class FinalAccusationView extends JDialog {
     private static final long serialVersionUID = 1L;
 
     /**
      * Constructor for the class.
      */
     public FinalAccusationView() {
+        final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
         final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
         final JComboBox<String> roomComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
@@ -27,15 +30,17 @@ public class FinalAccusationView extends JPanel {
         JOptionPane.showMessageDialog(null, "Remember, you can only make one final accusation!",
                 "Warning",
                 JOptionPane.INFORMATION_MESSAGE);
-
         setLayout(new GridLayout(4, 2));
-        add(new JLabel("Suspect:"));
-        add(suspectComboBox);
-        add(new JLabel("Weapon:"));
-        add(weaponComboBox);
-        add(new JLabel("Room:"));
-        add(roomComboBox);
-        add(confirmButton);
+        panel.add(new JLabel("Suspect:"));
+        panel.add(suspectComboBox);
+        panel.add(new JLabel("Weapon:"));
+        panel.add(weaponComboBox);
+        panel.add(new JLabel("Room:"));
+        panel.add(roomComboBox);
+        panel.add(confirmButton);
+        getContentPane().add(panel);
+        pack();
+        setLocationRelativeTo(null);
 
         confirmButton.addActionListener(e -> {
             final String suspect = suspectComboBox.getSelectedItem().toString();
