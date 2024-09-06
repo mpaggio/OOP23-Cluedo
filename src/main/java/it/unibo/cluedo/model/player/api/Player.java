@@ -3,6 +3,7 @@ package it.unibo.cluedo.model.player.api;
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.utilities.Position;
+import java.io.Serializable;
 import java.util.List;
 
 
@@ -12,7 +13,7 @@ import java.util.List;
  * The interface provides the methods to get and set information about
  * the player.
  */
-public interface Player {
+public interface Player extends Serializable {
 
     /**
      * Get the username of a certain player.

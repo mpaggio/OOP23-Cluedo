@@ -8,12 +8,11 @@ import it.unibo.cluedo.model.notebook.impl.NotebookImpl;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.utilities.Position;
 import java.util.ArrayList;
-import java.io.Serializable;
 /**
  * Implementation of the {@link Player} interface.
  * Represents a player in the game with a username and a color.
  */
-public class PlayerImpl implements Player, Serializable {
+public class PlayerImpl implements Player {
     private static final long serialVersionUID = 1L;
     private final String username;
     private final String color;
