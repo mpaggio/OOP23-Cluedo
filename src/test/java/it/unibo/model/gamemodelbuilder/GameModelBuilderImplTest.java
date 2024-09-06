@@ -91,6 +91,6 @@ final class GameModelBuilderImplTest {
         builder.withGameSolution();
         final GameModel model = builder.build();
         assertEquals(3, model.getPlayers().size());
-        //assertEquals(3, model.getSolution().size());
+        assertEquals(3, model.getSolution().size());
     }
 }

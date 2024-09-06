@@ -40,7 +40,7 @@ public class GameModelBuilderImpl implements GameModelBuilder {
                 throw new IllegalArgumentException("Player with the same username or color already exists");
             }
         });
-        if (this.players.size() >= MAX_PLAYERS) {
+        if (this.players.size() >= PLAYERS) {
             throw new IllegalArgumentException("Maximum number of players reached");
         }
         this.players.add(player);
@@ -66,6 +66,9 @@ public class GameModelBuilderImpl implements GameModelBuilder {
         }
         if (this.players.isEmpty()) {
             throw new IllegalStateException("At least one player must be added before building the game");
+        }
+        if (this.players.size() != 3){
+            throw new IllegalStateException("Exactly 3 players must be added before building the game");
         }
         return new GameModelImpl(this.players, this.deck, this.solution);
     }
