@@ -13,7 +13,8 @@ import it.unibo.cluedo.controller.gamesolutioncontroller.impl.GameSolutionContro
 import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
 import it.unibo.cluedo.controller.joystickcontroller.impl.JoystickControllerImpl;
 import it.unibo.cluedo.controller.maincontroller.api.MainController;
-import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupController;
+import it.unibo.cluedo.controller.mapsetupcontroller.api.MapSetupController;
+import it.unibo.cluedo.controller.mapsetupcontroller.impl.MapSetupControllerImpl;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.notebookcontroller.impl.NotebookControllerImpl;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
@@ -59,7 +60,7 @@ public class MainControllerImpl implements MainController {
     public MainControllerImpl() {
         this.gameSolutionController = new GameSolutionControllerImpl();
         this.notebookController = new NotebookControllerImpl();
-        this.mapController = new MapSetupController();
+        this.mapController = new MapSetupControllerImpl();
         this.accusationController = new AccusationControllerImpl();
         this.finalAccusationController = new FinalAccusationControllerImpl();
         this.statisticsController = new StatisticsControllerImpl();

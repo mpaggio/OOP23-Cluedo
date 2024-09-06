@@ -182,6 +182,12 @@ public class BoardView extends JPanel {
                     drawTile(x, y, g, Optional.empty(), tileSize);
                 }
             }
+            final double currentX = (double) Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getX();
+            final double currentY = (double) Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getY();
+            final String color = Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor();
+            final double x = offsetX + (currentY * tileSize);
+            final double y = offsetY + (currentX * tileSize);
+            drawTile(x, y, g, Optional.of(ColorEnum.getColorByName(color)), tileSize);
     }
 
     /**

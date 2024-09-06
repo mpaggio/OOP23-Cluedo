@@ -11,12 +11,14 @@ import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 public class UnforeseenControllerImpl implements UnforeseenController {
 
     private UnforeseenEffect unforeseen;
+    private boolean hasBeenShown;
 
     /**
      * Constructor for UnforeseenControllerImpl.
      */
     public UnforeseenControllerImpl() {
         this.unforeseen = null;
+        this.hasBeenShown = false;
     }
 
     /**
@@ -46,8 +48,6 @@ public class UnforeseenControllerImpl implements UnforeseenController {
     public void showUnforeseen() {
         final UnforeseenView unforeseenView = new UnforeseenView();
         unforeseenView.showEffect();
-        Cluedo.CONTROLLER.updateInformations();
-        Cluedo.CONTROLLER.updateBoard();
     }
 
     /**
@@ -55,7 +55,19 @@ public class UnforeseenControllerImpl implements UnforeseenController {
      */
     @Override
     public void initializeController() {
+        this.hasBeenShown = false;
         this.unforeseen = Cluedo.CONTROLLER.getGameInstance().drawUnforeseen();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean hasUnforeseenBeenShown() {
+        final boolean shown = this.hasBeenShown;
+        this.hasBeenShown = true;
+        return shown;
+    }
+
 
 }

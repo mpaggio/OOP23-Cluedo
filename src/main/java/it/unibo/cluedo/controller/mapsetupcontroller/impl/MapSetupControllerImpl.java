@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.HashMap;
 
 import it.unibo.cluedo.application.Cluedo;
+import it.unibo.cluedo.controller.mapsetupcontroller.api.MapSetupController;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;
@@ -13,12 +14,11 @@ import it.unibo.cluedo.utilities.Position;
 /**
  * Controller for setting up the map in the Cluedo game.
  */
-public class MapSetupController {
+public class MapSetupControllerImpl implements MapSetupController{
     /**
-     * Retrieves the positions of all tiles on the map.
-     * 
-     * @return a list of positions of all tiles on the map
+     * {@inheritDoc}
      */
+    @Override
     public List<Position> getTilesPositions() {
         final List<Position> tilesPositions = new ArrayList<>();
         for (final Square square : Cluedo.CONTROLLER.getGameInstance().getMap().getOrderedVisitedSquares()) {
@@ -28,27 +28,29 @@ public class MapSetupController {
     }
 
     /**
-     * Retrieves a map containing linked color and position of every player in the game.
-     * 
-     * @return a map containing linked color and position of every player in the game
+     * {@inheritDoc}
      */
+    @Override
     public Map<Position, String> getPlayersPositionsAndColors() {
         final Map<Position, String> playerInfo = new HashMap<>();
         for (final Player player : Cluedo.CONTROLLER.getGameInstance().getPlayers()) {
-            playerInfo.put(player.getCurrentPosition(), player.getColor());
+            if (!Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().equals(player)) {
+                playerInfo.put(player.getCurrentPosition(), player.getColor());
+            }
         }
         return playerInfo;
     }
 
     /**
-     * Retrieves the positions of all players on the map.
-     * 
-     * @return a list of positions of all players on the map
+     * {@inheritDoc}
      */
+    @Override
     public List<Position> getPlayersPositions() {
         final List<Position> playersPositions = new ArrayList<>();
         for (final Player player : Cluedo.CONTROLLER.getGameInstance().getPlayers()) {
-            playersPositions.add(player.getCurrentPosition());
+            if (!Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().equals(player)) {
+                playersPositions.add(player.getCurrentPosition());
+            }
         }
         return playersPositions;
     }
