@@ -50,9 +50,6 @@ public class RoomImpl implements Room {
      */
     @Override
     public void addEntrance(final Square entrance) {
-        for (final Square entry : this.entrances) {
-            System.out.println(entry.getPosition().toString());
-        }
         this.entrances.add(entrance);
     }
 

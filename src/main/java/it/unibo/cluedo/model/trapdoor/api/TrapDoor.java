@@ -1,6 +1,5 @@
 package it.unibo.cluedo.model.trapdoor.api;
 
-import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.utilities.Position;
 
 /**
@@ -10,9 +9,9 @@ public interface TrapDoor {
     /**
      * Gets the room connected by the secret passage.
      * 
-     * @return the room connected by the secret passage
+     * @return the name of the room connected by the secret passage
      */
-    Room getConnectedRoom();
+    String getConnectedRoom();
 
     /**
      * Gets the position of the secret passage in the map.
