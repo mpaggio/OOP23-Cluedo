@@ -20,9 +20,9 @@ public class FinalAccusationView extends JDialog {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor for the class.
+     * Method to initialize the view.
      */
-    public FinalAccusationView() {
+    public void initializeView() {
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
         final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));
@@ -49,8 +49,8 @@ public class FinalAccusationView extends JDialog {
             final String room = roomComboBox.getSelectedItem().toString();
             Cluedo.CONTROLLER.getFinalAccusationController().makeFinalAccusation(suspect, weapon, room);
             if (Cluedo.CONTROLLER.getFinalAccusationController().isFinalAccusationCorrect()) {
-                JOptionPane message = new JOptionPane(JOptionPane.INFORMATION_MESSAGE);
-                JDialog dialog = message.createDialog(null, "Congratulations! You won the game!");
+                final JOptionPane message = new JOptionPane(JOptionPane.INFORMATION_MESSAGE);
+                final JDialog dialog = message.createDialog(null, "Congratulations! You won the game!");
                 dialog.getContentPane().add(Cluedo.CONTROLLER.getGameSolutionController().showSolution());
                 dialog.setSize(Toolkit.getDefaultToolkit().getScreenSize());
                 dialog.setVisible(true);

@@ -22,9 +22,9 @@ public class AccusationView extends JDialog {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Constructor for the class.
+     * Method to initialize the view.
      */
-    public AccusationView() {
+    public void initializeView() {
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
         final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));

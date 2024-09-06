@@ -119,11 +119,13 @@ public class MainGameFrame extends JFrame {
 
         normalAccusationButton.addActionListener(e -> {
             final AccusationView normalAccusationView = new AccusationView();
+            normalAccusationView.initializeView();
             normalAccusationView.setVisible(true);
         });
 
         finalAccusationButton.addActionListener(e -> {
             final FinalAccusationView finalAccusationView = new FinalAccusationView();
+            finalAccusationView.initializeView();
             finalAccusationView.setVisible(true);
         });
 

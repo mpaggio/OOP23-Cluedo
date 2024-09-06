@@ -247,12 +247,13 @@ final class GameModelImpl implements GameModel {
     public void useTrapdoor(final Room room) {
         if (fase == TurnFase.MOVE_PLAYER) {
             if (room.isPlayerInRoom(getCurrentPlayer())) {
-                if (room.getTrapDoor().isPresent() && getCurrentPlayer() instanceof MutablePlayer && 
-                map.getRoomByName(room.getTrapDoor().get().getConnectedRoom()).isPresent()) {
+                if (room.getTrapDoor().isPresent() && getCurrentPlayer() instanceof MutablePlayer
+                && map.getRoomByName(room.getTrapDoor().get().getConnectedRoom()).isPresent()) {
                     final Square newPosition = map.getRoomByName(room.getTrapDoor().get().
                         getConnectedRoom()).get().getEntrances().get(0);
                     ((MutablePlayer) getCurrentPlayer()).setPosition(newPosition.getPosition());
                     ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
+                    ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
                     map.getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
                     fase = TurnFase.MAKE_ACCUSATION;
                 } else {
