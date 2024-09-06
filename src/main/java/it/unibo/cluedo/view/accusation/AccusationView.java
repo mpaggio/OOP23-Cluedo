@@ -2,11 +2,13 @@ package it.unibo.cluedo.view.accusation;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JDialog;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
+import java.awt.FlowLayout;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -15,7 +17,7 @@ import it.unibo.cluedo.model.card.api.Card;
 /**
  * This class is used to show the accusation view.
  */
-public class AccusationView extends JPanel {
+public class AccusationView extends JDialog {
 
     private static final long serialVersionUID = 1L;
 
@@ -23,18 +25,22 @@ public class AccusationView extends JPanel {
      * Constructor for the class.
      */
     public AccusationView() {
+        final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
         final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));
         final JComboBox<String> roomComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
         final JButton confirmButton = new JButton("Confirm");
-        setLayout(new GridLayout(4, 2));
-        add(new JLabel("Suspect:"));
-        add(suspectComboBox);
-        add(new JLabel("Weapon:"));
-        add(weaponComboBox);
-        add(new JLabel("Room:"));
-        add(roomComboBox);
-        add(confirmButton);
+        panel.setLayout(new GridLayout(4, 2));
+        panel.add(new JLabel("Suspect:"));
+        panel.add(suspectComboBox);
+        panel.add(new JLabel("Weapon:"));
+        panel.add(weaponComboBox);
+        panel.add(new JLabel("Room:"));
+        panel.add(roomComboBox);
+        panel.add(confirmButton);
+        getContentPane().add(panel);
+        pack();
+        setLocationRelativeTo(null);
 
         confirmButton.addActionListener(e -> {
             final String suspect = suspectComboBox.getSelectedItem().toString();
@@ -49,6 +55,7 @@ public class AccusationView extends JPanel {
                 final ImageIcon image = new ImageIcon(card.getImagePath(), card.getName());
                 JOptionPane.showMessageDialog(null, image);
             }
+            dispose();
         });
     }
 }
