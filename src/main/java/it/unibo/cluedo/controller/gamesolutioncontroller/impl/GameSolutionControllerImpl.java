@@ -21,10 +21,9 @@ public class GameSolutionControllerImpl implements GameSolutionController {
     }
 
     /**
-     * Displays the solution cards in the view when the "Game solution" button is clicked.
-     * Only works if the player has won the game
-     * @return 
+     * {@inheritDoc}
      */
+    @Override
     public GameSolutionView showSolution() {
         final List<String> cardInfo = new ArrayList<>();
         final Set<Card> solution = Cluedo.CONTROLLER.getGameInstance().getSolution();
