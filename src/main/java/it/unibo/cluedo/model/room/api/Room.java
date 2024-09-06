@@ -2,6 +2,7 @@ package it.unibo.cluedo.model.room.api;
 
 import java.util.List;
 import java.util.Optional;
+import java.io.Serializable;
 
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Square;
@@ -12,7 +13,7 @@ import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
  * A room contains squares and has at least one entrance.
  * A room can contain a trap door.
  */
-public interface Room {
+public interface Room extends Serializable {
     /**
      * Adds a square to the room.
      * 

@@ -1,6 +1,7 @@
 package it.unibo.cluedo.model.square.api;
 
 import java.util.Optional;
+import java.io.Serializable;
 
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.utilities.Position;
@@ -9,7 +10,7 @@ import it.unibo.cluedo.utilities.Position;
  * Represents a single square of the game table.
  * Each square can have an effect that is applied when a player lands on it.
  */
-public interface Square {
+public interface Square extends Serializable {
     /**
      * Returns the position (coordinates x and y) of the square.
      * 

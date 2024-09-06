@@ -1,7 +1,5 @@
 package it.unibo.cluedo.model.square.impl;
 
-import java.io.Serializable;
-
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Effect;
 
@@ -9,7 +7,7 @@ import it.unibo.cluedo.model.square.api.Effect;
  * Implementation of Effect interface with pattern Strategy.
  * Representing the No Effect effect.
  */
-public class NoEffectImpl implements Effect, Serializable {
+public class NoEffectImpl implements Effect {
     private static final long serialVersionUID = 1L;
     private final EffectType type = EffectType.NONE;
 

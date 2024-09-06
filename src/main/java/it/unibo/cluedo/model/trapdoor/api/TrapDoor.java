@@ -1,11 +1,13 @@
 package it.unibo.cluedo.model.trapdoor.api;
 
+import java.io.Serializable;
+
 import it.unibo.cluedo.utilities.Position;
 
 /**
  * Interface representing a secret passage in the game of Cluedo.
  */
-public interface TrapDoor {
+public interface TrapDoor extends Serializable {
     /**
      * Gets the room connected by the secret passage.
      * 

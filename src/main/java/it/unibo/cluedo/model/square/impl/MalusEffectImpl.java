@@ -1,7 +1,5 @@
 package it.unibo.cluedo.model.square.impl;
 
-import java.io.Serializable;
-
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.square.api.Effect;
@@ -10,7 +8,7 @@ import it.unibo.cluedo.model.square.api.Effect;
  * Implementation of Effect interface with pattern Strategy.
  * Representing the Malus Effect effect.
  */
-public class MalusEffectImpl implements Effect, Serializable {
+public class MalusEffectImpl implements Effect {
     private static final long serialVersionUID = 1L;
     private final EffectType type = EffectType.MALUS;
 
