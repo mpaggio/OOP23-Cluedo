@@ -6,6 +6,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import javax.swing.BorderFactory;
 
 /**
  * Class used to show in the view the solution of the game.
@@ -19,6 +20,7 @@ public class GameSolutionView extends JPanel {
      */
     public GameSolutionView(final List<String> cardInfo) {
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createTitledBorder("Game Solution"));
         final JPanel imagePanel = new JPanel();
         imagePanel.setLayout(new FlowLayout());
         for (final String path : cardInfo) {
