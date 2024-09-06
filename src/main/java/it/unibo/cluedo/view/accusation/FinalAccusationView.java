@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JOptionPane;
 import java.awt.FlowLayout;
+import java.awt.Toolkit;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -48,9 +49,11 @@ public class FinalAccusationView extends JDialog {
             final String room = roomComboBox.getSelectedItem().toString();
             Cluedo.CONTROLLER.getFinalAccusationController().makeFinalAccusation(suspect, weapon, room);
             if (Cluedo.CONTROLLER.getFinalAccusationController().isFinalAccusationCorrect()) {
-                JOptionPane.showMessageDialog(null, Cluedo.CONTROLLER.getGameSolutionController().showSolution(),
-                "Congratulations! You won the game!",
-                JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane message = new JOptionPane(JOptionPane.INFORMATION_MESSAGE);
+                JDialog dialog = message.createDialog(null, "Congratulations! You won the game!");
+                dialog.getContentPane().add(Cluedo.CONTROLLER.getGameSolutionController().showSolution());
+                dialog.setSize(Toolkit.getDefaultToolkit().getScreenSize());
+                dialog.setVisible(true);
             } else {
                 JOptionPane.showMessageDialog(null, "Sorry, you lost the game!",
                 "Game Over",

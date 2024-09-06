@@ -232,6 +232,9 @@ final class GameModelImpl implements GameModel {
                 }
                 return true;
             }
+            if (getCurrentPlayer() instanceof MutablePlayer) {
+                ((MutablePlayer) getCurrentPlayer()).setHasLost(true);
+            }
             return false;
         }
         throw new IllegalStateException("You can't make the final accusation now");
@@ -244,10 +247,10 @@ final class GameModelImpl implements GameModel {
     public void useTrapdoor(final Room room) {
         if (fase == TurnFase.MOVE_PLAYER) {
             if (room.isPlayerInRoom(getCurrentPlayer())) {
-                if (room.getTrapDoor().isPresent() && getCurrentPlayer() instanceof MutablePlayer) {
-                    final Square newPosition = room.getTrapDoor().get().getConnectedRoom().getEntrances().get(0);
-                    map.getRoomBySquare(map.getSquareByPosition(getCurrentPlayer().getCurrentPosition()))
-                        .get().removePlayerFromRoom(getCurrentPlayer());
+                if (room.getTrapDoor().isPresent() && getCurrentPlayer() instanceof MutablePlayer && 
+                map.getRoomByName(room.getTrapDoor().get().getConnectedRoom()).isPresent()) {
+                    final Square newPosition = map.getRoomByName(room.getTrapDoor().get().
+                        getConnectedRoom()).get().getEntrances().get(0);
                     ((MutablePlayer) getCurrentPlayer()).setPosition(newPosition.getPosition());
                     ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
                     map.getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
