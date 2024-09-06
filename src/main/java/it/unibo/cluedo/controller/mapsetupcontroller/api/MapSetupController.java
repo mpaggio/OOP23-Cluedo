@@ -5,6 +5,9 @@ import java.util.Map;
 
 import it.unibo.cluedo.utilities.Position;
 
+/**
+ * MapSetupController is the main responsible for setting up the board view.
+ */
 public interface MapSetupController {
     /**
      * Retrieves the positions of all tiles on the map.

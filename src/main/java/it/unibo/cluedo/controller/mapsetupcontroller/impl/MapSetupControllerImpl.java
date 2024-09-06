@@ -14,7 +14,7 @@ import it.unibo.cluedo.utilities.Position;
 /**
  * Controller for setting up the map in the Cluedo game.
  */
-public class MapSetupControllerImpl implements MapSetupController{
+public class MapSetupControllerImpl implements MapSetupController {
     /**
      * {@inheritDoc}
      */

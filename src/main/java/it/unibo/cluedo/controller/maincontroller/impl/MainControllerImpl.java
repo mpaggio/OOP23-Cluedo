@@ -201,6 +201,7 @@ public class MainControllerImpl implements MainController {
             builder.addPlayer(playerNames.get(i), playerColors.get(i));
         }
         this.gameModel = builder.withGameSolution().build();
+        System.out.println(this.gameModel.getMap().printMap());
     }
 
     /**
