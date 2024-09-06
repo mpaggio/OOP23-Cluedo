@@ -22,7 +22,7 @@ public class FinalAccusationControllerImpl implements FinalAccusationController 
         final Card weaponCard = allCards.stream().filter(card -> card.getName().equals(weapon)).findFirst().get();
         final Card roomCard = allCards.stream().filter(card -> card.getName().equals(room)).findFirst().get();
         try {
-            gameModel.makeFinalAccusation(suspectCard, weaponCard, roomCard, gameModel.getMap()
+            gameModel.makeFinalAccusation(weaponCard, roomCard, suspectCard, gameModel.getMap()
                 .getRoomBySquare(gameModel.getMap()
                 .getSquareByPosition(gameModel.getCurrentPlayer()
                 .getCurrentPosition())).get());
