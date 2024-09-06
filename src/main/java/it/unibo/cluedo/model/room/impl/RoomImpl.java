@@ -50,11 +50,10 @@ public class RoomImpl implements Room {
      */
     @Override
     public void addEntrance(final Square entrance) {
-        if (entrance.getEffect() instanceof NoEffectImpl) {
-            this.entrances.add(entrance);
-        } else {
-            throw new IllegalArgumentException("A room can contain only normal squares");
+        for (final Square entry : this.entrances) {
+            System.out.println(entry.getPosition().toString());
         }
+        this.entrances.add(entrance);
     }
 
     /**
