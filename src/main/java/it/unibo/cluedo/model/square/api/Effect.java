@@ -1,11 +1,13 @@
 package it.unibo.cluedo.model.square.api;
 
+import java.io.Serializable;
+
 import it.unibo.cluedo.model.player.api.Player;
 
 /**
  * Interface that represents an effect applyable to a player.
  */
-public interface Effect {
+public interface Effect extends Serializable {
     /**
      * Enum representing the type of effect.
      */

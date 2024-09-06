@@ -7,6 +7,7 @@ import it.unibo.cluedo.model.card.api.Card;
  * Implementation of the Card interface.
  */
 public class CardImpl implements Card {
+    private static final long serialVersionUID = 1L;
     private final Type type;
     private final String name;
     private final String imagePath;
