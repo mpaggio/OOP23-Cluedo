@@ -2,6 +2,7 @@ package it.unibo.cluedo.utilities;
 
 import java.util.List;
 import java.util.Random;
+import java.io.Serializable;
 
 /**
  * This record model a 2-D position.
@@ -9,8 +10,8 @@ import java.util.Random;
  * @param x - x axis coordinate
  * @param y - y axis coordinate
  */
-public record Position(int x, int y) {
-
+public record Position(int x, int y) implements Serializable {
+    private static final long serialVersionUID = 1L;
     private static final Random RANDOM = new Random();
 
     /**

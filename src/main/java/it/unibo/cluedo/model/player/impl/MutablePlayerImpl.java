@@ -11,7 +11,7 @@ import it.unibo.cluedo.model.card.api.Card;
  * and allows modification of the player's state.
  */
 public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
-
+    private static final long serialVersionUID = 1L;
     /**
      * Construct a new mutable player with the given username and color.
      *
