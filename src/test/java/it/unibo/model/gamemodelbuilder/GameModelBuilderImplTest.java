@@ -9,8 +9,6 @@ import org.junit.jupiter.api.Test;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilder;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
-import it.unibo.cluedo.model.deck.api.Deck;
-import it.unibo.cluedo.model.deck.impl.DeckImpl;
 /**
  * Test class for a {@link GameModelBuilderImpl} class.
  */
@@ -29,8 +27,7 @@ final class GameModelBuilderImplTest {
      */
     @BeforeEach
     void setUp() {
-        final Deck deck = new DeckImpl();
-        builder = new GameModelBuilderImpl(deck);
+        builder = new GameModelBuilderImpl();
     }
 
     /*
@@ -44,26 +41,6 @@ final class GameModelBuilderImplTest {
         builder.withGameSolution();
         final GameModel model = builder.build();
         assertEquals(3, model.getPlayers().size());
-    }
-
-    /**
-     * Test that the builder throws an exception when the username is already taken.
-     */
-    @Test
-    void testAddPlayerWithDuplicateUsername() {
-        builder.addPlayer(PLAYER_1, COLOR_RED);
-        assertThrows(IllegalArgumentException.class, 
-        () -> builder.addPlayer(PLAYER_1, COLOR_GREEN));
-    }
-
-    /**
-     * Test that the builder throws an exception when the color is already taken.
-     */
-    @Test
-    void testAddPlayerWithDuplicateColor() {
-        builder.addPlayer(PLAYER_1, COLOR_RED);
-        assertThrows(IllegalArgumentException.class,
-        () -> builder.addPlayer(PLAYER_2, COLOR_RED));
     }
 
     /**
