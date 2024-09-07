@@ -109,13 +109,13 @@ final class GameModelImpl implements GameModel {
      */
     GameModelImpl(final List<Player> players, final Set<Card> solution,
         final TurnManager turnManager, final Statistics statistics,
-        final BoardImpl map, final Set<Card> allCards) {
+        final BoardImpl map, final Set<Card> allCards, final TurnFase fase) {
         this.allCards = allCards;
         this.players = List.copyOf(players);
         this.turnManager = turnManager;
         this.statistics = statistics;
         this.solution = solution;
-        this.fase = TurnFase.ROLL_DICE;
+        this.fase = fase;
         this.accusation = new AccusationImpl();
         this.map = map;
     }
@@ -388,6 +388,11 @@ final class GameModelImpl implements GameModel {
     @Override
     public Set<Card> getAllCards() {
         return this.allCards;
+    }
+
+    @Override
+    public TurnManager getTurnManager() {
+        return this.turnManager;
     }
 
     /**

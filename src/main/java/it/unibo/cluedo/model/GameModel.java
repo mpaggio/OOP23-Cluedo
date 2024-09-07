@@ -7,6 +7,7 @@ import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.statistics.api.Statistics;
+import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 import it.unibo.cluedo.utilities.TurnFase;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
@@ -124,4 +125,9 @@ public interface GameModel {
      * @return the square of the player.
      */
     Square getSquare();
+    /**
+     * Method to get the turn manager of the game.
+     * @return the turn manager of the game.
+     */
+    TurnManager getTurnManager();
 }
