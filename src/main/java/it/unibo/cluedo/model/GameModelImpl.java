@@ -106,10 +106,11 @@ final class GameModelImpl implements GameModel {
      * @param statistics the statistics of the previous game.
      * @param map the map of the previous game.
      * @param allCards all the cards of the game.
+     * @param fase the fase of the previous game.
      */
     GameModelImpl(final List<Player> players, final Set<Card> solution,
         final TurnManager turnManager, final Statistics statistics,
-        final BoardImpl map, final Set<Card> allCards, final TurnFase fase) {
+        final Board map, final Set<Card> allCards, final TurnFase fase) {
         this.allCards = allCards;
         this.players = List.copyOf(players);
         this.turnManager = turnManager;
