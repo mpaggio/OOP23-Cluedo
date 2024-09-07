@@ -26,7 +26,6 @@ import it.unibo.cluedo.controller.dicecontroller.impl.DiceControllerImpl;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.model.GameModel;
-import it.unibo.cluedo.model.GameModelImpl;
 import it.unibo.cluedo.model.GameModelBuilder;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.board.api.Board;
@@ -204,7 +203,17 @@ public class MainControllerImpl implements MainController {
     @Override
     public void initializeSavedGameModel(final List<Player> players, final Set<Card> solution, final TurnManager turnManager,
         final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase) {
-        this.gameModel = new GameModelImpl(players, solution, turnManager, statistics, map, allCards, turnFase);
+        final GameModelBuilder builder = new GameModelBuilderImpl();
+        for (int i = 0; i < players.size(); i++) {
+            builder.withPlayer(players.get(i));
+        }
+        this.gameModel = builder.withSavedSolution(solution)
+            .withTurnManager(turnManager)
+            .withStatistics(statistics)
+            .withMap(map)
+            .withAllCards(allCards)
+            .withTurnFase(turnFase)
+            .buildsaved();
         System.out.println(this.gameModel.getMap().printMap());
     }
 
