@@ -12,7 +12,6 @@ import it.unibo.cluedo.controller.mapsetupcontroller.api.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
 import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;
-import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.board.api.Board;
@@ -104,12 +103,6 @@ public interface MainController {
      * @return a instance of DiceController
      */
     DiceController getDiceController();
-
-    /**
-     * Returns a instance of GameMenuController.
-     * @return a instance of GameMenuController
-     */
-    GameMenuController getGameMenuController();
 
     /**
      * Initializes the game model.

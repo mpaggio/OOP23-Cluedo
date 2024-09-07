@@ -23,8 +23,6 @@ import it.unibo.cluedo.controller.statisticscontroller.impl.StatisticsController
 import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;
 import it.unibo.cluedo.controller.unforeseencontroller.impl.UnforeseenControllerImpl;
 import it.unibo.cluedo.controller.dicecontroller.impl.DiceControllerImpl;
-import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
-import it.unibo.cluedo.controller.gamemenucontroller.impl.GameMenuControllerImpl;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.model.GameModel;
@@ -55,7 +53,6 @@ public class MainControllerImpl implements MainController {
     private final JoystickController joystickController;
     private final UnforeseenController unforeseenController;
     private final DiceController diceController;
-    private final GameMenuController gameMenuController;
     private final GameSaveController gameSaveController;
     private MainGameFrame mainFrame;
     private GameModel gameModel;
@@ -74,7 +71,6 @@ public class MainControllerImpl implements MainController {
         this.joystickController = new JoystickControllerImpl();
         this.unforeseenController = new UnforeseenControllerImpl();
         this.diceController = new DiceControllerImpl();
-        this.gameMenuController = new GameMenuControllerImpl();
         this.gameSaveController = new GameSaveControllerImpl();
         this.mainFrame = null;
         this.gameModel = null;
@@ -188,14 +184,6 @@ public class MainControllerImpl implements MainController {
     @Override
     public DiceController getDiceController() {
         return this.diceController;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public GameMenuController getGameMenuController() {
-        return this.gameMenuController;
     }
 
     /**
