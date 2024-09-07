@@ -14,6 +14,11 @@ import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.board.impl.BoardImpl;
 import it.unibo.cluedo.model.board.api.Board;
+import it.unibo.cluedo.model.card.api.Card;
+import it.unibo.cluedo.model.statistics.api.Statistics;
+import it.unibo.cluedo.model.turnmanager.api.TurnManager;
+import it.unibo.cluedo.utilities.TurnFase;
+import java.util.Set;
 
 /**
  * This class is used to test the GameSaveControllerImpl class.
@@ -24,17 +29,25 @@ class GameSaveControllerImplTest {
     private GameSaveController gameSaveController;
     private GameSaveControllerImpl.GameState gameState;
     private List<Player> players;
+    private Set<Card> solution;
+    private TurnManager turnManager;
+    private Statistics statistics;
     private Board map;
-    private int currentPlayerIndex;
+    private Set<Card> allCards;
+    private TurnFase turnFase;
 
 
     @BeforeEach
     void setUp() {
         gameSaveController = new GameSaveControllerImpl();
         players = new ArrayList<>();
+        solution = Set.of();
+        turnManager = null;
+        statistics = null;
         map = new BoardImpl();
-        currentPlayerIndex = 0;
-        gameState = new GameSaveControllerImpl.GameState(players, map, currentPlayerIndex);
+        allCards = Set.of();
+        turnFase = null;
+        gameState = new GameSaveControllerImpl.GameState(players, solution, turnManager, statistics, map, allCards, turnFase);
     }
 
     @AfterEach
@@ -50,7 +63,7 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testSaveGame() {
-        gameSaveController.saveGame(gameState);
+        gameSaveController.saveGame(players, solution, turnManager, statistics, map, allCards, turnFase);
         final File file = new File(FILE_NAME);
         assertTrue(file.exists());
     }
@@ -60,7 +73,7 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testGetOutputSavedGames() {
-        gameSaveController.saveGame(gameState);
+        gameSaveController.saveGame(players, solution, turnManager, statistics, map, allCards, turnFase);
         final Optional<String> output = gameSaveController.getOutputSavedGames();
         assertTrue(output.isPresent());
         assertEquals("A saved game is available", output.get());
@@ -71,22 +84,15 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testLoadGame() {
-        gameSaveController.saveGame(gameState);
+        gameSaveController.saveGame(players, solution, turnManager, statistics, map, allCards, turnFase);
         final Optional<GameSaveControllerImpl.GameState> loadedGameState = gameSaveController.loadGame();
         assertTrue(loadedGameState.isPresent());
         assertEquals(gameState.getPlayers(), loadedGameState.get().getPlayers());
+        assertEquals(gameState.getSolution(), loadedGameState.get().getSolution());
+        assertEquals(gameState.getTurnManager(), loadedGameState.get().getTurnManager());
+        assertEquals(gameState.getStatistics(), loadedGameState.get().getStatistics());
         assertEquals(gameState.getMap(), loadedGameState.get().getMap());
-        assertEquals(gameState.getCurrentPlayerIndex(), loadedGameState.get().getCurrentPlayerIndex());
-    }
-
-    /**
-     * Test the getCurrentGameState method.
-     */
-    @Test
-    void testGetCurrentGameState() {
-        final GameSaveControllerImpl.GameState currentState = gameSaveController.getCurrentGameState();
-        assertEquals(players, currentState.getPlayers());
-        assertEquals(map, currentState.getMap());
-        assertEquals(currentPlayerIndex, currentState.getCurrentPlayerIndex());
+        assertEquals(gameState.getAllCards(), loadedGameState.get().getAllCards());
+        assertEquals(gameState.getTurnFase(), loadedGameState.get().getTurnFase());
     }
 }

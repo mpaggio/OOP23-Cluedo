@@ -1,6 +1,7 @@
 package it.unibo.cluedo.controller.maincontroller.impl;
 
 import java.util.List;
+import java.util.Set;
 import java.util.ArrayList;
 
 import it.unibo.cluedo.controller.accusationcontroller.api.AccusationController;
@@ -27,9 +28,15 @@ import it.unibo.cluedo.controller.gamemenucontroller.impl.GameMenuControllerImpl
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
 import it.unibo.cluedo.model.GameModel;
+import it.unibo.cluedo.model.GameModelImpl;
 import it.unibo.cluedo.model.GameModelBuilder;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
+import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
+import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.statistics.api.Statistics;
+import it.unibo.cluedo.model.turnmanager.api.TurnManager;
+import it.unibo.cluedo.utilities.TurnFase;
 import it.unibo.cluedo.view.gamemenu.GameMenuView;
 import it.unibo.cluedo.view.maingameframe.MainGameFrame;
 import it.unibo.cluedo.model.card.api.Card;
@@ -201,6 +208,12 @@ public class MainControllerImpl implements MainController {
             builder.addPlayer(playerNames.get(i), playerColors.get(i));
         }
         this.gameModel = builder.withGameSolution().build();
+        System.out.println(this.gameModel.getMap().printMap());
+    }
+
+    public void initializeSavedGameModel(final List<Player> players, final Set<Card> solution, final TurnManager turnManager,
+        final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase) {
+        this.gameModel = new GameModelImpl(players, solution, turnManager, statistics, map, allCards, turnFase);
         System.out.println(this.gameModel.getMap().printMap());
     }
 

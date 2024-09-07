@@ -2,11 +2,18 @@ package it.unibo.cluedo.controller.gamesavecontroller.impl;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.io.File;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.player.api.Player;
+import it.unibo.cluedo.model.statistics.api.Statistics;
+import it.unibo.cluedo.model.turnmanager.api.TurnManager;
+import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
+import it.unibo.cluedo.utilities.TurnFase;
 import it.unibo.cluedo.model.board.api.Board;
+import it.unibo.cluedo.model.card.api.Card;
 
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,17 +32,15 @@ import java.io.Serializable;
 public final class GameSaveControllerImpl implements GameSaveController {
 
     private static final String SAVE_FILE_PATH = "saved_game.ser";
-    private List<Player> players = new ArrayList<>();
-    private Board map = null;
-    private int currentPlayerIndex;
 
     /**
-     * Save the current game state in a file.
-     *
+     * {@inheritDoc}
      */
     @Override
-    public void saveGame(final GameState gameState) {
+    public void saveGame(final List<Player> players, final Set<Card> solution, final TurnManager turnManager,
+        final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase) {
         try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(SAVE_FILE_PATH))) {
+            final GameState gameState = new GameState(players, solution, turnManager, statistics, map, allCards, turnFase);
             out.writeObject(gameState);
         } catch (IOException e) {
             Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "Error while saving the game", e);
@@ -63,28 +68,13 @@ public final class GameSaveControllerImpl implements GameSaveController {
      */
     @Override
     public Optional<GameState> loadGame() {
-        final File saveFile = new File(SAVE_FILE_PATH);
-        if (!saveFile.exists()) {
-            Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.INFO, "No saved games found");
-            return Optional.empty();
-        }
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(SAVE_FILE_PATH))) {
             final GameState gameState = (GameState) in.readObject();
             return Optional.of(gameState);
         } catch (ClassNotFoundException | IOException e) {
-            Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "Error while loading the game", e);
+            Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "No saved game found", e);
             return Optional.empty();
         }
-    }
-
-    /**
-     * Get the current game state.
-     *
-     * @return the current game state.
-     */
-    @Override
-    public GameState getCurrentGameState() {
-        return new GameState(players, map, currentPlayerIndex);
     }
 
     /**
@@ -92,21 +82,35 @@ public final class GameSaveControllerImpl implements GameSaveController {
      */
     public static class GameState implements Serializable {
         private final List<Player> players;
+        private final Set<Card> solution;
+        private final TurnManager turnManager;
+        private final Statistics statistics;
         private final Board map;
-        private final int currentPlayerIndex;
+        private final Set<Card> allCards;
+        private final TurnFase turnFase;
         private static final long serialVersionUID = 1L;
 
         /**
          * Constructs a new GameState object.
          *
          * @param players the list of players.
-         * @param map the map of the game.
-         * @param currentPlayerIndex the index of the current player.
+         * @param solution the solution of the game.
+         * @param turnManager the turn manager.
+         * @param statistics the statistics.
+         * @param map the board.
+         * @param allCards the set of all cards.
+         * @param turnFase the turn fase.
          */
-        public GameState(final List<Player> players, final Board map, final int currentPlayerIndex) {
-            this.players = players != null ? players : new ArrayList<>();
+        public GameState(final List<Player> players, final Set<Card> solution, final TurnManager turnManager,
+            final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase) {
+            this.players = new ArrayList<>(players);
+            this.solution = new HashSet<>(solution);
+            this.turnManager = new TurnManagerImpl(turnManager.getPlayers(), turnManager.getCurrentPlayerIndex(),
+                turnManager.isGameFinished());
+            this.statistics = statistics;
             this.map = map;
-            this.currentPlayerIndex = currentPlayerIndex;
+            this.allCards = new HashSet<>(allCards);
+            this.turnFase = turnFase;
         }
 
         /**
@@ -118,19 +122,51 @@ public final class GameSaveControllerImpl implements GameSaveController {
         }
 
         /**
-         * Get the map of the game.
-         * @return the map of the game.
+         * Get the solution of the game.
+         * @return the solution of the game.
+         */
+        public Set<Card> getSolution() {
+            return new HashSet<>(solution);
+        }
+
+        /**
+         * Get the turn manager.
+         * @return the turn manager.
+         */
+        public TurnManager getTurnManager() {
+            return turnManager;
+        }
+
+        /**
+         * Get the statistics.
+         * @return the statistics.
+         */
+        public Statistics getStatistics() {
+            return statistics;
+        }
+
+        /**
+         * Get the map.
+         * @return the map.
          */
         public Board getMap() {
             return map;
         }
 
         /**
-         * Get the index of the current player.
-         * @return the index of the current player.
+         * Get the set of all cards.
+         * @return the set of all cards.
          */
-        public int getCurrentPlayerIndex() {
-            return currentPlayerIndex;
+        public Set<Card> getAllCards() {
+            return new HashSet<>(allCards);
+        }
+
+        /**
+         * Get the turn fase.
+         * @return the turn fase.
+         */
+        public TurnFase getTurnFase() {
+            return turnFase;
         }
     }
 }

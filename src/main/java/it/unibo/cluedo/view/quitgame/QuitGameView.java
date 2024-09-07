@@ -2,7 +2,6 @@ package it.unibo.cluedo.view.quitgame;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
-import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl.GameState;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
 import java.awt.event.ActionEvent;
@@ -64,8 +63,15 @@ public class QuitGameView extends JButton {
      */
     private void saveAndQuit() {
         try {
-            final GameState currentState = controller.getCurrentGameState();
-            controller.saveGame(currentState);
+            controller.saveGame(
+                Cluedo.CONTROLLER.getGameInstance().getPlayers(),
+                Cluedo.CONTROLLER.getGameInstance().getSolution(),
+                Cluedo.CONTROLLER.getGameInstance().getTurnManager(),
+                Cluedo.CONTROLLER.getGameInstance().getStatistics(),
+                Cluedo.CONTROLLER.getGameInstance().getMap(),
+                Cluedo.CONTROLLER.getGameInstance().getAllCards(),
+                Cluedo.CONTROLLER.getGameInstance().getTurnFase()
+            );
             JOptionPane.showMessageDialog(null, "Game saved successfully!", "Game Saved", JOptionPane.INFORMATION_MESSAGE);
         } finally {
             final Window[] windows = Window.getWindows();

@@ -116,12 +116,18 @@ public class GameMenuControllerImpl implements GameMenuController {
      */
     @Override
     public void viewSavedGames() {
-        final Optional<GameSaveControllerImpl.GameState> savedGame = Cluedo.CONTROLLER.getGameSaveController().loadGame();
+        final Optional<GameSaveControllerImpl.GameState> savedGame = Cluedo.CONTROLLER.getGameSaveController()
+                .loadGame();
         if (savedGame.isPresent()) {
             final GameSaveControllerImpl.GameState gameState = savedGame.get();
-            gameState.getPlayers().forEach(player -> {
-                Cluedo.CONTROLLER.initializeGameModel(List.of(player.getUsername()), List.of(player.getColor()));
-            });
+            final List<String> playerNames = gameState.getPlayers().stream()
+                    .map(Player::getUsername).collect(Collectors.toList());
+            final List<String> playerColors = gameState.getPlayers().stream().map(Player::getColor)
+                    .collect(Collectors.toList());
+            System.out.println(playerNames.isEmpty());
+            System.out.println(playerColors.isEmpty());
+            Cluedo.CONTROLLER.initializeSavedGameModel(gameState.getPlayers(), gameState.getSolution(),
+                    gameState.getTurnManager(), gameState.getStatistics(), gameState.getMap(), gameState.getAllCards(), gameState.getTurnFase());
             Cluedo.CONTROLLER.displayMainFrame();
         }
     }

@@ -1,12 +1,15 @@
 package it.unibo.cluedo.model.turnmanager.api;
 
+import java.io.Serializable;
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.player.api.Player;
+import java.util.List;
+
 
 /**
  * Interface that models the turn manager of the game.
  */
-public interface TurnManager {
+public interface TurnManager extends Serializable {
 
     /**
      * Get the current player.
@@ -40,5 +43,19 @@ public interface TurnManager {
      * @return a boolean indicating if the game has ended or not.
      */
     boolean isGameFinished();
+
+    /**
+     * Get the list of players.
+     *
+     * @return the list of players.
+     */
+    List<Player> getPlayers();
+
+    /**
+     * Get the index of the current player.
+     *
+     * @return the index of the current player.
+     */
+    int getCurrentPlayerIndex();
 
 }

@@ -16,6 +16,7 @@ public class TurnManagerImpl implements TurnManager {
     private final List<Player> players;
     private int currentPlayerIndex;
     private boolean gameFinished;
+    private static final long serialVersionUID = 1L;
 
     /**
      * Constructor of the class.
@@ -31,6 +32,19 @@ public class TurnManagerImpl implements TurnManager {
         if (this.players.get(currentPlayerIndex) instanceof MutablePlayer) {
             ((MutablePlayer) this.players.get(currentPlayerIndex)).setPlayerTurn(true);
         }
+    }
+
+    /**
+     * Second Constructor of the class.
+     *
+     * @param players the list of the players.
+     * @param currentPlayerIndex the index of the current player.
+     * @param gameFinished a boolean indicating if the game is finished.
+     */
+    public TurnManagerImpl(final List<Player> players, final int currentPlayerIndex, final boolean gameFinished) {
+        this.players = new ArrayList<>(players);
+        this.currentPlayerIndex = currentPlayerIndex;
+        this.gameFinished = gameFinished;
     }
 
     /**
@@ -127,5 +141,23 @@ public class TurnManagerImpl implements TurnManager {
     @Override
     public Notebook getCurrentNotebook() {
         return getCurrentPlayer().getPlayerNotebook();
+    }
+
+    /**
+     * Get the list of players.
+     *
+     * @return the list of players.
+     */
+    public List<Player> getPlayers() {
+        return new ArrayList<>(players);
+    }
+
+    /**
+     * Get the current player index.
+     *
+     * @return the current player index.
+     */
+    public int getCurrentPlayerIndex() {
+        return currentPlayerIndex;
     }
 }
