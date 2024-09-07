@@ -38,7 +38,7 @@ import it.unibo.cluedo.utilities.TurnFase;
  * Cluedo game.
  */
 
-final class GameModelImpl implements GameModel {
+public class GameModelImpl implements GameModel {
 
     private static final int DICE_SIDES = 6;
     private static final int NUM_OF_STEPS = 1;
