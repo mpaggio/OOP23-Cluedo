@@ -66,8 +66,9 @@ public class GameMenuControllerImpl implements GameMenuController {
      */
     @Override
     public void setPlayer(final List<String> playerUsernames, final List<String> playerColors) {
-        if (playerUsernames != null && playerColors != null && playerUsernames.size() == NUMBER_OF_PLAYERS
-                && playerColors.size() == NUMBER_OF_PLAYERS) {
+        if (playerUsernames != null && playerColors != null
+            && playerUsernames.size() == NUMBER_OF_PLAYERS
+            && playerColors.size() == NUMBER_OF_PLAYERS) {
             this.players.clear();
             for (int i = 0; i < NUMBER_OF_PLAYERS; i++) {
                 if (playerUsernames.get(i).length() > LIMIT) {
@@ -127,7 +128,9 @@ public class GameMenuControllerImpl implements GameMenuController {
             System.out.println(playerNames.isEmpty());
             System.out.println(playerColors.isEmpty());
             Cluedo.CONTROLLER.initializeSavedGameModel(gameState.getPlayers(), gameState.getSolution(),
-                    gameState.getTurnManager(), gameState.getStatistics(), gameState.getMap(), gameState.getAllCards(), gameState.getTurnFase());
+                gameState.getTurnManager(), gameState.getStatistics(),
+                gameState.getMap(), gameState.getAllCards(), gameState.getTurnFase()
+            );
             Cluedo.CONTROLLER.displayMainFrame();
         }
     }

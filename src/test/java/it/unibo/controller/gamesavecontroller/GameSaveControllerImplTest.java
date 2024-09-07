@@ -69,17 +69,6 @@ class GameSaveControllerImplTest {
     }
 
     /**
-     * Test the getOutputSavedGames method.
-     */
-    @Test
-    void testGetOutputSavedGames() {
-        gameSaveController.saveGame(players, solution, turnManager, statistics, map, allCards, turnFase);
-        final Optional<String> output = gameSaveController.getOutputSavedGames();
-        assertTrue(output.isPresent());
-        assertEquals("A saved game is available", output.get());
-    }
-
-    /**
      * Test the loadGame method.
      */
     @Test

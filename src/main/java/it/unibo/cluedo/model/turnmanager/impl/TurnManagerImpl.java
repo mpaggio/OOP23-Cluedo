@@ -148,6 +148,7 @@ public class TurnManagerImpl implements TurnManager {
      *
      * @return the list of players.
      */
+    @Override
     public List<Player> getPlayers() {
         return new ArrayList<>(players);
     }
@@ -157,6 +158,7 @@ public class TurnManagerImpl implements TurnManager {
      *
      * @return the current player index.
      */
+    @Override
     public int getCurrentPlayerIndex() {
         return currentPlayerIndex;
     }

@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
+import it.unibo.cluedo.controller.gamemenucontroller.impl.GameMenuControllerImpl;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl.GameState;
 
@@ -30,8 +31,8 @@ import java.awt.GridLayout;
  */
 public class GameMenuView  extends JFrame {
 
-    private final GameMenuController controller1 = Cluedo.CONTROLLER.getGameMenuController();
-    private final GameSaveController controller2 = Cluedo.CONTROLLER.getGameSaveController();
+    private final transient GameMenuController controller1 = new GameMenuControllerImpl();
+    private final transient GameSaveController controller2 = Cluedo.CONTROLLER.getGameSaveController();
 
     private final JTextField[] playerUsernameFields;
     private final List<JComboBox<String>> playerColorCombos;

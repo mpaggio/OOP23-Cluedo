@@ -64,7 +64,8 @@ public final class GameSaveControllerImpl implements GameSaveController {
             final GameState gameState = (GameState) in.readObject();
             return Optional.of(gameState);
         } catch (ClassNotFoundException | IOException e) {
-            Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "Problems during the saved game loading", e);
+            Logger.getLogger(GameSaveControllerImpl.class.getName()).
+            log(Level.SEVERE, "Problems during the saved game loading", e);
             return Optional.empty();
         }
     }
@@ -126,7 +127,11 @@ public final class GameSaveControllerImpl implements GameSaveController {
          * @return the turn manager.
          */
         public TurnManager getTurnManager() {
-            return turnManager;
+            return new TurnManagerImpl(
+                this.turnManager.getPlayers(),
+                this.turnManager.getCurrentPlayerIndex(),
+                this.turnManager.isGameFinished()
+            );
         }
 
         /**
