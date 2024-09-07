@@ -44,6 +44,7 @@ class SwapCardEffectTest {
     private static class TestCard implements Card {
         private final String name;
         private final Type type;
+        private static final long serialVersionUID = 1L;
 
         TestCard(final String name, final Type type) {
             this.name = name;

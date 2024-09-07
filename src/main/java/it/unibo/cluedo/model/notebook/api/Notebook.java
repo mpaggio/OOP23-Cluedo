@@ -1,5 +1,6 @@
 package it.unibo.cluedo.model.notebook.api;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -8,7 +9,7 @@ import java.util.List;
  * The player can log the suspects, the weapons and the rooms that he has seen.
  * The player can also get the list of the suspects, the weapons and the rooms that he has not seen yet.
  */
-public interface Notebook {
+public interface Notebook extends Serializable {
 
     /**
      * Initialize the notebook with the cards that the player has in his hand.
