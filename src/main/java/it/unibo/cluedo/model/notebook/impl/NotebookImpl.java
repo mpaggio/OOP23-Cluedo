@@ -7,7 +7,6 @@ import java.util.HashSet;
 import it.unibo.cluedo.model.notebook.api.Notebook;
 import it.unibo.cluedo.model.card.api.Card.Type;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
-import java.io.Serializable;
 
 /**
  * Class that represents the notebook of the player.
@@ -16,7 +15,7 @@ import java.io.Serializable;
  * The player can also get the list of the suspects, the weapons and the rooms
  * that he has not seen yet.
  */
-public class NotebookImpl implements Notebook, Serializable {
+public class NotebookImpl implements Notebook {
 
     private final Set<String> seenSuspects;
     private final Set<String> seenWeapons;

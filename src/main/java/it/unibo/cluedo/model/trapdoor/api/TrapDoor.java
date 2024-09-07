@@ -10,14 +10,14 @@ import it.unibo.cluedo.utilities.Position;
 public interface TrapDoor extends Serializable {
     /**
      * Gets the room connected by the secret passage.
-     * 
+     *
      * @return the name of the room connected by the secret passage
      */
     String getConnectedRoom();
 
     /**
      * Gets the position of the secret passage in the map.
-     * 
+     *
      * @return the position of the secret passage in the map
      */
     Position getPosition();

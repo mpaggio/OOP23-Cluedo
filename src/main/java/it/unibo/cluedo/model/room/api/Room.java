@@ -41,7 +41,7 @@ public interface Room extends Serializable {
      * 
      * @param trapDoor the trap door to set
      */
-    void setTrapDoor(Optional<TrapDoor> trapDoor);
+    void setTrapDoor(TrapDoor trapDoor);
 
     /**
      * Checks if there is a trapdoor in the room.

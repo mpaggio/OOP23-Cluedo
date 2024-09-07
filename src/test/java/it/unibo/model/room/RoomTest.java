@@ -89,7 +89,7 @@ final class RoomTest {
 
     @Test
     void testSetTrapDoor() {
-        this.room1.setTrapDoor(Optional.of(this.trapDoor));
+        this.room1.setTrapDoor(this.trapDoor);
         assertTrue(this.room1.hasTrapDoor());
     }
 
@@ -111,7 +111,7 @@ final class RoomTest {
 
     @Test
     void testGetTrapDoor() {
-        this.room1.setTrapDoor(Optional.of(this.trapDoor));
+        this.room1.setTrapDoor(this.trapDoor);
         assertTrue(this.room1.getTrapDoor().isPresent());
         assertEquals(this.room1.getTrapDoor().get(), this.trapDoor);
         assertFalse(this.room2.getTrapDoor().isPresent());
