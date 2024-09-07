@@ -4,7 +4,6 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import javax.swing.BorderFactory;
 
@@ -19,14 +18,12 @@ public class GameSolutionView extends JPanel {
      * @param cardInfo the info about the cards 
      */
     public GameSolutionView(final List<String> cardInfo) {
-        setLayout(new BorderLayout());
+        setLayout(new FlowLayout(FlowLayout.CENTER, 20, 0));
         setBorder(BorderFactory.createTitledBorder("Game Solution"));
-        final JPanel imagePanel = new JPanel();
-        imagePanel.setLayout(new FlowLayout());
         for (final String path : cardInfo) {
             final ImageIcon image = new ImageIcon(path);
             final JLabel imageLabel = new JLabel(image);
-            imagePanel.add(imageLabel);
+            super.add(imageLabel);
         }
     }
 }

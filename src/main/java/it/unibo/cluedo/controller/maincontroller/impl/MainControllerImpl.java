@@ -32,7 +32,6 @@ import it.unibo.cluedo.model.GameModelImpl;
 import it.unibo.cluedo.model.GameModelBuilder;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
 import it.unibo.cluedo.model.board.api.Board;
-import it.unibo.cluedo.model.deck.impl.DeckImpl;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
@@ -203,7 +202,7 @@ public class MainControllerImpl implements MainController {
      */
     @Override
     public void initializeGameModel(final List<String> playerNames, final List<String> playerColors) {
-        final GameModelBuilder builder = new GameModelBuilderImpl(new DeckImpl());
+        final GameModelBuilder builder = new GameModelBuilderImpl();
         for (int i = 0; i < playerNames.size(); i++) {
             builder.addPlayer(playerNames.get(i), playerColors.get(i));
         }
