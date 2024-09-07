@@ -139,6 +139,15 @@ public class GameModelBuilderImpl implements GameModelBuilder {
      * {@inheritDoc}
      */
     @Override
+    public GameModelBuilder withSavedSolution(Set<Card> solution) {
+        this.solution = solution;
+        return this;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public GameModel buildsaved() {
         if (this.turnManager == null) {
             throw new IllegalStateException("TurnManager must be set before building the saved game model");

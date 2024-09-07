@@ -93,6 +93,13 @@ public interface GameModelBuilder {
     GameModelBuilder withPlayer(Player player);
 
     /**
+     * Method to set the saved solution of the game.
+     * @param solution the saved game solutoin
+     * @return the Builder itself
+     */
+    GameModelBuilder withSavedSolution(Set<Card> solution);
+
+    /**
      * Method to build and return the GameModel.
      * This method should be called after all players and the game solution have been set
      * @return an istance of GameModel
