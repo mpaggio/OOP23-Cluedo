@@ -16,6 +16,8 @@ import it.unibo.cluedo.utilities.Pair;
  */
 public class StatisticsImpl implements Statistics {
 
+    private static final long serialVersionUID = 1L;
+
     private final Map<Player, Integer> steps = new HashMap<>();
     private final Map<Player, Integer> rooms = new HashMap<>();
     private final Map<Player, Integer> accusations = new HashMap<>();

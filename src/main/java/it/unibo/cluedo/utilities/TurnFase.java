@@ -24,11 +24,4 @@ public enum TurnFase {
      * The player has to end his turn.
      */
     END_TURN;
-    /**
-     * Method to change the fase of the turn.
-     * @return the next fase of the turn.
-     */
-    public TurnFase nextFase() {
-        return values()[(ordinal() + 1) % values().length];
-    }
 }

@@ -390,6 +390,9 @@ final class GameModelImpl implements GameModel {
         return this.allCards;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public TurnManager getTurnManager() {
         return this.turnManager;

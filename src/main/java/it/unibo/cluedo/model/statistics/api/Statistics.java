@@ -4,12 +4,13 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.utilities.Pair;
 
 import java.util.List;
+import java.io.Serializable;
 
 /**
  * This interface represents the statistics of the game.
  */
 
-public interface Statistics {
+public interface Statistics extends Serializable {
     /**
      * Increment the number of steps made by the player.
      * @param player  the moving player.
