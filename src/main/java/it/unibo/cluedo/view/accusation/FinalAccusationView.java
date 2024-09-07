@@ -9,6 +9,7 @@ import java.awt.GridLayout;
 import javax.swing.JOptionPane;
 import java.awt.FlowLayout;
 import java.awt.Toolkit;
+import java.awt.Color;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -28,6 +29,7 @@ public class FinalAccusationView extends JDialog {
         final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));
         final JComboBox<String> roomComboBox = new JComboBox<>(DeckImpl.getRoomNames().toArray(new String[0]));
         final JButton confirmButton = new JButton("Confirm");
+        confirmButton.setForeground(Color.green);
         JOptionPane.showMessageDialog(null, "Remember, you can make the final accusatione only once!",
                 "Warning",
                 JOptionPane.INFORMATION_MESSAGE);
@@ -48,6 +50,7 @@ public class FinalAccusationView extends JDialog {
             final String weapon = weaponComboBox.getSelectedItem().toString();
             final String room = roomComboBox.getSelectedItem().toString();
             Cluedo.CONTROLLER.getFinalAccusationController().makeFinalAccusation(suspect, weapon, room);
+            dispose();
             if (Cluedo.CONTROLLER.getFinalAccusationController().isFinalAccusationCorrect()) {
                 final JOptionPane message = new JOptionPane(JOptionPane.INFORMATION_MESSAGE);
                 final JDialog dialog = message.createDialog(null, "Congratulations! You won the game!");
