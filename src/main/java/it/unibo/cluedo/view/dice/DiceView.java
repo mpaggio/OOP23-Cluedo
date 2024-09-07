@@ -32,6 +32,7 @@ public class DiceView extends JPanel {
 
     private final JLabel diceLabel;
     private final JLabel diceImageLabel;
+    private final String initialText;
     private final Random random = new Random();
 
     /**
@@ -41,6 +42,7 @@ public class DiceView extends JPanel {
         this.diceLabel = new JLabel("Click the button to roll the dice ! ", SwingConstants.CENTER);
         this.diceImageLabel = new JLabel();
         final JButton rollButton = new JButton("Roll Dice");
+        this.initialText = diceLabel.getText();
 
         setLayout(new BorderLayout());
         diceLabel.setFont(new Font("Arial", Font.BOLD, TEXT_SIZE));
@@ -104,6 +106,7 @@ public class DiceView extends JPanel {
      * Updates the dice view.
      */
     public void updateDiceView() {
-        super.repaint();
+        diceLabel.setText(this.initialText);
+        diceImageLabel.setIcon(null);
     }
 }
