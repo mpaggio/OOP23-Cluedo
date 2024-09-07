@@ -21,10 +21,13 @@ import java.util.List;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridLayout;
+import java.awt.Color;
+import java.awt.GridBagLayout;
+import javax.swing.BorderFactory;
 
 /**
  * Class used to show the game menu in the view.
@@ -40,10 +43,12 @@ public class GameMenuView  extends JFrame {
     private final JButton quitGameButton;
     private final JButton viewSavedGamesButton;
     private static final long serialVersionUID = 1L;
-    private static final int WIDTH = 500;
-    private static final int HEIGHT = 400;
-    private static final int MINI_HEIGHT = 50;
-    private static final int SIZE = 24;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 500;
+    private static final int MINI_HEIGHT = 80;
+    private static final int TITLE_SIZE = 60;
+    private static final int SIZE = 20;
+    private static final int COLOR_FONT_SIZE = 18;
     private static final int MAX_CHARACTERS = 20;
     private static final String ARIAL = "Arial";
 
@@ -58,8 +63,9 @@ public class GameMenuView  extends JFrame {
         this.viewSavedGamesButton = new JButton("RESUME GAME");
 
         setLayout(new BorderLayout());
-        final JLabel titleLabel = new JLabel("              CLUEDO - START NEW GAME");
-        titleLabel.setFont(new Font(ARIAL, Font.BOLD, SIZE));
+        final JLabel titleLabel = new JLabel("CLUEDO", JLabel.CENTER);
+        titleLabel.setFont(new Font("Arial Black", Font.BOLD, TITLE_SIZE));
+        titleLabel.setForeground(Color.RED);
         titleLabel.setPreferredSize(new Dimension(WIDTH, MINI_HEIGHT));
         add(titleLabel, BorderLayout.NORTH);
 
@@ -70,32 +76,55 @@ public class GameMenuView  extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(WIDTH, HEIGHT);
         setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
     }
 
     private JPanel createPlayerPanel() {
-        final JPanel playerPanel = new JPanel(new GridLayout(3, 2, 10, 10));
-        final String[] colors = { "Red", "Green", "Blue", "Yellow", "Pink", "White" };
+        final JPanel playerPanel = new JPanel(new GridBagLayout());
+        final GridBagConstraints gbc = new GridBagConstraints();
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.weightx = 1.0;
+        gbc.weighty = 0.5;
+        gbc.insets = new java.awt.Insets(10, 10, 10, 10);
+        final String[] colors = { "RED", "GREEN", "BLUE", "YELLOW", "PINK", "WHITE" };
 
         for (int i = 0; i < 3; i++) {
             playerUsernameFields[i] = new JTextField(MAX_CHARACTERS);
+            playerUsernameFields[i].setFont(new Font(ARIAL, Font.PLAIN, SIZE));
+
             playerColorCombos.add(new JComboBox<>(colors));
+            playerColorCombos.get(i).setFont(new Font(ARIAL, Font.BOLD, COLOR_FONT_SIZE));
+            playerColorCombos.get(i).setPreferredSize(new Dimension(80, 30));
 
-            final JPanel userColorPanel = new JPanel(new GridLayout(1, 2, 10, 10));
-            userColorPanel.add(playerUsernameFields[i]);
-            userColorPanel.add(playerColorCombos.get(i));
+            final JLabel playerLabel = new JLabel("PLAYER " + (i + 1) + " :");
+            playerLabel.setFont(new Font(ARIAL, Font.BOLD, SIZE));
+            playerLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
 
-            playerPanel.add(new JLabel("Player " + (i + 1) + " Username:"));
-            playerPanel.add(userColorPanel);
+            gbc.gridx = 0;
+            gbc.gridy = i;
+            gbc.gridwidth = 1;
+            gbc.weightx = 0.2;
+            playerPanel.add(playerLabel, gbc);
+
+            gbc.gridx = 1;
+            gbc.gridwidth = 2;
+            gbc.weightx = 1.0;
+            playerPanel.add(playerUsernameFields[i], gbc);
+
+            gbc.gridx = 3;
+            gbc.gridwidth = 1;
+            gbc.weightx = 0.2;
+            playerPanel.add(playerColorCombos.get(i), gbc);
         }
         return playerPanel;
     }
 
     private JPanel createButtonPanel() {
         final JPanel buttonPanel = new JPanel(new FlowLayout());
-        startGameButton.setFont(new Font(ARIAL, Font.BOLD, 16));
-        quitGameButton.setFont(new Font(ARIAL, Font.BOLD, 16));
-        viewSavedGamesButton.setFont(new Font(ARIAL, Font.BOLD, 16));
+        startGameButton.setFont(new Font(ARIAL, Font.BOLD, 18));
+        quitGameButton.setFont(new Font(ARIAL, Font.BOLD, 18));
+        viewSavedGamesButton.setFont(new Font(ARIAL, Font.BOLD, 18));
 
         buttonPanel.add(startGameButton);
         buttonPanel.add(viewSavedGamesButton);
