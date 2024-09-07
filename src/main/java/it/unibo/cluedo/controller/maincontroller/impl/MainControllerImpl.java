@@ -199,6 +199,10 @@ public class MainControllerImpl implements MainController {
         System.out.println(this.gameModel.getMap().printMap());
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void initializeSavedGameModel(final List<Player> players, final Set<Card> solution, final TurnManager turnManager,
         final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase) {
         this.gameModel = new GameModelImpl(players, solution, turnManager, statistics, map, allCards, turnFase);

@@ -37,6 +37,7 @@ public class MainGameFrame extends JFrame {
     private static final long serialVersionUID = 2L;
     private final PlayerInformationPanel playerPanel;
     private final BoardView boardPanel;
+    private final DiceView dicePanel;
     /**
      * Constructs a new GamePanel object.
      * It initializes the game panel by setting up the layout and adding various
@@ -73,7 +74,7 @@ public class MainGameFrame extends JFrame {
         leftPanel.add(new JScrollPane(mapPanel));
 
         // Dice panel
-        final DiceView dicePanel = new DiceView();
+        this.dicePanel = new DiceView();
         dicePanel.setBorder(BorderFactory.createTitledBorder("Dice"));
         dicePanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
         rightPanel.add(dicePanel, BorderLayout.NORTH);
@@ -115,6 +116,7 @@ public class MainGameFrame extends JFrame {
             Cluedo.CONTROLLER.getGameInstance().endTurn();
             updateInformations();
             updateBoard();
+            updateDice();
         });
 
         normalAccusationButton.addActionListener(e -> {
@@ -189,5 +191,12 @@ public class MainGameFrame extends JFrame {
      */
     public final void updateInformations() {
         this.playerPanel.updatePlayerInformationPanel();
+    }
+
+    /**
+     * Updates the dice view.
+     */
+    public final void updateDice() {
+        this.dicePanel.updateDiceView();
     }
 }
