@@ -210,7 +210,7 @@ public class BoardImpl implements Board, Serializable {
                         rooms[findConnectedRoomFromPosition(i, j).ordinal()],
                         new Position(i, j)
                     );
-                    rooms[findRoomForEntrance(i, j).ordinal()].setTrapDoor(Optional.of(trapDoor));
+                    rooms[findRoomForEntrance(i, j).ordinal()].setTrapDoor(trapDoor);
                 } else if (tileType != 0 && tileType != 1 && tileType != SQUARE_FOR_ENTRANCES_NUM) {
                     rooms[RoomType.fromCode(tileType).ordinal()].addSquare(
                         SquareFactory.createNormalSquare(position)

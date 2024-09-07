@@ -19,7 +19,7 @@ public class RoomImpl implements Room {
     private final List<Square> squares;
     private final List<Square> entrances;
     private final List<Player> players;
-    private Optional<TrapDoor> trapDoor;
+    private TrapDoor trapDoor;
 
     /**
      * Constructor for the room.
@@ -30,7 +30,7 @@ public class RoomImpl implements Room {
         this.name = name;
         this.squares = new LinkedList<>();
         this.entrances = new LinkedList<>();
-        this.trapDoor = Optional.empty();
+        this.trapDoor = null;
         this.players = new LinkedList<>();
     }
 
@@ -70,7 +70,7 @@ public class RoomImpl implements Room {
      * {@inheritDoc}
      */
     @Override
-    public void setTrapDoor(final Optional<TrapDoor> trapDoor) {
+    public void setTrapDoor(final TrapDoor trapDoor) {
         this.trapDoor = trapDoor;
     }
 
@@ -79,7 +79,10 @@ public class RoomImpl implements Room {
      */
     @Override
     public boolean hasTrapDoor() {
-        return this.trapDoor.isPresent();
+        if (this.trapDoor == null) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -111,7 +114,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public Optional<TrapDoor> getTrapDoor() {
-        return this.trapDoor;
+        return Optional.ofNullable(trapDoor);
     }
 
     /**
