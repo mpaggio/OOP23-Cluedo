@@ -19,13 +19,14 @@ import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.utilities.TurnFase;
 import java.util.Set;
+import java.nio.file.Paths;
 
 /**
  * This class is used to test the GameSaveControllerImpl class.
  */
 class GameSaveControllerImplTest {
 
-    private static final String FILE_NAME = "saved_game.ser";
+    private static final String FILE_NAME = Paths.get("src", "main", "resources", "saves", "saved_game.ser").toString();
     private GameSaveController gameSaveController;
     private GameSaveControllerImpl.GameState gameState;
     private List<Player> players;

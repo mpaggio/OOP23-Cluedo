@@ -24,6 +24,7 @@ import java.io.ObjectOutputStream;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.nio.file.Paths;
 
 
 /**
@@ -31,7 +32,7 @@ import java.io.Serializable;
  */
 public final class GameSaveControllerImpl implements GameSaveController {
 
-    private static final String SAVE_FILE_PATH = "saved_game.ser";
+    private static final String SAVE_FILE_PATH = Paths.get("src", "main", "resources", "saves", "saved_game.ser").toString();
 
     /**
      * {@inheritDoc}
