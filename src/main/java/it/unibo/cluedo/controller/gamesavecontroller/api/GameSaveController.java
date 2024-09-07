@@ -31,13 +31,6 @@ public interface GameSaveController {
         Statistics statistics, Board map, Set<Card> allCards, TurnFase turnFase);
 
     /**
-     * Gives the output of the saved games.
-     *
-     * @return an optional containing a string representing the saved games.
-     */
-    Optional<String> getOutputSavedGames();
-
-    /**
      * Load a saved game.
      *
      * @return true if the game is loaded, false otherwise

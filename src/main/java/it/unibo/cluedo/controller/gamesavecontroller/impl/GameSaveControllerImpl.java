@@ -47,19 +47,7 @@ public final class GameSaveControllerImpl implements GameSaveController {
         }
     }
 
-    /**
-     * Get the output of the saved games.
-     *
-     * @return an optional containing the string representing the saved games.
-     */
-    @Override
-    public Optional<String> getOutputSavedGames() {
-        final File saveFile = new File(SAVE_FILE_PATH);
-        if (saveFile.exists()) {
-            return Optional.of("A saved game is available");
-        }
-        return Optional.empty();
-    }
+
 
     /**
      * Load the game from the file.
@@ -68,11 +56,15 @@ public final class GameSaveControllerImpl implements GameSaveController {
      */
     @Override
     public Optional<GameState> loadGame() {
+        final File file = new File(SAVE_FILE_PATH);
+        if (!file.exists()) {
+            return Optional.empty();
+        }
         try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(SAVE_FILE_PATH))) {
             final GameState gameState = (GameState) in.readObject();
             return Optional.of(gameState);
         } catch (ClassNotFoundException | IOException e) {
-            Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "No saved game found", e);
+            Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "Problems during the saved game loading", e);
             return Optional.empty();
         }
     }
