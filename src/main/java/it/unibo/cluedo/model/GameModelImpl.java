@@ -185,7 +185,7 @@ public class GameModelImpl implements GameModel {
                 if (!getMap().isSquareInRoom(getSquare()) && getCurrentPlayer() instanceof MutablePlayer) {
                     ((MutablePlayer) getCurrentPlayer()).setInRoom(false);
                 }
-                this.statistics.incrementSteps(getCurrentPlayer(), 1);
+                this.statistics.incrementSteps(getCurrentPlayer());
                 if (getCurrentPlayer().isInRoom()) {
                     this.fase = TurnFase.MAKE_ACCUSATION;
                     this.statistics.incrementRoomsVisited(getCurrentPlayer());

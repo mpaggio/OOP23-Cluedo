@@ -18,12 +18,6 @@ import java.util.ArrayList;
  */
 final class StatisticsTest {
 
-    private static final int STEPS_FOR_PLAYER1_1 = 5;
-    private static final int STEPS_FOR_PLAYER1_2 = 2;
-    private static final int STEPS_FOR_PLAYER1 = 7;
-    private static final int STEPS_FOR_PLAYER2 = 2;
-    private static final int STEPS_FOR_PLAYER3 = 3;
-
     private List<Player> players;
     private Statistics stats;
     private List<Player> playersLeaderboard;
@@ -49,21 +43,23 @@ final class StatisticsTest {
      */
     @Test
     void testSteps() {
-        stats.incrementSteps(players.get(0), STEPS_FOR_PLAYER1_1);
-        stats.incrementSteps(players.get(0), STEPS_FOR_PLAYER1_2);
-        stats.incrementSteps(players.get(1), STEPS_FOR_PLAYER2);
-        stats.incrementSteps(players.get(2), STEPS_FOR_PLAYER3);
-        assertEquals(stats.getStepsMade().getSecond().get(0), STEPS_FOR_PLAYER1);
-        assertEquals(stats.getStepsMade().getSecond().get(1), STEPS_FOR_PLAYER3);
-        assertEquals(stats.getStepsMade().getSecond().get(2), STEPS_FOR_PLAYER2);
+        stats.incrementSteps(players.get(0));
+        stats.incrementSteps(players.get(0));
+        stats.incrementSteps(players.get(0));
+        stats.incrementSteps(players.get(1));
+        stats.incrementSteps(players.get(1));
+        stats.incrementSteps(players.get(2));
+        assertEquals(stats.getStepsMade().getSecond().get(0), 3);
+        assertEquals(stats.getStepsMade().getSecond().get(1), 2);
+        assertEquals(stats.getStepsMade().getSecond().get(2), 1);
         //Expected leaderboard: Player1, Player3, Player2
         playersLeaderboard.add(players.get(0));
-        playersLeaderboard.add(players.get(2));
         playersLeaderboard.add(players.get(1));
+        playersLeaderboard.add(players.get(2));
         assertEquals(playersLeaderboard, stats.getStepsMade().getFirst());
-        statsLeaderboard.add(STEPS_FOR_PLAYER1);
-        statsLeaderboard.add(STEPS_FOR_PLAYER3);
-        statsLeaderboard.add(STEPS_FOR_PLAYER2);
+        statsLeaderboard.add(3);
+        statsLeaderboard.add(2);
+        statsLeaderboard.add(1);
         assertEquals(statsLeaderboard, stats.getStepsMade().getSecond());
     }
 

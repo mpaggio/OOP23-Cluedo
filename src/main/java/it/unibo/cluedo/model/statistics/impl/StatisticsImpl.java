@@ -106,8 +106,8 @@ public class StatisticsImpl implements Statistics {
      * {@inheritDoc}
      */
     @Override
-    public void incrementSteps(final Player player, final int stepsMade) {
-        steps.replace(player, Integer.valueOf(steps.get(player).intValue() + stepsMade));
+    public void incrementSteps(final Player player) {
+        steps.replace(player, Integer.valueOf(steps.get(player).intValue() + 1));
     }
 
     /**

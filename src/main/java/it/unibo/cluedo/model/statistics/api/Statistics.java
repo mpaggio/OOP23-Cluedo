@@ -14,9 +14,8 @@ public interface Statistics extends Serializable {
     /**
      * Increment the number of steps made by the player.
      * @param player  the moving player.
-     * @param steps the number of steps made by the player in this turn.
      */
-    void incrementSteps(Player player, int steps);
+    void incrementSteps(Player player);
     /**
      * Increment the number of rooms visited by the player.
      * @param player  the moving player.
