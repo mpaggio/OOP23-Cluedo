@@ -2,6 +2,8 @@ package it.unibo.cluedo.controller.accusationcontroller.impl;
 
 import java.util.Optional;
 
+import javax.swing.JOptionPane;
+
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.accusationcontroller.api.AccusationController;
 import it.unibo.cluedo.model.GameModel;
@@ -27,6 +29,10 @@ public class AccusationControllerImpl implements AccusationController {
     @Override
     public void makeAccusation(final String suspect, final String weapon, final String room) {
         final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
+        if ("Cluedo".equals(room)) {
+            JOptionPane.showMessageDialog(null, "You can't accuse the room Cluedo");
+            return;
+        }
         final Card suspectCard = gameModel.getAllCards().stream().filter(card -> card.getName()
             .equals(suspect)).findFirst().get();
         final Card weaponCard = gameModel.getAllCards().stream().filter(card -> card.getName()
@@ -39,6 +45,7 @@ public class AccusationControllerImpl implements AccusationController {
                 getSquareByPosition(gameModel.getCurrentPlayer()
                 .getCurrentPosition())).get());
         } catch (IllegalArgumentException | IllegalStateException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage());
             return;
         }
     }
