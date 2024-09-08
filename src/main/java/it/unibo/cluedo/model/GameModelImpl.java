@@ -156,7 +156,9 @@ public class GameModelImpl implements GameModel {
     @Override
     public UnforeseenEffect drawUnforeseen() {
         if (this.fase.equals(TurnFase.DRAW_UNFORESEEN)) {
-            final Player nextPlayer = players.get((players.indexOf(getCurrentPlayer()) + 1) % players.size());
+            final Player nextPlayer = players.get(
+                (turnManager.getPlayers().indexOf(getCurrentPlayer()) + 1) % turnManager.getPlayers().size()
+            );
             final UnforeseenEffect unforeseen = UnforeseenEffectFactory.createUnforeseenEffect(nextPlayer);
             unforeseen.applyEffect(getCurrentPlayer());
             if (unforeseen instanceof ReRollDiceEffect) {
