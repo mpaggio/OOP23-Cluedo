@@ -13,7 +13,6 @@ import it.unibo.cluedo.model.player.impl.PlayerBuilderImpl;
 import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.utilities.TurnFase;
-
 import java.util.Set;
 
 /**
@@ -139,7 +138,7 @@ public class GameModelBuilderImpl implements GameModelBuilder {
      * {@inheritDoc}
      */
     @Override
-    public GameModelBuilder withSavedSolution(Set<Card> solution) {
+    public GameModelBuilder withSavedSolution(final Set<Card> solution) {
         this.solution = solution;
         return this;
     }
@@ -162,7 +161,7 @@ public class GameModelBuilderImpl implements GameModelBuilder {
             throw new IllegalStateException("Exactly 3 players must be set before building the saved game model");
         }
         if (this.solution == null || this.solution.size() != 3) {
-            throw new IllegalStateException("A valid solution must be set before buildin the saved game model");
+            throw new IllegalStateException("A valid solution must be set before building the saved game model");
         }
         if (this.allCards == null) {
             throw new IllegalStateException("The set of all cards must be set before building the saved game model");
