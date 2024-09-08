@@ -67,18 +67,12 @@ public class TurnManagerImpl implements TurnManager {
         if (player == null || !players.contains(player)) {
             throw new IllegalArgumentException("The player cannot be null or not present in the game");
         }
-        if (players.indexOf(player) == currentPlayerIndex) {
         players.remove(player);
-        if (!players.isEmpty()) {
-            switchTurn();
-        } else {
+        if (player instanceof MutablePlayer) {
+            ((MutablePlayer) player).setPlayerTurn(false);
+        }
+        if (players.isEmpty()) {
             gameFinished = true;
-            }
-        } else {
-            players.remove(player);
-            if (players.isEmpty()) {
-                gameFinished = true;
-            }
         }
     }
 
@@ -87,20 +81,20 @@ public class TurnManagerImpl implements TurnManager {
      */
     @Override
     public void switchTurn() {
-        if (gameFinished || players.size() <= 1) {
+        if (gameFinished || players.isEmpty()) {
             gameFinished = true;
             return;
         }
-        MutablePlayer currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
-        currentPlayer.setPlayerTurn(false);
 
         do {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         } while (players.get(currentPlayerIndex).hasWon());
 
         if (!gameFinished) {
-            currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
-            currentPlayer.setPlayerTurn(true);
+            final Player currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
+            if (currentPlayer instanceof MutablePlayer) {
+                ((MutablePlayer) currentPlayer).setPlayerTurn(true);
+            }
         }
         gameFinished = checkGameEndCondition();
     }

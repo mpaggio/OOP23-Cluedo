@@ -46,8 +46,10 @@ public class GameMenuView  extends JFrame {
     private static final int WIDTH = 800;
     private static final int HEIGHT = 500;
     private static final int MINI_HEIGHT = 80;
+    private static final int PLAYER_COLOR_COMBOS_HEIGHT = 30;
     private static final int TITLE_SIZE = 60;
     private static final int SIZE = 20;
+    private static final double GBCWEIGHTX = 0.2;
     private static final int COLOR_FONT_SIZE = 18;
     private static final int MAX_CHARACTERS = 20;
     private static final String ARIAL = "Arial";
@@ -95,7 +97,7 @@ public class GameMenuView  extends JFrame {
 
             playerColorCombos.add(new JComboBox<>(colors));
             playerColorCombos.get(i).setFont(new Font(ARIAL, Font.BOLD, COLOR_FONT_SIZE));
-            playerColorCombos.get(i).setPreferredSize(new Dimension(80, 30));
+            playerColorCombos.get(i).setPreferredSize(new Dimension(MINI_HEIGHT, PLAYER_COLOR_COMBOS_HEIGHT));
 
             final JLabel playerLabel = new JLabel("PLAYER " + (i + 1) + " :");
             playerLabel.setFont(new Font(ARIAL, Font.BOLD, SIZE));
@@ -104,7 +106,7 @@ public class GameMenuView  extends JFrame {
             gbc.gridx = 0;
             gbc.gridy = i;
             gbc.gridwidth = 1;
-            gbc.weightx = 0.2;
+            gbc.weightx = GBCWEIGHTX;
             playerPanel.add(playerLabel, gbc);
 
             gbc.gridx = 1;
@@ -114,7 +116,7 @@ public class GameMenuView  extends JFrame {
 
             gbc.gridx = 3;
             gbc.gridwidth = 1;
-            gbc.weightx = 0.2;
+            gbc.weightx = GBCWEIGHTX;
             playerPanel.add(playerColorCombos.get(i), gbc);
         }
         return playerPanel;
@@ -122,9 +124,9 @@ public class GameMenuView  extends JFrame {
 
     private JPanel createButtonPanel() {
         final JPanel buttonPanel = new JPanel(new FlowLayout());
-        startGameButton.setFont(new Font(ARIAL, Font.BOLD, 18));
-        quitGameButton.setFont(new Font(ARIAL, Font.BOLD, 18));
-        viewSavedGamesButton.setFont(new Font(ARIAL, Font.BOLD, 18));
+        startGameButton.setFont(new Font(ARIAL, Font.BOLD, COLOR_FONT_SIZE));
+        quitGameButton.setFont(new Font(ARIAL, Font.BOLD, COLOR_FONT_SIZE));
+        viewSavedGamesButton.setFont(new Font(ARIAL, Font.BOLD, COLOR_FONT_SIZE));
 
         buttonPanel.add(startGameButton);
         buttonPanel.add(viewSavedGamesButton);
