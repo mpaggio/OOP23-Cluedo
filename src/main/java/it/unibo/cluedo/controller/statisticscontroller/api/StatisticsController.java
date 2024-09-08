@@ -1,47 +1,53 @@
 package it.unibo.cluedo.controller.statisticscontroller.api;
 
+import java.util.List;
+
 /**
  * Interface of the controller to manage the statistics of the game.
  */
 public interface StatisticsController {
     /**
-     * Check if the steps leaderboard has a next element.
-     * @return true if there is a next element, false otherwise.
+     * Gets the full steps leaderboard.
+     * @return the full steps leaderboard.
      */
-    boolean stepsLeaderboardHasNext();
+    List<String> getFullStepsLeaderboard();
     /**
-     * Get the next element of the steps leaderboard.
-     * @return the next element of the steps leaderboard.
+     * Get the statistic of steps of the player passed as input.
+     * @param playerName the player name.
+     * @return the value of the statistic.
      */
-    String getStepsLeaderboard();
+    Integer getStepsLeaderboard(String playerName);;
     /**
-     * Check if the accusations leaderboard has a next element.
-     * @return true if there is a next element, false otherwise.
+     * Gets the full accusations leaderboard.
+     * @return the full accusations leaderboard.
      */
-    boolean accusationsLeaderboardHasNext();
+    List<String> getFullAccusationsLeaderboard();
     /**
-     * Get the next element of the accusations leaderboard.
-     * @return the next element of the accusations leaderboard.
+     * Get the statistic of accusations of the player passed as input.
+     * @param playerName the player name.
+     * @return the value of the statistic.
      */
-    String getAccusationsLeaderboard();
+    Integer getAccusationsLeaderboard(String playerName);
     /**
-     * Check if the rooms leaderboard has a next element.
-     * @return true if there is a next element, false otherwise.
+     * Gets the full rooms leaderboard.
+     * @return the full rooms leaderboard.
      */
-    boolean roomsLeaderboardHasNext();
+    List<String> getFullRoomsLeaderboard();
     /**
-     * Get the next element of the rooms leaderboard.
-     * @return the next element of the rooms leaderboard.
+     * Get the statistic of rooms of the player passed as input.
+     * @param playerName the player name.
+     * @return the value of the statistic.
      */
-    String getRoomsLeaderboard();
+    Integer getRoomLeaderboard(String playerName);
     /**
-     * Check if the cards leaderboard has a next element.
-     * @return true if there is a next element, false otherwise.
+     * Gets the full cards leaderboard.
+     * @return the full cards leaderboard.
      */
-    boolean cardsLeaderboardHasNext();
+    List<String> getFullCardsLeaderboard();
     /**
-     * Get the next element of the cards leaderboard.
-     * @return the next element of the cards leaderboard.
+     * Get the statistic of cards of the player passed as input.
+     * @param playerName the player name.
+     * @return the value of the statistic.
      */
-    String getCardsLeaderboard();
+    Integer getCardsLeaderboard(String playerName);;
 }

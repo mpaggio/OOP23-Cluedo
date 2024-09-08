@@ -1,5 +1,10 @@
 package it.unibo.cluedo.controller.statisticscontroller.impl;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.ArrayList;
+
+import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
 
@@ -8,144 +13,107 @@ import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
  */
 public class StatisticsControllerImpl implements StatisticsController {
 
-    private static final String PLAYER = "player: ";
-    private static final String STEPS = " steps: ";
-    private static final String ACCUSATIONS = " accusations: ";
-    private static final String ROOMS = " rooms: ";
-
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean stepsLeaderboardHasNext() {
-        return Cluedo.CONTROLLER.getGameInstance()
+    public List<String> getFullStepsLeaderboard() {
+        return new ArrayList<>(Cluedo.CONTROLLER.getGameInstance()
             .getStatistics()
             .getStepsMade()
             .getFirst()
-            .iterator()
-            .hasNext();
+            .stream()
+            .map(Player::getUsername)
+            .collect(Collectors.toList()));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean accusationsLeaderboardHasNext() {
-        return Cluedo.CONTROLLER.getGameInstance()
+    public List<String> getFullAccusationsLeaderboard() {
+        return new ArrayList<>(Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getAccusationsMade()
+            .getFirst()
+            .stream()
+            .map(Player::getUsername)
+            .collect(Collectors.toList()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<String> getFullRoomsLeaderboard() {
+        return new ArrayList<>(Cluedo.CONTROLLER.getGameInstance()
             .getStatistics()
             .getRoomsVisited()
             .getFirst()
-            .iterator()
-            .hasNext();
+            .stream()
+            .map(Player::getUsername)
+            .collect(Collectors.toList()));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean roomsLeaderboardHasNext() {
+    public List<String> getFullCardsLeaderboard() {
+        return new ArrayList<>(Cluedo.CONTROLLER.getGameInstance()
+            .getStatistics()
+            .getViewedCards()
+            .getFirst()
+            .stream()
+            .map(Player::getUsername)
+            .collect(Collectors.toList()));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getStepsLeaderboard(final String playerName) {
+        return Cluedo.CONTROLLER.getGameInstance()
+        .getStatistics()
+        .getStepsMade()
+        .getSecond()
+        .get(getFullStepsLeaderboard().indexOf(playerName));
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Integer getAccusationsLeaderboard(final String playerName) {
         return Cluedo.CONTROLLER.getGameInstance()
             .getStatistics()
             .getAccusationsMade()
-            .getFirst()
-            .iterator()
-            .hasNext();
+            .getSecond()
+            .get(getFullAccusationsLeaderboard().indexOf(playerName));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean cardsLeaderboardHasNext() {
+    public Integer getCardsLeaderboard(final String playerName) {
         return Cluedo.CONTROLLER.getGameInstance()
             .getStatistics()
             .getViewedCards()
-            .getFirst()
-            .iterator()
-            .hasNext();
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getStepsLeaderboard() {
-        final String playerName = Cluedo.CONTROLLER.getGameInstance()
-            .getStatistics()
-            .getStepsMade()
-            .getFirst()
-            .iterator()
-            .next()
-            .getUsername();
-        final int steps = Cluedo.CONTROLLER.getGameInstance()
-            .getStatistics()
-            .getAccusationsMade()
             .getSecond()
-            .iterator()
-            .next();
-        return PLAYER + playerName + STEPS + steps;
+            .get(getFullCardsLeaderboard().indexOf(playerName));
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public String getAccusationsLeaderboard() {
-        final String playerName = Cluedo.CONTROLLER.getGameInstance()
-            .getStatistics()
-            .getAccusationsMade()
-            .getFirst()
-            .iterator()
-            .next()
-            .getUsername();
-        final int accusations = Cluedo.CONTROLLER.getGameInstance()
-            .getStatistics()
-            .getAccusationsMade()
-            .getSecond()
-            .iterator()
-            .next();
-        return PLAYER + playerName + ACCUSATIONS + accusations;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getCardsLeaderboard() {
-        final String playerName = Cluedo.CONTROLLER.getGameInstance()
-            .getStatistics()
-            .getViewedCards()
-            .getFirst()
-            .iterator()
-            .next()
-            .getUsername();
-        final int cards = Cluedo.CONTROLLER.getGameInstance()
-            .getStatistics()
-            .getViewedCards()
-            .getSecond()
-            .iterator()
-            .next();
-        return PLAYER + playerName + ACCUSATIONS + cards;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String getRoomsLeaderboard() {
-        final String playerName = Cluedo.CONTROLLER.getGameInstance()
-            .getStatistics()
-            .getRoomsVisited()
-            .getFirst()
-            .iterator()
-            .next()
-            .getUsername();
-        final int rooms = Cluedo.CONTROLLER.getGameInstance()
+    public Integer getRoomLeaderboard(final String playerName) {
+        return Cluedo.CONTROLLER.getGameInstance()
             .getStatistics()
             .getRoomsVisited()
             .getSecond()
-            .iterator()
-            .next();
-        return PLAYER + playerName + ROOMS + rooms;
+            .get(getFullAccusationsLeaderboard().indexOf(playerName));
     }
 }
