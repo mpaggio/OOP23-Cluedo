@@ -1,25 +1,28 @@
 package it.unibo.cluedo.view.statistisc;
 
 import javax.swing.JPanel;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Color;
 import javax.swing.SwingConstants;
 
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
+
 import java.awt.BorderLayout;
 import java.awt.Font;
 
 /**
  * This class is used to show the statistics of the game.
  */
-public class StatisticsView extends JPanel {
+public class StatisticsView extends JFrame {
     private static final long serialVersionUID = 1L;
-    private static final int WIDTH = 400;
-    private static final int HEIGHT = 400;
     private static final int FONT_SIZE = 24;
     private static final int BORDER_SIZE = 20;
     //private final Statistics playersStatistics;
@@ -27,50 +30,66 @@ public class StatisticsView extends JPanel {
      * Class constructor.
      */
     public StatisticsView() {
-        //impostazione della finestra
-        final JFrame window;
-        window = new JFrame("Statistics");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(WIDTH, HEIGHT);
-        //label principale
+        final JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
         final JLabel label = new JLabel("Choose a statistic to view");
         label.setForeground(Color.GREEN);
         label.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         label.setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
-        //menu per selezionare la statistica
         final String[] options = {"Steps", "Rooms", "Accusations", "Cards"};
         final JComboBox<String> comboBox = new JComboBox<>(options);
-        comboBox.addActionListener(new ActionListener() {
+        final JButton confirmButton = new JButton("Confirm");
+        confirmButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
                 final String selected = comboBox.getSelectedItem().toString();
                 updateStatisticView(selected);
             }
         });
-        //Layout del pannello
-        setLayout(new BorderLayout());
-        super.add(comboBox, BorderLayout.CENTER);
-        super.add(label, BorderLayout.NORTH);
-
-        super.add(this);
+        panel.add(confirmButton, BorderLayout.SOUTH);
+        panel.add(comboBox, BorderLayout.CENTER);
+        panel.add(label, BorderLayout.NORTH);
+        super.add(panel);
+        pack();
+        setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
     }
 
     private void updateStatisticView(final String selectedView) {
-        //each case should create a view for the selected statistic
         switch (selectedView) {
             case "Steps":
-                new StepStatisticView();
+                JOptionPane.showMessageDialog(
+                    null,
+                    new StepStatisticView(),
+                    "Steps Leaderboard",
+                    JOptionPane.PLAIN_MESSAGE
+                );
                 break;
             case "Rooms":
-                new RoomStatisticView();
+            JOptionPane.showMessageDialog(
+                null,
+                new RoomStatisticView(),
+                "Rooms Leaderboard",
+                JOptionPane.PLAIN_MESSAGE
+            );
                 break;
             case "Accusations":
-                new AccusationStatisticView();
+            JOptionPane.showMessageDialog(
+                null,
+                new AccusationStatisticView(),
+                "Accusations Leaderboard",
+                JOptionPane.PLAIN_MESSAGE
+            );
                 break;
             case "Cards":
-                new StatisticsView();
+            JOptionPane.showMessageDialog(
+                null,
+                new CardStatisticView(),
+                "Cards Leaderboard",
+                JOptionPane.PLAIN_MESSAGE
+            );
                 break;
             default:
                 break;

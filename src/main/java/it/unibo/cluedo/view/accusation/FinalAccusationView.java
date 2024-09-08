@@ -12,6 +12,7 @@ import java.awt.Color;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
+import it.unibo.cluedo.view.statistisc.StatisticsView;
 
 /**
  * This class is used to show the final accusation view.
@@ -23,6 +24,10 @@ public class FinalAccusationView extends JDialog {
      * Method to initialize the view.
      */
     public void initializeView() {
+        if(!"Cluedo".equals(Cluedo.CONTROLLER.getAccusationController().getRoomName())) {
+            JOptionPane.showMessageDialog(null, "You can't make the final accusation here.");
+            return;
+        }
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
         final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));
@@ -57,11 +62,14 @@ public class FinalAccusationView extends JDialog {
                     "Congratulations! You won the game!",
                     JOptionPane.PLAIN_MESSAGE
                 );
+                Cluedo.CONTROLLER.closeMainGameFrame();
+                new StatisticsView();
             } else {
                 JOptionPane.showMessageDialog(null, "Sorry, you lost the game!",
                 "Game Over",
                 JOptionPane.INFORMATION_MESSAGE);
             }
         });
+        setVisible(true);
     }
 }

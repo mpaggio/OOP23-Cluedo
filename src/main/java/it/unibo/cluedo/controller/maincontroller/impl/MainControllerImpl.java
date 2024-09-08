@@ -195,6 +195,9 @@ public class MainControllerImpl implements MainController {
         }
         this.gameModel = builder.withGameSolution().build();
         System.out.println(this.gameModel.getMap().printMap());
+        for (Card card : this.gameModel.getSolution()) {
+            System.out.println(card.getName());
+        }
     }
 
     /**
@@ -239,5 +242,10 @@ public class MainControllerImpl implements MainController {
     @Override
     public GameSaveController getGameSaveController() {
         return this.gameSaveController;
+    }
+
+    @Override
+    public void closeMainGameFrame() {
+        this.mainFrame.dispose();
     }
 }

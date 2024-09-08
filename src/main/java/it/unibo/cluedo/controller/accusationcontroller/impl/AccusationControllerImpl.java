@@ -27,18 +27,29 @@ public class AccusationControllerImpl implements AccusationController {
      * {@inheritDoc}
      */
     @Override
+    public String getRoomName() {
+        final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
+        return gameModel.getMap().getRoomBySquare(gameModel.getMap()
+            .getSquareByPosition(gameModel
+            .getCurrentPlayer().getCurrentPosition()))
+            .isPresent() ? 
+            gameModel.getMap()
+            .getRoomBySquare(gameModel.getMap()
+            .getSquareByPosition(gameModel
+            .getCurrentPlayer().getCurrentPosition()))
+            .get().getName() : 
+            "";
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public void makeAccusation(final String suspect, final String weapon, final String room) {
         final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
-        if ("Cluedo".equals(room)) {
-            JOptionPane.showMessageDialog(null, "You can't accuse the room Cluedo");
-            return;
-        }
-        final Card suspectCard = gameModel.getAllCards().stream().filter(card -> card.getName()
-            .equals(suspect)).findFirst().get();
-        final Card weaponCard = gameModel.getAllCards().stream().filter(card -> card.getName()
-            .equals(weapon)).findFirst().get();
-        final Card roomCard = gameModel.getAllCards().stream().filter(card -> card.getName()
-            .equals(room)).findFirst().get();
+        final Card suspectCard = getCardByName(suspect).get();
+        final Card weaponCard = getCardByName(weapon).get();
+        final Card roomCard = getCardByName(getRoomName()).get();
         try {
             cardToShow = gameModel.makeAccusation(weaponCard, roomCard, suspectCard, gameModel.getMap()
                 .getRoomBySquare(gameModel.getMap().
@@ -64,5 +75,14 @@ public class AccusationControllerImpl implements AccusationController {
     @Override
     public Card getCardToShow() {
         return cardToShow.get();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Card> getCardByName(final String name) {
+        final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
+        return Optional.of(gameModel.getAllCards().stream().filter(card -> card.getName().equals(name)).findFirst().get());
     }
 }

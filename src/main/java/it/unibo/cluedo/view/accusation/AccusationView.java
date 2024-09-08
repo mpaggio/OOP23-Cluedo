@@ -28,6 +28,11 @@ public class AccusationView extends JDialog {
      * Method to initialize the view.
      */
     public void initializeView() {
+        if ("Cluedo".equals(Cluedo.CONTROLLER.getAccusationController().getRoomName())
+            || Cluedo.CONTROLLER.getAccusationController().getRoomName().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "You can't make a normal accusation here.");
+            return;
+        }
         JOptionPane.showMessageDialog(null, ROOM_INFO);
         final JPanel panel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
@@ -60,5 +65,6 @@ public class AccusationView extends JDialog {
                 JOptionPane.showMessageDialog(null, image);
             }
         });
+        setVisible(true);
     }
 }
