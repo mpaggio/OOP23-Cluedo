@@ -62,8 +62,8 @@ public class FinalAccusationView extends JDialog {
                     "Congratulations! You won the game!",
                     JOptionPane.PLAIN_MESSAGE
                 );
+                JOptionPane.showMessageDialog(null, new StatisticsView(), "Statistics", JOptionPane.PLAIN_MESSAGE);
                 Cluedo.CONTROLLER.closeMainGameFrame();
-                new StatisticsView();
             } else {
                 JOptionPane.showMessageDialog(null, "Sorry, you lost the game!",
                 "Game Over",

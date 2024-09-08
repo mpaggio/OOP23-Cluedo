@@ -6,7 +6,6 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.Box;
-import javax.swing.JFrame;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
@@ -25,26 +24,21 @@ public class CardStatisticView extends JPanel {
      */
     public CardStatisticView() {
         final StatisticsController statisticsController = Cluedo.CONTROLLER.getStatisticsController();
-        final JFrame window;
-        window = new JFrame("Statistics");
-        window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        window.setSize(WIDTH, HEIGHT);
         final JLabel title = new JLabel("Leaderboard for the viewed cards");
         title.setFont(new Font("Serif", Font.BOLD, FONT_SIZE));
         title.setAlignmentX(CENTER_ALIGNMENT);
-        window.add(Box.createVerticalStrut(STRUT_HEIGHT));
+        super.add(Box.createVerticalStrut(STRUT_HEIGHT));
 
         while (statisticsController.cardsLeaderboardHasNext()) {
             final String entryString = statisticsController.getCardsLeaderboard();
             final JLabel entryLabel = new JLabel(entryString);
             entryLabel.setFont(new Font("Serif", Font.PLAIN, FONT_SIZE));
-            window.add(entryLabel);
+            super.add(entryLabel);
         }
 
         super.add(title);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBorder(BorderFactory.createEmptyBorder(BORDER_SIZE, BORDER_SIZE, BORDER_SIZE, BORDER_SIZE));
-        super.add(this);
         setVisible(true);
     }
 }
