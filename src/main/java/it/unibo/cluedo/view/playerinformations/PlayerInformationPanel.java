@@ -20,7 +20,7 @@ public class PlayerInformationPanel extends JPanel {
     private static final long serialVersionUID = 4L;
     private static final int COLOR_PREFERRED_SIZE = 50;
     private static final int AREA_BORDER_SIZE = 10;
-    private static final int FONT_SIZE = 25;
+    private static final int FONT_SIZE = 20;
     private final JPanel colorPanel;
     private final JLabel infoArea;
 

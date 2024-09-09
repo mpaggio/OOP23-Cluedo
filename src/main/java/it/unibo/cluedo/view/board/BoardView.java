@@ -16,6 +16,7 @@ import java.util.Locale;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
+import java.awt.BorderLayout;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.board.impl.BoardImpl;
@@ -99,7 +100,7 @@ public class BoardView extends JPanel {
     public BoardView() {
         try {
             this.mapImage = ImageIO.read(new File(BoardImpl.getMapImagePath()));
-            this.setLayout(null);
+            this.setLayout(new BorderLayout());
             this.setPreferredSize(new Dimension(this.mapImage.getWidth(), this.mapImage.getHeight()));
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Couldn't find the map image file", e);
@@ -114,12 +115,15 @@ public class BoardView extends JPanel {
     @Override
     public void paintComponent(final Graphics g) {
         super.paintComponent(g);
+        // Panel and image size and aspect
         final int panelWidth = getSize().width;
         final int panelHeight = getSize().height;
         final int imageWidth = mapImage.getWidth();
         final int imageHeight = mapImage.getHeight();
         final double imageAspect = (double) imageWidth / imageHeight;
         final int newWidth, newHeight;
+
+        // Check the aspect relationship with heigth and width to resize
         if (panelWidth / imageAspect <= panelHeight) {
             newWidth = panelWidth;
             newHeight = (int) (panelWidth / imageAspect);
@@ -127,9 +131,15 @@ public class BoardView extends JPanel {
             newWidth = (int) (panelHeight * imageAspect);
             newHeight = panelHeight;
         }
-        g.drawImage(mapImage, 0, 0, newWidth, newHeight, this);
+
+        // Offset to set the grid correctly above the centered image
+        final int x = (panelWidth - newWidth) / 2;
+        final int y = (panelHeight - newHeight) / 2;
+
+        // Sets the visual image, color and grid
+        g.drawImage(mapImage, x, y, newWidth, newHeight, this);
         g.setColor(Color.GRAY);
-        drawTiles(g, newWidth, newHeight);
+        drawTiles(g, newWidth, newHeight, x, y);
     }
 
     /**
@@ -143,10 +153,13 @@ public class BoardView extends JPanel {
      */
     private void drawTile(final double x, final double y, final Graphics g,
         final Optional<Color> playerColor, final double tileSize) {
+            // Create the geometric components to draw
             final Graphics2D g2 = (Graphics2D) g;
             final Rectangle2D rect = new Rectangle2D.Double(x, y, tileSize, tileSize);
             g2.setPaint(TILE_BORDER_COLOR);
             g2.draw(rect);
+
+            // Print a center circle with the diameter half the size of the tile
             if (playerColor.isPresent()) {
                 g2.setPaint(playerColor.get());
                 final Ellipse2D circle = new Ellipse2D.Double(
@@ -166,15 +179,29 @@ public class BoardView extends JPanel {
      * @param newWidth the new width of the resized image
      * @param newHeight the new heigth of the resized image
      */
-    private void drawTiles(final Graphics g, final int newWidth, final int newHeight) {
+
+    /**
+     * Draws all the tiles on the map.
+     * 
+     * @param g the Graphics object used for drawing
+     * @param newWidth the new width of the resized image
+     * @param newHeight the new witdth of the resized image
+     * @param offsetX the x offset of the panel
+     * @param offsetY the y offset of the panel
+     */
+    private void drawTiles(final Graphics g, final int newWidth, final int newHeight,
+        final int offsetX, final int offsetY) {
+            // Sets the scale and the offset from the border of the resized image
             final double scaleX = (double) newWidth / mapImage.getWidth();
             final double scaleY = (double) newHeight / mapImage.getHeight();
-            final double offsetX = OFFSET_X * scaleX;
-            final double offsetY = OFFSET_Y * scaleY;
+            final double tileOffsetX = OFFSET_X * scaleX + offsetX;
+            final double tileOffsetY = OFFSET_Y * scaleY + offsetY;
             final double tileSize = TILE_SIZE * scaleX;
+
+            // Calculate coordinates of the new tile and check if there is a player
             for (final Position pos : Cluedo.CONTROLLER.getMapController().getTilesPositions()) {
-                final double x = offsetX + ((double) pos.getY()) * tileSize;
-                final double y = offsetY + ((double) pos.getX()) * tileSize;
+                final double x = tileOffsetX + ((double) pos.getY()) * tileSize;
+                final double y = tileOffsetY + ((double) pos.getX()) * tileSize;
                 if (Cluedo.CONTROLLER.getMapController().getPlayersPositions().contains(pos)) {
                     final String color = Cluedo.CONTROLLER.getMapController().getPlayersPositionsAndColors().get(pos);
                     drawTile(x, y, g, Optional.of(ColorEnum.getColorByName(color)), tileSize);
@@ -182,11 +209,13 @@ public class BoardView extends JPanel {
                     drawTile(x, y, g, Optional.empty(), tileSize);
                 }
             }
+
+            //Sets and draws the tile of the current player always at the end
             final double currentX = (double) Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getX();
             final double currentY = (double) Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getY();
             final String color = Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor();
-            final double x = offsetX + (currentY * tileSize);
-            final double y = offsetY + (currentX * tileSize);
+            final double x = tileOffsetX + (currentY * tileSize);
+            final double y = tileOffsetY + (currentX * tileSize);
             drawTile(x, y, g, Optional.of(ColorEnum.getColorByName(color)), tileSize);
     }
 

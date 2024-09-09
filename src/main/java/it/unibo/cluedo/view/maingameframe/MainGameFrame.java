@@ -7,6 +7,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import java.awt.Font;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.view.accusation.AccusationView;
@@ -19,8 +21,6 @@ import it.unibo.cluedo.view.notebook.NotebookView;
 import it.unibo.cluedo.view.playercards.PlayerCardsPanel;
 import it.unibo.cluedo.view.playerinformations.PlayerInformationPanel;
 import it.unibo.cluedo.view.quitgame.QuitGameView;
-
-//import it.unibo.cluedo.view.dice.DiceView;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -35,6 +35,7 @@ public class MainGameFrame extends JFrame {
     private static final int PREFERRED_HEIGHT = 100;
     private static final int MAX_BUTTON_HEIGHT = 50;
     private static final long serialVersionUID = 2L;
+    private static final int FONT_SIZE = 15;
     private final PlayerInformationPanel playerPanel;
     private final BoardView boardPanel;
     private final DiceView dicePanel;
@@ -43,6 +44,7 @@ public class MainGameFrame extends JFrame {
     private final JButton endTurnButton;
     private final JButton normalAccusationButton;
     private final JButton finalAccusationButton;
+    private final JTextArea possibleActionsArea;
 
     /**
      * Constructs a new GamePanel object.
@@ -69,14 +71,14 @@ public class MainGameFrame extends JFrame {
         playerPanel = new PlayerInformationPanel();
         playerPanel.setBorder(BorderFactory.createTitledBorder("Player"));
         playerPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, MAX_BUTTON_HEIGHT));
+        playerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, MAX_BUTTON_HEIGHT));
         leftPanel.add(playerPanel, BorderLayout.NORTH);
 
         // Map panel
-        final JPanel mapPanel = new JPanel();
+        final JPanel mapPanel = new JPanel(new BorderLayout());
         mapPanel.setBorder(BorderFactory.createTitledBorder("Map"));
         this.boardPanel = new BoardView();
-        boardPanel.setAlignmentX(CENTER_ALIGNMENT);
-        mapPanel.add(boardPanel);
+        mapPanel.add(boardPanel, BorderLayout.CENTER);
         leftPanel.add(new JScrollPane(mapPanel));
 
         // Dice panel
@@ -153,11 +155,22 @@ public class MainGameFrame extends JFrame {
         joystickPanel.setBorder(BorderFactory.createTitledBorder("Joystick"));
         bottomRightPanel.add(joystickPanel);
 
-        // Cluedo panel
-        final JPanel cluedoPanel = new JPanel();
-        cluedoPanel.setBorder(BorderFactory.createTitledBorder("Cluedo solution"));
-        cluedoPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
-        bottomRightPanel.add(cluedoPanel);
+        // Player's possible action panel
+        final JPanel actionPanel = new JPanel(new BorderLayout());
+        actionPanel.setBorder(BorderFactory.createTitledBorder("Player\'s possible actions"));
+        actionPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
+
+        // List of player possible actions
+        this.possibleActionsArea = new JTextArea();
+        this.possibleActionsArea.setEditable(false);
+        this.possibleActionsArea.setLineWrap(true);
+        this.possibleActionsArea.setWrapStyleWord(true);
+        this.possibleActionsArea.setEditable(false);
+        this.possibleActionsArea.setFont(new Font("Arial", Font.BOLD, FONT_SIZE));
+        final JScrollPane scrollPane = new JScrollPane(this.possibleActionsArea);
+        actionPanel.add(scrollPane, BorderLayout.CENTER);
+
+        bottomRightPanel.add(actionPanel);
 
         // Bottom panel and buttons
         final JPanel bottomPanel = new JPanel();
@@ -210,37 +223,47 @@ public class MainGameFrame extends JFrame {
         this.dicePanel.updateDiceView();
     }
 
-    /*
+    /**
      * Enable the correct buttons.
      */
-    public void enableButtons() {
+    public final void enableButtons() {
+        this.possibleActionsArea.setText("");
         this.finalAccusationButton.setEnabled(false);
         this.normalAccusationButton.setEnabled(false);
         this.endTurnButton.setEnabled(false);
         this.dicePanel.disableButton();
         this.useTrapDoorButton.setEnabled(false);
         this.joystickPanel.disableButtons();
+        this.possibleActionsArea.append("-> View your cards\n");
+        this.possibleActionsArea.append("-> View your notebook\n");
         switch (Cluedo.CONTROLLER.getGameInstance().getTurnFase()) {
             case ROLL_DICE:
+                this.possibleActionsArea.append("-> Roll the dice\n");
                 this.dicePanel.enableButton();
                 break;
             case DRAW_UNFORESEEN:
                 break;
             case MOVE_PLAYER:
                 if (Cluedo.CONTROLLER.canPlayerUseTrapDoor()) {
+                    this.possibleActionsArea.append("-> Use the trapdoor\n");
                     this.useTrapDoorButton.setEnabled(true);
                 }
                 if (!Cluedo.CONTROLLER.areStepsZero()) {
+                    this.possibleActionsArea.append("-> Use the joystick to move\n");
                     this.joystickPanel.enableButtons();
                 }
+                this.possibleActionsArea.append("-> End your turn\n");
                 this.endTurnButton.setEnabled(true);
                 break;
             case MAKE_ACCUSATION:
+                this.possibleActionsArea.append("-> Make an accusation\n");
+                this.possibleActionsArea.append("-> End your turn\n");
                 this.normalAccusationButton.setEnabled(true);
                 this.finalAccusationButton.setEnabled(true);
                 this.endTurnButton.setEnabled(true);
                 break;
             case END_TURN:
+                this.possibleActionsArea.append("-> End your turn\n");
                 this.endTurnButton.setEnabled(true);
                 break;
             default:

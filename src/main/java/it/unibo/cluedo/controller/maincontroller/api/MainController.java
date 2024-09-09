@@ -140,7 +140,7 @@ public interface MainController {
      */
     void updateInformations();
 
-    /*
+    /**
      * Calls the enableButtons method of MainGameFrame.
      */
     void updateButtons();
