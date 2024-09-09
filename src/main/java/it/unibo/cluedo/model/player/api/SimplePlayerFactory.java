@@ -5,7 +5,6 @@ package it.unibo.cluedo.model.player.api;
  * It applies the creational pattern Factory
  */
 public interface SimplePlayerFactory {
-    
     /**
      * This method is used to creat a new instance of a Player.
      * @param username the String representing the username of the player

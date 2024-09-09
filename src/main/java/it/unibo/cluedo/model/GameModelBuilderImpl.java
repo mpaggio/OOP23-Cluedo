@@ -12,6 +12,7 @@ import it.unibo.cluedo.model.player.api.SimplePlayerFactory;
 import it.unibo.cluedo.model.player.impl.SimplePlayerFactoryImpl;
 import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
+import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
 import it.unibo.cluedo.utilities.TurnFase;
 import java.util.Set;
 
@@ -30,7 +31,6 @@ public class GameModelBuilderImpl implements GameModelBuilder {
     private Set<Card> allCards;
     private TurnFase fase;
     private final SimplePlayerFactory playerFactory;
-
     /**
      * Constructor of the GameModelBuilderImpl class.
      */
@@ -82,7 +82,9 @@ public class GameModelBuilderImpl implements GameModelBuilder {
      */
     @Override
     public GameModelBuilder withTurnManager(final TurnManager turnManager) {
-        this.turnManager = turnManager;
+        this.turnManager = new TurnManagerImpl(turnManager.getPlayers(), 
+                                               turnManager.getPlayers().indexOf(turnManager.getCurrentPlayer()),
+                                               turnManager.isGameFinished());
         return this;
     }
 
@@ -109,7 +111,7 @@ public class GameModelBuilderImpl implements GameModelBuilder {
      */
     @Override
     public GameModelBuilder withAllCards(final Set<Card> cards) {
-        this.allCards = cards;
+        this.allCards = new HashSet<>(cards);
         return this;
     }
 
@@ -139,7 +141,7 @@ public class GameModelBuilderImpl implements GameModelBuilder {
      */
     @Override
     public GameModelBuilder withSavedSolution(final Set<Card> solution) {
-        this.solution = solution;
+        this.solution = new HashSet<>(solution);
         return this;
     }
 

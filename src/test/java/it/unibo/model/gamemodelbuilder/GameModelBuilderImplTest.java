@@ -125,7 +125,7 @@ final class GameModelBuilderImplTest {
         assertEquals(allCards, model.getAllCards());
         assertEquals(map, model.getMap());
         assertEquals(statistics, model.getStatistics());
-        assertEquals(turnManager, model.getTurnManager());
+        assertEquals(turnManager.getPlayers(), model.getTurnManager().getPlayers());
         assertEquals(TurnFase.END_TURN, model.getTurnFase());
     }
 }
