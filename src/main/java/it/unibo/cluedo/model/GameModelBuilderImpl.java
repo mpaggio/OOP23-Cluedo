@@ -8,8 +8,8 @@ import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.deck.api.Deck;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.player.api.PlayerBuilder;
-import it.unibo.cluedo.model.player.impl.PlayerBuilderImpl;
+import it.unibo.cluedo.model.player.api.SimplePlayerFactory;
+import it.unibo.cluedo.model.player.impl.SimplePlayerFactoryImpl;
 import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.utilities.TurnFase;
@@ -29,6 +29,7 @@ public class GameModelBuilderImpl implements GameModelBuilder {
     private Board map;
     private Set<Card> allCards;
     private TurnFase fase;
+    private final SimplePlayerFactory playerFactory;
 
     /**
      * Constructor of the GameModelBuilderImpl class.
@@ -36,6 +37,7 @@ public class GameModelBuilderImpl implements GameModelBuilder {
     public GameModelBuilderImpl() {
         this.deck = new DeckImpl();
         this.solution = new HashSet<>();
+        this.playerFactory = new SimplePlayerFactoryImpl();
     }
     /**
      * {@inheritDoc}
@@ -45,9 +47,7 @@ public class GameModelBuilderImpl implements GameModelBuilder {
         if (this.players.size() >= PLAYERS) {
             throw new IllegalArgumentException("Maximum number of players reached");
         }
-        final PlayerBuilder builder = new PlayerBuilderImpl();
-        final Player player = builder.username(username).color(color).buildPlayer();
-        this.players.add(player);
+        this.players.add(this.playerFactory.createPlayer(username, color));
         return this;
     }
 
