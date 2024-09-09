@@ -38,6 +38,12 @@ public class MainGameFrame extends JFrame {
     private final PlayerInformationPanel playerPanel;
     private final BoardView boardPanel;
     private final DiceView dicePanel;
+    private final JoystickView joystickPanel;
+    private final JButton useTrapDoorButton;
+    private final JButton endTurnButton;
+    private final JButton normalAccusationButton;
+    private final JButton finalAccusationButton;
+
     /**
      * Constructs a new GamePanel object.
      * It initializes the game panel by setting up the layout and adding various
@@ -84,10 +90,10 @@ public class MainGameFrame extends JFrame {
         buttonsPanel.setBorder(BorderFactory.createTitledBorder("Action buttons"));
         final JButton showCardsButton = new JButton("Show cards");
         final JButton showNotebookButton = new JButton("Show notebook");
-        final JButton useTrapDoorButton = new JButton("Use trapdoor");
-        final JButton endTurnButton = new JButton("End turn");
-        final JButton normalAccusationButton = new JButton("Make normal accusation");
-        final JButton finalAccusationButton = new JButton("Make final accusation");
+        this.useTrapDoorButton = new JButton("Use trapdoor");
+        this.endTurnButton = new JButton("End turn");
+        this.normalAccusationButton = new JButton("Make normal accusation");
+        this.finalAccusationButton = new JButton("Make final accusation");
 
         showCardsButton.addActionListener(e -> {
             final PlayerCardsPanel cardPanel = new PlayerCardsPanel(Cluedo.CONTROLLER.getCurrentPlayerCardsPaths());
@@ -110,6 +116,7 @@ public class MainGameFrame extends JFrame {
             );
             updateInformations();
             updateBoard();
+            enableButtons();
         });
 
         endTurnButton.addActionListener(e -> {
@@ -117,16 +124,19 @@ public class MainGameFrame extends JFrame {
             updateInformations();
             updateBoard();
             updateDice();
+            enableButtons();
         });
 
         normalAccusationButton.addActionListener(e -> {
             final AccusationView normalAccusationView = new AccusationView();
             normalAccusationView.initializeView();
+            enableButtons();
         });
 
         finalAccusationButton.addActionListener(e -> {
             final FinalAccusationView finalAccusationView = new FinalAccusationView();
             finalAccusationView.initializeView();
+            enableButtons();
         });
 
         buttonsPanel.setLayout(new GridLayout(3, 2));
@@ -139,7 +149,7 @@ public class MainGameFrame extends JFrame {
         rightPanel.add(buttonsPanel, BorderLayout.CENTER);
 
         // Joystick panel
-        final JPanel joystickPanel = new JoystickView();
+        this.joystickPanel = new JoystickView();
         joystickPanel.setBorder(BorderFactory.createTitledBorder("Joystick"));
         bottomRightPanel.add(joystickPanel);
 
@@ -171,6 +181,8 @@ public class MainGameFrame extends JFrame {
         super.add(leftPanel);
         super.add(rightPanel);
 
+        enableButtons();
+
         // Sets normal settings
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -196,5 +208,43 @@ public class MainGameFrame extends JFrame {
      */
     public final void updateDice() {
         this.dicePanel.updateDiceView();
+    }
+
+    /*
+     * Enable the correct buttons.
+     */
+    public void enableButtons() {
+        this.finalAccusationButton.setEnabled(false);
+        this.normalAccusationButton.setEnabled(false);
+        this.endTurnButton.setEnabled(false);
+        this.dicePanel.disableButton();
+        this.useTrapDoorButton.setEnabled(false);
+        this.joystickPanel.disableButtons();
+        switch (Cluedo.CONTROLLER.getGameInstance().getTurnFase()) {
+            case ROLL_DICE:
+                this.dicePanel.enableButton();
+                break;
+            case DRAW_UNFORESEEN:
+                break;
+            case MOVE_PLAYER:
+                if (Cluedo.CONTROLLER.canPlayerUseTrapDoor()) {
+                    this.useTrapDoorButton.setEnabled(true);
+                }
+                if (!Cluedo.CONTROLLER.areStepsZero()) {
+                    this.joystickPanel.enableButtons();
+                }
+                this.endTurnButton.setEnabled(true);
+                break;
+            case MAKE_ACCUSATION:
+                this.normalAccusationButton.setEnabled(true);
+                this.finalAccusationButton.setEnabled(true);
+                this.endTurnButton.setEnabled(true);
+                break;
+            case END_TURN:
+                this.endTurnButton.setEnabled(true);
+                break;
+            default:
+                break;
+        }
     }
 }

@@ -140,6 +140,25 @@ public interface MainController {
      */
     void updateInformations();
 
+    /*
+     * Calls the enableButtons method of MainGameFrame.
+     */
+    void updateButtons();
+
+    /**
+     * Returns a boolean representing if the player can use a trapdoor. 
+     * 
+     * @return true if the player can use a trapdoor, false otherwise
+     */
+    boolean canPlayerUseTrapDoor();
+
+    /**
+     * Returns a boolean representing if the player has zero steps or not.
+     * 
+     * @return true if player has zero steps, false otherwise
+     */
+    boolean areStepsZero();
+
     /**
      * Returns the game save controller.
      *

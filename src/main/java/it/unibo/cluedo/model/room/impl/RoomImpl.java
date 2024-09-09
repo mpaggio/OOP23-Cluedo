@@ -79,10 +79,7 @@ public class RoomImpl implements Room {
      */
     @Override
     public boolean hasTrapDoor() {
-        if (this.trapDoor == null) {
-            return false;
-        }
-        return true;
+        return this.trapDoor != null;
     }
 
     /**

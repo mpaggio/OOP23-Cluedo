@@ -34,6 +34,7 @@ public class DiceView extends JPanel {
     private final JLabel diceImageLabel;
     private final String initialText;
     private final Random random = new Random();
+    private final JButton rollButton;
 
     /**
      * Class constructor.
@@ -41,7 +42,7 @@ public class DiceView extends JPanel {
     public DiceView() {
         this.diceLabel = new JLabel("Click the button to roll the dice ! ", SwingConstants.CENTER);
         this.diceImageLabel = new JLabel();
-        final JButton rollButton = new JButton("Roll Dice");
+        this.rollButton = new JButton("Roll Dice");
         this.initialText = diceLabel.getText();
 
         setLayout(new BorderLayout());
@@ -57,6 +58,7 @@ public class DiceView extends JPanel {
         rollButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(final ActionEvent e) {
+                rollButton.setEnabled(false);
                 startDiceRollAnimation();
             }
         });
@@ -100,6 +102,7 @@ public class DiceView extends JPanel {
         }
         Cluedo.CONTROLLER.updateInformations();
         Cluedo.CONTROLLER.updateBoard();
+        Cluedo.CONTROLLER.updateButtons();
     }
 
     /**
@@ -108,5 +111,19 @@ public class DiceView extends JPanel {
     public void updateDiceView() {
         diceLabel.setText(this.initialText);
         diceImageLabel.setIcon(null);
+    }
+
+    /**
+     * Enable the roll dice button.
+     */
+    public void enableButton() {
+        this.rollButton.setEnabled(true);
+    }
+
+    /**
+     * Disable the roll dice button.
+     */
+    public void disableButton() {
+        this.rollButton.setEnabled(false);
     }
 }

@@ -67,10 +67,7 @@ public class SquareImpl implements Square {
      */
     @Override
     public boolean isAlreadyOccupied() {
-        if (this.player == null) {
-            return false;
-        }
-        return true;
+        return this.player != null;
     }
 
     /**

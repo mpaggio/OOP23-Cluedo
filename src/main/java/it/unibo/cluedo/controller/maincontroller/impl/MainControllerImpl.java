@@ -240,6 +240,40 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
+    public void updateButtons() {
+        this.mainFrame.enableButtons();
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean canPlayerUseTrapDoor() {
+        final var room = this.gameModel.getMap().getRoomBySquare(
+            this.gameModel.getMap().getSquareByPosition(
+                this.gameModel.getCurrentPlayer().getCurrentPosition()
+            )
+        );
+        if (room.isPresent()) {
+            return room.get().hasTrapDoor();
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean areStepsZero() {
+        final var player = this.gameModel.getCurrentPlayer();
+        return player.getCurrentSteps() == 0;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public GameSaveController getGameSaveController() {
         return this.gameSaveController;
     }

@@ -15,27 +15,35 @@ public class JoystickView extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int WIDTH = 200;
     private static final int HEIGHT = 200;
+    private final JButton upButton;
+    private final JButton downButton;
+    private final JButton leftButton;
+    private final JButton rightButton;
     /**
      * Constructor for the JoystickView class.
      */
     public JoystickView() {
         super.setLayout(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
-        final JButton upButton = new JButton("UP");
-        final JButton downButton = new JButton("DOWN");
-        final JButton leftButton = new JButton("LEFT");
-        final JButton rightButton = new JButton("RIGHT");
+        this.upButton = new JButton("UP");
+        this.downButton = new JButton("DOWN");
+        this.leftButton = new JButton("LEFT");
+        this.rightButton = new JButton("RIGHT");
         upButton.addActionListener(e -> {
             Cluedo.CONTROLLER.getJoystickController().moveUp();
+            Cluedo.CONTROLLER.updateButtons();
         });
         downButton.addActionListener(e -> {
             Cluedo.CONTROLLER.getJoystickController().moveDown();
+            Cluedo.CONTROLLER.updateButtons();
         });
         leftButton.addActionListener(e -> {
             Cluedo.CONTROLLER.getJoystickController().moveLeft();
+            Cluedo.CONTROLLER.updateButtons();
         });
         rightButton.addActionListener(e -> {
             Cluedo.CONTROLLER.getJoystickController().moveRight();
+            Cluedo.CONTROLLER.updateButtons();
         });
 
         gbc.gridx = 1;
@@ -55,5 +63,25 @@ public class JoystickView extends JPanel {
         super.add(downButton, gbc);
 
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
+    }
+
+    /**
+     * Disable all the joystick buttons.
+     */
+    public void disableButtons() {
+        this.upButton.setEnabled(false);
+        this.downButton.setEnabled(false);
+        this.leftButton.setEnabled(false);
+        this.rightButton.setEnabled(false);
+    }
+
+    /**
+     * Enable all the joystick buttons.
+     */
+    public void enableButtons() {
+        this.upButton.setEnabled(true);
+        this.downButton.setEnabled(true);
+        this.leftButton.setEnabled(true);
+        this.rightButton.setEnabled(true);
     }
 }

@@ -20,5 +20,6 @@ public class UnforeseenView {
         final String effectDescription = controller.getEffectDescription();
         final String message = "You picked " + effectType + "! \n\n" + effectDescription;
         JOptionPane.showMessageDialog(null, message, "Unforeseen Effect", JOptionPane.INFORMATION_MESSAGE);
+        Cluedo.CONTROLLER.updateButtons();
     }
 }
