@@ -16,7 +16,7 @@ public interface StatisticsController {
      * @param playerName the player name.
      * @return the value of the statistic.
      */
-    Integer getStepsLeaderboard(String playerName);;
+    Integer getStepsLeaderboard(String playerName);
     /**
      * Gets the full accusations leaderboard.
      * @return the full accusations leaderboard.
@@ -49,5 +49,5 @@ public interface StatisticsController {
      * @param playerName the player name.
      * @return the value of the statistic.
      */
-    Integer getCardsLeaderboard(String playerName);;
+    Integer getCardsLeaderboard(String playerName);
 }

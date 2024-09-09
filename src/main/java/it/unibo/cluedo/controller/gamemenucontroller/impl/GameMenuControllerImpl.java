@@ -121,12 +121,6 @@ public class GameMenuControllerImpl implements GameMenuController {
                 .loadGame();
         if (savedGame.isPresent()) {
             final GameSaveControllerImpl.GameState gameState = savedGame.get();
-            final List<String> playerNames = gameState.getPlayers().stream()
-                    .map(Player::getUsername).collect(Collectors.toList());
-            final List<String> playerColors = gameState.getPlayers().stream().map(Player::getColor)
-                    .collect(Collectors.toList());
-            System.out.println(playerNames.isEmpty());
-            System.out.println(playerColors.isEmpty());
             Cluedo.CONTROLLER.initializeSavedGameModel(gameState.getPlayers(), gameState.getSolution(),
                 gameState.getTurnManager(), gameState.getStatistics(),
                 gameState.getMap(), gameState.getAllCards(), gameState.getTurnFase()

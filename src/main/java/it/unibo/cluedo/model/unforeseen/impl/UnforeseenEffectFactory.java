@@ -11,11 +11,11 @@ import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 public final class UnforeseenEffectFactory {
 
     private static final Random RANDOM = new Random();
-    private static final int NULL_EFFECT_PROBABILITY = 40;
-    private static final int MOVE_EXTRA_STEP_PROBABILITY = 20;
-    private static final int REROLL_DICE_PROBABILITY = MOVE_EXTRA_STEP_PROBABILITY + 15;
-    private static final int SWAP_POSITION_PROBABILITY = REROLL_DICE_PROBABILITY + 10;
-    private static final int SWAP_CARD_PROBABILITY = SWAP_POSITION_PROBABILITY + 10;
+    private static final int NULL_EFFECT_PROBABILITY = 30;
+    private static final int MOVE_EXTRA_STEP_PROBABILITY = 30;
+    private static final int REROLL_DICE_PROBABILITY = 20;
+    private static final int SWAP_POSITION_PROBABILITY = 10;
+    private static final int SWAP_CARD_PROBABILITY = 10;
     private static final int STEPS_RANGE = 7;
 
     /**

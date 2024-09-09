@@ -195,7 +195,7 @@ public class MainControllerImpl implements MainController {
         }
         this.gameModel = builder.withGameSolution().build();
         System.out.println(this.gameModel.getMap().printMap());
-        for (Card card : this.gameModel.getSolution()) {
+        for (final Card card : this.gameModel.getSolution()) {
             System.out.println(card.getName());
         }
     }
@@ -207,8 +207,8 @@ public class MainControllerImpl implements MainController {
     public void initializeSavedGameModel(final List<Player> players, final Set<Card> solution, final TurnManager turnManager,
         final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase) {
         final GameModelBuilder builder = new GameModelBuilderImpl();
-        for (int i = 0; i < players.size(); i++) {
-            builder.withPlayer(players.get(i));
+        for (final Player player : players) {
+            builder.withPlayer(player);
         }
         this.gameModel = builder.withSavedSolution(solution)
             .withTurnManager(turnManager)
@@ -244,6 +244,9 @@ public class MainControllerImpl implements MainController {
         return this.gameSaveController;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void closeMainGameFrame() {
         this.mainFrame.dispose();

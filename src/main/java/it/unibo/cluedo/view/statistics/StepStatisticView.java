@@ -1,4 +1,4 @@
-package it.unibo.cluedo.view.statistisc;
+package it.unibo.cluedo.view.statistics;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -27,8 +27,8 @@ public class StepStatisticView extends JPanel {
         super.add(Box.createVerticalStrut(STRUT_HEIGHT));
 
         stepsLeaderboard.forEach(player -> {
-            final JLabel label = new JLabel("Player: " + player + " steps made: " +
-                statisticsController
+            final JLabel label = new JLabel("Player: " + player + " steps made: "
+                + statisticsController
                 .getStepsLeaderboard(player));
             super.add(label);
         });

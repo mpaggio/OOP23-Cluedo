@@ -103,7 +103,7 @@ public interface MainController {
      * @return a instance of DiceController
      */
     DiceController getDiceController();
-    
+
     /**
      * Method to close the main game frame.
      */

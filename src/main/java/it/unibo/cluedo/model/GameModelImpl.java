@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.Collections;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 import it.unibo.cluedo.model.accusation.api.Accusation;
 import it.unibo.cluedo.model.accusation.impl.AccusationImpl;
@@ -77,7 +78,7 @@ public class GameModelImpl implements GameModel {
         this.players = List.copyOf(players);
         this.turnManager = new TurnManagerImpl(players);
         this.statistics = new StatisticsImpl(players);
-        this.solution = solution;
+        this.solution = new HashSet<>(solution);
         this.allCards = Set.copyOf(deck.getAllCards());
         final List<Set<Card>> cards = List.copyOf(deck.distributeCards(players.size()));
         players.forEach(player -> {
@@ -111,11 +112,15 @@ public class GameModelImpl implements GameModel {
      public GameModelImpl(final List<Player> players, final Set<Card> solution,
         final TurnManager turnManager, final Statistics statistics,
         final Board map, final Set<Card> allCards, final TurnFase fase) {
-        this.allCards = allCards;
+        this.allCards = new HashSet<>(allCards);
         this.players = List.copyOf(players);
-        this.turnManager = turnManager;
+        this.turnManager = new TurnManagerImpl(
+            turnManager.getPlayers(),
+            turnManager.getCurrentPlayerIndex(),
+            turnManager.isGameFinished()
+        );
         this.statistics = statistics;
-        this.solution = solution;
+        this.solution = new HashSet<>(solution);
         this.fase = fase;
         this.accusation = new AccusationImpl();
         this.map = map;
@@ -172,6 +177,9 @@ public class GameModelImpl implements GameModel {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void movePlayer(final MovementStrategy.Direction direction) {
         final BoardMovement boardMovement = new BoardMovement(getMap());
@@ -374,7 +382,7 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public Set<Card> getSolution() {
-        return this.solution;
+        return new HashSet<>(this.solution);
     }
 
     /**
@@ -390,7 +398,7 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public Set<Card> getAllCards() {
-        return this.allCards;
+        return new HashSet<>(this.allCards);
     }
 
     /**
@@ -398,7 +406,11 @@ public class GameModelImpl implements GameModel {
      */
     @Override
     public TurnManager getTurnManager() {
-        return this.turnManager;
+        return new TurnManagerImpl(
+            this.turnManager.getPlayers(),
+            this.turnManager.getCurrentPlayerIndex(),
+            this.turnManager.isGameFinished()
+        );
     }
 
     /**

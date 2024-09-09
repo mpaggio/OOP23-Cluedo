@@ -1,4 +1,4 @@
-package it.unibo.cluedo.view.statistisc;
+package it.unibo.cluedo.view.statistics;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
@@ -12,10 +12,9 @@ import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
 
 /**
- * This class is used to show the leaderboard of the accusations made.
+ * This class is used to show the leaderboard of the viewed cards.
  */
-public class AccusationStatisticView extends JPanel {
-
+public class CardStatisticView extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int BORDER_SIZE = 20;
     private static final int STRUT_HEIGHT = 15;
@@ -23,15 +22,15 @@ public class AccusationStatisticView extends JPanel {
     /**
      * Class constructor.
      */
-    public AccusationStatisticView() {
+    public CardStatisticView() {
         final StatisticsController statisticsController = Cluedo.CONTROLLER.getStatisticsController();
-        final List<String> accusationsLeaderboard = statisticsController.getFullAccusationsLeaderboard();
+        final List<String> cardsLeaderboard = statisticsController.getFullCardsLeaderboard();
         super.add(Box.createVerticalStrut(STRUT_HEIGHT));
 
-        accusationsLeaderboard.forEach(player -> {
-            final JLabel label = new JLabel("Player: " + player + " accusations made: " +
-                statisticsController
-                .getAccusationsLeaderboard(player));
+        cardsLeaderboard.forEach(player -> {
+            final JLabel label = new JLabel("Player: " + player + " cards viewed: "
+                + statisticsController
+                .getCardsLeaderboard(player));
             super.add(label);
         });
 
