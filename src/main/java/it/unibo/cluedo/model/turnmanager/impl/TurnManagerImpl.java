@@ -90,12 +90,8 @@ public class TurnManagerImpl implements TurnManager {
             currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
         } while (players.get(currentPlayerIndex).hasWon());
 
-        if (!gameFinished) {
-            final Player currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
-            if (currentPlayer instanceof MutablePlayer) {
-                ((MutablePlayer) currentPlayer).setPlayerTurn(true);
-            }
-        }
+        final MutablePlayer currentPlayer = (MutablePlayer) players.get(currentPlayerIndex);
+        currentPlayer.setPlayerTurn(true);
         gameFinished = checkGameEndCondition();
     }
 

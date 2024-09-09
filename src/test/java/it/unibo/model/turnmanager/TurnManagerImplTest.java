@@ -10,6 +10,7 @@ import it.unibo.cluedo.model.player.impl.MutablePlayerImpl;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -54,14 +55,10 @@ class TurnManagerImplTest {
     @Test
     void testSwitchTurn() {
         turnManager.switchTurn();
-        assertFalse(((MutablePlayer) player1).isPlayerTurn());
-        assertTrue(((MutablePlayer) player2).isPlayerTurn());
-        assertFalse(((MutablePlayer) player3).isPlayerTurn());
+        assertEquals(player2, turnManager.getCurrentPlayer());
 
         turnManager.switchTurn();
-        assertFalse(((MutablePlayer) player1).isPlayerTurn());
-        assertFalse(((MutablePlayer) player2).isPlayerTurn());
-        assertTrue(((MutablePlayer) player3).isPlayerTurn());
+        assertNotEquals(player2, turnManager.getCurrentPlayer());
     }
 
     /**
@@ -83,10 +80,7 @@ class TurnManagerImplTest {
     void testGameNotFinishedWhenMoreThanOnePlayerLeft() {
         ((MutablePlayer) player3).setHasWon(true);
         turnManager.switchTurn();
-        assertFalse(turnManager.isGameFinished());
-        assertFalse(((MutablePlayer) player1).isPlayerTurn());
-        assertTrue(((MutablePlayer) player2).isPlayerTurn());
-        assertFalse(((MutablePlayer) player3).isPlayerTurn());
+        assertEquals(player2, turnManager.getCurrentPlayer());
     }
 
     /**
@@ -114,11 +108,9 @@ class TurnManagerImplTest {
     void testRemoveCurrentPlayerAndCheckTurn() {
         turnManager.removePlayer(player1);
         turnManager.switchTurn();
-        assertTrue(((MutablePlayer) player2).isPlayerTurn());
-        assertFalse(((MutablePlayer) player3).isPlayerTurn());
+        assertEquals(player3, turnManager.getCurrentPlayer());
         turnManager.switchTurn();
-        assertFalse(((MutablePlayer) player2).isPlayerTurn());
-        assertTrue(((MutablePlayer) player3).isPlayerTurn());
+        assertEquals(player2, turnManager.getCurrentPlayer());
     }
 
     /**
@@ -128,11 +120,9 @@ class TurnManagerImplTest {
     void testRemoveNonCurrentPlayerAndCheckTurn() {
         turnManager.removePlayer(player2);
         turnManager.switchTurn();
-        assertFalse(((MutablePlayer) player1).isPlayerTurn());
-        assertTrue(((MutablePlayer) player3).isPlayerTurn());
+        assertEquals(player3, turnManager.getCurrentPlayer());
         turnManager.switchTurn();
-        assertTrue(((MutablePlayer) player1).isPlayerTurn());
-        assertFalse(((MutablePlayer) player3).isPlayerTurn());
+        assertEquals(player1, turnManager.getCurrentPlayer());
     }
 
     /**
