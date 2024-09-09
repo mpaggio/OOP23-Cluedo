@@ -98,14 +98,26 @@ public class MainGameFrame extends JFrame {
         this.finalAccusationButton = new JButton("Make final accusation");
 
         showCardsButton.addActionListener(e -> {
-            final PlayerCardsPanel cardPanel = new PlayerCardsPanel(Cluedo.CONTROLLER.getCurrentPlayerCardsPaths());
-            JOptionPane.showMessageDialog(null, cardPanel, "Player cards", JOptionPane.PLAIN_MESSAGE);
+            final PlayerCardsPanel cardPanel = new PlayerCardsPanel(
+                Cluedo.CONTROLLER.getMainGameFrameController().getCurrentPlayerCardsPaths()
+            );
+            JOptionPane.showMessageDialog(
+                null,
+                cardPanel,
+                "Player cards",
+                JOptionPane.PLAIN_MESSAGE
+            );
         });
 
         showNotebookButton.addActionListener(e -> {
             final NotebookView notebookPanel = new NotebookView();
             notebookPanel.initView();
-            JOptionPane.showMessageDialog(null, notebookPanel, "Player notebook", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(
+                null,
+                notebookPanel,
+                "Player notebook",
+                JOptionPane.PLAIN_MESSAGE
+            );
         });
 
         useTrapDoorButton.addActionListener(e -> {
@@ -181,7 +193,12 @@ public class MainGameFrame extends JFrame {
 
         rulesButton.addActionListener(e -> {
             final GameRulesView rulesPanel = new GameRulesView();
-            JOptionPane.showMessageDialog(null, rulesPanel, "Game rules", JOptionPane.PLAIN_MESSAGE);
+            JOptionPane.showMessageDialog(
+                null,
+                rulesPanel,
+                "Game rules",
+                JOptionPane.PLAIN_MESSAGE
+            );
         });
 
         bottomPanel.add(rulesButton);
@@ -244,11 +261,11 @@ public class MainGameFrame extends JFrame {
             case DRAW_UNFORESEEN:
                 break;
             case MOVE_PLAYER:
-                if (Cluedo.CONTROLLER.canPlayerUseTrapDoor()) {
+                if (Cluedo.CONTROLLER.getMainGameFrameController().canPlayerUseTrapDoor()) {
                     this.possibleActionsArea.append("-> Use the trapdoor\n");
                     this.useTrapDoorButton.setEnabled(true);
                 }
-                if (!Cluedo.CONTROLLER.areStepsZero()) {
+                if (!Cluedo.CONTROLLER.getMainGameFrameController().areStepsZero()) {
                     this.possibleActionsArea.append("-> Use the joystick to move\n");
                     this.joystickPanel.enableButtons();
                 }

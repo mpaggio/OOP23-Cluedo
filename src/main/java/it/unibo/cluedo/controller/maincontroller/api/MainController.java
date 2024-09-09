@@ -8,6 +8,7 @@ import it.unibo.cluedo.controller.accusationcontroller.api.FinalAccusationContro
 import it.unibo.cluedo.controller.dicecontroller.api.DiceController;
 import it.unibo.cluedo.controller.gamesolutioncontroller.api.GameSolutionController;
 import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
+import it.unibo.cluedo.controller.maingameframecontroller.api.MainGameFrameController;
 import it.unibo.cluedo.controller.mapsetupcontroller.api.MapSetupController;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 import it.unibo.cluedo.controller.statisticscontroller.api.StatisticsController;
@@ -42,13 +43,6 @@ public interface MainController {
      * @return the current game model instance
      */
     GameModel getGameInstance();
-
-    /**
-     * Returns a list of the current player's cards path.
-     *
-     * @return a list of the current player's cards path
-     */
-    List<String> getCurrentPlayerCardsPaths();
 
     /**
      * Returns a instance of NotebookController.
@@ -146,23 +140,16 @@ public interface MainController {
     void updateButtons();
 
     /**
-     * Returns a boolean representing if the player can use a trapdoor. 
-     * 
-     * @return true if the player can use a trapdoor, false otherwise
-     */
-    boolean canPlayerUseTrapDoor();
-
-    /**
-     * Returns a boolean representing if the player has zero steps or not.
-     * 
-     * @return true if player has zero steps, false otherwise
-     */
-    boolean areStepsZero();
-
-    /**
      * Returns the game save controller.
      *
      * @return the game save controller
      */
     GameSaveController getGameSaveController();
+
+    /**
+     * Returns the main game frame controller.
+     * 
+     * @return the main game frame controller
+     */
+    MainGameFrameController getMainGameFrameController();
 }
