@@ -30,6 +30,7 @@ import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 import it.unibo.cluedo.model.unforeseen.impl.UnforeseenEffectFactory;
 import it.unibo.cluedo.model.unforeseen.impl.ReRollDiceEffect;
+import it.unibo.cluedo.model.unforeseen.impl.SwapCardEffect;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.utilities.Position;
 import it.unibo.cluedo.utilities.TurnFase;
@@ -169,6 +170,10 @@ public class GameModelImpl implements GameModel {
             if (unforeseen instanceof ReRollDiceEffect) {
                 this.fase = TurnFase.ROLL_DICE;
             } else {
+                if (unforeseen instanceof SwapCardEffect) {
+                    this.statistics.incrementViewedCards(getCurrentPlayer());
+                    this.statistics.incrementViewedCards(nextPlayer);
+                }
                 this.fase = TurnFase.MOVE_PLAYER;
             }
             return unforeseen;
@@ -229,6 +234,7 @@ public class GameModelImpl implements GameModel {
                     ((MutablePlayer) getCurrentPlayer()).setInRoom(true);
                     ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
                     getMap().getRoomBySquare(newPosition).get().addPlayerInRoom(getCurrentPlayer());
+                    statistics.incrementRoomsVisited(getCurrentPlayer());
                     this.fase = TurnFase.MAKE_ACCUSATION;
                 } else {
                     throw new IllegalArgumentException(NO_TRAPDOOR);
@@ -264,7 +270,10 @@ public class GameModelImpl implements GameModel {
             }
             this.statistics.incrementAccusationsMade(getCurrentPlayer());
             this.fase = TurnFase.END_TURN;
-            result.ifPresent(card -> getNotebook().logSeenCards(card.getName()));
+            result.ifPresent(card -> {
+                getNotebook().logSeenCards(card.getName());
+                this.statistics.incrementViewedCards(getCurrentPlayer());
+            });
             return result;
         }
         throw new IllegalStateException(ACCUSATION_ERROR);

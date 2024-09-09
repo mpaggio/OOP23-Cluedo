@@ -64,6 +64,7 @@ public class AccusationView extends JDialog {
                 final ImageIcon image = new ImageIcon(card.getImagePath(), card.getName());
                 JOptionPane.showMessageDialog(null, image);
             }
+            Cluedo.CONTROLLER.updateButtons();
         });
         setVisible(true);
     }
