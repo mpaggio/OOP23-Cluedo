@@ -11,15 +11,6 @@ import java.util.Set;
  * Controller class for handling the game solution logic in the Cluedo game.
  */
 public class GameSolutionControllerImpl implements GameSolutionController {
-    private GameSolutionView solutionView;
-
-    /**
-     * Contructor for the GameSolutionController class.
-     */
-    public GameSolutionControllerImpl() {
-        this.solutionView = null;
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -30,7 +21,6 @@ public class GameSolutionControllerImpl implements GameSolutionController {
         for (final var card : solution) {
             cardInfo.add(card.getImagePath());
         }
-       this.solutionView = new GameSolutionView(cardInfo);
-       return this.solutionView;
+       return new GameSolutionView(cardInfo);
     }
 }

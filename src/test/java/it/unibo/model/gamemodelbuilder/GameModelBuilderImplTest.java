@@ -44,22 +44,20 @@ final class GameModelBuilderImplTest {
     private Statistics statistics;
     private TurnManager turnManager;
     private TurnFase fase;
-    private List<Player> players;
-    private Deck deck;
     private final SimplePlayerFactory playerFactory = new SimplePlayerFactoryImpl();
     /**
      * This is done before each test.
      */
     @BeforeEach
     void setUp() {
-        this.deck = new DeckImpl();
+        final Deck deck = new DeckImpl();
         this.builder = new GameModelBuilderImpl();
-        this.solution = this.deck.drawSolution();
-        this.allCards = this.deck.getAllCards();
+        this.solution = deck.drawSolution();
+        this.allCards = deck.getAllCards();
         this.map = new BoardImpl();
         this.fase = TurnFase.END_TURN;
-        this.players = new ArrayList<>();
-        this.players.add(this.playerFactory.createPlayer(PLAYER_1, COLOR_BLACK));
+        final List<Player> players = new ArrayList<>();
+        players.add(this.playerFactory.createPlayer(PLAYER_1, COLOR_BLACK));
         this.turnManager = new TurnManagerImpl(players);
         this.statistics = new StatisticsImpl(players);
     }
