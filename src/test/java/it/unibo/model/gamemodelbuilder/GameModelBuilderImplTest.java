@@ -3,6 +3,7 @@ package it.unibo.model.gamemodelbuilder;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -18,8 +19,8 @@ import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.deck.api.Deck;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
 import it.unibo.cluedo.model.player.api.Player;
-import it.unibo.cluedo.model.player.api.PlayerBuilder;
-import it.unibo.cluedo.model.player.impl.PlayerBuilderImpl;
+import it.unibo.cluedo.model.player.api.SimplePlayerFactory;
+import it.unibo.cluedo.model.player.impl.SimplePlayerFactoryImpl;
 import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.statistics.impl.StatisticsImpl;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
@@ -45,7 +46,7 @@ final class GameModelBuilderImplTest {
     private TurnFase fase;
     private List<Player> players;
     private Deck deck;
-
+    private final SimplePlayerFactory playerFactory = new SimplePlayerFactoryImpl();
     /**
      * This is done before each test.
      */
@@ -57,11 +58,8 @@ final class GameModelBuilderImplTest {
         this.allCards = this.deck.getAllCards();
         this.map = new BoardImpl();
         this.fase = TurnFase.END_TURN;
-        final PlayerBuilder playerBuilder = new PlayerBuilderImpl();
-        final Player player1 = playerBuilder.username(PLAYER_1).color(COLOR_BLACK).buildPlayer();
-        final Player player2 = playerBuilder.username(PLAYER_2).color(COLOR_GREEN).buildPlayer();
-        final Player player3 = playerBuilder.username(PLAYER_3).color(COLOR_RED).buildPlayer();
-        this.players = List.of(player1, player2, player3);
+        this.players = new ArrayList<>();
+        this.players.add(this.playerFactory.createPlayer(PLAYER_1, COLOR_BLACK));
         this.turnManager = new TurnManagerImpl(players);
         this.statistics = new StatisticsImpl(players);
     }
