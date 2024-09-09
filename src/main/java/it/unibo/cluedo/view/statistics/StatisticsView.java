@@ -1,4 +1,4 @@
-package it.unibo.cluedo.view.statistisc;
+package it.unibo.cluedo.view.statistics;
 
 import javax.swing.JPanel;
 import java.awt.GridLayout;

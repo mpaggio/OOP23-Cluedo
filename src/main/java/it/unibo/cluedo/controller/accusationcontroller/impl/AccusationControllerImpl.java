@@ -32,13 +32,13 @@ public class AccusationControllerImpl implements AccusationController {
         return gameModel.getMap().getRoomBySquare(gameModel.getMap()
             .getSquareByPosition(gameModel
             .getCurrentPlayer().getCurrentPosition()))
-            .isPresent() ? 
-            gameModel.getMap()
+            .isPresent()
+            ? gameModel.getMap()
             .getRoomBySquare(gameModel.getMap()
             .getSquareByPosition(gameModel
             .getCurrentPlayer().getCurrentPosition()))
-            .get().getName() : 
-            "";
+            .get().getName()
+            : "";
     }
 
     /**
