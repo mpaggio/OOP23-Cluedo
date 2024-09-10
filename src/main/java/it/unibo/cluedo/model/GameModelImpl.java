@@ -70,7 +70,7 @@ public class GameModelImpl implements GameModel {
     private final Board map;
 
     /**
-     * Constructor of the class.
+     * Constructor of the class used to create a new game.
      * @param players the players of the game.
      * @param deck the deck of the game.
      * @param solution the solution of the game.
@@ -101,7 +101,7 @@ public class GameModelImpl implements GameModel {
     }
 
     /**
-     * Constructor of the class by a saved game.
+     * Constructor of the class to create a game from a saving.
      * @param players the players of the game.
      * @param solution the solution of the game.
      * @param turnManager the turn manager of the previous game.
