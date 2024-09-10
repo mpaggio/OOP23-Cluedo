@@ -316,6 +316,7 @@ public class GameModelImpl implements GameModel {
         if (getCurrentPlayer().hasLost()) {
             this.turnManager.removePlayer(getCurrentPlayer());
         }
+        this.map.resetAllEffectedSquares();
         this.turnManager.switchTurn();
         this.fase = TurnFase.ROLL_DICE;
         return getCurrentPlayer();
