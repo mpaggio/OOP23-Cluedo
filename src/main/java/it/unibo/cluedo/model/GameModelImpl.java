@@ -147,10 +147,6 @@ public class GameModelImpl implements GameModel {
                 this.currentDiceResult = dice.rollDice();
                 ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getDiceResult());
                 return getDiceResult();
-            } else if (getCurrentPlayer() instanceof MutablePlayer) {
-                ((MutablePlayer) getCurrentPlayer()).setNextTurn(true);
-                this.fase = TurnFase.END_TURN;
-                return 0;
             }
         }
         throw new IllegalStateException(ROLL_ERROR);
@@ -205,15 +201,14 @@ public class GameModelImpl implements GameModel {
                     this.fase = TurnFase.MAKE_ACCUSATION;
                     this.statistics.incrementRoomsVisited(getCurrentPlayer());
                     return;
-                } else {
-                    applyEffect(getSquare());
                 }
                 if (getCurrentPlayer().getCurrentSteps() == 0) {
                     this.fase = TurnFase.END_TURN;
                 }
-            } else {
-                throw new IllegalStateException(MOVE_ERROR);
-            }
+                if (!getCurrentPlayer().isInRoom()) {
+                    applyEffect(getSquare());
+                }
+            } 
         } else {
             throw new IllegalStateException(MOVE_ERROR);
         }
@@ -313,11 +308,27 @@ public class GameModelImpl implements GameModel {
         if (getCurrentPlayer() instanceof MutablePlayer) {
             ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(0);
         }
+        final List<Player> managerPlayers = this.turnManager.getPlayers();
+        if (managerPlayers.get((managerPlayers
+            .indexOf(getCurrentPlayer()) + 1) % managerPlayers.size())
+            .canNextTurn()) {
+            if (getCurrentPlayer().hasLost()) {
+                this.turnManager.removePlayer(getCurrentPlayer());
+            }
+            getMap().resetAllEffectedSquares();
+            this.turnManager.switchTurn();
+            this.fase = TurnFase.ROLL_DICE;
+            return getCurrentPlayer();
+        }
         if (getCurrentPlayer().hasLost()) {
             this.turnManager.removePlayer(getCurrentPlayer());
         }
+        getMap().resetAllEffectedSquares();
         this.turnManager.switchTurn();
-        this.fase = TurnFase.ROLL_DICE;
+        this.fase = TurnFase.END_TURN;
+        if (getCurrentPlayer() instanceof MutablePlayer) {
+            ((MutablePlayer) getCurrentPlayer()).setNextTurn(true);
+        }
         return getCurrentPlayer();
     }
 
