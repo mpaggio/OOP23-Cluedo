@@ -118,7 +118,7 @@ public class GameMenuControllerImpl implements GameMenuController {
     @Override
     public void viewSavedGames() {
         final Optional<GameSaveControllerImpl.GameState> savedGame = Cluedo.CONTROLLER.getGameSaveController()
-                .loadGame();
+                .loadGame("");
         if (savedGame.isPresent()) {
             final GameSaveControllerImpl.GameState gameState = savedGame.get();
             Cluedo.CONTROLLER.initializeSavedGameModel(gameState.getPlayers(), gameState.getSolution(),

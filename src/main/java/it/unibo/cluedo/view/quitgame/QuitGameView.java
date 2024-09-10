@@ -70,7 +70,8 @@ public class QuitGameView extends JButton {
                 Cluedo.CONTROLLER.getGameInstance().getStatistics(),
                 Cluedo.CONTROLLER.getGameInstance().getMap(),
                 Cluedo.CONTROLLER.getGameInstance().getAllCards(),
-                Cluedo.CONTROLLER.getGameInstance().getTurnFase()
+                Cluedo.CONTROLLER.getGameInstance().getTurnFase(),
+                ""
             );
             JOptionPane.showMessageDialog(null, "Game saved successfully!", "Game Saved", JOptionPane.INFORMATION_MESSAGE);
         } finally {
