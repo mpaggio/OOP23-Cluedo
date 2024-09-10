@@ -10,8 +10,6 @@ import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import javax.swing.border.LineBorder;
 import java.awt.Font;
-
-
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 
@@ -71,14 +69,14 @@ public class NotebookView extends JPanel {
     }
 
     /**
-     * Initializes the view.
+     * This method initializes the view.
      */
     public void initView() {
         updateNotebookView();
     }
 
     /**
-     * Updates the notebook view.
+     * This method updates the notebook view.
      */
     public void updateNotebookView() {
         updateTextArea(suspectsArea, controller.getSeenSuspect());
@@ -87,7 +85,7 @@ public class NotebookView extends JPanel {
     }
 
     /**
-     * Updates the text area.
+     * This method updates the text area.
      * @param textArea the JTextArea to update
      * @param data the data to set
      */
@@ -98,6 +96,10 @@ public class NotebookView extends JPanel {
         }
     }
 
+    /**
+     * This method creates a JTextArea.
+     * @return the JTextArea created
+     */
     private JTextArea createTextArea() {
         final JTextArea textArea = new JTextArea(LAY, COLS);
         textArea.setFont(new Font("Arial", Font.PLAIN, COLS));
@@ -109,6 +111,11 @@ public class NotebookView extends JPanel {
         return textArea;
     }
 
+    /**
+     * This method creates a JLabel.
+     * @param text the text to set
+     * @return the JLabel created
+     */
     private JLabel createSectionLabel(final String text) {
         final JLabel label = new JLabel(text);
         label.setFont(new Font("Arial", Font.BOLD, 16));

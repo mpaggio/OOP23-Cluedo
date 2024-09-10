@@ -13,7 +13,6 @@ import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Image;
 import java.nio.file.Paths;
-
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.dicecontroller.api.DiceController;
 
@@ -64,10 +63,12 @@ public class DiceView extends JPanel {
         });
     }
 
+    /**
+     * This method starts the dice roll animation.
+     */
     private void startDiceRollAnimation() {
         final Timer animationTimer = new Timer(ANIMATION_INTERVAL, new ActionListener() {
             private final long startTime = System.currentTimeMillis();
-
             @Override
             public void actionPerformed(final ActionEvent e) {
                 final long elapsed = System.currentTimeMillis() - startTime;
@@ -84,6 +85,10 @@ public class DiceView extends JPanel {
         animationTimer.start();
     }
 
+    /**
+     * This method updates the dice image basing on the result of the dice roll.
+     * @param result the result of the dice roll
+     */
     private void updateDiceImage(final int result) {
         final String imagePath = Paths.get("src", "main", "resources", "dice" + result + ".png").toString();
         final ImageIcon diceIcon = new ImageIcon(imagePath);
@@ -93,6 +98,9 @@ public class DiceView extends JPanel {
         diceImageLabel.setIcon(new ImageIcon(scaledImage));
     }
 
+    /**
+     * This method shows the final dice result with a message.
+     */
     private void showFinalDiceResult() {
         final int result = controller.getResult();
         diceLabel.setText("Congratulations ! You rolled : " + result);
@@ -106,7 +114,7 @@ public class DiceView extends JPanel {
     }
 
     /**
-     * Updates the dice view.
+     * This method updates the dice view.
      */
     public void updateDiceView() {
         diceLabel.setText(this.initialText);
@@ -114,14 +122,14 @@ public class DiceView extends JPanel {
     }
 
     /**
-     * Enable the roll dice button.
+     * This method enables the roll dice button.
      */
     public void enableButton() {
         this.rollButton.setEnabled(true);
     }
 
     /**
-     * Disable the roll dice button.
+     * This method disables the roll dice button.
      */
     public void disableButton() {
         this.rollButton.setEnabled(false);

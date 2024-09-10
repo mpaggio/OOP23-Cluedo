@@ -2,15 +2,12 @@ package it.unibo.cluedo.view.gamemenu;
 
 import javax.swing.JPanel;
 import javax.swing.JFrame;
-
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.controller.gamemenucontroller.impl.GameMenuControllerImpl;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl.GameState;
-
 import java.util.Optional;
-
 import javax.swing.JTextField;
 import javax.swing.JComboBox;
 import javax.swing.JButton;
@@ -82,6 +79,10 @@ public class GameMenuView  extends JFrame {
         setVisible(true);
     }
 
+    /**
+     * This method creates the panel for the players.
+     * @return the panel for the players
+     */
     private JPanel createPlayerPanel() {
         final JPanel playerPanel = new JPanel(new GridBagLayout());
         final GridBagConstraints gbc = new GridBagConstraints();
@@ -122,6 +123,10 @@ public class GameMenuView  extends JFrame {
         return playerPanel;
     }
 
+    /**
+     * This method creates the panel for the buttons.
+     * @return the panel for the buttons
+     */
     private JPanel createButtonPanel() {
         final JPanel buttonPanel = new JPanel(new FlowLayout());
         startGameButton.setFont(new Font(ARIAL, Font.BOLD, COLOR_FONT_SIZE));
@@ -134,6 +139,9 @@ public class GameMenuView  extends JFrame {
         return buttonPanel;
     }
 
+    /**
+     * This method adds the listeners to the buttons.
+     */
     private void addListeners() {
         startGameButton.addActionListener(new ActionListener() {
 

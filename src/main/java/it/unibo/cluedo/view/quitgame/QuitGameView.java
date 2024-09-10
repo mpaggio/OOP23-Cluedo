@@ -29,7 +29,7 @@ public class QuitGameView extends JButton {
     }
 
     /**
-     * Shows a dialog asking the user if they want to save the game before quitting.
+     * This method shows a dialog asking the user if they want to save the game before quitting.
      */
     public void showQuitGameView() {
         final String[] options = {"Quit without saving the game", "Quit and save the game", "Cancel"};
@@ -59,7 +59,7 @@ public class QuitGameView extends JButton {
         }
 
     /**
-     * Saves the game and quits.
+     * This method saves the game and quits.
      */
     private void saveAndQuit() {
         try {
