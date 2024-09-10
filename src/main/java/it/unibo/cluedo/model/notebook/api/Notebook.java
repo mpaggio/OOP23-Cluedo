@@ -6,14 +6,11 @@ import java.util.List;
 /**
  * Interface that represents the notebook of the player.
  * The notebook is used to keep track of the cards that the player has seen.
- * The player can log the suspects, the weapons and the rooms that he has seen.
- * The player can also get the list of the suspects, the weapons and the rooms that he has not seen yet.
  */
 public interface Notebook extends Serializable {
 
     /**
      * Initialize the notebook with the cards that the player has in his hand.
-     *
      * @param playerCards the list of the cards that the player has in his hand.
      */
     void initialize(List<String> playerCards);
@@ -26,21 +23,18 @@ public interface Notebook extends Serializable {
 
     /**
      * Get the list of the suspects that the player has seen.
-     *
      * @return the list of the suspects that the player has seen.
      */
     List<String> getSeenSuspects();
 
     /**
      * Get the list of the weapons that the player has seen.
-     *
      * @return the list of the weapons that the player has seen.
      */
     List<String> getSeenWeapons();
 
     /**
      * Get the list of the rooms that the player has seen.
-     *
      * @return the list of the rooms that the player has seen.
      */
     List<String> getSeenRooms();

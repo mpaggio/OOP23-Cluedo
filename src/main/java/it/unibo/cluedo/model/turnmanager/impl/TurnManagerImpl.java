@@ -8,8 +8,8 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 
 /**
- * Class that implements the TurnManager interface, it has a constructor that
- * takes the list of players as parameter.
+ * Class that implements the TurnManager interface,
+ * it has a constructor that takes the list of players as parameter.
  */
 public class TurnManagerImpl implements TurnManager {
 
@@ -20,7 +20,6 @@ public class TurnManagerImpl implements TurnManager {
 
     /**
      * Constructor of the class.
-     *
      * @param players the list of the players.
      */
     public TurnManagerImpl(final List<Player> players) {
@@ -36,7 +35,6 @@ public class TurnManagerImpl implements TurnManager {
 
     /**
      * Second Constructor of the class.
-     *
      * @param players the list of the players.
      * @param currentPlayerIndex the index of the current player.
      * @param gameFinished a boolean indicating if the game is finished.
@@ -48,9 +46,7 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
-     * Get the current player.
-     *
-     * @return the current player.
+     * {@inheritDoc}
      */
     @Override
     public Player getCurrentPlayer() {
@@ -58,9 +54,7 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
-     * Remove a player from the game.
-     *
-     * @param player the player to remove.
+     * {@inheritDoc}
      */
     @Override
     public void removePlayer(final Player player) {
@@ -77,7 +71,7 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
-     * Advances the turn to the next player.
+     * {@inheritDoc}
      */
     @Override
     public void switchTurn() {
@@ -97,7 +91,6 @@ public class TurnManagerImpl implements TurnManager {
 
     /**
      * Check if the game has ended.
-     *
      * @return a boolean indicating if the game has ended or not.
      */
     private boolean checkGameEndCondition() {
@@ -114,9 +107,7 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
-     * Check if the game has ended.
-     *
-     * @return a boolean indicating if the game has ended or not.
+     * {@inheritDoc}
      */
     @Override
     public boolean isGameFinished() {
@@ -124,9 +115,7 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
-     * Get the current notebook.
-     *
-     * @return the current notebook.
+     * {@inheritDoc}
      */
     @Override
     public Notebook getCurrentNotebook() {
@@ -134,9 +123,7 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
-     * Get the list of players.
-     *
-     * @return the list of players.
+     * {@inheritDoc}
      */
     @Override
     public List<Player> getPlayers() {
@@ -144,9 +131,7 @@ public class TurnManagerImpl implements TurnManager {
     }
 
     /**
-     * Get the current player index.
-     *
-     * @return the current player index.
+     * {@inheritDoc}
      */
     @Override
     public int getCurrentPlayerIndex() {

@@ -5,9 +5,9 @@ import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 
 /**
- * This class represents an Unforeseen Card that allows a player to move extra
- * steps
- * beyond what they would normally move based on the dice roll.
+ * This class represents an Unforeseen that allows a player
+ * to move extra steps (+ or -) beyond what they would normally move
+ * based on the dice roll.
  */
 public final class MoveExtraStepEffect implements UnforeseenEffect {
 
@@ -15,14 +15,15 @@ public final class MoveExtraStepEffect implements UnforeseenEffect {
 
     /**
      * Constructor of the class.
-     *
      * @param extraSteps the number of extra steps the player can move
-     *
      */
     public MoveExtraStepEffect(final int extraSteps) {
         this.extraSteps = extraSteps;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void applyEffect(final Player player) {
         if (player instanceof MutablePlayer) {
@@ -32,11 +33,17 @@ public final class MoveExtraStepEffect implements UnforeseenEffect {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getType() {
         return "MoveExtraStep";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDescription() {
         return "You can move " + extraSteps + " extra steps";
