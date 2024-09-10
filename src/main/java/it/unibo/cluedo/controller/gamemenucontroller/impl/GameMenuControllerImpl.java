@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Optional;
-
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.gamemenucontroller.api.GameMenuController;
 import it.unibo.cluedo.controller.gamesavecontroller.impl.GameSaveControllerImpl;
@@ -33,11 +32,7 @@ public class GameMenuControllerImpl implements GameMenuController {
     }
 
     /**
-     * This method is used to start the game.
-     *
-     * @param playerUsernames the list of the player usernames
-     * @param playerColors    the list of the player colors
-     * @return true if the game is started, false otherwise
+     * {@inheritDoc}
      */
     @Override
     public boolean startGame(final List<String> playerUsernames, final List<String> playerColors) {
@@ -59,10 +54,7 @@ public class GameMenuControllerImpl implements GameMenuController {
     }
 
     /**
-     * This method is used to set the players.
-     *
-     * @param playerUsernames the list of the player usernames
-     * @param playerColors    the list of the player colors
+     * {@inheritDoc}
      */
     @Override
     public void setPlayer(final List<String> playerUsernames, final List<String> playerColors) {
@@ -81,9 +73,7 @@ public class GameMenuControllerImpl implements GameMenuController {
     }
 
     /**
-     * This method is used to get the players.
-     *
-     * @return the list of the players
+     * {@inheritDoc}
      */
     @Override
     public List<Player> getPlayers() {
@@ -91,9 +81,7 @@ public class GameMenuControllerImpl implements GameMenuController {
     }
 
     /**
-     * This method is used to get the available colors.
-     *
-     * @return the list of the available colors
+     * {@inheritDoc}
      */
     @Override
     public List<String> getAvailableColors() {
@@ -101,7 +89,7 @@ public class GameMenuControllerImpl implements GameMenuController {
     }
 
     /**
-     * This method is used to quit the game.
+     * {@inheritDoc}
      */
     @Override
     public void quitGame() {
@@ -112,8 +100,7 @@ public class GameMenuControllerImpl implements GameMenuController {
     }
 
     /**
-     * This method is used to view the saved games.
-     *
+     * {@inheritDoc}
      */
     @Override
     public void viewSavedGames() {

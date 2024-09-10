@@ -14,10 +14,8 @@ import it.unibo.cluedo.model.turnmanager.impl.TurnManagerImpl;
 import it.unibo.cluedo.utilities.TurnFase;
 import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.card.api.Card;
-
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
@@ -57,8 +55,6 @@ public final class GameSaveControllerImpl implements GameSaveController {
         }
     }
 
-
-
     /**
      * {@inheritDoc}
      */
@@ -92,7 +88,6 @@ public final class GameSaveControllerImpl implements GameSaveController {
                 return Optional.empty();
             }
         }
-
     }
 
     /**

@@ -11,8 +11,7 @@ import it.unibo.cluedo.controller.notebookcontroller.api.NotebookController;
 public class NotebookControllerImpl  implements NotebookController {
 
     /**
-     * Gets the list of seen suspects.
-     * @return the list of seen suspects
+     * {@inheritDoc}
      */
     @Override
     public List<String> getSeenSuspect() {
@@ -20,8 +19,7 @@ public class NotebookControllerImpl  implements NotebookController {
     }
 
     /**
-     * Gets the list of seen weapons.
-     * @return the list of seen weapons
+     * {@inheritDoc}
      */
     @Override
     public List<String> getSeenWeapon() {
@@ -29,8 +27,7 @@ public class NotebookControllerImpl  implements NotebookController {
     }
 
     /**
-     * Gets the list of seen rooms.
-     * @return the list of seen rooms
+     * {@inheritDoc}
      */
     @Override
     public List<String> getSeenRoom() {
