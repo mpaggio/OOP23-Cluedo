@@ -129,6 +129,14 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
+    public void showSquareEffect(final String effectType, final String effectDescription) {
+        this.mainFrame.showSquareEffect(effectType, effectDescription);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public GameModel getGameInstance() {
         return this.gameModel;
     }

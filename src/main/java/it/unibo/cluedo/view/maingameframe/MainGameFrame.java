@@ -287,4 +287,11 @@ public class MainGameFrame extends JFrame {
                 break;
         }
     }
+
+    public void showSquareEffect(final String type, final String description) {
+        JOptionPane.showMessageDialog(
+            null,
+            "You landed on a " + type + " square:\n" + description
+        );
+    }
 }
