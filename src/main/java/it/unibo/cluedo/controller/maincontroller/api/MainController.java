@@ -121,8 +121,9 @@ public interface MainController {
      * @param allCards the set of all cards
      * @param turnFase the turn fase
      */
-    void initializeSavedGameModel(List<Player> players, Set<Card> solution, TurnManager turnManager,
-        Statistics statistics, Board map, Set<Card> allCards, TurnFase turnFase);
+    void initializeSavedGameModel(List<Player> players, Set<Card> solution,
+        TurnManager turnManager, Statistics statistics, Board map,
+        Set<Card> allCards, TurnFase turnFase);
 
     /**
      * Updates the board panel.

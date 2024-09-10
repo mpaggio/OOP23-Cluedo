@@ -52,9 +52,15 @@ public class DeckImpl implements Deck {
     public DeckImpl() {
         this.cards.clear();
         this.allCards.clear();
-        CHARACTER_NAMES.forEach(name -> this.cards.add(CardFactory.createCharacterCard(name, getImagePath(name))));
-        WEAPON_NAMES.forEach(name -> this.cards.add(CardFactory.createWeaponCard(name, getImagePath(name))));
-        ROOM_NAMES.forEach(name -> this.cards.add(CardFactory.createRoomCard(name, getImagePath(name))));
+        CHARACTER_NAMES.forEach(name -> this.cards.add(
+            CardFactory.createCharacterCard(name, getImagePath(name)))
+        );
+        WEAPON_NAMES.forEach(name -> this.cards.add(
+            CardFactory.createWeaponCard(name, getImagePath(name)))
+        );
+        ROOM_NAMES.forEach(name -> this.cards.add(
+            CardFactory.createRoomCard(name, getImagePath(name)))
+        );
         this.allCards.addAll(this.cards);
     }
 
@@ -66,7 +72,12 @@ public class DeckImpl implements Deck {
      * @return the file path of the image of the card 
      */
     private String getImagePath(final String name) {
-        return Paths.get("src", "main", "resources", name.replace(" ", "") + ".PNG").toString();
+        return Paths.get(
+            "src",
+            "main",
+            "resources",
+            name.replace(" ", "") + ".png"
+        ).toString();
     }
 
     /**
@@ -86,7 +97,10 @@ public class DeckImpl implements Deck {
             .filter(card -> card.getType() == Card.Type.ROOM)
             .findAny()
             .orElseThrow(() -> new IllegalStateException("No room card available"));
-        this.cards.removeIf(card -> card.equals(solutionCharacter) || card.equals(solutionWeapon) || card.equals(solutionRoom));
+        this.cards.removeIf(card -> card.equals(solutionCharacter)
+            || card.equals(solutionWeapon)
+            || card.equals(solutionRoom)
+        );
         return Set.of(solutionCharacter, solutionWeapon, solutionRoom);
     }
 

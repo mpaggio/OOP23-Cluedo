@@ -5,7 +5,7 @@ import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 import it.unibo.cluedo.utilities.Position;
 
 /**
- * Implementation representing the trap door in the Cluedo game.
+ * Implementation representing a secret passage in the Cluedo game.
  */
 public class TrapDoorImpl implements TrapDoor {
     private static final long serialVersionUID = 1L;

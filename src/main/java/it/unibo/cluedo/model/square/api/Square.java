@@ -8,7 +8,7 @@ import it.unibo.cluedo.utilities.Position;
 
 /**
  * Represents a single square of the game table.
- * Each square can have an effect that is applied when a player lands on it.
+ * Each square has an effect that is applied when a player lands on it.
  */
 public interface Square extends Serializable {
     /**

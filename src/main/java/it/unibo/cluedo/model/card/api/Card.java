@@ -3,11 +3,11 @@ package it.unibo.cluedo.model.card.api;
 import java.io.Serializable;
 
 /**
- * Represents a card in the Cluedo game.
+ * Interface representing a card in the Cluedo game.
  */
 public interface Card extends Serializable {
     /**
-     * Enum representing the different types of cards in the game Cluedo.
+     * Enum representing the different types of cards in the Cluedo game.
      */
     enum Type {
         /**

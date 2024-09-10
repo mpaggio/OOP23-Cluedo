@@ -5,6 +5,7 @@ import it.unibo.cluedo.model.card.api.Card.Type;
 
 /**
  * Utility class for creating cards in the Cluedo game.
+ * It implements the Factory pattern.
  */
 public final class CardFactory {
     /**
@@ -15,7 +16,7 @@ public final class CardFactory {
     }
 
     /**
-     * Create a character card.
+     * Creates a character card.
      * 
      * @param name the name of the character
      * @param imagePath the image path of the character
@@ -26,7 +27,7 @@ public final class CardFactory {
     }
 
     /**
-     * Create a weapon card.
+     * Creates a weapon card.
      * 
      * @param name the name of the weapon
      * @param imagePath the image path of the weapon
@@ -37,7 +38,7 @@ public final class CardFactory {
     }
 
     /**
-     * Create a room card.
+     * Creates a room card.
      * 
      * @param name the name of the room
      * @param imagePath the image path of the room

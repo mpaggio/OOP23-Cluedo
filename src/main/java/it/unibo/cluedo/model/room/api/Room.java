@@ -9,7 +9,7 @@ import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.trapdoor.api.TrapDoor;
 
 /**
- * Represents a room in the Cluedo game.
+ * Interface representing a room in the Cluedo game.
  * A room contains squares and has at least one entrance.
  * A room can contain a trap door.
  */

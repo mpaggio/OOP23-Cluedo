@@ -70,8 +70,18 @@ public class MainGameFrame extends JFrame {
         // Player panel
         playerPanel = new PlayerInformationPanel();
         playerPanel.setBorder(BorderFactory.createTitledBorder("Player"));
-        playerPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, MAX_BUTTON_HEIGHT));
-        playerPanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, MAX_BUTTON_HEIGHT));
+        playerPanel.setPreferredSize(
+            new Dimension(
+                PREFERRED_WIDTH,
+                MAX_BUTTON_HEIGHT
+            )
+        );
+        playerPanel.setMaximumSize(
+            new Dimension(
+                Integer.MAX_VALUE,
+                MAX_BUTTON_HEIGHT
+            )
+        );
         leftPanel.add(playerPanel, BorderLayout.NORTH);
 
         // Map panel
@@ -99,7 +109,8 @@ public class MainGameFrame extends JFrame {
 
         showCardsButton.addActionListener(e -> {
             final PlayerCardsPanel cardPanel = new PlayerCardsPanel(
-                Cluedo.CONTROLLER.getMainGameFrameController().getCurrentPlayerCardsPaths()
+                Cluedo.CONTROLLER.getMainGameFrameController()
+                .getCurrentPlayerCardsPaths()
             );
             JOptionPane.showMessageDialog(
                 null,
@@ -124,7 +135,9 @@ public class MainGameFrame extends JFrame {
             Cluedo.CONTROLLER.getGameInstance().useTrapdoor(
                 Cluedo.CONTROLLER.getGameInstance().getMap().getRoomBySquare(
                     Cluedo.CONTROLLER.getGameInstance().getMap().getSquareByPosition(
-                        Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition()
+                        Cluedo.CONTROLLER.getGameInstance()
+                            .getCurrentPlayer()
+                            .getCurrentPosition()
                     )
                 ).get()
             );
