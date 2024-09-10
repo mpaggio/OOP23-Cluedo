@@ -239,10 +239,6 @@ public class MainControllerImpl implements MainController {
             builder.addPlayer(playerNames.get(i), playerColors.get(i));
         }
         this.gameModel = builder.withGameSolution().build();
-        System.out.println(this.gameModel.getMap().printMap());
-        for (final Card card : this.gameModel.getSolution()) {
-            System.out.println(card.getName());
-        }
     }
 
     /**
@@ -262,6 +258,5 @@ public class MainControllerImpl implements MainController {
             .withAllCards(allCards)
             .withTurnFase(turnFase)
             .buildsaved();
-        System.out.println(this.gameModel.getMap().printMap());
     }
 }
