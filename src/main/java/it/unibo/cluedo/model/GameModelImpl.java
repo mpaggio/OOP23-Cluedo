@@ -433,7 +433,7 @@ public class GameModelImpl implements GameModel {
 
     private void applyEffect(final Square position) {
         position.landOn(getCurrentPlayer());
-        if (position.getEffect().getType().equals(Effect.EffectType.BONUS)) {
+        if (getCurrentPlayer().canDoubleRollDice()) {
             this.fase = TurnFase.ROLL_DICE;
         }
     }
