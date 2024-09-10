@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
- * This class contains unit tests for the DIce class.
+ * Test class for the Dice class.
  */
 final class DiceImplTest {
 

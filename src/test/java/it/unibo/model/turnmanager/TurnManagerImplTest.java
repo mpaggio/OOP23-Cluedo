@@ -26,9 +26,6 @@ class TurnManagerImplTest {
     private Player player3;
     private TurnManager turnManager;
 
-    /**
-     * Set up the test class.
-     */
     @BeforeEach
     void setUp() {
         player1 = new MutablePlayerImpl("TestPlayer1", "Red");

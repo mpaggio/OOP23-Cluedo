@@ -29,6 +29,9 @@ class GameMenuControllerImplTest {
         gameMenuController = new GameMenuControllerImpl();
     }
 
+    /**
+     * This method tests the startGame method with invalid inputs.
+     */
     @Test
     void testStartGameWithInvalidInputs() {
         final List<String> playerUsernames = Arrays.asList(PLAYER1, PLAYER2, PLAYER3);
@@ -36,6 +39,9 @@ class GameMenuControllerImplTest {
         assertTrue(gameMenuController.startGame(playerUsernames, playerColors));
     }
 
+    /**
+     * This method tests the startGame method with invalid number of players.
+     */
     @Test
     void testStartGameWithInvalidNumberOfPlayers() {
         final List<String> playerUsernames = Arrays.asList(PLAYER1, PLAYER2);
@@ -43,6 +49,9 @@ class GameMenuControllerImplTest {
         assertFalse(gameMenuController.startGame(playerUsernames, playerColors));
     }
 
+    /**
+     * This method tests the startGame method with duplicate names.
+     */
     @Test
     void testStartGameWithDuplicateNames() {
         final List<String> playerUsernames = Arrays.asList(PLAYER1, PLAYER1, PLAYER3);
@@ -50,6 +59,9 @@ class GameMenuControllerImplTest {
         assertFalse(gameMenuController.startGame(playerUsernames, playerColors));
     }
 
+    /**
+     * This method tests the startGame method with duplicate colors.
+     */
     @Test
     void testStartGameWithDuplicateColors() {
         final List<String> playerUsernames = Arrays.asList(PLAYER1, PLAYER2, PLAYER3);
@@ -57,7 +69,9 @@ class GameMenuControllerImplTest {
         assertFalse(gameMenuController.startGame(playerUsernames, playerColors));
     }
 
-
+    /**
+     * This method tests the setting of the players (username and color).
+     */
     @Test
     void testSetPlayers() {
         final List<String> playerUsernames = Arrays.asList(PLAYER1, PLAYER2, PLAYER3);
@@ -71,13 +85,18 @@ class GameMenuControllerImplTest {
         }
     }
 
-
+    /**
+     * This method tests the getPlayers method without setting the players (should return an empty list).
+     */
     @Test
     void testGetPlayersWithouSettingPlayers() {
         final List<Player> players = gameMenuController.getPlayers();
         assertTrue(players.isEmpty());
     }
 
+    /**
+     * This method tests the qutting of the game.
+     */
     @Test
     void testQuitGame() {
         assertDoesNotThrow(() -> gameMenuController.quitGame());
