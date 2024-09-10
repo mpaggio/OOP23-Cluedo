@@ -70,4 +70,16 @@ public interface Square extends Serializable {
      * @return true if the square is made for entering in a room, false otherwise
      */
     boolean isForEntrance();
+
+    /**
+     * Returns the player effected by the square effect in the current turn.
+     * 
+     * @return the player effected by the square effect in the current turn, if present
+     */
+    Optional<Player> getEffectedPlayer();
+
+    /**
+     * Reset the player effected by the square effect in the current turn.
+     */
+    void resetEffectedPlayer();
 }

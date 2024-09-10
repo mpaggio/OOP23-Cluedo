@@ -481,4 +481,14 @@ public class BoardImpl implements Board, Serializable {
         }
         return mapBuilder.toString();
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetAllEffectedSquares() {
+        for (final Square square : this.squares) {
+            square.resetEffectedPlayer();
+        }
+    }
 }

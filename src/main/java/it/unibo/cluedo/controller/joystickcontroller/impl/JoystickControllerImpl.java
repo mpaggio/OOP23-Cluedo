@@ -2,6 +2,7 @@ package it.unibo.cluedo.controller.joystickcontroller.impl;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.joystickcontroller.api.JoystickController;
+import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Effect.EffectType;
@@ -54,12 +55,19 @@ public class JoystickControllerImpl implements JoystickController {
                 .getCurrentPlayer()
                 .getCurrentPosition()
         );
-        if (square.getEffect().getType().equals(Effect.EffectType.MALUS)
-            || square.getEffect().getType().equals(Effect.EffectType.BONUS)) {
+        if (square.getEffect().getType().equals(Effect.EffectType.MALUS)) {
             final EffectType effectType = square.getEffect().getType();
             Cluedo.CONTROLLER.showSquareEffect(
+            effectType.getTitle(),
+            effectType.getDescription());
+        } else if (square.getEffect().getType().equals(Effect.EffectType.BONUS)) {
+            final GameModel model = Cluedo.CONTROLLER.getGameInstance();
+            if (model.getCurrentPlayer().canDoubleRollDice()) {
+                final EffectType effectType = square.getEffect().getType();
+                Cluedo.CONTROLLER.showSquareEffect(
                 effectType.getTitle(),
                 effectType.getDescription());
+            }
         }
     }
 }

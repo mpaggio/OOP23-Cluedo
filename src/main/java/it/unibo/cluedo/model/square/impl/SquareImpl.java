@@ -15,6 +15,7 @@ public class SquareImpl implements Square {
     private static final long serialVersionUID = 1L;
     private final Position position;
     private final Effect effect;
+    private Player effectedPlayer;
     private Player player;
     private boolean isForEntrance;
 
@@ -28,6 +29,7 @@ public class SquareImpl implements Square {
         this.position = position; 
         this.effect = effect;
         this.player = null;
+        this.effectedPlayer = null;
     }
 
     /**
@@ -43,7 +45,10 @@ public class SquareImpl implements Square {
      */
     @Override
     public void landOn(final Player player) {
-        this.effect.apply(player);
+        if (this.effectedPlayer == null || !this.effectedPlayer.equals(player)) {
+            this.effectedPlayer = player;
+            this.effect.apply(player);
+        }
     }
 
     /**
@@ -100,5 +105,21 @@ public class SquareImpl implements Square {
     @Override
     public boolean isForEntrance() {
         return this.isForEntrance;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Optional<Player> getEffectedPlayer() {
+        return Optional.ofNullable(this.effectedPlayer);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void resetEffectedPlayer() {
+        this.effectedPlayer = null;
     }
 }
