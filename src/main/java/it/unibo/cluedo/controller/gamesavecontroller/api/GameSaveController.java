@@ -26,14 +26,15 @@ public interface GameSaveController {
      * @param map the board
      * @param allCards the set of all cards
      * @param turnFase the turn fase
+     * @param path the path to the saving file
      */
     void saveGame(List<Player> players, Set<Card> solution, TurnManager turnManager,
-        Statistics statistics, Board map, Set<Card> allCards, TurnFase turnFase);
+        Statistics statistics, Board map, Set<Card> allCards, TurnFase turnFase, String path);
 
     /**
      * Load a saved game.
-     *
+     * @param path the path to the saving file
      * @return true if the game is loaded, false otherwise
      */
-    Optional<GameState> loadGame();
+    Optional<GameState> loadGame(String path);
 }

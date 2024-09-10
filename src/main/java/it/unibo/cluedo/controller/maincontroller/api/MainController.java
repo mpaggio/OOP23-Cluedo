@@ -140,6 +140,15 @@ public interface MainController {
     void updateButtons();
 
     /**
+     * Shows up a pop-up with the type and the description
+     * of the square with effect.
+     * 
+     * @param effectType the type of the effect
+     * @param effectDescription the description of the effect
+     */
+    void showSquareEffect(String effectType, String effectDescription);
+
+    /**
      * Returns the game save controller.
      *
      * @return the game save controller

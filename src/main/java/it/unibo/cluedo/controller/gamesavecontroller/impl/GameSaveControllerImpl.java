@@ -39,36 +39,60 @@ public final class GameSaveControllerImpl implements GameSaveController {
      */
     @Override
     public void saveGame(final List<Player> players, final Set<Card> solution, final TurnManager turnManager,
-        final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase) {
-        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(SAVE_FILE_PATH))) {
-            final GameState gameState = new GameState(players, solution, turnManager, statistics, map, allCards, turnFase);
-            out.writeObject(gameState);
-        } catch (IOException e) {
-            Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "Error while saving the game", e);
+        final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase, final String path) {
+        if (path.isEmpty()) {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(SAVE_FILE_PATH))) {
+                final GameState gameState = new GameState(players, solution, turnManager, statistics, map, allCards, turnFase);
+                out.writeObject(gameState);
+            } catch (IOException e) {
+                Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "Error while saving the game", e);
+            }
+        } else {
+            try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(path))) {
+                final GameState gameState = new GameState(players, solution, turnManager, statistics, map, allCards, turnFase);
+                out.writeObject(gameState);
+            } catch (IOException e) {
+                Logger.getLogger(GameSaveControllerImpl.class.getName()).log(Level.SEVERE, "Error while saving the game", e);
+            }
         }
     }
 
 
 
     /**
-     * Load the game from the file.
-     *
-     * @return an optional containing the game state.
+     * {@inheritDoc}
      */
     @Override
-    public Optional<GameState> loadGame() {
-        final File file = new File(SAVE_FILE_PATH);
+    public Optional<GameState> loadGame(final String path) {
+        final File file;
+        if (path.isEmpty()) {
+            file = new File(SAVE_FILE_PATH);
+        } else {
+            file = new File(path);
+        }
         if (!file.exists()) {
             return Optional.empty();
         }
-        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(SAVE_FILE_PATH))) {
-            final GameState gameState = (GameState) in.readObject();
-            return Optional.of(gameState);
-        } catch (ClassNotFoundException | IOException e) {
-            Logger.getLogger(GameSaveControllerImpl.class.getName()).
-            log(Level.SEVERE, "Problems during the saved game loading", e);
-            return Optional.empty();
+        if (path.isEmpty()) {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(SAVE_FILE_PATH))) {
+                final GameState gameState = (GameState) in.readObject();
+                return Optional.of(gameState);
+            } catch (ClassNotFoundException | IOException e) {
+                Logger.getLogger(GameSaveControllerImpl.class.getName()).
+                log(Level.SEVERE, "Problems during the saved game loading", e);
+                return Optional.empty();
+            }
+        } else {
+            try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(path))) {
+                final GameState gameState = (GameState) in.readObject();
+                return Optional.of(gameState);
+            } catch (ClassNotFoundException | IOException e) {
+                Logger.getLogger(GameSaveControllerImpl.class.getName()).
+                log(Level.SEVERE, "Problems during the saved game loading", e);
+                return Optional.empty();
+            }
         }
+
     }
 
     /**

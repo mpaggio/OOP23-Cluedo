@@ -30,7 +30,7 @@ import java.nio.file.Paths;
  */
 class GameSaveControllerImplTest {
 
-    private static final String FILE_NAME = Paths.get("src", "main", "resources", "saves", "saved_game.ser").toString();
+    private static final String TEST_FILE_NAME = Paths.get("src", "main", "resources", "saves", "test_saved_game.ser").toString();
     private GameSaveController gameSaveController;
     private GameSaveControllerImpl.GameState gameState;
     private List<Player> players;
@@ -59,9 +59,9 @@ class GameSaveControllerImplTest {
 
     @AfterEach
     void tearDown() {
-        final File file = new File(FILE_NAME);
+        final File file = new File(TEST_FILE_NAME);
         if (file.exists() && !file.delete()) {
-            throw new IllegalStateException("Cannot delete the file " + FILE_NAME);
+            throw new IllegalStateException("Cannot delete the file " + TEST_FILE_NAME);
         }
     }
 
@@ -70,8 +70,8 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testSaveGame() {
-        gameSaveController.saveGame(players, solution, turnManager, statistics, map, allCards, turnFase);
-        final File file = new File(FILE_NAME);
+        gameSaveController.saveGame(players, solution, turnManager, statistics, map, allCards, turnFase, TEST_FILE_NAME);
+        final File file = new File(TEST_FILE_NAME);
         assertTrue(file.exists());
     }
 
@@ -80,8 +80,8 @@ class GameSaveControllerImplTest {
      */
     @Test
     void testLoadGame() {
-        gameSaveController.saveGame(players, solution, turnManager, statistics, map, allCards, turnFase);
-        final Optional<GameSaveControllerImpl.GameState> loadedGameState = gameSaveController.loadGame();
+        gameSaveController.saveGame(players, solution, turnManager, statistics, map, allCards, turnFase, TEST_FILE_NAME);
+        final Optional<GameSaveControllerImpl.GameState> loadedGameState = gameSaveController.loadGame(TEST_FILE_NAME);
         assertTrue(loadedGameState.isPresent());
         assertEquals(gameState.getPlayers().get(0).getUsername(), loadedGameState.get().getPlayers().get(0).getUsername());
         assertEquals(gameState.getSolution(), loadedGameState.get().getSolution());

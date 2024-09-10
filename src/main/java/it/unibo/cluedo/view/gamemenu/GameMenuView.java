@@ -168,7 +168,7 @@ public class GameMenuView  extends JFrame {
 
             @Override
             public void actionPerformed(final ActionEvent e) {
-                final Optional<GameState> gameState = controller2.loadGame();
+                final Optional<GameState> gameState = controller2.loadGame("");
                 if (gameState.isPresent()) {
                     JOptionPane.showMessageDialog(GameMenuView.this, "Game loaded successfully, Resuming game...");
                     controller1.viewSavedGames();
