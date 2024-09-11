@@ -29,15 +29,21 @@ public class AccusationControllerImpl implements AccusationController {
     @Override
     public String getRoomName() {
         final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
-        return gameModel.getMap().getRoomBySquare(gameModel.getMap()
-            .getSquareByPosition(gameModel
-            .getCurrentPlayer().getCurrentPosition()))
+        return gameModel.getMap()
+            .getRoomBySquare(gameModel
+                .getMap()
+                .getSquareByPosition(gameModel
+                    .getCurrentPlayer()
+                    .getCurrentPosition()))
             .isPresent()
             ? gameModel.getMap()
-            .getRoomBySquare(gameModel.getMap()
-            .getSquareByPosition(gameModel
-            .getCurrentPlayer().getCurrentPosition()))
-            .get().getName()
+            .getRoomBySquare(gameModel
+                .getMap()
+                .getSquareByPosition(gameModel
+                    .getCurrentPlayer()
+                    .getCurrentPosition()))
+            .get()
+            .getName()
             : "";
     }
 
@@ -51,10 +57,16 @@ public class AccusationControllerImpl implements AccusationController {
         final Card weaponCard = getCardByName(weapon).get();
         final Card roomCard = getCardByName(getRoomName()).get();
         try {
-            cardToShow = gameModel.makeAccusation(weaponCard, roomCard, suspectCard, gameModel.getMap()
-                .getRoomBySquare(gameModel.getMap().
-                getSquareByPosition(gameModel.getCurrentPlayer()
-                .getCurrentPosition())).get());
+            cardToShow = gameModel.makeAccusation(weaponCard,
+                roomCard,
+                suspectCard,
+                gameModel.getMap()
+                .getRoomBySquare(gameModel
+                    .getMap()
+                    .getSquareByPosition(gameModel
+                        .getCurrentPlayer()
+                        .getCurrentPosition()))
+                .get());
         } catch (IllegalArgumentException | IllegalStateException e) {
             JOptionPane.showMessageDialog(null, e.getMessage());
             return;
@@ -83,6 +95,12 @@ public class AccusationControllerImpl implements AccusationController {
     @Override
     public Optional<Card> getCardByName(final String name) {
         final GameModel gameModel = Cluedo.CONTROLLER.getGameInstance();
-        return Optional.of(gameModel.getAllCards().stream().filter(card -> card.getName().equals(name)).findFirst().get());
+        return Optional.of(gameModel
+            .getAllCards()
+            .stream()
+            .filter(card -> card.getName()
+                .equals(name))
+                .findFirst()
+                .get());
     }
 }
