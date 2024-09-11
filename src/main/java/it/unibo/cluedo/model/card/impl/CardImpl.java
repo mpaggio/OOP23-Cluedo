@@ -5,6 +5,7 @@ import it.unibo.cluedo.model.card.api.Card;
 
 /**
  * Implementation of the Card interface.
+ * Represents the implementation of the card in the Cluedo game.
  */
 public class CardImpl implements Card {
     private static final long serialVersionUID = 1L;

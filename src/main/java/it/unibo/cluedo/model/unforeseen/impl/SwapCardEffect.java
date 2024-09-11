@@ -10,8 +10,8 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 
 /**
- * This class represents an Unforeseen Card that allows a player to swap
- * on of their card with another player's card of the same type.
+ * This class represents an Unforeseen that allows a player to swap
+ * one of their card with another player's card of the same type.
  */
 public final class SwapCardEffect implements UnforeseenEffect {
 
@@ -26,6 +26,9 @@ public final class SwapCardEffect implements UnforeseenEffect {
         this.otherPlayer = otherPlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void applyEffect(final Player player) {
         final List<Card> playerCards = player.getPlayerCards();
@@ -57,11 +60,17 @@ public final class SwapCardEffect implements UnforeseenEffect {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getType() {
         return "SwapCard";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDescription() {
         return "You will swap one of your cards with one of the other player's cards of the same type";

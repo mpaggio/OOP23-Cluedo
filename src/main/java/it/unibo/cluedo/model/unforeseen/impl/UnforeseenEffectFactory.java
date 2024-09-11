@@ -1,12 +1,13 @@
 package it.unibo.cluedo.model.unforeseen.impl;
 
 import java.util.Random;
-
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 
 /**
  * Factory class to create an unforeseen effect.
+ * The factory creates an unforeseen effect based on a random number.
+ * The probability of each effect is defined by the constants in the class.
  */
 public final class UnforeseenEffectFactory {
 
@@ -28,7 +29,6 @@ public final class UnforeseenEffectFactory {
 
     /**
      * Creates an unforeseen effect.
-     *
      * @param otherPlayer the player who triggered the event card
      * @return the unforeseen effect
      */

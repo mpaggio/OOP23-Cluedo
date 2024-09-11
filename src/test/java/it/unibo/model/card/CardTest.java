@@ -28,7 +28,7 @@ final class CardTest {
             "src",
             "main",
             "resources", 
-            CHARACTER_NAME.replace(" ", "") + ".PNG"
+            CHARACTER_NAME.replace(" ", "") + ".png"
         ).toString();
         final Card characterCard = CardFactory.createCharacterCard(CHARACTER_NAME, imagePath);
         assertEquals(Card.Type.CHARACTER, characterCard.getType(), "Card type should be CHARACTER");
@@ -45,7 +45,7 @@ final class CardTest {
             "src",
             "main",
             "resources", 
-            WEAPON_NAME.replace(" ", "") + ".PNG"
+            WEAPON_NAME.replace(" ", "") + ".png"
         ).toString();
         final Card weaponCard = CardFactory.createWeaponCard(WEAPON_NAME, imagePath);
         assertEquals(Card.Type.WEAPON, weaponCard.getType(), "Card type should be WEAPON");
@@ -62,7 +62,7 @@ final class CardTest {
             "src",
             "main",
             "resources", 
-            ROOM_NAME.replace(" ", "") + ".PNG"
+            ROOM_NAME.replace(" ", "") + ".png"
         ).toString();
         final Card roomCard = CardFactory.createRoomCard(ROOM_NAME, imagePath);
         assertEquals(Card.Type.ROOM, roomCard.getType(), "Card type should be ROOM");

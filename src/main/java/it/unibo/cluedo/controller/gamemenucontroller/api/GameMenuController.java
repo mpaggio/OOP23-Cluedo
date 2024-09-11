@@ -4,7 +4,7 @@ import java.util.List;
 import it.unibo.cluedo.model.player.api.Player;
 
 /**
- * This interface is used to manage the game menu.
+ * Interface used to manage the game menu.
  */
 public interface GameMenuController {
 

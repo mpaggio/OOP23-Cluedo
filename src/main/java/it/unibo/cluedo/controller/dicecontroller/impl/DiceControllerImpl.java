@@ -10,8 +10,7 @@ import it.unibo.cluedo.utilities.TurnFase;
 public class DiceControllerImpl implements DiceController {
 
     /**
-     * Gets the result of the dice roll.
-     * @return the result of the dice roll
+     * {@inheritDoc}
      */
     @Override
     public int getResult() {

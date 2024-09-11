@@ -233,7 +233,8 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
-    public void initializeGameModel(final List<String> playerNames, final List<String> playerColors) {
+    public void initializeGameModel(final List<String> playerNames,
+        final List<String> playerColors) {
         final GameModelBuilder builder = new GameModelBuilderImpl();
         for (int i = 0; i < playerNames.size(); i++) {
             builder.addPlayer(playerNames.get(i), playerColors.get(i));
@@ -245,8 +246,9 @@ public class MainControllerImpl implements MainController {
      * {@inheritDoc}
      */
     @Override
-    public void initializeSavedGameModel(final List<Player> players, final Set<Card> solution, final TurnManager turnManager,
-        final Statistics statistics, final Board map, final Set<Card> allCards, final TurnFase turnFase) {
+    public void initializeSavedGameModel(final List<Player> players, final Set<Card> solution,
+        final TurnManager turnManager, final Statistics statistics, final Board map,
+        final Set<Card> allCards, final TurnFase turnFase) {
         final GameModelBuilder builder = new GameModelBuilderImpl();
         for (final Player player : players) {
             builder.withPlayer(player);

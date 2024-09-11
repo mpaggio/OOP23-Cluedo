@@ -1,7 +1,7 @@
 package it.unibo.cluedo.controller.unforeseencontroller.api;
 
 /**
- * Interface for the controller class that handles the unforeseen logic.
+ * Interface that handles the unforeseen logic.
  */
 public interface UnforeseenController {
 
@@ -29,7 +29,6 @@ public interface UnforeseenController {
 
     /**
      * Returns true if the unforeseen has been shown.
-     * 
      * @return true if the unforeseen has been shown, false otherwise
      */
     boolean hasUnforeseenBeenShown();

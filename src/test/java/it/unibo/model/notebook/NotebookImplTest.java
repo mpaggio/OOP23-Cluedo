@@ -22,9 +22,6 @@ class NotebookImplTest {
     private static final String REVOLVER = "Revolver";
     private static final String BALLROOM = "Ballroom";
 
-    /**
-     * Set up the test environment by initializing the Notebook with a list of suspects,weapons and rooms.
-     */
     @BeforeEach
     void setUp() {
         notebook = new NotebookImpl();

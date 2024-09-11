@@ -8,7 +8,6 @@ import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.statistics.api.Statistics;
 import it.unibo.cluedo.model.turnmanager.api.TurnManager;
 import it.unibo.cluedo.utilities.TurnFase;
-
 import java.util.List;
 import java.util.Set;
 

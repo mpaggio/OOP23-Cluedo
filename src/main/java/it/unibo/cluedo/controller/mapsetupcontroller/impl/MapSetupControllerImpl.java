@@ -12,7 +12,7 @@ import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.Position;
 
 /**
- * Controller for setting up the map in the Cluedo game.
+ * Implementation of the controller that sets up the board in the Cluedo game.
  */
 public class MapSetupControllerImpl implements MapSetupController {
     /**
@@ -21,7 +21,8 @@ public class MapSetupControllerImpl implements MapSetupController {
     @Override
     public List<Position> getTilesPositions() {
         final List<Position> tilesPositions = new ArrayList<>();
-        for (final Square square : Cluedo.CONTROLLER.getGameInstance().getMap().getOrderedVisitedSquares()) {
+        for (final Square square : Cluedo.CONTROLLER.getGameInstance()
+            .getMap().getOrderedVisitedSquares()) {
             tilesPositions.add(square.getPosition());
         }
         return tilesPositions;

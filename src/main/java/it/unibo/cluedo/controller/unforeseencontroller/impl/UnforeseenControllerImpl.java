@@ -22,9 +22,7 @@ public class UnforeseenControllerImpl implements UnforeseenController {
     }
 
     /**
-     * Gets the type of the unforeseen.
-     * 
-     * @return the type of the unforeseen
+     * {@inheritDoc}
      */
     @Override
     public String getEffectType() {
@@ -32,9 +30,7 @@ public class UnforeseenControllerImpl implements UnforeseenController {
     }
 
     /**
-     * Gets the description of the unforeseen.
-     * 
-     * @return the description of the unforeseen
+     * {@inheritDoc}
      */
     @Override
     public String getEffectDescription() {
@@ -42,7 +38,7 @@ public class UnforeseenControllerImpl implements UnforeseenController {
     }
 
     /**
-     * Shows the unforeseen.
+     * {@inheritDoc}
      */
     @Override
     public void showUnforeseen() {
@@ -51,7 +47,7 @@ public class UnforeseenControllerImpl implements UnforeseenController {
     }
 
     /**
-     * Initializes the controller.
+     * {@inheritDoc}
      */
     @Override
     public void initializeController() {
@@ -68,6 +64,4 @@ public class UnforeseenControllerImpl implements UnforeseenController {
         this.hasBeenShown = true;
         return shown;
     }
-
-
 }

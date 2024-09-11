@@ -33,7 +33,12 @@ public class PlayerInformationPanel extends JPanel {
 
         // Create the player's color panel
         colorPanel = new JPanel();
-        colorPanel.setPreferredSize(new Dimension(COLOR_PREFERRED_SIZE, COLOR_PREFERRED_SIZE));
+        colorPanel.setPreferredSize(
+            new Dimension(
+                COLOR_PREFERRED_SIZE,
+                COLOR_PREFERRED_SIZE
+            )
+        );
 
         // Create the player's information area
         infoArea = new JLabel();
@@ -66,17 +71,31 @@ public class PlayerInformationPanel extends JPanel {
     private void updatePlayerInfo() {
         colorPanel.setBackground(
             BoardView.ColorEnum.getColorByName(
-                Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor()
+                Cluedo.CONTROLLER.getGameInstance()
+                    .getCurrentPlayer()
+                    .getColor()
             )
         );
-        final String playerName = Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getUsername();
+        final String playerName = Cluedo.CONTROLLER.getGameInstance()
+            .getCurrentPlayer()
+            .getUsername();
         final String playerPositionX = String.valueOf(
-            Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getX()
+            Cluedo.CONTROLLER.getGameInstance()
+                .getCurrentPlayer()
+                .getCurrentPosition()
+                .getX()
         );
         final String playerPositionY = String.valueOf(
-            Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getY()
+            Cluedo.CONTROLLER.getGameInstance()
+                .getCurrentPlayer()
+                .getCurrentPosition()
+                .getY()
         );
-        final String playerSteps = String.valueOf(Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentSteps());
+        final String playerSteps = String.valueOf(
+            Cluedo.CONTROLLER.getGameInstance()
+                .getCurrentPlayer()
+                .getCurrentSteps()
+        );
         infoArea.setText(
             playerName
             + " - current steps: "

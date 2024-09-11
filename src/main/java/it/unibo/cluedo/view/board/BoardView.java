@@ -101,14 +101,20 @@ public class BoardView extends JPanel {
         try {
             this.mapImage = ImageIO.read(new File(BoardImpl.getMapImagePath()));
             this.setLayout(new BorderLayout());
-            this.setPreferredSize(new Dimension(this.mapImage.getWidth(), this.mapImage.getHeight()));
+            this.setPreferredSize(
+                new Dimension(
+                    this.mapImage.getWidth(),
+                    this.mapImage.getHeight()
+                )
+            );
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Couldn't find the map image file", e);
         }
     }
 
     /**
-     * Paints the component. This method is called whenever the component needs to be rendered.
+     * Paints the component.
+     * This method is called whenever the component needs to be rendered.
      * 
      * @param g the Graphics object used for drawing
      */
@@ -203,7 +209,9 @@ public class BoardView extends JPanel {
                 final double x = tileOffsetX + ((double) pos.getY()) * tileSize;
                 final double y = tileOffsetY + ((double) pos.getX()) * tileSize;
                 if (Cluedo.CONTROLLER.getMapController().getPlayersPositions().contains(pos)) {
-                    final String color = Cluedo.CONTROLLER.getMapController().getPlayersPositionsAndColors().get(pos);
+                    final String color = Cluedo.CONTROLLER.getMapController()
+                        .getPlayersPositionsAndColors()
+                        .get(pos);
                     drawTile(x, y, g, Optional.of(ColorEnum.getColorByName(color)), tileSize);
                 } else {
                     drawTile(x, y, g, Optional.empty(), tileSize);
@@ -211,9 +219,17 @@ public class BoardView extends JPanel {
             }
 
             //Sets and draws the tile of the current player always at the end
-            final double currentX = (double) Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getX();
-            final double currentY = (double) Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getCurrentPosition().getY();
-            final String color = Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getColor();
+            final double currentX = (double) Cluedo.CONTROLLER.getGameInstance()
+                .getCurrentPlayer()
+                .getCurrentPosition()
+                .getX();
+            final double currentY = (double) Cluedo.CONTROLLER.getGameInstance()
+                .getCurrentPlayer()
+                .getCurrentPosition()
+                .getY();
+            final String color = Cluedo.CONTROLLER.getGameInstance()
+                .getCurrentPlayer()
+                .getColor();
             final double x = tileOffsetX + (currentY * tileSize);
             final double y = tileOffsetY + (currentX * tileSize);
             drawTile(x, y, g, Optional.of(ColorEnum.getColorByName(color)), tileSize);

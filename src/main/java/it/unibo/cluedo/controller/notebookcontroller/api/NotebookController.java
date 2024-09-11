@@ -3,7 +3,7 @@ package it.unibo.cluedo.controller.notebookcontroller.api;
 import java.util.List;
 
 /**
- * Interface for the controller class that handles the notebook logic.
+ * Interface that handles the notebook logic.
  */
 public interface NotebookController {
 

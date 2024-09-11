@@ -4,8 +4,7 @@ import it.unibo.cluedo.model.dice.api.Dice;
 import java.util.Random;
 
 /**
- * Class that implements the Dice interface, it has a constructor that takes the
- * number of sides of the dice as parameter.
+ * Class that implements the Dice interface.
  */
 public class DiceImpl implements Dice {
 
@@ -29,10 +28,7 @@ public class DiceImpl implements Dice {
     }
 
     /**
-     * Method that return a random number between 1 and the number of sides of the
-     * dice(6).
-     *
-     * @return a random number between 1 and the number of sides of the dice(6).
+     * {@inheritDoc}
      */
     @Override
     public int rollDice() {

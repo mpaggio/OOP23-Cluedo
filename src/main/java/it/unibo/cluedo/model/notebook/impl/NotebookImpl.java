@@ -9,11 +9,8 @@ import it.unibo.cluedo.model.card.api.Card.Type;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
 
 /**
- * Class that represents the notebook of the player.
+ * Class that represents the implementation of the player's notebook.
  * The notebook is used to keep track of the cards that the player has seen.
- * The player can log the suspects, the weapons and the rooms that he has seen.
- * The player can also get the list of the suspects, the weapons and the rooms
- * that he has not seen yet.
  */
 public class NotebookImpl implements Notebook {
 
@@ -34,9 +31,7 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * Initialize the notebook with the cards that the player has in his hand.
-     *
-     * @param playerCards the list of the cards that the player has in his hand.
+     * {@inheritDoc}
      */
     @Override
     public void initialize(final List<String> playerCards) {
@@ -46,8 +41,7 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * Log the card that the player has seen.
-     * @param card the card that the player has seen.
+     * {@inheritDoc}
      */
     @Override
     public void logSeenCards(final String card) {
@@ -63,7 +57,6 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Get the type of the card.
-     *
      * @param card the card.
      * @return the type of the card.
      */
@@ -80,7 +73,6 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Check if the card is a suspect.
-     *
      * @param card the card.
      * @return true if the card is a suspect, false otherwise.
      */
@@ -90,7 +82,6 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Check if the card is a weapon.
-     *
      * @param card the card.
      * @return true if the card is a weapon, false otherwise.
      */
@@ -100,7 +91,6 @@ public class NotebookImpl implements Notebook {
 
     /**
      * Check if the card is a room.
-     *
      * @param card the card.
      * @return true if the card is a room, false otherwise.
      */
@@ -109,8 +99,7 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * The following method return a new ArrayList with the elements of the
-     * corresponding Set.
+     * {@inheritDoc}
      */
     @Override
     public List<String> getSeenSuspects() {
@@ -118,8 +107,7 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * The following method return a new ArrayList with the elements of the
-     * corresponding Set.
+     * {@inheritDoc}
      */
     @Override
     public List<String> getSeenWeapons() {
@@ -127,8 +115,7 @@ public class NotebookImpl implements Notebook {
     }
 
     /**
-     * The following method return a new ArrayList with the elements of the
-     * corresponding Set.
+     * {@inheritDoc}
      */
     @Override
     public List<String> getSeenRooms() {

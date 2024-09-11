@@ -18,7 +18,8 @@ public class MainGameFrameControllerImpl implements MainGameFrameController {
     @Override
     public List<String> getCurrentPlayerCardsPaths() {
         final List<String> cardsPaths = new ArrayList<>();
-        for (final Card card : Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer().getPlayerCards()) {
+        for (final Card card : Cluedo.CONTROLLER.getGameInstance()
+            .getCurrentPlayer().getPlayerCards()) {
             cardsPaths.add(card.getImagePath());
         }
         return cardsPaths;

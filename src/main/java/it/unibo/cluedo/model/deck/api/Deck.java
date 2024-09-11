@@ -3,7 +3,7 @@ package it.unibo.cluedo.model.deck.api;
 import it.unibo.cluedo.model.card.api.Card;
 import java.util.Set;
 /**
- * Represents the deck of cards in the Cluedo game.
+ * Interface representing the deck of cards in the Cluedo game.
  */
 public interface Deck {
     /**

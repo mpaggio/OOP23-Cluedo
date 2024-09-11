@@ -5,6 +5,7 @@ import it.unibo.cluedo.utilities.Position;
 
 /**
  * Utility class for creating squares in the Cluedo game.
+ * It implement the Factory pattern.
  */
 public final class SquareFactory {
     /**

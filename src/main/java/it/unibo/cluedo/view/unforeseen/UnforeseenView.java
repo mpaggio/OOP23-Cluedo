@@ -1,7 +1,6 @@
 package it.unibo.cluedo.view.unforeseen;
 
 import javax.swing.JOptionPane;
-
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.unforeseencontroller.api.UnforeseenController;
 
@@ -13,7 +12,7 @@ public class UnforeseenView {
     private final UnforeseenController controller = Cluedo.CONTROLLER.getUnforeseenController();
 
     /**
-     * Shows the effect of the unforeseen card (name+description).
+     * This method shows the effect of the unforeseen card (name+description).
      */
     public void showEffect() {
         final String effectType = controller.getEffectType();

@@ -6,7 +6,7 @@ import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 import it.unibo.cluedo.utilities.Position;
 
 /**
- * This class represents an Unforeseen Card that allows a player to swap position with another player.
+ * This class represents an Unforeseen that allows a player to swap position with another player.
  */
 public final class SwapPositionEffect implements UnforeseenEffect {
 
@@ -20,6 +20,9 @@ public final class SwapPositionEffect implements UnforeseenEffect {
         this.otherPlayer = otherPlayer;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void applyEffect(final Player player) {
         if (player instanceof MutablePlayer && otherPlayer instanceof MutablePlayer) {
@@ -31,11 +34,17 @@ public final class SwapPositionEffect implements UnforeseenEffect {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getType() {
         return "SwapPosition";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getDescription() {
         return "You will swap position with another player";
