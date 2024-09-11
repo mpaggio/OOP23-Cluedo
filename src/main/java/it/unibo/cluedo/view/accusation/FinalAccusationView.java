@@ -66,6 +66,7 @@ public class FinalAccusationView extends JDialog {
                 JOptionPane.showMessageDialog(null, "Sorry, you lost the game!",
                 "Game Over",
                 JOptionPane.INFORMATION_MESSAGE);
+                Cluedo.CONTROLLER.updateButtons();
                 if (Cluedo.CONTROLLER.getGameInstance().isOver()) {
                     JOptionPane.showMessageDialog(null, "All the players have lost, the game has ended.");
                     JOptionPane.showMessageDialog(

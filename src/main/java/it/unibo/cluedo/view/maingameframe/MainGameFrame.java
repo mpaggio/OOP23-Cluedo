@@ -288,9 +288,12 @@ public class MainGameFrame extends JFrame {
             case MAKE_ACCUSATION:
                 this.possibleActionsArea.append("-> Make an accusation\n");
                 this.possibleActionsArea.append("-> End your turn\n");
-                this.normalAccusationButton.setEnabled(true);
-                this.finalAccusationButton.setEnabled(true);
                 this.endTurnButton.setEnabled(true);
+                if (Cluedo.CONTROLLER.getMainGameFrameController().isRoomCluedo()) {
+                    this.finalAccusationButton.setEnabled(true);
+                } else {
+                    this.normalAccusationButton.setEnabled(true);
+                }
                 break;
             case END_TURN:
                 this.possibleActionsArea.append("-> End your turn\n");

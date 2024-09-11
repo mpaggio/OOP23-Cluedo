@@ -50,4 +50,20 @@ public class MainGameFrameControllerImpl implements MainGameFrameController {
         final var player = Cluedo.CONTROLLER.getGameInstance().getCurrentPlayer();
         return player.getCurrentSteps() == 0;
     }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public boolean isRoomCluedo() {
+        return "Cluedo".equals(
+            Cluedo.CONTROLLER.getGameInstance()
+                .getMap()
+                .getRoomBySquare(
+                    Cluedo.CONTROLLER.getGameInstance()
+                    .getSquare()
+                ).get()
+                .getName()
+            );
+    }
 }

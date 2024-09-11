@@ -26,4 +26,11 @@ public interface MainGameFrameController {
      * @return true if player has zero steps, false otherwise
      */
     boolean areStepsZero();
+
+    /**
+     * Returns a boolean representing if the player is in the Cluedo Room.
+     * 
+     * @return true if the player is in the Cluedo Room, false otherwise
+     */
+    boolean isRoomCluedo();
 }
