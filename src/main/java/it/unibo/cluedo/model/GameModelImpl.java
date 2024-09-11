@@ -172,6 +172,7 @@ public class GameModelImpl implements GameModel {
                     this.statistics.incrementViewedCards(nextPlayer);
                 } else if (unforeseen instanceof SwapPositionEffect) {
                     if (getCurrentPlayer().isInRoom()) {
+                        this.statistics.incrementRoomsVisited(getCurrentPlayer());
                         getMap()
                             .getRoomBySquare(getSquare())
                             .get()
@@ -184,6 +185,7 @@ public class GameModelImpl implements GameModel {
                         getSquare().setPlayer(getCurrentPlayer());
                     }
                     if (nextPlayer.isInRoom()) {
+                        this.statistics.incrementRoomsVisited(nextPlayer);
                         getMap()
                             .getRoomBySquare(
                                 getMap().getSquareByPosition(
