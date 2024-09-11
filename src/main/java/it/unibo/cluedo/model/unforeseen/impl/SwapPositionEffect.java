@@ -31,6 +31,9 @@ public final class SwapPositionEffect implements UnforeseenEffect {
             final Position tempPosition = mutablePlayer.getCurrentPosition();
             mutablePlayer.setPosition(otherPlayer.getCurrentPosition());
             mutableOtherPlayer.setPosition(tempPosition);
+            final boolean tempIsInRoom = mutablePlayer.isInRoom();
+            mutablePlayer.setInRoom(mutableOtherPlayer.isInRoom());
+            mutableOtherPlayer.setInRoom(tempIsInRoom);
         }
     }
 
