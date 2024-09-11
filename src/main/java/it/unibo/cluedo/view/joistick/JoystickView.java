@@ -14,7 +14,7 @@ import java.awt.GridBagConstraints;
 public class JoystickView extends JPanel {
     private static final long serialVersionUID = 1L;
     private static final int WIDTH = 200;
-    private static final int HEIGHT = 200;
+    private static final int HEIGHT = 100;
     private final JButton upButton;
     private final JButton downButton;
     private final JButton leftButton;
