@@ -31,6 +31,7 @@ import it.unibo.cluedo.model.unforeseen.api.UnforeseenEffect;
 import it.unibo.cluedo.model.unforeseen.impl.UnforeseenEffectFactory;
 import it.unibo.cluedo.model.unforeseen.impl.ReRollDiceEffect;
 import it.unibo.cluedo.model.unforeseen.impl.SwapCardEffect;
+import it.unibo.cluedo.model.unforeseen.impl.SwapPositionEffect;
 import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.utilities.Position;
 import it.unibo.cluedo.utilities.TurnFase;
@@ -169,6 +170,40 @@ public class GameModelImpl implements GameModel {
                 if (unforeseen instanceof SwapCardEffect) {
                     this.statistics.incrementViewedCards(getCurrentPlayer());
                     this.statistics.incrementViewedCards(nextPlayer);
+                } else if (unforeseen instanceof SwapPositionEffect) {
+                    if (getCurrentPlayer().isInRoom()) {
+                        getMap()
+                            .getRoomBySquare(getSquare())
+                            .get()
+                            .removePlayerFromRoom(nextPlayer);
+                        getMap()
+                            .getRoomBySquare(getSquare())
+                            .get()
+                            .addPlayerInRoom(getCurrentPlayer());
+                    } else {
+                        getSquare().setPlayer(getCurrentPlayer());
+                    }
+                    if (nextPlayer.isInRoom()) {
+                        getMap()
+                            .getRoomBySquare(
+                                getMap().getSquareByPosition(
+                                    nextPlayer.getCurrentPosition()
+                                )
+                            ).get()
+                            .removePlayerFromRoom(getCurrentPlayer());
+                        getMap()
+                            .getRoomBySquare(
+                                getMap().getSquareByPosition(
+                                    nextPlayer.getCurrentPosition()
+                                )
+                            ).get()
+                            .addPlayerInRoom(nextPlayer);
+                    } else {
+                        getMap().
+                            getSquareByPosition(
+                                nextPlayer.getCurrentPosition()
+                            ).setPlayer(nextPlayer);
+                    }
                 }
                 this.fase = TurnFase.MOVE_PLAYER;
             }

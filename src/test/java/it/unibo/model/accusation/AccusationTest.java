@@ -24,7 +24,7 @@ final class AccusationTest {
     private static final String SRC = "src";
     private static final String MAIN = "main";
     private static final String RESOURCES = "resources";
-    private static final String PNG = ".PNG";
+    private static final String PNG = ".png";
     private static final String CHARACTER = "Miss Scarlett";
     private static final String WEAPON = "Candlestick";
     private static final String ROOM = "Kitchen";

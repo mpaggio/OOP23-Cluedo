@@ -9,7 +9,6 @@ import java.awt.GridLayout;
 import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import java.awt.FlowLayout;
-import java.awt.Color;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -38,7 +37,6 @@ public class AccusationView extends JDialog {
         final JComboBox<String> suspectComboBox = new JComboBox<>(DeckImpl.getCharacterNames().toArray(new String[0]));
         final JComboBox<String> weaponComboBox = new JComboBox<>(DeckImpl.getWeaponNames().toArray(new String[0]));
         final JButton confirmButton = new JButton("Confirm");
-        confirmButton.setForeground(Color.green);
         panel.setLayout(new GridLayout(4, 2));
         panel.add(new JLabel("Suspect:"));
         panel.add(suspectComboBox);
@@ -63,6 +61,9 @@ public class AccusationView extends JDialog {
                 final Card card = Cluedo.CONTROLLER.getAccusationController().getCardToShow();
                 final ImageIcon image = new ImageIcon(card.getImagePath(), card.getName());
                 JOptionPane.showMessageDialog(null, image);
+            } else {
+                JOptionPane.showMessageDialog(null,
+                    "Non of the selected cards is possessed by the other players.");
             }
             Cluedo.CONTROLLER.updateButtons();
         });
