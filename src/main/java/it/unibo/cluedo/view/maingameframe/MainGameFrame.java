@@ -33,6 +33,7 @@ import java.awt.GridLayout;
 public class MainGameFrame extends JFrame {
     private static final int PREFERRED_WIDTH = 200;
     private static final int PREFERRED_HEIGHT = 100;
+    private static final int PREFERRED_DICE_HEIGHT = 100;
     private static final int MAX_BUTTON_HEIGHT = 50;
     private static final long serialVersionUID = 2L;
     private static final int FONT_SIZE = 15;
@@ -94,12 +95,13 @@ public class MainGameFrame extends JFrame {
         // Dice panel
         this.dicePanel = new DiceView();
         dicePanel.setBorder(BorderFactory.createTitledBorder("Dice"));
-        dicePanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
+        dicePanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_DICE_HEIGHT));
         rightPanel.add(dicePanel, BorderLayout.NORTH);
 
         // Buttons panel
         final JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBorder(BorderFactory.createTitledBorder("Action buttons"));
+        buttonsPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, 3 * PREFERRED_HEIGHT));
         final JButton showCardsButton = new JButton("Show cards");
         final JButton showNotebookButton = new JButton("Show notebook");
         this.useTrapDoorButton = new JButton("Use trapdoor");
@@ -183,7 +185,7 @@ public class MainGameFrame extends JFrame {
         // Player's possible action panel
         final JPanel actionPanel = new JPanel(new BorderLayout());
         actionPanel.setBorder(BorderFactory.createTitledBorder("Player\'s possible actions"));
-        actionPanel.setPreferredSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
+        actionPanel.setMinimumSize(new Dimension(PREFERRED_WIDTH, PREFERRED_HEIGHT));
 
         // List of player possible actions
         this.possibleActionsArea = new JTextArea();
