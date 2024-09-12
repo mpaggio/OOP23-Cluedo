@@ -1,6 +1,7 @@
 package it.unibo.cluedo.view.gamerules;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,13 +11,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import javax.swing.border.EmptyBorder;
 
 /**
  * View class used to display the Cluedo game rules.
  */
 public class GameRulesView extends JScrollPane {
-    private static final int WIDTH = 400;
-    private static final int HEIGHT = 300;
+    private static final int WIDTH = 700;
+    private static final int HEIGHT = 500;
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(GameRulesView.class.getName());
     /**
@@ -28,6 +30,8 @@ public class GameRulesView extends JScrollPane {
         rulesArea.setEditable(false);
         rulesArea.setLineWrap(true);
         rulesArea.setWrapStyleWord(true);
+        rulesArea.setFont(new Font("Comic Sans MS", Font.PLAIN, 16));
+        rulesArea.setBorder(new EmptyBorder(10, 10, 10, 10));
         super.setViewportView(rulesArea);
         super.setPreferredSize(new Dimension(WIDTH, HEIGHT));
     }
