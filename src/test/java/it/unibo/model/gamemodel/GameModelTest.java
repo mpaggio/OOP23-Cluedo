@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import it.unibo.cluedo.model.GameModel;
 import it.unibo.cluedo.model.GameModelBuilder;
 import it.unibo.cluedo.model.GameModelBuilderImpl;
+import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.utilities.TurnFase;
 
@@ -100,5 +101,12 @@ final class GameModelTest {
                 .get()
             )
         );
+    }
+
+    @Test
+    void testMovePlayer() {
+        assertThrows(IllegalStateException.class, () -> gameModel.movePlayer(MovementStrategy.Direction.UP));
+        gameModel.rollDice();
+        assertThrows(IllegalStateException.class, () -> gameModel.movePlayer(MovementStrategy.Direction.UP));
     }
 }
