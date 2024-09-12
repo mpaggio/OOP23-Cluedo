@@ -1,6 +1,7 @@
 package it.unibo.model.gamemodel;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,6 +43,7 @@ final class GameModelTest {
         assertTrue(gameModel.getDiceResult() > 0
             && gameModel.getDiceResult() <= MAX_DICE_RESULT);
         assertTrue(gameModel.getTurnFase().equals(TurnFase.MOVE_PLAYER));
+        assertThrows(IllegalStateException.class, () -> gameModel.rollDice());
     }
 
     @Test
@@ -55,5 +57,14 @@ final class GameModelTest {
         gameModel.endTurn();
         assertTrue(gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
         assertTrue(gameModel.getCurrentPlayer().getUsername().equals("player1"));
+    }
+
+    @Test
+    void testDrawUnforeseen() {
+        assertThrows(IllegalStateException.class, () -> gameModel.drawUnforeseen());
+        gameModel.rollDice();
+        gameModel.drawUnforeseen();
+        assertTrue(gameModel.getTurnFase().equals(TurnFase.MOVE_PLAYER)
+            || gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
     }
 }
