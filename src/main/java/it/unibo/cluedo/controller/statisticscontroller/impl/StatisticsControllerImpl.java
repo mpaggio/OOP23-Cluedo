@@ -38,7 +38,8 @@ public class StatisticsControllerImpl implements StatisticsController {
             .getFirst()
             .stream()
             .map(Player::getUsername)
-            .collect(Collectors.toList()));
+            .collect(Collectors.toList())
+        );
     }
 
     /**
@@ -52,7 +53,8 @@ public class StatisticsControllerImpl implements StatisticsController {
             .getFirst()
             .stream()
             .map(Player::getUsername)
-            .collect(Collectors.toList()));
+            .collect(Collectors.toList())
+        );
     }
 
     /**
@@ -66,7 +68,8 @@ public class StatisticsControllerImpl implements StatisticsController {
             .getFirst()
             .stream()
             .map(Player::getUsername)
-            .collect(Collectors.toList()));
+            .collect(Collectors.toList())
+        );
     }
 
     /**
@@ -75,10 +78,11 @@ public class StatisticsControllerImpl implements StatisticsController {
     @Override
     public Integer getStepsLeaderboard(final String playerName) {
         return Cluedo.CONTROLLER.getGameInstance()
-        .getStatistics()
-        .getStepsMade()
-        .getSecond()
-        .get(getFullStepsLeaderboard().indexOf(playerName));
+            .getStatistics()
+            .getStepsMade()
+            .getSecond()
+            .get(getFullStepsLeaderboard().indexOf(playerName)
+        );
     }
 
     /**
@@ -90,7 +94,8 @@ public class StatisticsControllerImpl implements StatisticsController {
             .getStatistics()
             .getAccusationsMade()
             .getSecond()
-            .get(getFullAccusationsLeaderboard().indexOf(playerName));
+            .get(getFullAccusationsLeaderboard().indexOf(playerName)
+        );
     }
 
     /**
@@ -102,7 +107,8 @@ public class StatisticsControllerImpl implements StatisticsController {
             .getStatistics()
             .getViewedCards()
             .getSecond()
-            .get(getFullCardsLeaderboard().indexOf(playerName));
+            .get(getFullCardsLeaderboard().indexOf(playerName)
+        );
     }
 
     /**
@@ -114,6 +120,7 @@ public class StatisticsControllerImpl implements StatisticsController {
             .getStatistics()
             .getRoomsVisited()
             .getSecond()
-            .get(getFullAccusationsLeaderboard().indexOf(playerName));
+            .get(getFullAccusationsLeaderboard().indexOf(playerName)
+        );
     }
 }

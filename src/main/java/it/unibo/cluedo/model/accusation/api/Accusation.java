@@ -11,17 +11,19 @@ import it.unibo.cluedo.model.card.api.Card;
 
 public interface Accusation {
     /**
-     * Make an accusation.
+     * Method to make an accusation in the game. The {@link Player} must choose three {@link Crad}
+     * of different types and the method will check if one of the other players has one of them.
      * @param weapon  the weapon card
      * @param room the room card
      * @param character the character card
-     * @param playerCards the cards of a player
-     * have one of the chosen cards
-     * @return an Optional containing one of the chosen cards if the player posseses it.
+     * @param playerCards a card {@link Set} of a player
+     * @return an {@link Optional} containing one of the chosen cards if the player posseses it.
      */
     Optional<Card> accuse(Card weapon, Card room, Card character, Set<Card> playerCards);
     /**
-     * Make the final accusation.
+     *  Method to make the final accusation in the game. The {@link Player} must choose three {@link Crad}
+     * of different types and the method will check if the {@link Set} of cards representing the
+     * solution of the game contains the chosen cards.
      * @param weapon  the weapon card
      * @param room the room card
      * @param character the character card

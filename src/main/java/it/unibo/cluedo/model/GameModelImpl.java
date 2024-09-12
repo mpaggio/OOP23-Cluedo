@@ -134,15 +134,19 @@ public class GameModelImpl implements GameModel {
     @Override
     public int rollDice() {
         if (this.fase.equals(TurnFase.ROLL_DICE)) {
-            if (getCurrentPlayer().canDoubleRollDice() && getCurrentPlayer() instanceof MutablePlayer) {
+            if (getCurrentPlayer().canDoubleRollDice()
+                && getCurrentPlayer() instanceof MutablePlayer) {
                 final Dice dice = new DiceImpl(DICE_SIDES);
                 this.fase = TurnFase.MOVE_PLAYER;
                 this.currentDiceResult = dice.rollDice();
-                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getCurrentPlayer().getCurrentSteps() + getDiceResult());
+                ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(
+                    getCurrentPlayer()
+                    .getCurrentSteps() + getDiceResult());
                 ((MutablePlayer) getCurrentPlayer()).setDoubleRollDice(false);
                 return getDiceResult();
             }
-            if (getCurrentPlayer().canNextTurn() && getCurrentPlayer() instanceof MutablePlayer) {
+            if (getCurrentPlayer().canNextTurn()
+                && getCurrentPlayer() instanceof MutablePlayer) {
                 final Dice dice = new DiceImpl(DICE_SIDES);
                 this.fase = TurnFase.DRAW_UNFORESEEN;
                 this.currentDiceResult = dice.rollDice();
@@ -160,7 +164,8 @@ public class GameModelImpl implements GameModel {
     public UnforeseenEffect drawUnforeseen() {
         if (this.fase.equals(TurnFase.DRAW_UNFORESEEN)) {
             final Player nextPlayer = turnManager.getPlayers().get(
-                (turnManager.getPlayers().indexOf(getCurrentPlayer()) + 1) % turnManager.getPlayers().size()
+                (turnManager.getPlayers()
+                    .indexOf(getCurrentPlayer()) + 1) % turnManager.getPlayers().size()
             );
             final UnforeseenEffect unforeseen = UnforeseenEffectFactory.createUnforeseenEffect(nextPlayer);
             unforeseen.applyEffect(getCurrentPlayer());
@@ -172,6 +177,7 @@ public class GameModelImpl implements GameModel {
                     this.statistics.incrementViewedCards(nextPlayer);
                 } else if (unforeseen instanceof SwapPositionEffect) {
                     if (getCurrentPlayer().isInRoom()) {
+                        this.statistics.incrementRoomsVisited(getCurrentPlayer());
                         getMap()
                             .getRoomBySquare(getSquare())
                             .get()
@@ -184,6 +190,7 @@ public class GameModelImpl implements GameModel {
                         getSquare().setPlayer(getCurrentPlayer());
                     }
                     if (nextPlayer.isInRoom()) {
+                        this.statistics.incrementRoomsVisited(nextPlayer);
                         getMap()
                             .getRoomBySquare(
                                 getMap().getSquareByPosition(
@@ -219,8 +226,11 @@ public class GameModelImpl implements GameModel {
     @Override
     public void movePlayer(final MovementStrategy.Direction direction) {
         final BoardMovement boardMovement = new BoardMovement(getMap());
-        final MoveInSingleDirection move = new MoveInSingleDirection(getCurrentPlayer(), NUM_OF_STEPS,
-            direction, boardMovement, getMap());
+        final MoveInSingleDirection move = new MoveInSingleDirection(getCurrentPlayer(),
+            NUM_OF_STEPS,
+            direction,
+            boardMovement,
+            getMap());
         if (this.fase.equals(TurnFase.MOVE_PLAYER)) {
             if (getCurrentPlayer().getCurrentSteps() > 0) {
                 try {

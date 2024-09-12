@@ -10,7 +10,6 @@ import it.unibo.cluedo.model.card.api.Card;
 /**
  * Represents the implementation of the accusation in the Cluedo game.
  */
-
 public class AccusationImpl implements Accusation {
 
     /**
