@@ -43,4 +43,17 @@ final class GameModelTest {
             && gameModel.getDiceResult() <= MAX_DICE_RESULT);
         assertTrue(gameModel.getTurnFase().equals(TurnFase.MOVE_PLAYER));
     }
+
+    @Test
+    void testEndTurn() {
+        assertTrue(gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
+        assertTrue(gameModel.getCurrentPlayer().getUsername().equals("player1"));
+        gameModel.endTurn();
+        assertTrue(gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
+        assertTrue(gameModel.getCurrentPlayer().getUsername().equals("player2"));
+        gameModel.endTurn();
+        gameModel.endTurn();
+        assertTrue(gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
+        assertTrue(gameModel.getCurrentPlayer().getUsername().equals("player1"));
+    }
 }
