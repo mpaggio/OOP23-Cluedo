@@ -1,6 +1,7 @@
 package it.unibo.model.gamemodel;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -66,5 +67,23 @@ final class GameModelTest {
         gameModel.drawUnforeseen();
         assertTrue(gameModel.getTurnFase().equals(TurnFase.MOVE_PLAYER)
             || gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
+    }
+
+    @Test
+    void testIsOver() {
+        assertFalse(gameModel.isOver());
+        if (gameModel.getCurrentPlayer() instanceof MutablePlayer) {
+            ((MutablePlayer) gameModel.getCurrentPlayer()).setHasWon(true);
+        }
+        assertTrue(gameModel.isOver());
+        if (gameModel.getCurrentPlayer() instanceof MutablePlayer) {
+            ((MutablePlayer) gameModel.getCurrentPlayer()).setHasWon(false);
+        }
+        gameModel.getPlayers().forEach(player -> {
+            if (player instanceof MutablePlayer) {
+                ((MutablePlayer) player).setHasLost(true);
+            }
+        });
+        assertTrue(gameModel.isOver());
     }
 }
