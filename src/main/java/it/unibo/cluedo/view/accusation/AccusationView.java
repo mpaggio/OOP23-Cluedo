@@ -67,6 +67,7 @@ public class AccusationView extends JDialog {
             }
             Cluedo.CONTROLLER.updateButtons();
         });
+        setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
         setVisible(true);
     }
 }
