@@ -1,8 +1,8 @@
 package it.unibo.cluedo.model.player.api;
 
 /**
- * The {@code SimplePlayerFactory} interface defines the methods to create a new player.
- * It applies the creational pattern Factory
+ * The {@code SimplePlayerFactory} interface defines the method for creating a new player instances.
+ * It follows the Factory Design Pattern, which helps in encapsulating the instantiation logic of players.
  */
 public interface SimplePlayerFactory {
     /**
