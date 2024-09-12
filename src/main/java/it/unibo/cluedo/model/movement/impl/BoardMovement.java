@@ -8,7 +8,9 @@ import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.utilities.Position;
 /**
  * Implementation of the {@link MovementStrategy} interface.
- * Provides the basic movement and validation operation.
+ * This class defines movement rules for players on the game board,
+ * including movement calculation, move validation, trapdoor usable and
+ * room entrance.
  */
 public final class BoardMovement implements MovementStrategy {
     private final Board map;
