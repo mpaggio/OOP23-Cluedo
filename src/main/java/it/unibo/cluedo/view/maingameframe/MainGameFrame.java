@@ -231,6 +231,7 @@ public class MainGameFrame extends JFrame {
         // Sets normal settings
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setUndecorated(true);
         setVisible(true);
     }
 
