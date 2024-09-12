@@ -24,7 +24,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Move the player to the given position.
+     * Moves the player to the given position.
      * @param coords the new position of the player
      */
     @Override
@@ -33,7 +33,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set the player's turn.
+     * Sets the player's turn.
      * @param isTurn true if it's the player's turn, false otherwise
      */
     @Override
@@ -42,7 +42,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set if the player has won the game.
+     * Sets if the player has won the game.
      * @param hasWon true if the player has won, false otherwise
      */
     @Override
@@ -51,7 +51,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set if the player is in a room.
+     * Sets if the player is in a room.
      * @param inRoom true if the player is in a room, false otherwise
      */
     @Override
@@ -60,7 +60,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set if the player can roll the dice again.
+     * Sets if the player can roll the dice again.
      * @param doubleRoll true if the player can roll the dice again, false otherwise
      */
     @Override
@@ -69,7 +69,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set if the player can take next turn.
+     * Sets if the player can take next turn.
      * @param nextTurn true if the player can take next turn, false otherwise
      */
     @Override
@@ -78,7 +78,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set the player's cards and logs each card in the notebook.
+     * Sets the player's cards and logs each card in the notebook.
      * @param cards the list of cards to assign to the player
      */
     @Override
@@ -99,7 +99,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set the current steps of the player.
+     * Sets the current steps of the player.
      * @param steps the number of steps to set
      */
     @Override
@@ -108,12 +108,11 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set wheter the player has lost.
+     * Sets wheter the player has lost.
      * @param hasLost true if the player lost the game, false otherwise
      */
     @Override
     public void setHasLost(final boolean hasLost) {
         super.setHasLost(hasLost);
     }
-
 }

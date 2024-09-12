@@ -28,6 +28,7 @@ public interface Player extends Serializable {
     Position getCurrentPosition();
 
     /**
+     * Cheks if is current player turn.
      * @return a boolean whick indicates if it is current player turn.
      */
     boolean isPlayerTurn();
@@ -39,31 +40,31 @@ public interface Player extends Serializable {
     String getColor();
 
     /**
-     * Check if the player is in a room.
+     * Checks if the player is in a room.
      * @return a boolean which indicates if a player is in a room.
      */
     boolean isInRoom();
 
     /**
-     * Check if the player has won.
+     * Checks if the player has won.
      * @return a boolean which indicates if a player has won or not.
      */
     boolean hasWon();
 
     /**
-     * Return the list of cards owned by the player.
+     * Returns the list of cards owned by the player.
      * @return a list of {@link Card} objects representing the cards held by the player
      */
     List<Card> getPlayerCards();
 
     /**
-     * Check if the player can double roll the dice.
+     * Checks if the player can double roll the dice.
      * @return a boolean which indicates if the player can double roll the dice.
      */
     boolean canDoubleRollDice();
 
     /**
-     * Check if the player can take the next turn.
+     * Checks if the player can take the next turn.
      * @return a boolean which indicates if the player can take the next turn.
      */
     boolean canNextTurn();
@@ -81,7 +82,7 @@ public interface Player extends Serializable {
     int getCurrentSteps();
 
     /**
-     * Check if the player has lost the game.
+     * Checks if the player has lost the game.
      * @return a boolean which indicates the end game for the player condition
      */
     boolean hasLost();

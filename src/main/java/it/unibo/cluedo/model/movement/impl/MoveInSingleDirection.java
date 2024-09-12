@@ -11,7 +11,7 @@ import it.unibo.cluedo.utilities.Position;
 /**
  * Command for moving a player in a single direction.
  */
-public final class MoveInSingleDirection implements MovementCommand {
+public class MoveInSingleDirection implements MovementCommand {
 
     private final Player player;
     private final int steps;
@@ -36,6 +36,9 @@ public final class MoveInSingleDirection implements MovementCommand {
         this.map = map;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void execute() {
         final Position newPosition = movementStrategy.calculatePosition(player.getCurrentPosition(), steps, direction);
@@ -62,5 +65,4 @@ public final class MoveInSingleDirection implements MovementCommand {
             throw new IllegalArgumentException("Invalid move: the player cannot move outside the board or into an invalid area");
         }
     }
-
 }

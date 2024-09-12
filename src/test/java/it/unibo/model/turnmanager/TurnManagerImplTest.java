@@ -105,9 +105,9 @@ class TurnManagerImplTest {
     void testRemoveCurrentPlayerAndCheckTurn() {
         turnManager.removePlayer(player1);
         turnManager.switchTurn();
-        assertEquals(player3, turnManager.getCurrentPlayer());
-        turnManager.switchTurn();
         assertEquals(player2, turnManager.getCurrentPlayer());
+        turnManager.switchTurn();
+        assertEquals(player3, turnManager.getCurrentPlayer());
     }
 
     /**
@@ -117,9 +117,9 @@ class TurnManagerImplTest {
     void testRemoveNonCurrentPlayerAndCheckTurn() {
         turnManager.removePlayer(player2);
         turnManager.switchTurn();
-        assertEquals(player3, turnManager.getCurrentPlayer());
-        turnManager.switchTurn();
         assertEquals(player1, turnManager.getCurrentPlayer());
+        turnManager.switchTurn();
+        assertEquals(player3, turnManager.getCurrentPlayer());
     }
 
     /**
@@ -141,7 +141,7 @@ class TurnManagerImplTest {
         turnManager.removePlayer(player2);
         assertFalse(turnManager.isGameFinished());
         turnManager.switchTurn();
-        assertTrue(((MutablePlayer) player3).isPlayerTurn());
+        assertTrue(((MutablePlayer) player1).isPlayerTurn());
     }
 
     /**

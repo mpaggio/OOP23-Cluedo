@@ -62,6 +62,11 @@ public class TurnManagerImpl implements TurnManager {
             throw new IllegalArgumentException("The player cannot be null or not present in the game");
         }
         players.remove(player);
+        if (players.isEmpty()) {
+            gameFinished = true;
+            return;
+        }
+        this.currentPlayerIndex = (currentPlayerIndex - 1 + players.size()) % players.size();
         if (player instanceof MutablePlayer) {
             ((MutablePlayer) player).setPlayerTurn(false);
         }

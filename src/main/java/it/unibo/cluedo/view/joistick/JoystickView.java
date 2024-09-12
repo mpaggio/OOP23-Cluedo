@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 /**
  * Class that represents the joystick Panel in the view.
+ * This panel allows the player to move in four directions: UP, RIGHT, DOWN and LEFT.
  */
 public class JoystickView extends JPanel {
     private static final long serialVersionUID = 1L;

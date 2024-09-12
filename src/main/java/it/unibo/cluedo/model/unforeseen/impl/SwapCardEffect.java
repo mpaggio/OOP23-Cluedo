@@ -31,30 +31,33 @@ public final class SwapCardEffect implements UnforeseenEffect {
      */
     @Override
     public void applyEffect(final Player player) {
-        final List<Card> playerCards = player.getPlayerCards();
-        final List<Card> otherPlayerCards = otherPlayer.getPlayerCards();
+        if (player.equals(otherPlayer)) {
+            return;
+        } else {
+            final List<Card> playerCards = player.getPlayerCards();
+            final List<Card> otherPlayerCards = otherPlayer.getPlayerCards();
+            if (!playerCards.isEmpty() && !otherPlayerCards.isEmpty()) {
+                final Card playerCard = playerCards.get(random.nextInt(playerCards.size()));
+                final Type cardType = playerCard.getType();
 
-        if (!playerCards.isEmpty() && !otherPlayerCards.isEmpty()) {
-            final Card playerCard = playerCards.get(random.nextInt(playerCards.size()));
-            final Type cardType = playerCard.getType();
-
-            final List<Card> matchingCards = otherPlayerCards.stream()
+                final List<Card> matchingCards = otherPlayerCards.stream()
                     .filter(card -> card.getType() == cardType)
                     .collect(Collectors.toList());
 
-            if (!matchingCards.isEmpty()) {
-                final Card otherPlayerCard = matchingCards.get(random.nextInt(matchingCards.size()));
-                playerCards.remove(playerCard);
-                playerCards.add(otherPlayerCard);
+                if (!matchingCards.isEmpty()) {
+                    final Card otherPlayerCard = matchingCards.get(random.nextInt(matchingCards.size()));
+                    playerCards.remove(playerCard);
+                    playerCards.add(otherPlayerCard);
 
-                otherPlayerCards.remove(otherPlayerCard);
-                otherPlayerCards.add(playerCard);
+                    otherPlayerCards.remove(otherPlayerCard);
+                    otherPlayerCards.add(playerCard);
 
-                if (player instanceof MutablePlayer) {
-                    ((MutablePlayer) player).setPlayerCards(playerCards);
-                }
-                if (otherPlayer instanceof MutablePlayer) {
-                    ((MutablePlayer) otherPlayer).setPlayerCards(otherPlayerCards);
+                    if (player instanceof MutablePlayer) {
+                        ((MutablePlayer) player).setPlayerCards(playerCards);
+                    }
+                    if (otherPlayer instanceof MutablePlayer) {
+                        ((MutablePlayer) otherPlayer).setPlayerCards(otherPlayerCards);
+                    }
                 }
             }
         }

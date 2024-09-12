@@ -4,22 +4,23 @@ import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.utilities.Position;
 
 /**
- * Interface that defines the strategy for moving players on the board.
+ * Interface that defines the strategy for moving players on the board, including
+ * calculating new positions and validating movement.
  */
 public interface MovementStrategy {
     /**
      * Calculates the new position of the player based on the current position the number of steps, and the direction of movement.
      * @param currentPosition the current position of the player
-     * @param steps the number of steps to move
-     * @param direction the direction where to move the player (UP,DOWN,LEFT,RIGHT)
-     * @return the new position after the move
+     * @param steps the number of steps the player should move
+     * @param direction the direction where the player should move (UP,DOWN,LEFT,RIGHT)
+     * @return the new position after the moving
      */
     Position calculatePosition(Position currentPosition, int steps, Direction direction);
 
     /**
-     * Checks if a move is valid according to the game rules.
+     * Checks if a move is valid.
      * @param player the player who wants to move
-     * @param newPosition the new position where the player wants to move
+     * @param newPosition the new position the player wants to move to
      * @return true if the move is valid,false otherwise
      */
     boolean isValidMove(Player player, Position newPosition);
@@ -32,15 +33,15 @@ public interface MovementStrategy {
     boolean isTrapDoorUsable(Player player);
 
     /**
-     * Checks if a player has entered in a room.
+     * Checks if a player has entered a room.
      * @param player the player who wants to move
      * @param newPosition the new position where the player wants to move
-     * @return true if the player has entered, false otherwise
+     * @return true if the player has entered a room, false otherwise
      */
     boolean hasPlayerEnteredInRoom(Player player, Position newPosition);
 
     /**
-     * Enum that represents the possible direction where to move.
+     * Enum that represents the possible directions a player can move.
      */
     enum Direction {
         /**

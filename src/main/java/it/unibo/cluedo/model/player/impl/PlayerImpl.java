@@ -120,7 +120,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set the current position of the player.
+     * Sets the current position of the player.
      * @param position the new position of the player
      */
     protected void setCurrentPosition(final Position position) {
@@ -128,7 +128,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set whether it is currently this player's turn.
+     * Sets whether it is currently this player's turn.
      * @param isTurn true if it is the player's turn, false otherwise
      */
     protected void setPlayerTurn(final boolean isTurn) {
@@ -136,7 +136,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set whether the player has won the game.
+     * Sets whether the player has won the game.
      * @param hasWon true if the player has won, false otherwise
      */
     protected void setHasWon(final boolean hasWon) {
@@ -144,7 +144,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set whether the player is currently in a room.
+     * Sets whether the player is currently in a room.
      * @param inRoom true if the player is in a room, false otherwise
      */
     protected void setInRoom(final boolean inRoom) {
@@ -152,7 +152,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set whether the player can double roll the dice.
+     * Sets whether the player can double roll the dice.
      * @param doubleRoll true if the player can double roll the dice, false otherwise
      */
     protected void setDoubleRollDice(final boolean doubleRoll) {
@@ -160,7 +160,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set whether the player can take the next turn.
+     * Sets whether the player can take the next turn.
      * @param nextTurn true if the player can take the next turn, false otherwise
      */
     protected void setNextTurn(final boolean nextTurn) {
@@ -168,7 +168,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set the cards of the player.
+     * Sets the cards of the player.
      * @param cards the list of the cards to assign to the player
      */
     protected void setPlayerCards(final List<Card> cards) {
@@ -179,7 +179,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set the current steps of the player.
+     * Sets the current steps of the player.
      * @param steps the number of steps to set
      */
     protected void setCurrentSteps(final int steps) {
@@ -187,7 +187,7 @@ public class PlayerImpl implements Player {
     }
 
     /**
-     * Set whether the player has lost.
+     * Sets whether the player has lost.
      * @param hasLost true if the player lost, false otherwise
      */
     protected void setHasLost(final boolean hasLost) {

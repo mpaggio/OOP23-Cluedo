@@ -8,9 +8,11 @@ import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.utilities.Position;
 /**
  * Implementation of the {@link MovementStrategy} interface.
- * Provides the basic movement and validation operation.
+ * This class defines movement rules for players on the game board,
+ * including movement calculation, move validation, trapdoor usable and
+ * room entrance.
  */
-public final class BoardMovement implements MovementStrategy {
+public class BoardMovement implements MovementStrategy {
     private final Board map;
     private final int width;
     private final int heigth;
@@ -25,6 +27,9 @@ public final class BoardMovement implements MovementStrategy {
         this.heigth = BoardImpl.getMapHeight();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Position calculatePosition(final Position currentPosition, final int steps, final Direction direction) {
         switch (direction) {
@@ -41,6 +46,9 @@ public final class BoardMovement implements MovementStrategy {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isValidMove(final Player player, final Position newPosition) {
         return newPosition.getX() >= 0 && newPosition.getX() < this.heigth
@@ -48,6 +56,9 @@ public final class BoardMovement implements MovementStrategy {
         && !map.getSquareByPosition(newPosition).isAlreadyOccupied();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean isTrapDoorUsable(final Player player) {
         return map.getRooms().stream()
@@ -58,6 +69,9 @@ public final class BoardMovement implements MovementStrategy {
             .isPresent();
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean hasPlayerEnteredInRoom(final Player player, final Position newPosition) {
         return map.getRooms().stream()
