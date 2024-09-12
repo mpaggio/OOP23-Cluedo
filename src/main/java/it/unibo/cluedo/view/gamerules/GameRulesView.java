@@ -17,7 +17,7 @@ import javax.swing.border.EmptyBorder;
  * View class used to display the Cluedo game rules.
  */
 public class GameRulesView extends JScrollPane {
-    private static final int WIDTH = 00;
+    private static final int WIDTH = 700;
     private static final int HEIGHT = 500;
     private static final long serialVersionUID = 1L;
     private static final Logger LOGGER = Logger.getLogger(GameRulesView.class.getName());
