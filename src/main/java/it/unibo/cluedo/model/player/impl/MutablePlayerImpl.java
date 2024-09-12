@@ -99,7 +99,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set the current steps of the player.
+     * Sets the current steps of the player.
      * @param steps the number of steps to set
      */
     @Override
@@ -108,7 +108,7 @@ public class MutablePlayerImpl extends PlayerImpl implements MutablePlayer {
     }
 
     /**
-     * Set wheter the player has lost.
+     * Sets wheter the player has lost.
      * @param hasLost true if the player lost the game, false otherwise
      */
     @Override
