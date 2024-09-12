@@ -1,6 +1,9 @@
 package it.unibo.model.gamemodel;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
+
+import java.util.NoSuchElementException;
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -85,5 +88,17 @@ final class GameModelTest {
             }
         });
         assertTrue(gameModel.isOver());
+    }
+
+    @Test
+    void testuseTrapdoor() {
+        assertThrows(NoSuchElementException.class, () -> gameModel
+            .useTrapdoor(gameModel
+                .getMap()
+                .getRoomBySquare(gameModel
+                    .getSquare())
+                .get()
+            )
+        );
     }
 }
