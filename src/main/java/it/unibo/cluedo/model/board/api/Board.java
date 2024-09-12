@@ -68,11 +68,4 @@ public interface Board {
      * Resets the effected player for every square of the map.
      */
     void resetAllEffectedSquares();
-
-    /**
-     * Returns the string representing the created map.
-     * 
-     * @return the string representing the created map
-     */
-    String printMap();
 }

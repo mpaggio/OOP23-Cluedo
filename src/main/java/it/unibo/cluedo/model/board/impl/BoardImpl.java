@@ -17,7 +17,6 @@ import java.io.Serializable;
 import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.room.impl.RoomImpl;
-import it.unibo.cluedo.model.square.api.Effect;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.model.square.impl.BonusEffectImpl;
 import it.unibo.cluedo.model.square.impl.MalusEffectImpl;
@@ -441,63 +440,6 @@ public class BoardImpl implements Board, Serializable {
             }
         );
         return sortedSquares;
-    }
-
-    private Map<Position, Character> getPositionAndSymbolMap() {
-        final Map<Position, Character> positionToSymbolMap = new HashMap<>();
-        for (final Square square : squares) {
-            final Position position = square.getPosition();
-            if (square.getEffect().getType().equals(Effect.EffectType.BONUS)) {
-                positionToSymbolMap.put(position, '$');
-            } else if (square.getEffect().getType().equals(Effect.EffectType.MALUS)) {
-                positionToSymbolMap.put(position, '%');
-            } else if (square.isForEntrance()) {
-                positionToSymbolMap.put(position, 'E');
-            } else {
-                positionToSymbolMap.put(position, '_');
-            }
-        }
-        for (final Room room : rooms) {
-            for (final Square square : room.getSquares()) {
-                positionToSymbolMap.put(square.getPosition(), '*');
-            }
-            for (final Square square : room.getEntrances()) {
-                positionToSymbolMap.put(square.getPosition(), '=');
-            }
-            if (room.hasTrapDoor()) {
-                positionToSymbolMap.put(room.getTrapDoor().get().getPosition(), '<');
-            }
-        }
-        return positionToSymbolMap;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public String printMap() {
-        final Map<Position, Character> positionToSymbolMap = getPositionAndSymbolMap();
-        final List<Position> sortedPositions = new LinkedList<>(
-            getPositionAndSymbolMap().keySet()
-        );
-        Collections.sort(
-            sortedPositions,
-            Comparator.comparingInt(Position::getX).thenComparingInt(Position::getY)
-        );
-        final StringBuilder mapBuilder = new StringBuilder();
-        for (int i = 0; i < BoardImpl.getMapHeight(); i++) {
-            for (int j = 0; j < BoardImpl.getMapWidth(); j++) {
-                final Position position = new Position(i, j);
-                final Character symbol = positionToSymbolMap.get(position);
-                if (symbol != null) {
-                    mapBuilder.append(symbol).append(' ');
-                } else {
-                    mapBuilder.append(". ");
-                }
-            }
-            mapBuilder.append('\n');
-        }
-        return mapBuilder.toString();
     }
 
     /**
