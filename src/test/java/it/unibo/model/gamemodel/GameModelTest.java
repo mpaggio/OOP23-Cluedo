@@ -1,9 +1,8 @@
 package it.unibo.model.gamemodel;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import java.util.NoSuchElementException;
-
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -17,12 +16,18 @@ import it.unibo.cluedo.model.movement.api.MovementStrategy;
 import it.unibo.cluedo.model.player.api.MutablePlayer;
 import it.unibo.cluedo.utilities.TurnFase;
 
+/**
+ * Test class for the GameModelImpl class.
+ */
 final class GameModelTest {
-    
+
     private static final int MAX_DICE_RESULT = 6;
 
     private GameModel gameModel;
 
+    /**
+     * Sets up the game model.
+     */
     @BeforeEach
     void setUp() {
         final GameModelBuilder builder = new GameModelBuilderImpl();
@@ -33,13 +38,16 @@ final class GameModelTest {
         gameModel = builder.build();
     }
 
+    /**
+     * Tests the rollDice method and its exceptions.
+     */
     @Test
     void testRollDice() {
-        assertTrue(gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
+        assertEquals(gameModel.getTurnFase(), TurnFase.ROLL_DICE);
         gameModel.rollDice();
         assertTrue(gameModel.getDiceResult() > 0
             && gameModel.getDiceResult() <= MAX_DICE_RESULT);
-        assertTrue(gameModel.getTurnFase().equals(TurnFase.DRAW_UNFORESEEN));
+        assertEquals(gameModel.getTurnFase(), TurnFase.DRAW_UNFORESEEN);
         gameModel.endTurn();
         if (gameModel.getCurrentPlayer() instanceof MutablePlayer) {
             ((MutablePlayer) gameModel.getCurrentPlayer()).setDoubleRollDice(true);
@@ -47,23 +55,29 @@ final class GameModelTest {
         gameModel.rollDice();
         assertTrue(gameModel.getDiceResult() > 0
             && gameModel.getDiceResult() <= MAX_DICE_RESULT);
-        assertTrue(gameModel.getTurnFase().equals(TurnFase.MOVE_PLAYER));
+        assertEquals(gameModel.getTurnFase(), TurnFase.MOVE_PLAYER);
         assertThrows(IllegalStateException.class, () -> gameModel.rollDice());
     }
 
+    /**
+     * Tests the currect succession of the players.
+     */
     @Test
     void testEndTurn() {
-        assertTrue(gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
-        assertTrue(gameModel.getCurrentPlayer().getUsername().equals("player1"));
+        assertEquals(gameModel.getTurnFase(), TurnFase.ROLL_DICE);
+        assertEquals(gameModel.getCurrentPlayer().getUsername(), "player1");
         gameModel.endTurn();
-        assertTrue(gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
-        assertTrue(gameModel.getCurrentPlayer().getUsername().equals("player2"));
+        assertEquals(gameModel.getTurnFase(), TurnFase.ROLL_DICE);
+        assertEquals(gameModel.getCurrentPlayer().getUsername(), "player2");
         gameModel.endTurn();
         gameModel.endTurn();
-        assertTrue(gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
-        assertTrue(gameModel.getCurrentPlayer().getUsername().equals("player1"));
+        assertEquals(gameModel.getTurnFase(), TurnFase.ROLL_DICE);
+        assertEquals(gameModel.getCurrentPlayer().getUsername(), "player1");
     }
 
+    /**
+     * Tests the drawUnforeseen method.
+     */
     @Test
     void testDrawUnforeseen() {
         assertThrows(IllegalStateException.class, () -> gameModel.drawUnforeseen());
@@ -73,6 +87,9 @@ final class GameModelTest {
             || gameModel.getTurnFase().equals(TurnFase.ROLL_DICE));
     }
 
+    /**
+     * Tests the isOver method.
+     */
     @Test
     void testIsOver() {
         assertFalse(gameModel.isOver());
@@ -91,6 +108,9 @@ final class GameModelTest {
         assertTrue(gameModel.isOver());
     }
 
+    /**
+     * Tests the exception thrown by the useTrapdoor method.
+     */
     @Test
     void testuseTrapdoor() {
         assertThrows(NoSuchElementException.class, () -> gameModel
@@ -103,6 +123,9 @@ final class GameModelTest {
         );
     }
 
+    /**
+     * Tests the exception thrown by the movePlayer method.
+     */
     @Test
     void testMovePlayer() {
         assertThrows(IllegalStateException.class, () -> gameModel.movePlayer(MovementStrategy.Direction.UP));
