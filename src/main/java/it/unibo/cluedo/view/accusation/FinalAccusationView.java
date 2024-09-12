@@ -8,6 +8,7 @@ import javax.swing.JButton;
 import java.awt.GridLayout;
 import javax.swing.JOptionPane;
 import java.awt.FlowLayout;
+import java.awt.Window;
 
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -62,6 +63,10 @@ public class FinalAccusationView extends JDialog {
                 );
                 JOptionPane.showMessageDialog(null, new StatisticsView(), "Statistics", JOptionPane.PLAIN_MESSAGE);
                 Cluedo.CONTROLLER.closeMainGameFrame();
+                final Window[] windows = Window.getWindows();
+                for (final Window window : windows) {
+                    window.dispose();
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Sorry, you lost the game!",
                 "Game Over",
@@ -74,9 +79,13 @@ public class FinalAccusationView extends JDialog {
                         Cluedo.CONTROLLER.getGameSolutionController().showSolution(),
                         "The solution was:",
                         JOptionPane.PLAIN_MESSAGE
-                );
+                    );
                     JOptionPane.showMessageDialog(null, new StatisticsView(), "Statistics", JOptionPane.PLAIN_MESSAGE);
                     Cluedo.CONTROLLER.closeMainGameFrame();
+                    final Window[] windows = Window.getWindows();
+                    for (final Window window : windows) {
+                        window.dispose();
+                    }
                 }
             }
         });
