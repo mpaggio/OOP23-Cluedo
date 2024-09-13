@@ -46,6 +46,7 @@ public class AccusationView extends JDialog {
         getContentPane().add(panel);
         pack();
         setLocationRelativeTo(null);
+        setResizable(false);
 
         confirmButton.addActionListener(e -> {
             final String suspect = suspectComboBox.getSelectedItem().toString();
