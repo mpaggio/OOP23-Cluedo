@@ -90,6 +90,7 @@ public class FinalAccusationView extends JDialog {
                 }
             }
         });
+        setModalityType(JDialog.ModalityType.APPLICATION_MODAL);
         setVisible(true);
     }
 }
