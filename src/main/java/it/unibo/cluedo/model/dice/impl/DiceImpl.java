@@ -12,7 +12,7 @@ public class DiceImpl implements Dice {
     private final Random random;
 
     /**
-     * Constructor that takes the number of sides of the dice as parameter.
+     * Constructor of the class.
     */
     public DiceImpl() {
         this.random = new Random();
