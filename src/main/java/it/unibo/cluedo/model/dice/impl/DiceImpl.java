@@ -8,22 +8,13 @@ import java.util.Random;
  */
 public class DiceImpl implements Dice {
 
-    private final int sides;
-    private static final int MAX_SIDES = 6;
+    private static final int SIDES = 6;
     private final Random random;
 
     /**
      * Constructor that takes the number of sides of the dice as parameter.
-     *
-     * @param sides the number of sides of the dice.
-     * @throws IllegalArgumentException if the number of sides of the dice is less
-     *                                  than 1 or greater than 6.
-     */
-    public DiceImpl(final int sides) {
-        if (sides < 1 || sides > MAX_SIDES) {
-            throw new IllegalArgumentException("The number of sides of the dice must be between 1 and 6");
-        }
-        this.sides = sides;
+    */
+    public DiceImpl() {
         this.random = new Random();
     }
 
@@ -32,6 +23,6 @@ public class DiceImpl implements Dice {
      */
     @Override
     public int rollDice() {
-        return random.nextInt(sides) + 1;
+        return random.nextInt(SIDES) + 1;
     }
 }
