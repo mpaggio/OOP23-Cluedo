@@ -120,7 +120,7 @@ public class StatisticsControllerImpl implements StatisticsController {
             .getStatistics()
             .getRoomsVisited()
             .getSecond()
-            .get(getFullAccusationsLeaderboard().indexOf(playerName)
+            .get(getFullRoomsLeaderboard().indexOf(playerName)
         );
     }
 }
