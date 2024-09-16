@@ -1,15 +1,13 @@
 package it.unibo.model.deck;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 import java.util.stream.Collectors;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import it.unibo.cluedo.model.card.api.Card;
 import it.unibo.cluedo.model.deck.impl.DeckImpl;
@@ -65,9 +63,8 @@ final class DeckTest {
             "Rooms card should be 6 after initialization"
         );
         deck.getAllCards().forEach(card -> {
-            assertTrue(
-                Files.exists(Paths.get(card.getImagePath())), 
-                "Image file should exist for card: " + card.getName()
+            assertNotNull(
+                ClassLoader.getSystemResourceAsStream(card.getImagePath())
             );
         });
     } 

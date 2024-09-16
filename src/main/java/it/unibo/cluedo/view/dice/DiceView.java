@@ -12,7 +12,6 @@ import java.awt.BorderLayout;
 import java.awt.Font;
 import javax.swing.ImageIcon;
 import java.awt.Image;
-import java.nio.file.Paths;
 import it.unibo.cluedo.application.Cluedo;
 import it.unibo.cluedo.controller.dicecontroller.api.DiceController;
 
@@ -90,8 +89,8 @@ public class DiceView extends JPanel {
      * @param result the result of the dice roll
      */
     private void updateDiceImage(final int result) {
-        final String imagePath = Paths.get("src", "main", "resources", "dice" + result + ".png").toString();
-        final ImageIcon diceIcon = new ImageIcon(imagePath);
+        final String imagePath = "dice" + result + ".png";
+        final ImageIcon diceIcon = new ImageIcon(ClassLoader.getSystemResource(imagePath));
         final int newWidth = 80;
         final int newHeight = 80;
         final Image scaledImage = diceIcon.getImage().getScaledInstance(newWidth, newHeight, Image.SCALE_SMOOTH);

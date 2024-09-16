@@ -20,10 +20,16 @@ import it.unibo.cluedo.utilities.TurnFase;
  *                          .addPlayer("Charlie", "Blue")
  *                          .withGameSolution()
  *                          .build();
- * 
  * //Example of restoring a saved game:
  * GameModelBuilder savedGameModelBuilder = new GameModelBuilderImpl();
- * GameModel savedModel = savedGameModelBuilder.
+ * GameModel savedModel = savedGameModelBuilder.withTurnManager(savedTurnManager)
+ *                                             .withStatistics(savedStatistics)
+ *                                             .withMap(savedBoard)
+ *                                             .withAllCards(savedCards)
+ *                                             .withTurnFase(savedFase)
+ *                                             .withPlayer(savedPlayer)
+ *                                             .withSavedSolution(savedSolution)
+ *                                             .buildsaved();
  * }</pre>
  */
 public interface GameModelBuilder {

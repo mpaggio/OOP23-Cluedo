@@ -29,7 +29,7 @@ public class PlayerCardsPanel extends JPanel {
         imagePanel.setLayout(new FlowLayout());
 
         for (final String path : imagesPaths) {
-            final ImageIcon image = new ImageIcon(path);
+            final ImageIcon image = new ImageIcon(ClassLoader.getSystemResource(path));
             final JLabel imageLabel = new JLabel(image);
             imagePanel.add(imageLabel);
         }
