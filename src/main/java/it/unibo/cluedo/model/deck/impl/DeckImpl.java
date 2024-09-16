@@ -4,7 +4,6 @@ import java.util.Set;
 import java.util.List;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -72,12 +71,7 @@ public class DeckImpl implements Deck {
      * @return the file path of the image of the card 
      */
     private String getImagePath(final String name) {
-        return Paths.get(
-            "src",
-            "main",
-            "resources",
-            name.replace(" ", "") + ".png"
-        ).toString();
+        return name.replace(" ", "") + ".png";
     }
 
     /**

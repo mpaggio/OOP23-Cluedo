@@ -16,7 +16,6 @@ public final class UnforeseenEffectFactory {
     private static final int MOVE_EXTRA_STEP_PROBABILITY = 30;
     private static final int REROLL_DICE_PROBABILITY = 20;
     private static final int SWAP_POSITION_PROBABILITY = 10;
-    private static final int SWAP_CARD_PROBABILITY = 10;
     private static final int STEPS_RANGE = 7;
 
     /**
@@ -44,11 +43,8 @@ public final class UnforeseenEffectFactory {
         } else if (roll < SWAP_POSITION_PROBABILITY + REROLL_DICE_PROBABILITY + MOVE_EXTRA_STEP_PROBABILITY
                 + NULL_EFFECT_PROBABILITY) {
             return new SwapPositionEffect(otherPlayer); /* 10 % di probabilità */
-        } else if (roll < SWAP_CARD_PROBABILITY + SWAP_POSITION_PROBABILITY + REROLL_DICE_PROBABILITY
-                + MOVE_EXTRA_STEP_PROBABILITY + NULL_EFFECT_PROBABILITY) {
-            return new SwapCardEffect(otherPlayer); /* 10 % di probabilità */
         } else {
-            return new SkipTurnEffect(); /* 5 % di probabilità */
+            return new SwapCardEffect(otherPlayer); /* 10 % di probabilità */
         }
     }
 }

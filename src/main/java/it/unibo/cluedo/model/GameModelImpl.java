@@ -43,7 +43,6 @@ import it.unibo.cluedo.utilities.TurnFase;
 
 public class GameModelImpl implements GameModel {
 
-    private static final int DICE_SIDES = 6;
     private static final int NUM_OF_STEPS = 1;
     private static final String MOVE_ERROR = "You can't move now";
     private static final String ROLL_ERROR = "You can't roll the dice now";
@@ -136,7 +135,7 @@ public class GameModelImpl implements GameModel {
         if (this.fase.equals(TurnFase.ROLL_DICE)) {
             if (getCurrentPlayer().canDoubleRollDice()
                 && getCurrentPlayer() instanceof MutablePlayer) {
-                final Dice dice = new DiceImpl(DICE_SIDES);
+                final Dice dice = new DiceImpl();
                 this.fase = TurnFase.MOVE_PLAYER;
                 this.currentDiceResult = dice.rollDice();
                 ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(
@@ -147,7 +146,7 @@ public class GameModelImpl implements GameModel {
             }
             if (getCurrentPlayer().canNextTurn()
                 && getCurrentPlayer() instanceof MutablePlayer) {
-                final Dice dice = new DiceImpl(DICE_SIDES);
+                final Dice dice = new DiceImpl();
                 this.fase = TurnFase.DRAW_UNFORESEEN;
                 this.currentDiceResult = dice.rollDice();
                 ((MutablePlayer) getCurrentPlayer()).setCurrentSteps(getDiceResult());

@@ -1,6 +1,5 @@
 package it.unibo.cluedo.model.board.impl;
 
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -69,12 +68,7 @@ public class BoardImpl implements Board, Serializable {
         {11, 11, 11, 11, 11, 11, 0, 1, 0, 10, 10, 10, 10, 10, 10, 0, 1, 0, 9, 9, 9, 9, 9, 9}
     };
     private static final Random RANDOM = new Random();
-    private static final String IMAGE_PATH = Paths.get(
-        "src",
-        "main",
-        "resources",
-        "Board.jpg"
-    ).toString();
+    private static final String IMAGE_PATH = "Board.jpg";
     private final List<Square> squares;
     private final List<Room> rooms;
 

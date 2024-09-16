@@ -3,7 +3,6 @@ package it.unibo.cluedo.view.gamerules;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -25,7 +24,7 @@ public class GameRulesView extends JScrollPane {
      * Displays the Cluedo game rules in a dialog box.
      */
     public GameRulesView() {
-        final String rules = readRulesFromFile("src/main/resources/rules.txt");
+        final String rules = readRulesFromFile("rules.txt");
         final JTextArea rulesArea = new JTextArea(rules);
         rulesArea.setEditable(false);
         rulesArea.setLineWrap(true);
@@ -44,7 +43,7 @@ public class GameRulesView extends JScrollPane {
     private String readRulesFromFile(final String filePath) {
         final StringBuilder rules = new StringBuilder();
         try (BufferedReader reader = new BufferedReader(
-            new InputStreamReader(new FileInputStream(filePath), StandardCharsets.UTF_8))) {
+            new InputStreamReader(ClassLoader.getSystemResourceAsStream(filePath), StandardCharsets.UTF_8))) {
             String line = reader.readLine();
             while (line != null) {
                 rules.append(line).append('\n');
