@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.io.File;
 import it.unibo.cluedo.controller.gamesavecontroller.api.GameSaveController;
 import it.unibo.cluedo.model.player.api.Player;
 import it.unibo.cluedo.model.statistics.api.Statistics;
@@ -16,13 +15,13 @@ import it.unibo.cluedo.model.board.api.Board;
 import it.unibo.cluedo.model.card.api.Card;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
-import java.nio.file.Paths;
 
 
 /**
@@ -30,7 +29,7 @@ import java.nio.file.Paths;
  */
 public final class GameSaveControllerImpl implements GameSaveController {
 
-    private static final String SAVE_FILE_PATH = Paths.get("src", "main", "resources", "saves", "saved_game.ser").toString();
+    private static final String SAVE_FILE_PATH = System.getProperty("user.home") + "/saved_game.ser";
 
     /**
      * {@inheritDoc}

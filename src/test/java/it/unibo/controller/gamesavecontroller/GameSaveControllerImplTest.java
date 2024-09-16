@@ -23,14 +23,13 @@ import it.unibo.cluedo.model.room.api.Room;
 import it.unibo.cluedo.model.square.api.Square;
 import it.unibo.cluedo.utilities.TurnFase;
 import java.util.Set;
-import java.nio.file.Paths;
 
 /**
  * This class is used to test the GameSaveControllerImpl class.
  */
 class GameSaveControllerImplTest {
 
-    private static final String TEST_FILE_NAME = Paths.get("src", "main", "resources", "saves", "test_saved_game.ser").toString();
+    private static final String TEST_FILE_NAME = System.getProperty("user.home") + "/test_saved_game.ser";
     private GameSaveController gameSaveController;
     private GameSaveControllerImpl.GameState gameState;
     private List<Player> players;
