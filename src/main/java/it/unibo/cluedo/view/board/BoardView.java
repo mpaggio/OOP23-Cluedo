@@ -7,7 +7,6 @@ import java.awt.Graphics2D;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,7 +98,7 @@ public class BoardView extends JPanel {
      */
     public BoardView() {
         try {
-            this.mapImage = ImageIO.read(new File(BoardImpl.getMapImagePath()));
+            this.mapImage = ImageIO.read(ClassLoader.getSystemResourceAsStream(BoardImpl.getMapImagePath()));
             this.setLayout(new BorderLayout());
             this.setPreferredSize(
                 new Dimension(
