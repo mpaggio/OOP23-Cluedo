@@ -60,7 +60,7 @@ public class AccusationView extends JDialog {
             Cluedo.CONTROLLER.getAccusationController().makeAccusation(suspect, weapon, room);
             if (Cluedo.CONTROLLER.getAccusationController().isAccusationCorrect()) {
                 final Card card = Cluedo.CONTROLLER.getAccusationController().getCardToShow();
-                final ImageIcon image = new ImageIcon(card.getImagePath(), card.getName());
+                final ImageIcon image = new ImageIcon(ClassLoader.getSystemResource(card.getImagePath()));
                 JOptionPane.showMessageDialog(null, image);
             } else {
                 JOptionPane.showMessageDialog(null,

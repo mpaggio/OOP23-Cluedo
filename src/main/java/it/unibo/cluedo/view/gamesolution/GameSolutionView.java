@@ -23,7 +23,7 @@ public class GameSolutionView extends JPanel {
         setLayout(new FlowLayout(FlowLayout.CENTER, HGAP, VGAP));
         setBorder(BorderFactory.createTitledBorder("Game Solution"));
         for (final String path : cardInfo) {
-            final ImageIcon image = new ImageIcon(path);
+            final ImageIcon image = new ImageIcon(ClassLoader.getSystemResource(path));
             final JLabel imageLabel = new JLabel(image);
             super.add(imageLabel);
         }
